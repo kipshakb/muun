@@ -1,0 +1,336 @@
+{
+  "locales": {
+    "ky": {
+      "path": "",
+      "htmlLang": "ky",
+      "ogLocale": "ky_KG",
+      "label": "KG",
+      "meta": {
+        "title": "MUUN26 — Кыргызстандын келечек кесиптеринин улуттук көргөзмө-форуму",
+        "description": "MUUN26 — Кыргызстандын келечек кесиптеринин улуттук көргөзмө-форуму. 21–23 октябрь 2026, Бишкек Арена. Билим, карьера жана инновациялар."
+      }
+    },
+    "ru": {
+      "path": "ru/",
+      "htmlLang": "ru",
+      "ogLocale": "ru_RU",
+      "label": "RU",
+      "meta": {
+        "title": "MUUN26 — Национальный выставка-форум профессий будущего Кыргызстана",
+        "description": "MUUN26 — национальный выставка-форум профессий будущего Кыргызстана. 21–23 октября 2026, Бишкек Арена. Образование, карьера и инновации."
+      }
+    },
+    "en": {
+      "path": "en/",
+      "htmlLang": "en",
+      "ogLocale": "en_US",
+      "label": "EN",
+      "meta": {
+        "title": "MUUN26 — Kyrgyzstan's national exhibition-forum of the professions of the future",
+        "description": "MUUN26 — Kyrgyzstan's national exhibition-forum of the professions of the future. October 21–23, 2026, Bishkek Arena. Education, careers and innovation."
+      }
+    }
+  },
+  "strings": {
+    "ky": {
+      "nav.home": "Башкы бет",
+      "nav.about": "Форум жөнүндө",
+      "nav.program": "Программа",
+      "nav.participants": "Катышуучулар",
+      "nav.venue": "Аянтча",
+      "nav.partnership": "Өнөктөштүк",
+      "nav.contact": "Байланыш",
+
+      "hero.date": "21–23 октябрь 2026 · Бишкек Арена",
+      "hero.title": "МААНИЛҮҮ ТАНДОО — КЕЛЕЧЕКТИН БАШТАЛЫШЫ",
+      "hero.subtitle": "Кыргызстандын келечек кесиптеринин улуттук көргөзмө-форуму",
+      "hero.desc": "МАКСАТ · УМТУЛУУ · ҮЙРӨНҮҮ · НИЕТ. Билим берүү, карьера жана инновацияларды бир аянтчага бириктирген улуттук платформа.",
+      "hero.cta_register": "Катталуу",
+      "hero.cta_whatsapp": "WhatsApp жазуу",
+      "hero.ministry": "Кыргыз Республикасынын Билим берүү жана илим министрлигинин колдоосу менен",
+
+      "banner.left": "Discover Your Future — Келечегиңди ач",
+      "banner.right": "Муунга чей! — Айга умтул!",
+
+      "problem.title": "Миңдеген жаш кыргызстандыктар келечегин жетишерлик маалыматсыз тандап жатышат",
+      "problem.s1": "жыл сайын мектеп бүтүрүүчүлөр",
+      "problem.s2": "адистикти тандоодо ишенимсиз студенттер",
+      "problem.s3": "бирдиктүү улуттук профориентация платформасы",
+
+      "pres.kicker": "Кыргыз Республикасынын Президенти",
+      "pres.name": "Садыр Жапаров",
+      "pres.quote": "«Билим өнүккөн мамлекеттерде гана саясий, маданий, экономикалык өзгөрүүлөр болот. Билим — мамлекеттин узак мөөнөттүү өнүгүүсүнүн пайдубалы, ал эми билимге инвестиция — өлкөнүн келечегине эң маанилүү салым».",
+      "unicef.kicker": "ЮНИСЕФ · ар бир бала үчүн",
+      "unicef.quote": "«Илим — билим булагы, билим — өмүр чырагы». Билим ар бир балага кыялданууга, өсүүгө жана мыкты келечек курууга мүмкүнчүлүк берет.",
+
+      "scale.title": "Кыргызстандын билим тармагындагы эң ири жаштар окуясы",
+      "scale.s1": "компания-катышуучулар",
+      "scale.s2": "уникалдуу коноктор",
+      "scale.s3": "катышуучу өлкө",
+      "scale.s4": "жалпы аянт",
+      "scale.s5": "иш программасынын иш-чарасы",
+      "scale.s6": "топ-менеджер жана жетекчи",
+
+      "values.title": "Төрт баалуулук",
+      "value.maksat": "Максат — Цель. «Бийикке умтул — максатыңа жет!»",
+      "value.umtuluu": "Умтулуу — Стремление. «Изден, тап, жет!»",
+      "value.uyronuu": "Үйрөнүү — Обучение. «Билим — жарык, үйрөн!»",
+      "value.niet": "Ниет — Намерение. «Ниетиң таза, жолуң ачык!»",
+
+      "moon.title": "MUUN: Ай, ИИ жана өсүү жолу",
+      "moon.p1": "Moon ≈ MUUN ≈ Ай — түнкү асман, ар бир талант — жылдыз.",
+      "moon.p2": "«Ай» = AI — кыргызча «ай» жасалма интеллект менен үндөш.",
+      "moon.phase1": "Жаңы Ай · Окуучу",
+      "moon.phase2": "Өсүүчү · Студент",
+      "moon.phase3": "Толгон Ай · Адис",
+
+      "days.title": "Үч күн — үч фаза. Бир максат: сенин келечегиң.",
+      "day1.date": "21 октябрь",
+      "day1.title": "Күн 1 · Күн чыгыш",
+      "day1.desc": "Старт · биринчи кадам. Президенттик деңгээлдеги ачылыш, мектептер күнү, MUUN Cup башталышы.",
+      "day2.date": "22 октябрь",
+      "day2.title": "Күн 2 · Зенит",
+      "day2.desc": "Өнүгүү · жаңы мүмкүнчүлүктөр. Бизнес-күн, хакатон, B2B, инвест-витрина, MUUN Talks.",
+      "day3.date": "23 октябрь",
+      "day3.title": "Күн 3 · Сияние",
+      "day3.desc": "Ишке ашыруу · сенин келечегиң. Эл аралык күн (КНР, элчилер катары), кош дипломдор, MUUN Awards, «Ночь МУУН».",
+      "days.cta": "Программаны көрүү",
+
+      "roadmap.title": "Тармактар боюнча жол картасы",
+      "sector.it": "IT / ИИ / GovTech",
+      "sector.industry": "Инженерия жана өнөр жай",
+      "sector.energy": "Жашыл энергетика",
+      "sector.transport": "Транспорт жана логистика",
+      "sector.aviation": "Авиация жана smart-системалар",
+      "sector.fintech": "Финтех жана ишкердик",
+      "sector.eco": "Экология жана агротех",
+      "sector.media": "Креатив жана медиа",
+
+      "venue.title": "«Бишкек Арена» стадиону",
+      "venue.p1": "«Бишкек Арена» биринчи жолу Кыргызстанда билим берүүнү, карьераны, технологияларды жана иш берүүчүлөрдү бир аянтчага бириктирген улуттук масштабдагы көргөзмө-форумду өткөрүүгө мүмкүндүк берет.",
+      "venue.wow_title": "WOW-зона — борбордо",
+      "venue.wow_desc": "Чексиз мүмкүнчүлүктөрдүн жана саналуу тандоонун символу. Ушул жерден коноктор 7 тематикалык сектордун бирине 360° форматында сапарын баштайт.",
+      "venue.cta": "Кененирээк",
+
+      "who.title": "Ким катышат?",
+      "who.1": "Окуучулар жана студенттер",
+      "who.2": "Ата-энелер",
+      "who.3": "Университеттер жана колледждер",
+      "who.4": "Компаниялар жана стартаптар",
+      "who.5": "Мамлекеттик уюмдар",
+      "who.6": "Эл аралык уюмдар",
+
+      "insp.title": "Дүйнөлүк лидерлерден шыктануу",
+      "insp.desc": "TED · WEF Davos · Slush · Web Summit · VivaTech — MUUN Кыргызстандын профориентация жана мүмкүнчүлүктөрдүн улуттук бренди болот.",
+
+      "final.title": "Кыргызстандын келечек кесиптеринин улуттук көргөзмө-форуму",
+      "final.desc": "MUUN — жеке демилге. Мамлекеттик каржылоо талап кылынбайт. Билим берүү мекемелери үчүн жеңилдетилген шарттар.",
+      "final.partner": "Өнөктөш болуу",
+      "final.register": "Катталуу",
+
+      "footer.ministry": "Кыргыз Республикасынын билим берүү жана илим министрлигинин колдоосу менен",
+      "footer.date": "21–23 октябрь 2026 · Бишкек Арена",
+      "footer.copyright": "© 2026 MUUN26. Бардык укуктар корголгон."
+    },
+    "ru": {
+      "nav.home": "Главная",
+      "nav.about": "О форуме",
+      "nav.program": "Программа",
+      "nav.participants": "Участники",
+      "nav.venue": "Площадка",
+      "nav.partnership": "Партнёрство",
+      "nav.contact": "Контакты",
+
+      "hero.date": "21–23 октября 2026 · Бишкек Арена",
+      "hero.title": "ВАЖНЫЙ ВЫБОР — НАЧАЛО БУДУЩЕГО",
+      "hero.subtitle": "Национальный выставка-форум профессий будущего Кыргызстана",
+      "hero.desc": "МАКСАТ · СТРЕМЛЕНИЕ · ОБУЧЕНИЕ · НАМЕРЕНИЕ. Национальная платформа, объединяющая образование, карьеру и инновации на одной площадке.",
+      "hero.cta_register": "Регистрация",
+      "hero.cta_whatsapp": "Написать в WhatsApp",
+      "hero.ministry": "При поддержке Министерства образования и науки Кыргызской Республики",
+
+      "banner.left": "Discover Your Future — Открой своё будущее",
+      "banner.right": "К поколению! — Стремись к Луне!",
+
+      "problem.title": "Тысячи молодых кыргызстанцев выбирают своё будущее без достаточной информации",
+      "problem.s1": "выпускников школ ежегодно",
+      "problem.s2": "студентов не уверены в выборе профессии",
+      "problem.s3": "единая национальная платформа профориентации",
+
+      "pres.kicker": "Президент Кыргызской Республики",
+      "pres.name": "Садыр Жапаров",
+      "pres.quote": "«Только в государствах с развитым образованием происходят политические, культурные и экономические изменения. Образование — фундамент долгосрочного развития государства, а инвестиции в образование — важнейший вклад в будущее страны».",
+      "unicef.kicker": "ЮНИСЕФ · для каждого ребёнка",
+      "unicef.quote": "«Наука — источник знаний, знание — светоч жизни». Образование даёт каждому ребёнку возможность мечтать, расти и строить лучшее будущее.",
+
+      "scale.title": "Крупнейшее молодёжное событие в сфере образования Кыргызстана",
+      "scale.s1": "компаний-участников",
+      "scale.s2": "уникальных посетителей",
+      "scale.s3": "стран-участниц",
+      "scale.s4": "общая площадь",
+      "scale.s5": "мероприятий программы",
+      "scale.s6": "топ-менеджеров и руководителей",
+
+      "values.title": "Четыре ценности",
+      "value.maksat": "Максат — Цель. «Стремись к высоте — достигни цели!»",
+      "value.umtuluu": "Умтулуу — Стремление. «Ищи, найди, достигни!»",
+      "value.uyronuu": "Үйрөнүү — Обучение. «Знание — свет, учись!»",
+      "value.niet": "Ниет — Намерение. «Чисты намерения — открыт путь!»",
+
+      "moon.title": "MUUN: Луна, ИИ и путь роста",
+      "moon.p1": "Moon ≈ MUUN ≈ Луна — ночное небо, каждый талант — звезда.",
+      "moon.p2": "«Ай» = AI — кыргызское «ай» (луна) созвучно с искусственным интеллектом.",
+      "moon.phase1": "Новолуние · Школьник",
+      "moon.phase2": "Растущая луна · Студент",
+      "moon.phase3": "Полнолуние · Специалист",
+
+      "days.title": "Три дня — три фазы. Одна цель: твоё будущее.",
+      "day1.date": "21 октября",
+      "day1.title": "День 1 · Восход",
+      "day1.desc": "Старт · первый шаг. Открытие на президентском уровне, день школ, старт MUUN Cup.",
+      "day2.date": "22 октября",
+      "day2.title": "День 2 · Зенит",
+      "day2.desc": "Развитие · новые возможности. Бизнес-день, хакатон, B2B, инвест-витрина, MUUN Talks.",
+      "day3.date": "23 октября",
+      "day3.title": "День 3 · Сияние",
+      "day3.desc": "Реализация · твоё будущее. Международный день (КНР как почётный гость), двойные дипломы, MUUN Awards, «Ночь МУУН».",
+      "days.cta": "Смотреть программу",
+
+      "roadmap.title": "Дорожная карта по отраслям",
+      "sector.it": "IT / ИИ / GovTech",
+      "sector.industry": "Инженерия и промышленность",
+      "sector.energy": "Зелёная энергетика",
+      "sector.transport": "Транспорт и логистика",
+      "sector.aviation": "Авиация и smart-системы",
+      "sector.fintech": "Финтех и предпринимательство",
+      "sector.eco": "Экология и агротех",
+      "sector.media": "Креатив и медиа",
+
+      "venue.title": "Стадион «Бишкек Арена»",
+      "venue.p1": "«Бишкек Арена» впервые позволяет провести в Кыргызстане выставку-форум национального масштаба, объединяющую образование, карьеру, технологии и работодателей на одной площадке.",
+      "venue.wow_title": "WOW-зона — в центре",
+      "venue.wow_desc": "Символ безграничных возможностей и осознанного выбора. Отсюда гости начинают своё путешествие в один из 7 тематических секторов в формате 360°.",
+      "venue.cta": "Подробнее",
+
+      "who.title": "Кто участвует?",
+      "who.1": "Школьники и студенты",
+      "who.2": "Родители",
+      "who.3": "Университеты и колледжи",
+      "who.4": "Компании и стартапы",
+      "who.5": "Государственные организации",
+      "who.6": "Международные организации",
+
+      "insp.title": "Вдохновение от мировых лидеров",
+      "insp.desc": "TED · WEF Davos · Slush · Web Summit · VivaTech — MUUN станет национальным брендом профориентации и возможностей Кыргызстана.",
+
+      "final.title": "Национальный выставка-форум профессий будущего Кыргызстана",
+      "final.desc": "MUUN — частная инициатива. Государственное финансирование не требуется. Льготные условия для образовательных учреждений.",
+      "final.partner": "Стать партнёром",
+      "final.register": "Регистрация",
+
+      "footer.ministry": "При поддержке Министерства образования и науки Кыргызской Республики",
+      "footer.date": "21–23 октября 2026 · Бишкек Арена",
+      "footer.copyright": "© 2026 MUUN26. Все права защищены."
+    },
+    "en": {
+      "nav.home": "Home",
+      "nav.about": "About",
+      "nav.program": "Program",
+      "nav.participants": "Participants",
+      "nav.venue": "Venue",
+      "nav.partnership": "Partnership",
+      "nav.contact": "Contact",
+
+      "hero.date": "October 21–23, 2026 · Bishkek Arena",
+      "hero.title": "A MEANINGFUL CHOICE — THE BEGINNING OF THE FUTURE",
+      "hero.subtitle": "Kyrgyzstan's national exhibition-forum of the professions of the future",
+      "hero.desc": "PURPOSE · ASPIRATION · LEARNING · INTENTION. A national platform uniting education, careers and innovation in one place.",
+      "hero.cta_register": "Register",
+      "hero.cta_whatsapp": "Message on WhatsApp",
+      "hero.ministry": "Supported by the Ministry of Education and Science of the Kyrgyz Republic",
+
+      "banner.left": "Discover Your Future — Open your future",
+      "banner.right": "To the new generation! — Reach for the Moon!",
+
+      "problem.title": "Thousands of young Kyrgyzstanis choose their future without enough information",
+      "problem.s1": "school graduates every year",
+      "problem.s2": "students unsure about their choice of profession",
+      "problem.s3": "unified national career-guidance platform",
+
+      "pres.kicker": "President of the Kyrgyz Republic",
+      "pres.name": "Sadyr Japarov",
+      "pres.quote": "“Only in states with developed education do political, cultural and economic changes take place. Education is the foundation of a state's long-term development, and investment in education is the most important contribution to the country's future.”",
+      "unicef.kicker": "UNICEF · for every child",
+      "unicef.quote": "“Science is the source of knowledge, and knowledge is the lamp of life.” Education gives every child the chance to dream, grow and build a better future.",
+
+      "scale.title": "The largest youth event in Kyrgyzstan's education sector",
+      "scale.s1": "participating companies",
+      "scale.s2": "unique visitors",
+      "scale.s3": "participating countries",
+      "scale.s4": "total area",
+      "scale.s5": "program events",
+      "scale.s6": "top managers and leaders",
+
+      "values.title": "Four values",
+      "value.maksat": "Maksat — Purpose. “Aim high — reach your goal!”",
+      "value.umtuluu": "Umtuluu — Aspiration. “Seek, find, achieve!”",
+      "value.uyronuu": "Üyrönüü — Learning. “Knowledge is light — keep learning!”",
+      "value.niet": "Niet — Intention. “Pure intentions — an open path!”",
+
+      "moon.title": "MUUN: the Moon, AI and the path of growth",
+      "moon.p1": "Moon ≈ MUUN ≈ Ay — the night sky, and every talent is a star.",
+      "moon.p2": "“Ay” = AI — the Kyrgyz word “ay” (moon) echoes artificial intelligence.",
+      "moon.phase1": "New Moon · Pupil",
+      "moon.phase2": "Waxing Moon · Student",
+      "moon.phase3": "Full Moon · Specialist",
+
+      "days.title": "Three days — three phases. One goal: your future.",
+      "day1.date": "October 21",
+      "day1.title": "Day 1 · Sunrise",
+      "day1.desc": "Start · the first step. Presidential-level opening, schools day, MUUN Cup kickoff.",
+      "day2.date": "October 22",
+      "day2.title": "Day 2 · Zenith",
+      "day2.desc": "Growth · new opportunities. Business day, hackathon, B2B, investment showcase, MUUN Talks.",
+      "day3.date": "October 23",
+      "day3.title": "Day 3 · Radiance",
+      "day3.desc": "Realization · your future. International day (China as guest of honor), double diplomas, MUUN Awards, “MUUN Night”.",
+      "days.cta": "View the program",
+
+      "roadmap.title": "Roadmap by industry",
+      "sector.it": "IT / AI / GovTech",
+      "sector.industry": "Engineering & industry",
+      "sector.energy": "Green energy",
+      "sector.transport": "Transport & logistics",
+      "sector.aviation": "Aviation & smart systems",
+      "sector.fintech": "Fintech & entrepreneurship",
+      "sector.eco": "Ecology & agritech",
+      "sector.media": "Creative & media",
+
+      "venue.title": "“Bishkek Arena” stadium",
+      "venue.p1": "For the first time, “Bishkek Arena” makes it possible to hold a national-scale exhibition-forum in Kyrgyzstan bringing together education, careers, technology and employers in one place.",
+      "venue.wow_title": "WOW zone — at the center",
+      "venue.wow_desc": "A symbol of limitless opportunity and conscious choice. From here, guests begin their 360° journey into one of 7 thematic sectors.",
+      "venue.cta": "Learn more",
+
+      "who.title": "Who takes part?",
+      "who.1": "Pupils & students",
+      "who.2": "Parents",
+      "who.3": "Universities & colleges",
+      "who.4": "Companies & startups",
+      "who.5": "Government organizations",
+      "who.6": "International organizations",
+
+      "insp.title": "Inspired by global leaders",
+      "insp.desc": "TED · WEF Davos · Slush · Web Summit · VivaTech — MUUN will become Kyrgyzstan's national brand of career guidance and opportunity.",
+
+      "final.title": "Kyrgyzstan's national exhibition-forum of the professions of the future",
+      "final.desc": "MUUN is a private initiative. No state funding required. Preferential terms for educational institutions.",
+      "final.partner": "Become a partner",
+      "final.register": "Register",
+
+      "footer.ministry": "Supported by the Ministry of Education and Science of the Kyrgyz Republic",
+      "footer.date": "October 21–23, 2026 · Bishkek Arena",
+      "footer.copyright": "© 2026 MUUN26. All rights reserved."
+    }
+  }
+}

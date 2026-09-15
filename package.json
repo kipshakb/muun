@@ -1,0 +1,14 @@
+{
+  "name": "muun26-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Статический мультиязычный лендинг MUUN26 (ky/ru/en), собирается в dist/",
+  "scripts": {
+    "build": "node build.mjs",
+    "css:watch": "npx tailwindcss -i src/styles.css -o dist/assets/styles.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.14"
+  }
+}
