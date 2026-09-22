@@ -57,14 +57,10 @@ function hreflangBlock() {
 }
 
 function switcherHTML(active) {
-  const base =
-    "lang-btn inline-flex items-center justify-center px-2.5 py-1 text-xs font-semibold tracking-wide leading-none transition-colors";
   return codes
     .map((c) => {
       const isActive = c === active;
-      const cls = isActive
-        ? `${base} bg-brand-navy text-primary-foreground`
-        : `${base} text-foreground/70 hover:bg-secondary`;
+      const cls = isActive ? "lang-btn active" : "lang-btn";
       return `<a href="/${locales[c].path}" data-lang="${c}" class="${cls}" aria-current="${isActive ? "page" : "false"}">${locales[c].label}</a>`;
     })
     .join("");

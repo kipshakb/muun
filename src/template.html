@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{{meta_title}}</title>
   <meta name="description" content="{{meta_description}}" />
-  <meta name="theme-color" content="#1a2340" />
+  <meta name="theme-color" content="#0a0a0f" />
   <link rel="canonical" href="{{canonical}}" />
 {{hreflang}}
   <meta property="og:type" content="website" />
@@ -17,438 +17,594 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
 
-  <link rel="icon" href="/assets/favicon.png?v=4" />
+  <link rel="icon" href="/assets/favicon.png?v=6" />
   <link rel="stylesheet" href="{{css_href}}" />
 </head>
-<body class="font-sans">
+<body>
+<div class="noise-overlay"></div>
 
-  <div class="flex min-h-screen flex-col">
+  <!-- ============================== HEADER ============================== -->
+  <header class="site-header">
+    <div class="container-page" style="display:flex;align-items:center;justify-content:space-between;height:72px;">
+      <a href="#top" aria-label="MUUN26" style="display:flex;align-items:center;">
+        <img src="/assets/logo-header.png?v=7" alt="MUUN26" class="logo-img" style="height:40px;width:auto;" />
+      </a>
 
-    <!-- ============================ HEADER ============================ -->
-    <header class="site-header sticky top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-md">
-      <div class="container-page flex h-16 items-center justify-between gap-4 md:h-20">
-        <a class="flex items-center gap-3 py-1" href="#top" aria-label="MUUN26">
-          <img src="/assets/logo-header.png?v=3" alt="MUUN26"
-               class="logo-img h-10 md:h-12 w-auto" />
-        </a>
-
-        <nav class="hidden lg:flex items-center gap-0.5 xl:gap-1 flex-nowrap" aria-label="Main">
-          <a class="whitespace-nowrap px-2 xl:px-3 py-2 text-[13px] xl:text-sm font-medium rounded-md transition-colors text-brand-red" href="#top">{{nav.home}}</a>
-          <a class="whitespace-nowrap px-2 xl:px-3 py-2 text-[13px] xl:text-sm font-medium rounded-md transition-colors text-foreground/80 hover:text-brand-red" href="#about">{{nav.about}}</a>
-          <a class="whitespace-nowrap px-2 xl:px-3 py-2 text-[13px] xl:text-sm font-medium rounded-md transition-colors text-foreground/80 hover:text-brand-red" href="#program">{{nav.program}}</a>
-          <a class="whitespace-nowrap px-2 xl:px-3 py-2 text-[13px] xl:text-sm font-medium rounded-md transition-colors text-foreground/80 hover:text-brand-red" href="#participants">{{nav.participants}}</a>
-
-          <a class="whitespace-nowrap px-2 xl:px-3 py-2 text-[13px] xl:text-sm font-medium rounded-md transition-colors text-foreground/80 hover:text-brand-red" href="#partnership">{{nav.partnership}}</a>
-          <a class="whitespace-nowrap px-2 xl:px-3 py-2 text-[13px] xl:text-sm font-medium rounded-md transition-colors text-foreground/80 hover:text-brand-red" href="#contact">{{nav.contact}}</a>
-        </nav>
-
-        <div class="flex items-center gap-2">
-          <div class="hidden sm:flex items-center rounded-full border border-border overflow-hidden">
-            {{lang_switcher}}
-          </div>
-
-          <button type="button" id="navToggle" class="nav-toggle lg:hidden inline-flex items-center justify-center rounded-md p-2 text-foreground" aria-label="Menu" aria-expanded="false">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg>
-          </button>
-        </div>
-      </div>
-
-      <!-- Mobile navigation -->
-      <nav id="mobileNav" class="mobile-nav lg:hidden" aria-label="Mobile">
-        <div class="container-page py-2">
-          <div class="mobile-langs">{{lang_switcher}}</div>
-          <a href="#top">{{nav.home}}</a>
+      <nav style="display:none;" class="lg-show" aria-label="Main">
+        <div style="display:flex;align-items:center;gap:4px;">
+          <a href="#top" class="active">{{nav.home}}</a>
           <a href="#about">{{nav.about}}</a>
           <a href="#program">{{nav.program}}</a>
           <a href="#participants">{{nav.participants}}</a>
-
           <a href="#partnership">{{nav.partnership}}</a>
           <a href="#contact">{{nav.contact}}</a>
         </div>
       </nav>
-    </header>
 
-    <main class="flex-1">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="lang-switcher-desktop" style="display:none;">
+          {{lang_switcher}}
+        </div>
+        <button type="button" id="navToggle" class="nav-toggle" aria-label="Menu" aria-expanded="false" style="padding:8px;background:none;border:1px solid var(--border);border-radius:8px;color:var(--text-primary);cursor:pointer;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
 
-      <!-- ============================ HERO ============================ -->
-      <section id="top" class="relative overflow-hidden ornament-bg">
-        <div class="ornament-overlay anim-pan-ornament"></div>
-        <div class="pointer-events-none absolute inset-0 hidden md:block">
-          <span class="absolute top-[18%] left-[12%] h-1.5 w-1.5 rounded-full bg-brand-gold anim-twinkle" style="animation-delay:0.2s"></span>
-          <span class="absolute top-[70%] left-[8%] h-1 w-1 rounded-full bg-brand-cream anim-twinkle" style="animation-delay:1.1s"></span>
-          <span class="absolute top-[30%] right-[18%] h-2 w-2 rounded-full bg-brand-red anim-twinkle" style="animation-delay:0.6s"></span>
-          <span class="absolute top-[80%] right-[28%] h-1.5 w-1.5 rounded-full bg-brand-gold anim-twinkle" style="animation-delay:1.6s"></span>
+    <nav id="mobileNav" class="mobile-nav" aria-label="Mobile">
+      <div class="container-page" style="padding-top:8px;padding-bottom:8px;">
+        <div class="mobile-langs">{{lang_switcher}}</div>
+        <a href="#top">{{nav.home}}</a>
+        <a href="#about">{{nav.about}}</a>
+        <a href="#program">{{nav.program}}</a>
+        <a href="#participants">{{nav.participants}}</a>
+        <a href="#partnership">{{nav.partnership}}</a>
+        <a href="#contact">{{nav.contact}}</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ============================== HERO ============================== -->
+    <section id="top" class="hero">
+      <div class="hero-grid"></div>
+      
+      <!-- MOON — dominant centerpiece -->
+      <div class="hero-moon-wrap">
+        <div class="hero-moon-glow"></div>
+        <img src="/assets/moon-hd-full.png" alt="MUUN" class="hero-moon-img anim-float" />
+      </div>
+
+      <div class="container-page" style="position:relative;z-index:3;display:flex;flex-direction:column;align-items:flex-start;text-align:left;padding-top:15vh;padding-bottom:15vh;min-height:100vh;justify-content:center;">
+        
+        <div class="reveal is-visible" style="transition-delay:0ms">
+          <div class="hero-badge" style="margin-bottom:24px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M16 2v4"/><path d="M8 2v4"/></svg>
+            {{hero.date}}
+          </div>
         </div>
 
-        <div class="relative container-page py-16 md:py-28 grid gap-10 md:grid-cols-[1.2fr_1fr] items-center">
-          <div>
-            <div class="reveal is-visible" style="transition-delay:0ms">
-              <span class="inline-flex items-center gap-2 rounded-full border border-brand-gold/40 bg-brand-gold/10 px-3 py-1 text-xs uppercase tracking-[0.25em] text-brand-gold">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path><path d="M8 14h.01"></path><path d="M12 14h.01"></path><path d="M16 14h.01"></path><path d="M8 18h.01"></path><path d="M12 18h.01"></path><path d="M16 18h.01"></path></svg>
-                <span >{{hero.date}}</span>
-              </span>
+        <div class="reveal is-visible" style="transition-delay:150ms;max-width:600px;">
+          <h1 style="font-family:'Montserrat',sans-serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:800;letter-spacing:-0.03em;color:#fff;margin:0;line-height:1.05;">
+            {{hero.title}}
+          </h1>
+        </div>
+
+        <div class="reveal is-visible" style="transition-delay:250ms;max-width:520px;">
+          <p style="margin-top:24px;font-size:16px;color:rgba(255,255,255,0.7);line-height:1.7;">{{hero.subtitle}}</p>
+        </div>
+
+        <div class="reveal is-visible" style="transition-delay:350ms;margin-top:36px;display:flex;flex-wrap:wrap;gap:16px;">
+          <a href="#partnership" class="hero-cta">
+            {{hero.cta_register}}
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+
+        <div class="reveal is-visible" style="transition-delay:450ms;margin-top:48px;">
+          <p style="font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;">МАКСАТ · УМТУЛУУ · ҮЙРӨНҮҮ · НИЕТ</p>
+          <p style="margin-top:10px;font-size:12px;color:rgba(255,255,255,0.4);max-width:400px;">{{hero.ministry}}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== MARQUEE ============================== -->
+    <div class="marquee-strip">
+      <div class="marquee-track">
+        <div class="marquee-item"><span class="marquee-dot"></span> MUUN26</div>
+        <div class="marquee-item"><span class="marquee-dot"></span> {{opp.c1_t}}</div>
+        <div class="marquee-item"><span class="marquee-dot"></span> {{opp.c2_t}}</div>
+        <div class="marquee-item"><span class="marquee-dot"></span> {{opp.c3_t}}</div>
+        <div class="marquee-item"><span class="marquee-dot"></span> {{opp.c4_t}}</div>
+        <div class="marquee-item"><span class="marquee-dot"></span> {{opp.c5_t}}</div>
+        <div class="marquee-item"><span class="marquee-dot"></span> BISHKEK 2026</div>
+        <div class="marquee-item"><span class="marquee-dot"></span> MUUN26</div>
+        <div class="marquee-item"><span class="marquee-dot"></span> {{opp.c1_t}}</div>
+        <div class="marquee-item"><span class="marquee-dot"></span> {{opp.c2_t}}</div>
+        <div class="marquee-item"><span class="marquee-dot"></span> {{opp.c3_t}}</div>
+        <div class="marquee-item"><span class="marquee-dot"></span> {{opp.c4_t}}</div>
+        <div class="marquee-item"><span class="marquee-dot"></span> {{opp.c5_t}}</div>
+        <div class="marquee-item"><span class="marquee-dot"></span> BISHKEK 2026</div>
+      </div>
+    </div>
+
+    <!-- ============================== PROBLEM STATS ============================== -->
+    <section id="about" style="padding:100px 0;">
+      <div class="container-page">
+        <div class="reveal" style="transition-delay:0ms;margin-bottom:48px;">
+          <h2 class="section-title">{{problem.title}}</h2>
+        </div>
+
+        <div class="reveal" style="transition-delay:100ms">
+          <div class="stats-row">
+            <div class="stat-cell">
+              <div class="stat-number">70 000+</div>
+              <div class="stat-label">{{problem.s1}}</div>
             </div>
-            <div class="reveal is-visible" style="transition-delay:120ms">
-              <h1 class="mt-5 text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.05]">
-                <span class="text-shimmer">{{hero.title}}</span>
-              </h1>
+            <div class="stat-cell">
+              <div class="stat-number">67%</div>
+              <div class="stat-label">{{problem.s2}}</div>
             </div>
-            <div class="reveal is-visible" style="transition-delay:240ms">
-              <p class="mt-5 text-base md:text-lg text-primary-foreground/85 max-w-xl">{{hero.subtitle}}</p>
+            <div class="stat-cell">
+              <div class="stat-number">39%</div>
+              <div class="stat-label">{{problem.s3}}</div>
             </div>
-            <div class="reveal is-visible" style="transition-delay:340ms">
-              <p class="mt-3 text-sm md:text-base text-primary-foreground/70 max-w-xl">{{hero.desc}}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== QUOTE ============================== -->
+    <section class="quote-block" style="border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+      <div class="container-page">
+        <div class="reveal" style="transition-delay:0ms">
+          <p class="quote-text">{{pres.quote}}</p>
+          <p class="quote-caption">— {{pres.name}}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== SCALE — BENTO ============================== -->
+    <section style="padding:100px 0;">
+      <div class="container-page">
+        <div class="reveal" style="transition-delay:0ms;margin-bottom:48px;">
+          <h2 class="section-title">{{scale.title}}</h2>
+        </div>
+
+        <div class="reveal" style="transition-delay:100ms">
+          <div class="bento-grid">
+            <div class="bento-cell">
+              <div class="stat-number"><span class="counter" data-target="100">0</span>+</div>
+              <div class="stat-label" style="margin-top:8px;">{{scale.s1}}</div>
             </div>
-            <div class="reveal is-visible" style="transition-delay:460ms">
-              <div class="mt-8 flex flex-wrap gap-3">
-                <a href="#partnership" class="shine inline-flex items-center gap-2 rounded-full gradient-animated px-5 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-brand-red/30 transition-transform hover:-translate-y-0.5">
-                  <span >{{hero.cta_register}}</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-                </a>
+            <div class="bento-cell">
+              <div class="stat-number"><span class="counter" data-target="10000">0</span>+</div>
+              <div class="stat-label" style="margin-top:8px;">{{scale.s2}}</div>
+            </div>
+            <div class="bento-cell">
+              <div class="stat-number"><span class="counter" data-target="10">0</span>+</div>
+              <div class="stat-label" style="margin-top:8px;">{{scale.s3}}</div>
+            </div>
+            <div class="bento-cell">
+              <div class="stat-number"><span class="counter" data-target="10000">0</span> м²</div>
+              <div class="stat-label" style="margin-top:8px;">{{scale.s4}}</div>
+            </div>
+            <div class="bento-cell">
+              <div class="stat-number"><span class="counter" data-target="20">0</span>+</div>
+              <div class="stat-label" style="margin-top:8px;">{{scale.s5}}</div>
+            </div>
+            <div class="bento-cell">
+              <div class="stat-number"><span class="counter" data-target="50">0</span>+</div>
+              <div class="stat-label" style="margin-top:8px;">{{scale.s6}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== WHY MUUN ============================== -->
+    <section style="padding:100px 0;border-top:1px solid var(--border);">
+      <div class="container-page">
+        <div class="reveal" style="transition-delay:0ms;text-align:center;max-width:700px;margin:0 auto 60px;">
+          <h2 class="section-title">{{why.title}}</h2>
+          <p class="section-desc" style="margin:20px auto 0;">{{why.desc1}}</p>
+          <p style="margin-top:12px;font-size:15px;color:var(--accent);font-weight:600;">{{why.desc2}}</p>
+        </div>
+
+        <div style="display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));">
+          <div class="reveal reveal-scale" style="transition-delay:0ms">
+            <div class="glass-card" style="text-align:center;padding:40px 24px;">
+              <div style="width:48px;height:48px;border-radius:12px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c6 3 12 0 12 0v-5"/></svg>
               </div>
-            </div>
-            <div class="reveal is-visible" style="transition-delay:600ms">
-              <p class="mt-10 font-display text-xs md:text-sm tracking-[0.4em] text-brand-gold/90">MAKSAT · UMTULUU · ÜYRÖNÜÜ · NIET</p>
-              <p class="mt-3 text-xs text-primary-foreground/60 max-w-md">{{hero.ministry}}</p>
+              <p style="font-weight:600;font-size:15px;">{{why.c1}}</p>
             </div>
           </div>
+          <div class="reveal reveal-scale" style="transition-delay:100ms">
+            <div class="glass-card" style="text-align:center;padding:40px 24px;">
+              <div style="width:48px;height:48px;border-radius:12px;background:var(--gold-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M9 2v2"/><path d="M9 20v2"/><path d="M2 9h2"/><path d="M2 15h2"/><path d="M20 9h2"/><path d="M20 15h2"/></svg>
+              </div>
+              <p style="font-weight:600;font-size:15px;">{{why.c2}}</p>
+            </div>
+          </div>
+          <div class="reveal reveal-scale" style="transition-delay:200ms">
+            <div class="glass-card" style="text-align:center;padding:40px 24px;">
+              <div style="width:48px;height:48px;border-radius:12px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+              </div>
+              <p style="font-weight:600;font-size:15px;">{{why.c3}}</p>
+            </div>
+          </div>
+          <div class="reveal reveal-scale" style="transition-delay:300ms">
+            <div class="glass-card" style="text-align:center;padding:40px 24px;">
+              <div style="width:48px;height:48px;border-radius:12px;background:var(--gold-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></svg>
+              </div>
+              <p style="font-weight:600;font-size:15px;">{{why.c4}}</p>
+            </div>
+          </div>
+        </div>
 
-          <div class="reveal reveal-scale is-visible relative flex justify-center md:justify-end" style="transition-delay:200ms">
-            <div class="absolute inset-0 rounded-full bg-brand-red/25 blur-3xl anim-glow"></div>
-            <div class="pointer-events-none absolute inset-0 anim-spin-slow" aria-hidden="true">
-              <span class="absolute left-1/2 top-1/2 h-2 w-2 -ml-1 -mt-1 rounded-full bg-brand-gold" style="transform:translateX(160px)"></span>
-              <span class="absolute left-1/2 top-1/2 h-1.5 w-1.5 -ml-1 -mt-1 rounded-full bg-brand-red" style="transform:rotate(120deg) translateX(180px)"></span>
-              <span class="absolute left-1/2 top-1/2 h-1 w-1 -ml-1 -mt-1 rounded-full bg-brand-cream" style="transform:rotate(240deg) translateX(200px)"></span>
-            </div>
-            <img src="/assets/logo-main.png?v=2" alt="MUUN26" class="anim-float relative w-full max-w-md rounded-2xl bg-brand-cream/95 p-6 shadow-2xl" />
-          </div>
+        <div class="reveal" style="transition-delay:200ms;margin-top:48px;text-align:center;">
+          <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.25em;color:var(--text-tertiary);font-weight:600;">{{why.bottom}}</p>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- ============================ BANNER ============================ -->
-      <section class="bg-brand-navy text-primary-foreground border-y border-brand-gold/20">
-        <div class="container-page py-6 flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left">
-          <p class="font-display text-lg md:text-xl text-brand-gold tracking-wide">{{banner.left}}</p>
-          <p class="text-sm md:text-base text-primary-foreground/80">{{banner.right}}</p>
+    <!-- ============================== 360° OPPORTUNITIES ============================== -->
+    <section style="padding:100px 0;background:var(--bg-secondary);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+      <div class="container-page">
+        <div class="reveal" style="transition-delay:0ms;text-align:center;max-width:700px;margin:0 auto 60px;">
+          <h2 class="section-title" style="color:var(--accent);">{{opp.title}}</h2>
+          <p class="section-desc" style="margin:20px auto 0;">{{opp.desc}}</p>
         </div>
-      </section>
 
-      <!-- ============================ PROBLEM ============================ -->
-      <section id="about" class="container-page py-16 md:py-24">
-        <div class="reveal max-w-3xl" style="transition-delay:0ms">
-          <p class="text-xs uppercase tracking-[0.3em] text-brand-red font-semibold">2026</p>
-          <h2 class="mt-3 text-3xl md:text-4xl font-bold text-brand-navy leading-tight">{{problem.title}}</h2>
-        </div>
-        <div class="mt-10 grid gap-4 md:grid-cols-3">
-          <div class="reveal reveal-scale" style="transition-delay:0ms">
-            <div class="card-lift rounded-2xl border border-border bg-card p-6 md:p-8">
-              <div class="text-4xl md:text-5xl font-bold text-gradient-brand font-display">120 000+</div>
-              <p class="mt-3 text-sm md:text-base text-muted-foreground">{{problem.s1}}</p>
-            </div>
-          </div>
-          <div class="reveal reveal-scale" style="transition-delay:120ms">
-            <div class="card-lift rounded-2xl border border-border bg-card p-6 md:p-8">
-              <div class="text-4xl md:text-5xl font-bold text-gradient-brand font-display">67%</div>
-              <p class="mt-3 text-sm md:text-base text-muted-foreground">{{problem.s2}}</p>
-            </div>
-          </div>
-          <div class="reveal reveal-scale" style="transition-delay:240ms">
-            <div class="card-lift rounded-2xl border border-border bg-card p-6 md:p-8">
-              <div class="text-4xl md:text-5xl font-bold text-gradient-brand font-display">0</div>
-              <p class="mt-3 text-sm md:text-base text-muted-foreground">{{problem.s3}}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============================ PRESIDENT / UNICEF ============================ -->
-      <section class="relative overflow-hidden ornament-bg">
-        <div class="ornament-side left-0 anim-pan-ornament"></div>
-        <div class="ornament-side right-0 scale-x-[-1] anim-pan-ornament"></div>
-        <div class="relative container-page py-16 md:py-24 grid gap-10 md:grid-cols-[auto_1fr] items-start">
-          <div class="reveal reveal-scale" style="transition-delay:0ms">
-            <div class="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-gold text-brand-navy shrink-0 anim-glow">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-7 w-7" aria-hidden="true"><path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"></path><path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"></path></svg>
-            </div>
-          </div>
-          <div>
-            <div class="reveal" style="transition-delay:100ms">
-              <p class="text-xs uppercase tracking-[0.3em] text-brand-gold">{{pres.kicker}}</p>
-              <h2 class="mt-2 text-2xl md:text-3xl font-bold">{{pres.name}}</h2>
-            </div>
-            <div class="reveal" style="transition-delay:220ms">
-              <p class="mt-5 text-lg md:text-xl leading-relaxed text-primary-foreground/90 max-w-3xl">{{pres.quote}}</p>
-            </div>
-            <div class="reveal mt-10 pt-8 border-t border-primary-foreground/15 max-w-3xl" style="transition-delay:340ms">
-              <p class="text-xs uppercase tracking-[0.3em] text-brand-gold">{{unicef.kicker}}</p>
-              <p class="mt-3 text-base md:text-lg text-primary-foreground/85">{{unicef.quote}}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============================ SCALE ============================ -->
-      <section class="container-page py-16 md:py-24">
-        <div class="reveal max-w-2xl" style="transition-delay:0ms">
-          <p class="text-xs uppercase tracking-[0.3em] text-brand-red font-semibold">MUUN26</p>
-          <h2 class="mt-3 text-3xl md:text-4xl font-bold text-brand-navy">{{scale.title}}</h2>
-        </div>
-        <div class="mt-10 grid gap-4 grid-cols-2 md:grid-cols-3">
-          <div class="reveal reveal-scale" style="transition-delay:0ms">
-            <div class="card-lift shine rounded-2xl border border-border bg-card p-5 md:p-6 hover:border-brand-red/40">
-              <div class="text-2xl md:text-4xl font-bold text-gradient-brand font-display">100+</div>
-              <div class="mt-2 text-xs md:text-sm text-muted-foreground">{{scale.s1}}</div>
-            </div>
-          </div>
-          <div class="reveal reveal-scale" style="transition-delay:80ms">
-            <div class="card-lift shine rounded-2xl border border-border bg-card p-5 md:p-6 hover:border-brand-red/40">
-              <div class="text-2xl md:text-4xl font-bold text-gradient-brand font-display">20 000+</div>
-              <div class="mt-2 text-xs md:text-sm text-muted-foreground">{{scale.s2}}</div>
-            </div>
-          </div>
-          <div class="reveal reveal-scale" style="transition-delay:160ms">
-            <div class="card-lift shine rounded-2xl border border-border bg-card p-5 md:p-6 hover:border-brand-red/40">
-              <div class="text-2xl md:text-4xl font-bold text-gradient-brand font-display">10+</div>
-              <div class="mt-2 text-xs md:text-sm text-muted-foreground">{{scale.s3}}</div>
-            </div>
-          </div>
-          <div class="reveal reveal-scale" style="transition-delay:240ms">
-            <div class="card-lift shine rounded-2xl border border-border bg-card p-5 md:p-6 hover:border-brand-red/40">
-              <div class="text-2xl md:text-4xl font-bold text-gradient-brand font-display">8 000 м²</div>
-              <div class="mt-2 text-xs md:text-sm text-muted-foreground">{{scale.s4}}</div>
-            </div>
-          </div>
-          <div class="reveal reveal-scale" style="transition-delay:320ms">
-            <div class="card-lift shine rounded-2xl border border-border bg-card p-5 md:p-6 hover:border-brand-red/40">
-              <div class="text-2xl md:text-4xl font-bold text-gradient-brand font-display">20+</div>
-              <div class="mt-2 text-xs md:text-sm text-muted-foreground">{{scale.s5}}</div>
-            </div>
-          </div>
-          <div class="reveal reveal-scale" style="transition-delay:400ms">
-            <div class="card-lift shine rounded-2xl border border-border bg-card p-5 md:p-6 hover:border-brand-red/40">
-              <div class="text-2xl md:text-4xl font-bold text-gradient-brand font-display">200+</div>
-              <div class="mt-2 text-xs md:text-sm text-muted-foreground">{{scale.s6}}</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============================ FOUR VALUES ============================ -->
-      <section class="bg-secondary/60 py-16 md:py-24 border-y border-border">
-        <div class="container-page">
+        <div style="display:grid;gap:2px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));background:var(--border);border-radius:var(--radius-lg);overflow:hidden;">
           <div class="reveal" style="transition-delay:0ms">
-            <p class="text-xs uppercase tracking-[0.3em] text-brand-red font-semibold">MAKSAT · UMTULUU · ÜYRÖNÜÜ · NIET</p>
-            <h2 class="mt-3 text-3xl md:text-4xl font-bold text-brand-navy max-w-2xl">{{values.title}}</h2>
-          </div>
-          <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            <div class="reveal" style="transition-delay:0ms">
-              <div class="group card-lift shine rounded-2xl bg-card p-6 border border-border hover:border-brand-red/50 shadow-sm h-full">
-                <div class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-brand-navy text-primary-foreground group-hover:bg-brand-red group-hover:rotate-6 transition-all"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></div>
-                <p class="mt-4 text-sm leading-relaxed text-foreground">{{value.maksat}}</p>
-              </div>
-            </div>
-            <div class="reveal" style="transition-delay:110ms">
-              <div class="group card-lift shine rounded-2xl bg-card p-6 border border-border hover:border-brand-red/50 shadow-sm h-full">
-                <div class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-brand-navy text-primary-foreground group-hover:bg-brand-red group-hover:rotate-6 transition-all"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z"></path></svg></div>
-                <p class="mt-4 text-sm leading-relaxed text-foreground">{{value.umtuluu}}</p>
-              </div>
-            </div>
-            <div class="reveal" style="transition-delay:220ms">
-              <div class="group card-lift shine rounded-2xl bg-card p-6 border border-border hover:border-brand-red/50 shadow-sm h-full">
-                <div class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-brand-navy text-primary-foreground group-hover:bg-brand-red group-hover:rotate-6 transition-all"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" aria-hidden="true"><path d="M12 7v14"></path><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path></svg></div>
-                <p class="mt-4 text-sm leading-relaxed text-foreground">{{value.uyronuu}}</p>
-              </div>
-            </div>
-            <div class="reveal" style="transition-delay:330ms">
-              <div class="group card-lift shine rounded-2xl bg-card p-6 border border-border hover:border-brand-red/50 shadow-sm h-full">
-                <div class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-brand-navy text-primary-foreground group-hover:bg-brand-red group-hover:rotate-6 transition-all"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" aria-hidden="true"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"></path><path d="M20 2v4"></path><path d="M22 4h-4"></path><circle cx="4" cy="20" r="2"></circle></svg></div>
-                <p class="mt-4 text-sm leading-relaxed text-foreground">{{value.niet}}</p>
-              </div>
+            <div style="background:var(--bg-primary);padding:36px 28px;height:100%;border-left:3px solid #3b82f6;">
+              <h3 style="font-family:'Montserrat',sans-serif;font-size:16px;font-weight:700;margin:0 0 8px;">{{opp.c1_t}}</h3>
+              <p style="font-size:14px;color:var(--text-secondary);margin:0;line-height:1.6;">{{opp.c1_d}}</p>
             </div>
           </div>
-        </div>
-      </section>
-
-
-
-      <!-- ============================ THREE DAYS / PROGRAM ============================ -->
-      <section id="program" class="relative overflow-hidden ornament-bg">
-        <div class="ornament-overlay anim-pan-ornament"></div>
-        <div class="relative container-page py-16 md:py-24">
-          <div class="reveal max-w-3xl" style="transition-delay:0ms">
-            <p class="text-xs uppercase tracking-[0.3em] text-brand-gold">{{hero.date}}</p>
-            <h2 class="mt-3 text-3xl md:text-4xl font-bold">{{days.title}}</h2>
-          </div>
-          <div class="mt-10 grid gap-5 md:grid-cols-3">
-            <div class="reveal" style="transition-delay:0ms">
-              <div class="card-lift shine rounded-2xl bg-primary-foreground/10 backdrop-blur border border-primary-foreground/15 p-6 h-full">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8 text-brand-gold anim-glow" aria-hidden="true" style="animation-delay:0s"><path d="M12 2v8"></path><path d="m4.93 10.93 1.41 1.41"></path><path d="M2 18h2"></path><path d="M20 18h2"></path><path d="m19.07 10.93-1.41 1.41"></path><path d="M22 22H2"></path><path d="m8 6 4-4 4 4"></path><path d="M16 18a4 4 0 0 0-8 0"></path></svg>
-                <p class="mt-4 text-xs uppercase tracking-[0.25em] text-brand-gold">{{day1.date}}</p>
-                <h3 class="mt-1 text-xl font-bold">{{day1.title}}</h3>
-                <p class="mt-3 text-sm text-primary-foreground/80 leading-relaxed">{{day1.desc}}</p>
-              </div>
-            </div>
-            <div class="reveal" style="transition-delay:150ms">
-              <div class="card-lift shine rounded-2xl bg-primary-foreground/10 backdrop-blur border border-primary-foreground/15 p-6 h-full">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8 text-brand-gold anim-glow" aria-hidden="true" style="animation-delay:0.4s"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
-                <p class="mt-4 text-xs uppercase tracking-[0.25em] text-brand-gold">{{day2.date}}</p>
-                <h3 class="mt-1 text-xl font-bold">{{day2.title}}</h3>
-                <p class="mt-3 text-sm text-primary-foreground/80 leading-relaxed">{{day2.desc}}</p>
-              </div>
-            </div>
-            <div class="reveal" style="transition-delay:300ms">
-              <div class="card-lift shine rounded-2xl bg-primary-foreground/10 backdrop-blur border border-primary-foreground/15 p-6 h-full">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8 text-brand-gold anim-glow" aria-hidden="true" style="animation-delay:0.8s"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg>
-                <p class="mt-4 text-xs uppercase tracking-[0.25em] text-brand-gold">{{day3.date}}</p>
-                <h3 class="mt-1 text-xl font-bold">{{day3.title}}</h3>
-                <p class="mt-3 text-sm text-primary-foreground/80 leading-relaxed">{{day3.desc}}</p>
-              </div>
+          <div class="reveal" style="transition-delay:80ms">
+            <div style="background:var(--bg-primary);padding:36px 28px;height:100%;border-left:3px solid #10b981;">
+              <h3 style="font-family:'Montserrat',sans-serif;font-size:16px;font-weight:700;margin:0 0 8px;">{{opp.c2_t}}</h3>
+              <p style="font-size:14px;color:var(--text-secondary);margin:0;line-height:1.6;">{{opp.c2_d}}</p>
             </div>
           </div>
-          <div class="reveal reveal-scale mt-10" style="transition-delay:200ms">
-            <img src="/assets/threedays.jpg" alt="MUUN26 — three days" class="w-full rounded-2xl border border-primary-foreground/10 shadow-2xl" />
-          </div>
-          <div class="reveal mt-8" style="transition-delay:120ms">
-            <a href="#program" class="shine inline-flex items-center gap-2 rounded-full bg-brand-gold px-5 py-3 text-sm font-semibold text-brand-navy hover:-translate-y-0.5 transition-transform">
-              <span >{{days.cta}}</span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-            </a>
-          </div>
-        </div>
-      </section>
-
-
-
-
-
-      <!-- ============================ WHO PARTICIPATES ============================ -->
-      <section id="participants" class="container-page py-16 md:py-24">
-        <div class="reveal max-w-2xl" style="transition-delay:0ms">
-          <p class="text-xs uppercase tracking-[0.3em] text-brand-red font-semibold">MUUN26</p>
-          <h2 class="mt-3 text-3xl md:text-4xl font-bold text-brand-navy">{{who.title}}</h2>
-        </div>
-        <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <div class="reveal reveal-scale" style="transition-delay:0ms">
-            <div class="card-lift shine rounded-2xl border border-border bg-card p-6 hover:border-brand-red/50 h-full group">
-              <div class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand-navy text-primary-foreground group-hover:bg-brand-red group-hover:rotate-6 transition-all"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"></path><path d="M22 10v6"></path><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path></svg></div>
-              <h3 class="mt-5 text-lg font-semibold text-brand-navy">{{who.1}}</h3>
+          <div class="reveal" style="transition-delay:160ms">
+            <div style="background:var(--bg-primary);padding:36px 28px;height:100%;border-left:3px solid var(--gold);">
+              <h3 style="font-family:'Montserrat',sans-serif;font-size:16px;font-weight:700;margin:0 0 8px;">{{opp.c3_t}}</h3>
+              <p style="font-size:14px;color:var(--text-secondary);margin:0;line-height:1.6;">{{opp.c3_d}}</p>
             </div>
           </div>
-          <div class="reveal reveal-scale" style="transition-delay:90ms">
-            <div class="card-lift shine rounded-2xl border border-border bg-card p-6 hover:border-brand-red/50 h-full group">
-              <div class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand-navy text-primary-foreground group-hover:bg-brand-red group-hover:rotate-6 transition-all"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg></div>
-              <h3 class="mt-5 text-lg font-semibold text-brand-navy">{{who.2}}</h3>
+          <div class="reveal" style="transition-delay:240ms">
+            <div style="background:var(--bg-primary);padding:36px 28px;height:100%;border-left:3px solid #8b5cf6;">
+              <h3 style="font-family:'Montserrat',sans-serif;font-size:16px;font-weight:700;margin:0 0 8px;">{{opp.c4_t}}</h3>
+              <p style="font-size:14px;color:var(--text-secondary);margin:0;line-height:1.6;">{{opp.c4_d}}</p>
             </div>
           </div>
-          <div class="reveal reveal-scale" style="transition-delay:180ms">
-            <div class="card-lift shine rounded-2xl border border-border bg-card p-6 hover:border-brand-red/50 h-full group">
-              <div class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand-navy text-primary-foreground group-hover:bg-brand-red group-hover:rotate-6 transition-all"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true"><path d="M14 21v-3a2 2 0 0 0-4 0v3"></path><path d="M18 5v16"></path><path d="m4 6 7.106-3.79a2 2 0 0 1 1.788 0L20 6"></path><path d="m6 11-3.52 2.147a1 1 0 0 0-.48.854V19a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5a1 1 0 0 0-.48-.853L18 11"></path><path d="M6 5v16"></path><circle cx="12" cy="9" r="2"></circle></svg></div>
-              <h3 class="mt-5 text-lg font-semibold text-brand-navy">{{who.3}}</h3>
-            </div>
-          </div>
-          <div class="reveal reveal-scale" style="transition-delay:270ms">
-            <div class="card-lift shine rounded-2xl border border-border bg-card p-6 hover:border-brand-red/50 h-full group">
-              <div class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand-navy text-primary-foreground group-hover:bg-brand-red group-hover:rotate-6 transition-all"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true"><path d="M10 18v-7"></path><path d="M11.12 2.198a2 2 0 0 1 1.76.006l7.866 3.847c.476.233.31.949-.22.949H3.474c-.53 0-.695-.716-.22-.949z"></path><path d="M14 18v-7"></path><path d="M18 18v-7"></path><path d="M3 22h18"></path><path d="M6 18v-7"></path></svg></div>
-              <h3 class="mt-5 text-lg font-semibold text-brand-navy">{{who.4}}</h3>
-            </div>
-          </div>
-          <div class="reveal reveal-scale" style="transition-delay:360ms">
-            <div class="card-lift shine rounded-2xl border border-border bg-card p-6 hover:border-brand-red/50 h-full group">
-              <div class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand-navy text-primary-foreground group-hover:bg-brand-red group-hover:rotate-6 transition-all"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true"><path d="M10 18v-7"></path><path d="M11.12 2.198a2 2 0 0 1 1.76.006l7.866 3.847c.476.233.31.949-.22.949H3.474c-.53 0-.695-.716-.22-.949z"></path><path d="M14 18v-7"></path><path d="M18 18v-7"></path><path d="M3 22h18"></path><path d="M6 18v-7"></path></svg></div>
-              <h3 class="mt-5 text-lg font-semibold text-brand-navy">{{who.5}}</h3>
-            </div>
-          </div>
-          <div class="reveal reveal-scale" style="transition-delay:450ms">
-            <div class="card-lift shine rounded-2xl border border-border bg-card p-6 hover:border-brand-red/50 h-full group">
-              <div class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand-navy text-primary-foreground group-hover:bg-brand-red group-hover:rotate-6 transition-all"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg></div>
-              <h3 class="mt-5 text-lg font-semibold text-brand-navy">{{who.6}}</h3>
+          <div class="reveal" style="transition-delay:320ms">
+            <div style="background:var(--bg-primary);padding:36px 28px;height:100%;border-left:3px solid var(--accent);grid-column:span 1;">
+              <h3 style="font-family:'Montserrat',sans-serif;font-size:16px;font-weight:700;margin:0 0 8px;">{{opp.c5_t}}</h3>
+              <p style="font-size:14px;color:var(--text-secondary);margin:0;line-height:1.6;">{{opp.c5_d}}</p>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- ============================ INSPIRATION ============================ -->
-      <section class="container-page pb-16 md:pb-24">
-        <div class="reveal reveal-scale" style="transition-delay:0ms">
-          <div class="rounded-3xl border border-border bg-card p-8 md:p-12 relative overflow-hidden">
-            <div class="pointer-events-none absolute -top-16 -right-16 h-56 w-56 rounded-full bg-brand-red/10 blur-3xl anim-glow"></div>
-            <div class="grid gap-6 md:grid-cols-[auto_1fr] items-start relative">
-              <div class="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-gold text-brand-navy shrink-0 anim-float"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-7 w-7" aria-hidden="true"><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09"></path><path d="M9 12a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 .05 5 .05"></path></svg></div>
-              <div>
-                <p class="text-xs uppercase tracking-[0.3em] text-brand-red font-semibold">Inspiration</p>
-                <h3 class="mt-2 text-2xl md:text-3xl font-bold text-brand-navy">{{insp.title}}</h3>
-                <p class="mt-4 text-base md:text-lg text-foreground/80 leading-relaxed">{{insp.desc}}</p>
-                <div class="mt-6 flex flex-wrap gap-2">
-                  <span class="px-3 py-1.5 rounded-full border border-border bg-secondary text-xs md:text-sm font-semibold text-brand-navy hover:bg-brand-navy hover:text-primary-foreground transition-colors">TED</span>
-                  <span class="px-3 py-1.5 rounded-full border border-border bg-secondary text-xs md:text-sm font-semibold text-brand-navy hover:bg-brand-navy hover:text-primary-foreground transition-colors">WEF Davos</span>
-                  <span class="px-3 py-1.5 rounded-full border border-border bg-secondary text-xs md:text-sm font-semibold text-brand-navy hover:bg-brand-navy hover:text-primary-foreground transition-colors">Slush</span>
-                  <span class="px-3 py-1.5 rounded-full border border-border bg-secondary text-xs md:text-sm font-semibold text-brand-navy hover:bg-brand-navy hover:text-primary-foreground transition-colors">Web Summit</span>
-                  <span class="px-3 py-1.5 rounded-full border border-border bg-secondary text-xs md:text-sm font-semibold text-brand-navy hover:bg-brand-navy hover:text-primary-foreground transition-colors">VivaTech</span>
+    <!-- ============================== COMPETITIVENESS QUOTE ============================== -->
+    <section class="quote-block" style="background:linear-gradient(180deg, var(--bg-primary), var(--bg-secondary));">
+      <div class="container-page">
+        <div class="reveal" style="transition-delay:0ms">
+          <p class="quote-text" style="color:var(--gold);">{{comp.quote}}</p>
+          <p class="quote-caption" style="margin-top:24px;">{{comp.desc}}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== MOON / AI ============================== -->
+    <section style="padding:100px 0;border-top:1px solid var(--border);">
+      <div class="container-page">
+        <div style="display:flex;flex-direction:column;align-items:center;text-align:center;max-width:800px;margin:0 auto;">
+          <div class="reveal reveal-scale" style="transition-delay:0ms;">
+            <h2 class="section-title">{{moon.title}}</h2>
+            <p style="margin-top:20px;font-size:16px;color:var(--text-secondary);line-height:1.7;">{{moon.p1}}</p>
+            <p style="margin-top:12px;font-size:16px;color:var(--text-secondary);line-height:1.7;">{{moon.p2}}</p>
+
+            <div style="margin-top:36px;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;">
+              <div class="reveal reveal-scale" style="transition-delay:0ms">
+                <div class="glass-card" style="text-align:center;padding:24px 16px;">
+                  <img src="/assets/moon-hd-new.png" alt="" loading="lazy" width="1024" height="1024" class="anim-float" style="width:100%;max-width:140px;margin:0 auto;aspect-ratio:1;object-fit:contain;animation-delay:0s;" />
+                  <p style="margin-top:16px;font-size:13px;font-weight:600;">{{moon.phase1}}</p>
+                </div>
+              </div>
+              <div class="reveal reveal-scale" style="transition-delay:100ms">
+                <div class="glass-card" style="text-align:center;padding:24px 16px;">
+                  <img src="/assets/moon-hd-grow.png" alt="" loading="lazy" width="1024" height="1024" class="anim-float" style="width:100%;max-width:140px;margin:0 auto;aspect-ratio:1;object-fit:contain;animation-delay:0.4s;" />
+                  <p style="margin-top:16px;font-size:13px;font-weight:600;">{{moon.phase2}}</p>
+                </div>
+              </div>
+              <div class="reveal reveal-scale" style="transition-delay:200ms">
+                <div class="glass-card" style="text-align:center;padding:24px 16px;">
+                  <img src="/assets/moon-hd-full.png" alt="" loading="lazy" width="1024" height="1024" class="anim-float" style="width:100%;max-width:140px;margin:0 auto;aspect-ratio:1;object-fit:contain;animation-delay:0.8s;" />
+                  <p style="margin-top:16px;font-size:13px;font-weight:600;">{{moon.phase3}}</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- ============================ PARTNERSHIP CTA ============================ -->
-      <section id="partnership" class="container-page pb-16 md:pb-24">
-        <div class="relative overflow-hidden rounded-3xl ornament-bg p-8 md:p-14">
-          <div class="ornament-overlay"></div>
-          <div class="relative grid gap-6 md:grid-cols-[1.5fr_1fr] items-center">
-            <div>
-              <h3 class="text-2xl md:text-4xl font-bold leading-tight">{{final.title}}</h3>
-              <p class="mt-4 text-primary-foreground/85 max-w-xl">{{final.desc}}</p>
-            </div>
-            <div class="flex flex-col sm:flex-row md:justify-end gap-3">
-              <a href="#partnership" class="inline-flex items-center justify-center gap-2 rounded-full bg-brand-gold px-5 py-3 text-sm font-semibold text-brand-navy hover:-translate-y-0.5 transition-transform">
-                <span >{{final.partner}}</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-              </a>
-              <a href="#partnership" class="inline-flex items-center justify-center gap-2 rounded-full bg-brand-red px-5 py-3 text-sm font-semibold text-primary-foreground hover:-translate-y-0.5 transition-transform">
-                <span >{{final.register}}</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-              </a>
-            </div>
+    <!-- ============================== INSPIRED BY ============================== -->
+    <section style="padding:40px 0;border-top:1px solid var(--border);">
+      <div class="container-page" style="text-align:center;">
+        <div class="reveal" style="transition-delay:0ms">
+          <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.2em;color:var(--text-tertiary);font-weight:600;margin-bottom:28px;">{{insp.title}}</p>
+          <div style="display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:40px;opacity:0.4;filter:grayscale(1) invert(1);transition:all 0.5s;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/TED_wordmark.svg/1200px-TED_wordmark.svg.png" alt="TED" style="height:24px;object-fit:contain;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/World_Economic_Forum_logo.svg/2560px-World_Economic_Forum_logo.svg.png" alt="WEF" style="height:36px;object-fit:contain;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Slush_logo_black.png" alt="Slush" style="height:20px;object-fit:contain;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Web_Summit_logo.svg/2560px-Web_Summit_logo.svg.png" alt="Web Summit" style="height:24px;object-fit:contain;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/52/Logo_Viva_Technology.png" alt="VivaTech" style="height:24px;object-fit:contain;">
           </div>
-        </div>
-      </section>
-    </main>
-
-    <!-- ============================ FOOTER ============================ -->
-    <footer id="contact" class="site-footer relative overflow-hidden ornament-bg mt-24">
-      <div class="ornament-overlay"></div>
-      <div class="relative container-page py-14 grid gap-10 md:grid-cols-3">
-        <div>
-          <img src="/assets/logo-header.png?v=1" alt="MUUN26" class="logo-img h-16 w-auto bg-brand-cream/95 rounded-lg p-2" />
-          <p class="mt-4 text-sm text-primary-foreground/80 max-w-xs">{{footer.ministry}}</p>
-        </div>
-        <div class="text-sm space-y-3">
-          <div class="flex items-start gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 mt-0.5 text-brand-gold" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>
-            <span >{{footer.date}}</span>
-          </div>
-          <div class="flex items-start gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 mt-0.5 text-brand-gold" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path><rect x="2" y="4" width="20" height="16" rx="2"></rect></svg>
-            <a href="mailto:info@muun.kg" class="hover:text-brand-gold">info@muun.kg</a>
-          </div>
-        </div>
-        <div class="text-xs uppercase tracking-[0.25em] text-primary-foreground/60 md:text-right">
-          <p class="font-display text-sm tracking-[0.35em] text-brand-gold">MAKSAT · UMTULUU · ÜYRÖNÜÜ · NIET</p>
-          <p class="mt-4">{{footer.copyright}}</p>
         </div>
       </div>
-    </footer>
+    </section>
 
-  </div>
+    <!-- ============================== VENUE & GALLERY ============================== -->
+    <section id="venue" style="padding:100px 0;border-top:1px solid var(--border);">
+      <div class="container-page">
+        <div class="reveal" style="transition-delay:0ms;">
+          <h2 class="section-title">{{venue.title}}</h2>
+          <p class="section-desc" style="margin-top:20px;">{{venue.desc}}</p>
+        </div>
+        
+        <div class="reveal reveal-scale" style="transition-delay:100ms;margin-top:48px;margin-bottom:24px;">
+          <img src="/assets/venue-exterior.jpg" alt="Yrys Ordo" class="venue-image" style="width:100%;height:500px;object-fit:cover;border-radius:var(--radius-lg);border:1px solid var(--border);" />
+        </div>
+        
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px;">
+          <div class="reveal reveal-scale" style="transition-delay:100ms">
+            <img src="/assets/gallery-mainstage.jpg" alt="Main Stage" style="width:100%;height:450px;object-fit:cover;border-radius:var(--radius-lg);border:1px solid var(--border);" />
+            <p style="margin-top:20px;font-size:18px;font-weight:600;color:var(--text-primary);text-align:center;">{{gallery.stage}}</p>
+          </div>
+          <div class="reveal reveal-scale" style="transition-delay:200ms">
+            <img src="/assets/gallery-panel.jpg" alt="Panel Session" style="width:100%;height:450px;object-fit:cover;border-radius:var(--radius-lg);border:1px solid var(--border);" />
+            <p style="margin-top:20px;font-size:18px;font-weight:600;color:var(--text-primary);text-align:center;">{{gallery.panel}}</p>
+          </div>
+          <div class="reveal reveal-scale" style="transition-delay:300ms">
+            <img src="/assets/gallery-exhibition.png" alt="Exhibition" style="width:100%;height:450px;object-fit:cover;border-radius:var(--radius-lg);border:1px solid var(--border);" />
+            <p style="margin-top:20px;font-size:18px;font-weight:600;color:var(--text-primary);text-align:center;">{{gallery.exhibition}}</p>
+          </div>
+          <div class="reveal reveal-scale" style="transition-delay:400ms">
+            <img src="/assets/gallery-registration.jpg" alt="Registration" style="width:100%;height:450px;object-fit:cover;border-radius:var(--radius-lg);border:1px solid var(--border);" />
+            <p style="margin-top:20px;font-size:18px;font-weight:600;color:var(--text-primary);text-align:center;">{{gallery.registration}}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== ZONES BENTO ============================== -->
+    <section style="padding:100px 0;background:var(--bg-secondary);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+      <div class="container-page">
+        <div class="reveal" style="transition-delay:0ms;text-align:center;max-width:600px;margin:0 auto 60px;">
+          <h2 class="section-title">{{zones.title}}</h2>
+          <p class="section-desc" style="margin:16px auto 0;">{{zones.desc}}</p>
+        </div>
+
+        <div class="reveal" style="transition-delay:100ms">
+          <div class="bento-grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr));">
+            <div class="bento-cell"><span style="font-size:32px;font-weight:800;color:var(--accent);font-family:'Montserrat',sans-serif;line-height:1;">01</span><h3 style="margin:12px 0 4px;font-size:15px;font-weight:700;">{{zones.z1}}</h3><p style="font-size:13px;color:var(--text-secondary);margin:0;">{{zones.z1_d}}</p></div>
+            <div class="bento-cell"><span style="font-size:32px;font-weight:800;color:var(--accent);font-family:'Montserrat',sans-serif;line-height:1;">02</span><h3 style="margin:12px 0 4px;font-size:15px;font-weight:700;">{{zones.z2}}</h3><p style="font-size:13px;color:var(--text-secondary);margin:0;">{{zones.z2_d}}</p></div>
+            <div class="bento-cell"><span style="font-size:32px;font-weight:800;color:var(--accent);font-family:'Montserrat',sans-serif;line-height:1;">03</span><h3 style="margin:12px 0 4px;font-size:15px;font-weight:700;">{{zones.z3}}</h3><p style="font-size:13px;color:var(--text-secondary);margin:0;">{{zones.z3_d}}</p></div>
+            <div class="bento-cell"><span style="font-size:32px;font-weight:800;color:var(--accent);font-family:'Montserrat',sans-serif;line-height:1;">04</span><h3 style="margin:12px 0 4px;font-size:15px;font-weight:700;">{{zones.z4}}</h3><p style="font-size:13px;color:var(--text-secondary);margin:0;">{{zones.z4_d}}</p></div>
+            <div class="bento-cell"><span style="font-size:32px;font-weight:800;color:var(--accent);font-family:'Montserrat',sans-serif;line-height:1;">05</span><h3 style="margin:12px 0 4px;font-size:15px;font-weight:700;">{{zones.z5}}</h3><p style="font-size:13px;color:var(--text-secondary);margin:0;">{{zones.z5_d}}</p></div>
+            <div class="bento-cell"><span style="font-size:32px;font-weight:800;color:var(--accent);font-family:'Montserrat',sans-serif;line-height:1;">06</span><h3 style="margin:12px 0 4px;font-size:15px;font-weight:700;">{{zones.z6}}</h3><p style="font-size:13px;color:var(--text-secondary);margin:0;">{{zones.z6_d}}</p></div>
+            <div class="bento-cell"><span style="font-size:32px;font-weight:800;color:var(--accent);font-family:'Montserrat',sans-serif;line-height:1;">07</span><h3 style="margin:12px 0 4px;font-size:15px;font-weight:700;">{{zones.z7}}</h3><p style="font-size:13px;color:var(--text-secondary);margin:0;">{{zones.z7_d}}</p></div>
+            <div class="bento-cell"><span style="font-size:32px;font-weight:800;color:var(--accent);font-family:'Montserrat',sans-serif;line-height:1;">08</span><h3 style="margin:12px 0 4px;font-size:15px;font-weight:700;">{{zones.z8}}</h3><p style="font-size:13px;color:var(--text-secondary);margin:0;">{{zones.z8_d}}</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== PROGRAM ============================== -->
+    <section id="program" style="padding:100px 0;">
+      <div class="container-page">
+        <div class="reveal" style="transition-delay:0ms;text-align:center;max-width:600px;margin:0 auto 60px;">
+          <h2 class="section-title">{{prog.title}}</h2>
+        </div>
+
+        <div style="display:grid;gap:24px;max-width:900px;margin:0 auto;" class="md-2col">
+          <!-- Day 1 -->
+          <div class="reveal" style="transition-delay:0ms">
+            <div class="glass-card glass-card--accent" style="padding:40px 36px;">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;">
+                <div>
+                  <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.2em;color:var(--accent);font-weight:700;margin:0;">{{prog.d1}}</p>
+                  <p style="font-family:'Montserrat',sans-serif;font-size:28px;font-weight:800;margin:4px 0 0;">{{prog.d1_date}}</p>
+                </div>
+                <div style="width:48px;height:48px;border-radius:50%;border:1px solid var(--accent);display:flex;align-items:center;justify-content:center;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M12 2v8"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m8 6 4-4 4 4"/><path d="M16 18a4 4 0 0 0-8 0"/></svg>
+                </div>
+              </div>
+              <div class="timeline">
+                <div class="timeline-item">
+                  <p style="font-size:13px;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);font-weight:700;margin:0;">{{prog.d1_t1}}</p>
+                  <p style="font-size:14px;color:var(--text-secondary);margin:8px 0 0;line-height:1.6;">{{prog.d1_t1_d}}</p>
+                </div>
+                <div class="timeline-item" style="padding-bottom:0;">
+                  <p style="font-size:13px;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);font-weight:700;margin:0;">{{prog.d1_t2}}</p>
+                  <p style="font-size:14px;color:var(--text-secondary);margin:8px 0 0;line-height:1.6;">{{prog.d1_t2_d}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Day 2 -->
+          <div class="reveal" style="transition-delay:150ms">
+            <div class="glass-card glass-card--accent" style="padding:40px 36px;">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;">
+                <div>
+                  <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.2em;color:var(--accent);font-weight:700;margin:0;">{{prog.d2}}</p>
+                  <p style="font-family:'Montserrat',sans-serif;font-size:28px;font-weight:800;margin:4px 0 0;">{{prog.d2_date}}</p>
+                </div>
+                <div style="width:48px;height:48px;border-radius:50%;border:1px solid var(--accent);display:flex;align-items:center;justify-content:center;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+                </div>
+              </div>
+              <div class="timeline">
+                <div class="timeline-item" style="padding-bottom:0;">
+                  <p style="font-size:13px;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);font-weight:700;margin:0;">{{prog.d2_t}}</p>
+                  <p style="font-size:14px;color:var(--text-secondary);margin:8px 0 0;line-height:1.6;">{{prog.d2_t_d}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== PARTICIPATION ============================== -->
+    <section id="participants" style="padding:100px 0;background:var(--bg-secondary);border-top:1px solid var(--border);">
+      <div class="container-page">
+        <div class="reveal" style="transition-delay:0ms;text-align:center;max-width:700px;margin:0 auto 60px;">
+          <h2 class="section-title">{{part.title}}</h2>
+          <p class="section-desc" style="margin:20px auto 0;">{{part.desc}}</p>
+        </div>
+
+        <div style="display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));">
+          <div class="reveal reveal-scale" style="transition-delay:0ms">
+            <div class="glass-card" style="text-align:center;padding:40px 24px;">
+              <div style="width:56px;height:56px;border-radius:14px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+              </div>
+              <h3 style="font-size:16px;font-weight:700;margin:0 0 8px;">{{part.p1_t}}</h3>
+              <p style="font-size:14px;color:var(--text-secondary);margin:0;">{{part.p1_d}}</p>
+            </div>
+          </div>
+          <div class="reveal reveal-scale" style="transition-delay:100ms">
+            <div class="glass-card" style="text-align:center;padding:40px 24px;">
+              <div style="width:56px;height:56px;border-radius:14px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+              </div>
+              <h3 style="font-size:16px;font-weight:700;margin:0 0 8px;">{{part.p2_t}}</h3>
+              <p style="font-size:14px;color:var(--text-secondary);margin:0;">{{part.p2_d}}</p>
+            </div>
+          </div>
+          <div class="reveal reveal-scale" style="transition-delay:200ms">
+            <div class="glass-card" style="text-align:center;padding:40px 24px;">
+              <div style="width:56px;height:56px;border-radius:14px;background:var(--gold-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+              </div>
+              <h3 style="font-size:16px;font-weight:700;margin:0 0 8px;">{{part.p3_t}}</h3>
+              <p style="font-size:14px;color:var(--text-secondary);margin:0;">{{part.p3_d}}</p>
+            </div>
+          </div>
+          <div class="reveal reveal-scale" style="transition-delay:300ms">
+            <div class="glass-card" style="text-align:center;padding:40px 24px;">
+              <div style="width:56px;height:56px;border-radius:14px;background:var(--gold-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              </div>
+              <h3 style="font-size:16px;font-weight:700;margin:0 0 8px;">{{part.p4_t}}</h3>
+              <p style="font-size:14px;color:var(--text-secondary);margin:0;">{{part.p4_d}}</p>
+            </div>
+          </div>
+          <div class="reveal reveal-scale" style="transition-delay:400ms">
+            <div class="glass-card" style="text-align:center;padding:40px 24px;">
+              <div style="width:56px;height:56px;border-radius:14px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <h3 style="font-size:16px;font-weight:700;margin:0 0 8px;">{{part.p5_t}}</h3>
+              <p style="font-size:14px;color:var(--text-secondary);margin:0;">{{part.p5_d}}</p>
+            </div>
+          </div>
+          <div class="reveal reveal-scale" style="transition-delay:500ms">
+            <div class="glass-card" style="text-align:center;padding:40px 24px;">
+              <div style="width:56px;height:56px;border-radius:14px;background:var(--gold-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M7 8h10v8H7z"/></svg>
+              </div>
+              <h3 style="font-size:16px;font-weight:700;margin:0 0 8px;">{{part.p6_t}}</h3>
+              <p style="font-size:14px;color:var(--text-secondary);margin:0;">{{part.p6_d}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal" style="transition-delay:300ms;margin-top:48px;text-align:center;">
+          <p style="font-size:13px;color:var(--text-tertiary);">{{part.bottom}}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== PARTNERSHIP CTA ============================== -->
+    <section id="partnership" style="padding:100px 0;">
+      <div class="container-page">
+        <div class="reveal" style="transition-delay:0ms">
+          <div style="background:linear-gradient(135deg, var(--bg-elevated), var(--bg-secondary));border:1px solid var(--border);border-radius:var(--radius-lg);padding:60px 40px;text-align:center;position:relative;overflow:hidden;">
+            <div style="position:absolute;inset:0;background:radial-gradient(circle at 30% 50%,var(--accent-glow),transparent 50%);opacity:0.15;pointer-events:none;"></div>
+            <div style="position:relative;z-index:1;">
+              <h3 style="font-family:'Montserrat',sans-serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:800;margin:0;">{{final.title}}</h3>
+              <p style="margin:20px auto 0;font-size:16px;color:var(--text-secondary);max-width:600px;line-height:1.7;">{{final.desc}}</p>
+              <div style="margin-top:36px;display:flex;flex-wrap:wrap;gap:16px;justify-content:center;">
+                <a href="#partnership" class="btn btn--outline">{{final.partner}}</a>
+                <a href="#partnership" class="btn btn--primary">{{final.register}} →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================== FOOTER ============================== -->
+  <footer id="contact" class="site-footer">
+    <div class="container-page" style="display:grid;gap:40px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));">
+      <div>
+        <img src="/assets/logo-header.png?v=7" alt="MUUN26" class="logo-img" style="height:40px;width:auto;opacity:0.9;" />
+        <p style="margin-top:16px;font-size:13px;color:var(--text-tertiary);max-width:260px;">{{footer.ministry}}</p>
+      </div>
+      <div style="font-size:14px;color:var(--text-secondary);">
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>{{footer.date}}</span>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+          <a href="mailto:info@muun.kg" style="color:var(--text-secondary);transition:color 0.3s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-secondary)'">info@muun.kg</a>
+        </div>
+      </div>
+      <div style="text-align:right;">
+        <p style="font-family:'Montserrat',sans-serif;font-size:12px;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;">MAKSАТ · УМТУЛУУ · ҮЙРӨНҮҮ · НИЕТ</p>
+        <p style="margin-top:16px;font-size:12px;color:var(--text-tertiary);">{{footer.copyright}}</p>
+      </div>
+    </div>
+  </footer>
+
+  <style>
+    /* Responsive helpers — handled via CSS, not Tailwind */
+    @media (min-width: 1024px) {
+      .lg-show { display: flex !important; }
+      .nav-toggle { display: none !important; }
+      .lang-switcher-desktop { display: flex !important; }
+      .lg-2col { grid-template-columns: 1fr 1fr !important; }
+    }
+    @media (min-width: 768px) {
+      .md-2col { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
 
   <script>
     (function () {
       var current = document.documentElement.lang;
 
-      // Запоминаем выбранный язык; на главной (/) возвращаем на ранее выбранный
+      // Language memory
       try {
         document.querySelectorAll("[data-lang]").forEach(function (a) {
           a.addEventListener("click", function () {
@@ -463,7 +619,7 @@
         }
       } catch (e) {}
 
-      // Мобильное меню
+      // Mobile nav
       var toggle = document.getElementById("navToggle");
       var panel = document.getElementById("mobileNav");
       if (toggle && panel) {
@@ -479,7 +635,7 @@
         });
       }
 
-      // Картинки: битые прячем, лого заменяем текстом
+      // Image fallback
       document.querySelectorAll("img").forEach(function (img) {
         img.addEventListener("error", function () {
           if (img.classList.contains("logo-img")) {
@@ -504,8 +660,36 @@
           entries.forEach(function (e) {
             if (e.isIntersecting) { e.target.classList.add("is-visible"); obs.unobserve(e.target); }
           });
-        }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+        }, { threshold: 0.08, rootMargin: "0px 0px -5% 0px" });
         animate.forEach(function (el) { obs.observe(el); });
+      }
+
+      // Counters (reset and count up on scroll)
+      var counters = document.querySelectorAll(".counter");
+      if ("IntersectionObserver" in window && counters.length > 0) {
+        var countObs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            var el = e.target;
+            if (e.isIntersecting) {
+              var target = parseInt(el.getAttribute("data-target"), 10);
+              var duration = 2000; // 2 seconds
+              var start = performance.now();
+              function update(t) {
+                var progress = Math.min((t - start) / duration, 1);
+                var ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+                var current = Math.floor(ease * target);
+                el.textContent = current.toLocaleString("ru-RU").replace(/\s/g, " ");
+                if (progress < 1) requestAnimationFrame(update);
+                else el.textContent = target.toLocaleString("ru-RU").replace(/\s/g, " ");
+              }
+              requestAnimationFrame(update);
+            } else {
+              // Reset when out of view so it animates again when scrolling back
+              el.textContent = "0";
+            }
+          });
+        }, { threshold: 0.1 });
+        counters.forEach(function (c) { countObs.observe(c); });
       }
     })();
   </script>
