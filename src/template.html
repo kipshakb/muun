@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
 
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23b3341f'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23e9c46a' stroke-width='2.5'/%3E%3Cpath d='M20 9a9 9 0 1 0 0 14 7 7 0 0 1 0-14z' fill='%23e9c46a'/%3E%3C/svg%3E" />
+  <link rel="icon" href="/assets/favicon.png?v=4" />
   <link rel="stylesheet" href="{{css_href}}" />
 </head>
 <body class="font-sans">
@@ -29,8 +29,8 @@
     <!-- ============================ HEADER ============================ -->
     <header class="site-header sticky top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-md">
       <div class="container-page flex h-16 items-center justify-between gap-4 md:h-20">
-        <a class="flex items-center gap-3" href="#top" aria-label="MUUN26">
-          <img src="/assets/muun-logo.jpeg" alt="MUUN26"
+        <a class="flex items-center gap-3 py-1" href="#top" aria-label="MUUN26">
+          <img src="/assets/logo-header.png?v=3" alt="MUUN26"
                class="logo-img h-10 md:h-12 w-auto" />
         </a>
 
@@ -39,7 +39,7 @@
           <a class="whitespace-nowrap px-2 xl:px-3 py-2 text-[13px] xl:text-sm font-medium rounded-md transition-colors text-foreground/80 hover:text-brand-red" href="#about">{{nav.about}}</a>
           <a class="whitespace-nowrap px-2 xl:px-3 py-2 text-[13px] xl:text-sm font-medium rounded-md transition-colors text-foreground/80 hover:text-brand-red" href="#program">{{nav.program}}</a>
           <a class="whitespace-nowrap px-2 xl:px-3 py-2 text-[13px] xl:text-sm font-medium rounded-md transition-colors text-foreground/80 hover:text-brand-red" href="#participants">{{nav.participants}}</a>
-          <a class="whitespace-nowrap px-2 xl:px-3 py-2 text-[13px] xl:text-sm font-medium rounded-md transition-colors text-foreground/80 hover:text-brand-red" href="#venue">{{nav.venue}}</a>
+
           <a class="whitespace-nowrap px-2 xl:px-3 py-2 text-[13px] xl:text-sm font-medium rounded-md transition-colors text-foreground/80 hover:text-brand-red" href="#partnership">{{nav.partnership}}</a>
           <a class="whitespace-nowrap px-2 xl:px-3 py-2 text-[13px] xl:text-sm font-medium rounded-md transition-colors text-foreground/80 hover:text-brand-red" href="#contact">{{nav.contact}}</a>
         </nav>
@@ -48,12 +48,6 @@
           <div class="hidden sm:flex items-center rounded-full border border-border overflow-hidden">
             {{lang_switcher}}
           </div>
-
-          <a href="https://wa.me/8613202292825" target="_blank" rel="noopener noreferrer"
-             class="hidden md:inline-flex items-center gap-2 rounded-full bg-brand-red px-4 py-2 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"></path></svg>
-            WhatsApp
-          </a>
 
           <button type="button" id="navToggle" class="nav-toggle lg:hidden inline-flex items-center justify-center rounded-md p-2 text-foreground" aria-label="Menu" aria-expanded="false">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg>
@@ -69,7 +63,7 @@
           <a href="#about">{{nav.about}}</a>
           <a href="#program">{{nav.program}}</a>
           <a href="#participants">{{nav.participants}}</a>
-          <a href="#venue">{{nav.venue}}</a>
+
           <a href="#partnership">{{nav.partnership}}</a>
           <a href="#contact">{{nav.contact}}</a>
         </div>
@@ -113,10 +107,6 @@
                   <span >{{hero.cta_register}}</span>
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
                 </a>
-                <a href="https://wa.me/8613202292825" target="_blank" rel="noopener noreferrer" class="shine inline-flex items-center gap-2 rounded-full border border-primary-foreground/30 px-5 py-3 text-sm font-semibold hover:bg-primary-foreground/10">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"></path></svg>
-                  <span >{{hero.cta_whatsapp}}</span>
-                </a>
               </div>
             </div>
             <div class="reveal is-visible" style="transition-delay:600ms">
@@ -132,7 +122,7 @@
               <span class="absolute left-1/2 top-1/2 h-1.5 w-1.5 -ml-1 -mt-1 rounded-full bg-brand-red" style="transform:rotate(120deg) translateX(180px)"></span>
               <span class="absolute left-1/2 top-1/2 h-1 w-1 -ml-1 -mt-1 rounded-full bg-brand-cream" style="transform:rotate(240deg) translateX(200px)"></span>
             </div>
-            <img src="/assets/muun-logo.jpeg" alt="MUUN26" class="anim-float relative w-full max-w-md rounded-2xl bg-brand-cream/95 p-6 shadow-2xl" />
+            <img src="/assets/logo-main.png?v=2" alt="MUUN26" class="anim-float relative w-full max-w-md rounded-2xl bg-brand-cream/95 p-6 shadow-2xl" />
           </div>
         </div>
       </section>
@@ -281,41 +271,7 @@
         </div>
       </section>
 
-      <!-- ============================ MOON / AI ============================ -->
-      <section class="container-page py-16 md:py-24">
-        <div class="grid gap-10 lg:grid-cols-2 items-center">
-          <div class="reveal reveal-left order-2 lg:order-1" style="transition-delay:0ms">
-            <p class="text-xs uppercase tracking-[0.3em] text-brand-red font-semibold">MUUN · AY · AI</p>
-            <h2 class="mt-3 text-3xl md:text-4xl font-bold text-brand-navy">{{moon.title}}</h2>
-            <p class="mt-5 text-base md:text-lg text-foreground/85 leading-relaxed">{{moon.p1}}</p>
-            <p class="mt-3 text-base md:text-lg text-foreground/85 leading-relaxed">{{moon.p2}}</p>
-            <div class="mt-8 grid grid-cols-3 gap-2 sm:gap-4">
-              <div class="reveal reveal-scale" style="transition-delay:0ms">
-                <div class="card-lift rounded-2xl border border-border bg-card px-3 py-5 text-center h-full flex flex-col items-center justify-between sm:p-5">
-                  <img src="/assets/moon-hd-new.png" alt="" loading="lazy" width="1024" height="1024" class="anim-float aspect-square w-full max-w-[160px] object-contain drop-shadow-2xl sm:max-w-[180px]" style="animation-delay:0s" />
-                  <p class="mt-4 text-xs md:text-sm font-semibold text-brand-navy leading-tight">{{moon.phase1}}</p>
-                </div>
-              </div>
-              <div class="reveal reveal-scale" style="transition-delay:140ms">
-                <div class="card-lift rounded-2xl border border-border bg-card px-3 py-5 text-center h-full flex flex-col items-center justify-between sm:p-5">
-                  <img src="/assets/moon-hd-grow.png" alt="" loading="lazy" width="1024" height="1024" class="anim-float aspect-square w-full max-w-[160px] object-contain drop-shadow-2xl sm:max-w-[180px]" style="animation-delay:0.6s" />
-                  <p class="mt-4 text-xs md:text-sm font-semibold text-brand-navy leading-tight">{{moon.phase2}}</p>
-                </div>
-              </div>
-              <div class="reveal reveal-scale" style="transition-delay:280ms">
-                <div class="card-lift rounded-2xl border border-border bg-card px-3 py-5 text-center h-full flex flex-col items-center justify-between sm:p-5">
-                  <img src="/assets/moon-hd-full.png" alt="" loading="lazy" width="1024" height="1024" class="anim-float aspect-square w-full max-w-[160px] object-contain drop-shadow-2xl sm:max-w-[180px]" style="animation-delay:1.2s" />
-                  <p class="mt-4 text-xs md:text-sm font-semibold text-brand-navy leading-tight">{{moon.phase3}}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="reveal reveal-right order-1 lg:order-2 relative" style="transition-delay:150ms">
-            <div class="absolute -inset-6 bg-brand-navy/10 rounded-3xl blur-2xl anim-glow"></div>
-            <img src="/assets/moon.jpg" alt="MUUN · Moon" class="anim-float relative w-full rounded-3xl border border-border shadow-xl" />
-          </div>
-        </div>
-      </section>
+
 
       <!-- ============================ THREE DAYS / PROGRAM ============================ -->
       <section id="program" class="relative overflow-hidden ornament-bg">
@@ -363,94 +319,9 @@
         </div>
       </section>
 
-      <!-- ============================ ROADMAP ============================ -->
-      <section class="container-page py-16 md:py-24">
-        <div class="reveal max-w-2xl" style="transition-delay:0ms">
-          <p class="text-xs uppercase tracking-[0.3em] text-brand-red font-semibold">MUUN26</p>
-          <h2 class="mt-3 text-3xl md:text-4xl font-bold text-brand-navy">{{roadmap.title}}</h2>
-        </div>
-        <div class="mt-10 grid gap-8 lg:grid-cols-[1.1fr_1fr] items-center">
-          <div class="grid gap-3 sm:grid-cols-2">
-            <div class="reveal reveal-left" style="transition-delay:0ms">
-              <div class="card-lift rounded-xl border p-4 bg-fuchsia-500/15 text-fuchsia-700 border-fuchsia-300/50">
-                <p class="font-semibold text-sm">{{sector.it}}</p>
-                <p class="mt-1 text-xs opacity-80">Инфоком · Кыргызтелеком</p>
-              </div>
-            </div>
-            <div class="reveal reveal-left" style="transition-delay:70ms">
-              <div class="card-lift rounded-xl border p-4 bg-sky-500/15 text-sky-700 border-sky-300/50">
-                <p class="font-semibold text-sm">{{sector.industry}}</p>
-                <p class="mt-1 text-xs opacity-80">Кыргызиндустрия · Дастан</p>
-              </div>
-            </div>
-            <div class="reveal reveal-left" style="transition-delay:140ms">
-              <div class="card-lift rounded-xl border p-4 bg-emerald-500/15 text-emerald-700 border-emerald-300/50">
-                <p class="font-semibold text-sm">{{sector.energy}}</p>
-                <p class="mt-1 text-xs opacity-80">НЭХК · Электрические станции</p>
-              </div>
-            </div>
-            <div class="reveal reveal-left" style="transition-delay:210ms">
-              <div class="card-lift rounded-xl border p-4 bg-orange-500/15 text-orange-700 border-orange-300/50">
-                <p class="font-semibold text-sm">{{sector.transport}}</p>
-                <p class="mt-1 text-xs opacity-80">Кыргыз темир жолу</p>
-              </div>
-            </div>
-            <div class="reveal reveal-left" style="transition-delay:280ms">
-              <div class="card-lift rounded-xl border p-4 bg-amber-500/15 text-amber-700 border-amber-300/50">
-                <p class="font-semibold text-sm">{{sector.aviation}}</p>
-                <p class="mt-1 text-xs opacity-80">Кыргызаэронавигация · Манас</p>
-              </div>
-            </div>
-            <div class="reveal reveal-left" style="transition-delay:350ms">
-              <div class="card-lift rounded-xl border p-4 bg-blue-500/15 text-blue-700 border-blue-300/50">
-                <p class="font-semibold text-sm">{{sector.fintech}}</p>
-                <p class="mt-1 text-xs opacity-80">Кыргызпочтасы</p>
-              </div>
-            </div>
-            <div class="reveal reveal-left" style="transition-delay:420ms">
-              <div class="card-lift rounded-xl border p-4 bg-green-500/15 text-green-700 border-green-300/50">
-                <p class="font-semibold text-sm">{{sector.eco}}</p>
-                <p class="mt-1 text-xs opacity-80">Кыргызгеология · Эко Оператор</p>
-              </div>
-            </div>
-            <div class="reveal reveal-left" style="transition-delay:490ms">
-              <div class="card-lift rounded-xl border p-4 bg-red-500/15 text-red-700 border-red-300/50">
-                <p class="font-semibold text-sm">{{sector.media}}</p>
-                <p class="mt-1 text-xs opacity-80">Медиа-холдингдер · искусство ЖОЖдору</p>
-              </div>
-            </div>
-          </div>
-          <div class="reveal reveal-right relative" style="transition-delay:200ms">
-            <img src="/assets/roadmap.jpg" alt="MUUN26 — roadmap" class="w-full rounded-3xl border border-border shadow-lg" />
-          </div>
-        </div>
-      </section>
 
-      <!-- ============================ VENUE ============================ -->
-      <section id="venue" class="bg-secondary/60 py-16 md:py-24 border-y border-border">
-        <div class="container-page grid gap-10 lg:grid-cols-2 items-center">
-          <div class="reveal reveal-left" style="transition-delay:0ms">
-            <p class="text-xs uppercase tracking-[0.3em] text-brand-red font-semibold">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline h-3.5 w-3.5 mr-1" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>Bishkek Arena
-            </p>
-            <h2 class="mt-3 text-3xl md:text-4xl font-bold text-brand-navy">{{venue.title}}</h2>
-            <p class="mt-5 text-base md:text-lg text-foreground/85 leading-relaxed">{{venue.p1}}</p>
-            <h3 class="mt-8 text-xl font-bold text-brand-navy">{{venue.wow_title}}</h3>
-            <p class="mt-3 text-sm md:text-base text-foreground/80 leading-relaxed">{{venue.wow_desc}}</p>
-            <a href="#venue" class="shine mt-8 inline-flex items-center gap-2 rounded-full bg-brand-navy px-5 py-3 text-sm font-semibold text-primary-foreground hover:-translate-y-0.5 transition-transform">
-              <span >{{venue.cta}}</span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-            </a>
-          </div>
-          <div class="reveal reveal-right grid gap-4" style="transition-delay:150ms">
-            <img src="/assets/arena.jpg" alt="Bishkek Arena" class="card-lift w-full rounded-2xl border border-border shadow-lg" />
-            <div class="grid grid-cols-2 gap-4">
-              <img src="/assets/zones.jpg" alt="360° zones" class="card-lift w-full rounded-2xl border border-border shadow-lg" />
-              <img src="/assets/wowzone.jpg" alt="WOW zone" class="card-lift w-full rounded-2xl border border-border shadow-lg" />
-            </div>
-          </div>
-        </div>
-      </section>
+
+
 
       <!-- ============================ WHO PARTICIPATES ============================ -->
       <section id="participants" class="container-page py-16 md:py-24">
@@ -532,11 +403,11 @@
               <p class="mt-4 text-primary-foreground/85 max-w-xl">{{final.desc}}</p>
             </div>
             <div class="flex flex-col sm:flex-row md:justify-end gap-3">
-              <a href="https://wa.me/8613202292825" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 rounded-full bg-brand-gold px-5 py-3 text-sm font-semibold text-brand-navy hover:-translate-y-0.5 transition-transform">
+              <a href="#partnership" class="inline-flex items-center justify-center gap-2 rounded-full bg-brand-gold px-5 py-3 text-sm font-semibold text-brand-navy hover:-translate-y-0.5 transition-transform">
                 <span >{{final.partner}}</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
               </a>
-              <a href="https://wa.me/8613202292825" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 rounded-full bg-brand-red px-5 py-3 text-sm font-semibold text-primary-foreground hover:-translate-y-0.5 transition-transform">
+              <a href="#partnership" class="inline-flex items-center justify-center gap-2 rounded-full bg-brand-red px-5 py-3 text-sm font-semibold text-primary-foreground hover:-translate-y-0.5 transition-transform">
                 <span >{{final.register}}</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
               </a>
@@ -551,7 +422,7 @@
       <div class="ornament-overlay"></div>
       <div class="relative container-page py-14 grid gap-10 md:grid-cols-3">
         <div>
-          <img src="/assets/muun-logo.jpeg" alt="MUUN26" class="logo-img h-16 w-auto bg-brand-cream/95 rounded-lg p-2" />
+          <img src="/assets/logo-header.png?v=1" alt="MUUN26" class="logo-img h-16 w-auto bg-brand-cream/95 rounded-lg p-2" />
           <p class="mt-4 text-sm text-primary-foreground/80 max-w-xs">{{footer.ministry}}</p>
         </div>
         <div class="text-sm space-y-3">
@@ -561,11 +432,7 @@
           </div>
           <div class="flex items-start gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 mt-0.5 text-brand-gold" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path><rect x="2" y="4" width="20" height="16" rx="2"></rect></svg>
-            <a href="mailto:info@muun26.kg" class="hover:text-brand-gold">info@muun26.kg</a>
-          </div>
-          <div class="flex items-start gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 mt-0.5 text-brand-gold" aria-hidden="true"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"></path></svg>
-            <a href="https://wa.me/8613202292825" target="_blank" rel="noopener noreferrer" class="hover:text-brand-gold">+86 132 0229 2825</a>
+            <a href="mailto:info@muun.kg" class="hover:text-brand-gold">info@muun.kg</a>
           </div>
         </div>
         <div class="text-xs uppercase tracking-[0.25em] text-primary-foreground/60 md:text-right">

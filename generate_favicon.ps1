@@ -1,0 +1,10 @@
+Add-Type -AssemblyName System.Drawing
+$img = [System.Drawing.Image]::FromFile("c:\Users\Beibars\Desktop\muun\bishkek_moon_site\assets\logo-header.png")
+$bmp = New-Object System.Drawing.Bitmap($img.Width, $img.Height)
+$graphics = [System.Drawing.Graphics]::FromImage($bmp)
+$graphics.Clear([System.Drawing.Color]::White)
+$graphics.DrawImage($img, 0, 0, $img.Width, $img.Height)
+$bmp.Save("c:\Users\Beibars\Desktop\muun\bishkek_moon_site\assets\favicon.png", [System.Drawing.Imaging.ImageFormat]::Png)
+$graphics.Dispose()
+$bmp.Dispose()
+$img.Dispose()
