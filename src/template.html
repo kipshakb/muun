@@ -98,15 +98,20 @@
         </div>
 
         <div class="reveal is-visible" style="transition-delay:350ms;margin-top:36px;display:flex;flex-wrap:wrap;gap:16px;">
-          <a href="#partnership" class="hero-cta">
-            {{hero.cta_register}}
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </a>
+          <button class="hero-cta" onclick="document.getElementById('modal-participant').classList.add('is-open')">
+            {{modal.become_participant}} <span style="font-size:18px;">&rarr;</span>
+          </button>
+          <button class="btn btn--outline" style="border-radius:100px; padding:16px 36px; font-size:14px; text-transform:uppercase; letter-spacing:0.1em; color:#ffffff; border:2px solid rgba(255,255,255,0.6);" onmouseover="this.style.borderColor='#ffffff'; this.style.backgroundColor='rgba(255,255,255,0.1)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.6)'; this.style.backgroundColor='transparent'" onclick="document.getElementById('modal-free-reg').classList.add('is-open')">
+            {{modal.free_reg_btn}}
+          </button>
         </div>
 
         <div class="reveal is-visible" style="transition-delay:450ms;margin-top:48px;">
           <p style="font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;">МАКСАТ · УМТУЛУУ · ҮЙРӨНҮҮ · НИЕТ</p>
-          <p style="margin-top:10px;font-size:12px;color:rgba(255,255,255,0.4);max-width:400px;">{{hero.ministry}}</p>
+          <div style="display:flex;align-items:center;gap:16px;margin-top:16px;">
+            <img src="/assets/ministry-logo.png" alt="Ministry Logo" style="height:60px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.9;" />
+            <p style="font-size:14px;color:rgba(255,255,255,0.5);max-width:600px;margin:0;line-height:1.4;">{{hero.ministry}}</p>
+          </div>
         </div>
       </div>
     </section>
@@ -158,11 +163,22 @@
     </section>
 
     <!-- ============================== QUOTE ============================== -->
-    <section class="quote-block" style="border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+    <section id="quote-section" style="padding:100px 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
       <div class="container-page">
-        <div class="reveal" style="transition-delay:0ms">
-          <p class="quote-text">{{pres.quote}}</p>
-          <p class="quote-caption">— {{pres.name}}</p>
+        <div class="reveal" style="transition-delay:0ms; background:var(--bg-secondary); border:1px solid var(--border); border-radius:32px; padding:48px; display:flex; flex-wrap:wrap; align-items:stretch; gap:48px; box-shadow:0 20px 40px rgba(0,0,0,0.2);">
+          
+          <div style="flex:1; min-width:300px; display:flex; flex-direction:column; position:relative; padding-top:4px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="var(--accent)" style="opacity:0.15; position:absolute; top:-20px; left:-16px; z-index:0;"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+            <div style="flex:1; display:flex; flex-direction:column; justify-content:space-between;">
+              <p style="text-align:left; margin:0; font-family:'Inter', sans-serif; font-size:clamp(1.2rem, 1.6vw, 1.6rem); font-weight:500; line-height:1.6; color:rgba(255,255,255,0.9); position:relative; z-index:1;">{{pres.quote}}</p>
+              <p style="text-align:left; margin:0; font-family:'Montserrat', sans-serif; font-size:13px; color:var(--accent); text-transform:uppercase; letter-spacing:0.05em; font-weight:700; position:relative; z-index:1; padding-top:24px;">— {{pres.name}}, {{pres.kicker}}</p>
+            </div>
+          </div>
+          
+          <div style="flex:1.8; min-width:300px; display:flex; align-items:center;">
+            <img src="/assets/president.png" alt="{{pres.name}}" style="width:100%; height:auto; object-fit:contain; border-radius:16px; display:block;" />
+          </div>
+          
         </div>
       </div>
     </section>
@@ -199,6 +215,17 @@
             <div class="bento-cell">
               <div class="stat-number"><span class="counter" data-target="50">0</span>+</div>
               <div class="stat-label" style="margin-top:8px;">{{scale.s6}}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal" style="transition-delay:200ms;margin-top:80px;text-align:center;">
+          <h2 class="section-title">{{scale.partners}}</h2>
+          <div style="background:white; padding:60px 80px; border-radius:24px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); margin:40px auto 0; max-width:960px;">
+            <div style="display:flex; justify-content:center; align-items:center; gap:80px; flex-wrap:wrap;">
+              <img src="/assets/aeroporty%20kyrgyzstana.png" alt="Аэропорты Кыргызстана" style="width:260px; object-fit:contain;" />
+              <img src="/assets/kumtor.png" alt="Кумтор" style="width:120px; object-fit:contain;" />
+              <img src="/assets/kyrgyzaltyn.png" alt="Кыргызалтын" style="width:200px; object-fit:contain;" />
             </div>
           </div>
         </div>
@@ -552,8 +579,12 @@
               <h3 style="font-family:'Montserrat',sans-serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:800;margin:0;">{{final.title}}</h3>
               <p style="margin:20px auto 0;font-size:16px;color:var(--text-secondary);max-width:600px;line-height:1.7;">{{final.desc}}</p>
               <div style="margin-top:36px;display:flex;flex-wrap:wrap;gap:16px;justify-content:center;">
-                <a href="#partnership" class="btn btn--outline">{{final.partner}}</a>
-                <a href="#partnership" class="btn btn--primary">{{final.register}} →</a>
+                <button class="hero-cta" onclick="document.getElementById('modal-participant').classList.add('is-open')">
+                  {{modal.become_participant}} <span style="font-size:18px;">&rarr;</span>
+                </button>
+                <button class="btn btn--outline" style="border-radius:100px; padding:16px 36px; font-size:14px; text-transform:uppercase; letter-spacing:0.1em; color:#ffffff; border:2px solid rgba(255,255,255,0.6);" onmouseover="this.style.borderColor='#ffffff'; this.style.backgroundColor='rgba(255,255,255,0.1)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.6)'; this.style.backgroundColor='transparent'" onclick="document.getElementById('modal-free-reg').classList.add('is-open')">
+                  {{modal.free_reg_btn}}
+                </button>
               </div>
             </div>
           </div>
@@ -568,7 +599,10 @@
     <div class="container-page" style="display:grid;gap:40px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));">
       <div>
         <img src="/assets/logo-header.png?v=7" alt="MUUN26" class="logo-img" style="height:40px;width:auto;opacity:0.9;" />
-        <p style="margin-top:16px;font-size:13px;color:var(--text-tertiary);max-width:260px;">{{footer.ministry}}</p>
+        <div style="display:flex;align-items:center;gap:14px;margin-top:16px;">
+          <img src="/assets/ministry-logo.png" alt="Ministry Logo" style="height:48px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.8;" />
+          <p style="font-size:13px;color:var(--text-tertiary);max-width:400px;margin:0;">{{footer.ministry}}</p>
+        </div>
       </div>
       <div style="font-size:14px;color:var(--text-secondary);">
         <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;">
@@ -586,6 +620,69 @@
       </div>
     </div>
   </footer>
+
+  <div id="modal-free-reg" class="modal-overlay" onclick="if(event.target===this) this.classList.remove('is-open')">
+    <div class="modal-content" style="text-align:center; padding:60px 40px; max-width:500px;">
+      <button class="modal-close" onclick="document.getElementById('modal-free-reg').classList.remove('is-open')">&times;</button>
+      <img src="/assets/logo-header.png" alt="MUUN26" style="height:40px; margin:0 auto 24px auto;" />
+      <h3 style="font-size:24px; margin-bottom:16px;">{{modal.registration}}</h3>
+      <p style="color:var(--text-secondary); line-height:1.6;">{{modal.free_reg_desc}}</p>
+      <button class="btn btn--primary" style="margin-top:32px; width:100%; justify-content:center;" onclick="document.getElementById('modal-free-reg').classList.remove('is-open')">{{modal.got_it}}</button>
+    </div>
+  </div>
+
+  <div id="modal-participant" class="modal-overlay" onclick="if(event.target===this) this.classList.remove('is-open')">
+    <div class="modal-content" style="padding:0; max-width:600px; overflow-y:auto; overflow-x:hidden;">
+      <div style="background:var(--bg-primary); padding:32px; text-align:center; position:relative; border-bottom:1px solid var(--border);">
+        <button class="modal-close" onclick="document.getElementById('modal-participant').classList.remove('is-open')">&times;</button>
+        <img src="/assets/logo-header.png" alt="MUUN26" style="height:48px; margin:0 auto;" />
+      </div>
+      <div style="padding:40px; background:#ffffff; color:#1a1a1a;">
+        <h3 style="font-size:28px; text-align:center; margin-bottom:8px; color:#1a1a1a;">{{modal.leave_request}}</h3>
+        <p style="text-align:center; color:#666666; margin-bottom:32px;">{{modal.we_will_contact}}</p>
+        
+        <form onsubmit="event.preventDefault(); alert('{{modal.success}}'); document.getElementById('modal-participant').classList.remove('is-open');" style="display:flex; flex-direction:column; gap:20px;">
+          <div>
+            <label style="display:block; margin-bottom:8px; font-size:14px; color:var(--accent);">{{modal.you_want}}</label>
+            <select required class="form-input-light">
+              <option value="" disabled selected>{{modal.select_option}}</option>
+              <option value="partner">{{modal.opt_partner}}</option>
+              <option value="stand">{{modal.opt_stand}}</option>
+              <option value="university">{{modal.opt_uni}}</option>
+              <option value="startup">{{modal.opt_startup}}</option>
+              <option value="speaker">{{modal.opt_speaker}}</option>
+            </select>
+          </div>
+          
+          <div>
+            <input type="text" placeholder="{{modal.fio}}" required class="form-input-light" />
+          </div>
+          
+          <div>
+            <input type="text" placeholder="{{modal.org}}" required class="form-input-light" />
+          </div>
+          
+          <div>
+            <input type="text" placeholder="{{modal.position}}" required class="form-input-light" />
+          </div>
+          
+          <div>
+            <input type="tel" placeholder="{{modal.phone}}" required class="form-input-light" />
+          </div>
+          
+          <div>
+            <input type="email" placeholder="{{modal.email}}" required class="form-input-light" />
+          </div>
+          
+          <div>
+            <textarea placeholder="{{modal.comment}}" rows="3" class="form-input-light"></textarea>
+          </div>
+          
+          <button type="submit" class="btn btn--primary" style="width:100%; justify-content:center; padding:16px; font-size:16px; margin-top:16px;">{{modal.submit}}</button>
+        </form>
+      </div>
+    </div>
+  </div>
 
   <style>
     /* Responsive helpers — handled via CSS, not Tailwind */
