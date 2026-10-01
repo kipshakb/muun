@@ -799,17 +799,14 @@
 
         fetch('https://script.google.com/macros/s/AKfycbxAm0P__k7_RAclQQetyqniaGMpxeeNd-lMHyqu8E_In9Q_lk9xD3kDokobTTzEba2w/exec', {
           method: 'POST',
+          mode: 'no-cors',
           body: new FormData(form)
         })
-        .then(function(res) { return res.json(); })
-        .then(function(data) {
-          if(data.result === 'success') {
-            alert('{{modal.success}}');
-            document.getElementById('modal-participant').classList.remove('is-open');
-            form.reset();
-          } else {
-            alert('Error: ' + data.error);
-          }
+        .then(function() {
+          // В режиме no-cors ответ прочитать нельзя, поэтому просто считаем, что всё прошло успешно
+          alert('{{modal.success}}');
+          document.getElementById('modal-participant').classList.remove('is-open');
+          form.reset();
         })
         .catch(function(err) {
           alert('Error submitting form');
