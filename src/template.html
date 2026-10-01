@@ -797,10 +797,15 @@
         btn.textContent = '...';
         btn.disabled = true;
 
-        fetch('https://script.google.com/macros/s/AKfycbxAm0P__k7_RAclQQetyqniaGMpxeeNd-lMHyqu8E_In9Q_lk9xD3kDokobTTzEba2w/exec', {
+        var urlEncodedData = new URLSearchParams(new FormData(form)).toString();
+
+        fetch('https://script.google.com/macros/s/AKfycbyY8VSRZDLHLpLjpCT2wCRFikxRxOVq0AsL8LZLk0r1pDCgEK5SNkn0ihCdeXRkmuL0/exec', {
           method: 'POST',
           mode: 'no-cors',
-          body: new FormData(form)
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: urlEncodedData
         })
         .then(function() {
           // В режиме no-cors ответ прочитать нельзя, поэтому просто считаем, что всё прошло успешно
