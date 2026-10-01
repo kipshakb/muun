@@ -641,10 +641,10 @@
         <h3 style="font-size:28px; text-align:center; margin-bottom:8px; color:#1a1a1a;">{{modal.leave_request}}</h3>
         <p style="text-align:center; color:#666666; margin-bottom:32px;">{{modal.we_will_contact}}</p>
         
-        <form onsubmit="event.preventDefault(); alert('{{modal.success}}'); document.getElementById('modal-participant').classList.remove('is-open');" style="display:flex; flex-direction:column; gap:20px;">
+        <form id="participant-form" onsubmit="submitParticipantForm(event, this)" style="display:flex; flex-direction:column; gap:20px;">
           <div>
             <label style="display:block; margin-bottom:8px; font-size:14px; color:var(--accent);">{{modal.you_want}}</label>
-            <select required class="form-input-light">
+            <select required class="form-input-light" name="role">
               <option value="" disabled selected>{{modal.select_option}}</option>
               <option value="partner">{{modal.opt_partner}}</option>
               <option value="stand">{{modal.opt_stand}}</option>
@@ -655,27 +655,27 @@
           </div>
           
           <div>
-            <input type="text" placeholder="{{modal.fio}}" required class="form-input-light" />
+            <input type="text" placeholder="{{modal.fio}}" required class="form-input-light" name="fio" />
           </div>
           
           <div>
-            <input type="text" placeholder="{{modal.org}}" required class="form-input-light" />
+            <input type="text" placeholder="{{modal.org}}" required class="form-input-light" name="org" />
           </div>
           
           <div>
-            <input type="text" placeholder="{{modal.position}}" required class="form-input-light" />
+            <input type="text" placeholder="{{modal.position}}" required class="form-input-light" name="position" />
           </div>
           
           <div>
-            <input type="tel" placeholder="{{modal.phone}}" required class="form-input-light" />
+            <input type="tel" placeholder="{{modal.phone}}" required class="form-input-light" name="phone" />
           </div>
           
           <div>
-            <input type="email" placeholder="{{modal.email}}" required class="form-input-light" />
+            <input type="email" placeholder="{{modal.email}}" required class="form-input-light" name="email" />
           </div>
           
           <div>
-            <textarea placeholder="{{modal.comment}}" rows="3" class="form-input-light"></textarea>
+            <textarea placeholder="{{modal.comment}}" rows="3" class="form-input-light" name="comment"></textarea>
           </div>
           
           <button type="submit" class="btn btn--primary" style="width:100%; justify-content:center; padding:16px; font-size:16px; margin-top:16px;">{{modal.submit}}</button>
@@ -788,6 +788,38 @@
         }, { threshold: 0.1 });
         counters.forEach(function (c) { countObs.observe(c); });
       }
+
+      // Form submission
+      window.submitParticipantForm = function(event, form) {
+        event.preventDefault();
+        var btn = form.querySelector('button[type="submit"]');
+        var originalText = btn.textContent;
+        btn.textContent = '...';
+        btn.disabled = true;
+
+        fetch('https://script.google.com/macros/s/AKfycbxAm0P__k7_RAclQQetyqniaGMpxeeNd-lMHyqu8E_In9Q_lk9xD3kDokobTTzEba2w/exec', {
+          method: 'POST',
+          body: new FormData(form)
+        })
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+          if(data.result === 'success') {
+            alert('{{modal.success}}');
+            document.getElementById('modal-participant').classList.remove('is-open');
+            form.reset();
+          } else {
+            alert('Error: ' + data.error);
+          }
+        })
+        .catch(function(err) {
+          alert('Error submitting form');
+          console.error(err);
+        })
+        .finally(function() {
+          btn.textContent = originalText;
+          btn.disabled = false;
+        });
+      };
     })();
   </script>
 </body>
