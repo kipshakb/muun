@@ -13,7 +13,13 @@
   <meta property="og:title" content="{{meta_title}}" />
   <meta property="og:description" content="{{meta_description}}" />
   <meta property="og:locale" content="{{ogLocale}}" />
+  <meta property="og:url" content="{{canonical}}" />
+  <meta property="og:image" content="https://muun.kg/assets/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="MUUN 2026 — 17-18 ноября, Бишкек" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://muun.kg/assets/og-image.jpg" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -107,7 +113,7 @@
         </div>
 
         <div class="reveal is-visible" style="transition-delay:450ms;margin-top:48px;">
-          <p style="font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;">МАКСАТ · УМТУЛУУ · ҮЙРӨНҮҮ · НИЕТ</p>
+          <p style="font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;">МАКСАТ · УМТУЛУУ · УЧУР · НИЕТ</p>
           <div style="display:flex;align-items:center;gap:16px;margin-top:16px;">
             <img src="/assets/ministry-logo.png" alt="Ministry Logo" style="height:60px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.9;" />
             <p style="font-size:14px;color:rgba(255,255,255,0.5);max-width:600px;margin:0;line-height:1.4;">{{hero.ministry}}</p>
@@ -233,92 +239,194 @@
     </section>
 
     <!-- ============================== WHY MUUN ============================== -->
-    <section style="padding:100px 0;border-top:1px solid var(--border);">
+    <section style="padding:100px 0;border-top:1px solid var(--border); overflow:hidden;">
+      <style>
+        .why-container {
+          position: relative;
+          width: 100%;
+          max-width: 900px;
+          margin: 40px auto;
+        }
+        .why-image {
+          width: 100%;
+          height: auto;
+          display: block;
+          margin: 0 auto;
+          position: relative;
+          z-index: 1;
+        }
+        .why-card {
+          background: rgba(255, 255, 255, 0.95);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255,255,255,0.8);
+          border-radius: 100px;
+          padding: 16px 32px;
+          color: #0f172a;
+          max-width: 260px;
+          text-align: center;
+          margin: 0 auto 16px auto;
+          box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+          position: relative;
+          z-index: 2;
+          font-family: 'Inter', sans-serif;
+          font-size: 14px;
+          font-weight: 700;
+          line-height: 1.4;
+          transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .why-card:hover {
+          transform: translateY(-5px);
+          border-color: var(--accent);
+        }
+        
+        @media (min-width: 1024px) {
+          .why-card {
+            position: absolute;
+            margin-bottom: 0;
+            width: max-content;
+          }
+          .why-card-1 { top: 20%; left: -5%; }
+          .why-card-2 { top: 20%; right: -5%; }
+          .why-card-3 { bottom: 20%; left: -5%; }
+          .why-card-4 { bottom: 20%; right: -5%; }
+        }
+      </style>
+
       <div class="container-page">
-        <div class="reveal" style="transition-delay:0ms;text-align:center;max-width:700px;margin:0 auto 60px;">
+        <div class="reveal" style="transition-delay:0ms;text-align:center;max-width:800px;margin:0 auto 40px;">
           <h2 class="section-title">{{why.title}}</h2>
           <p class="section-desc" style="margin:20px auto 0;">{{why.desc1}}</p>
-          <p style="margin-top:12px;font-size:15px;color:var(--accent);font-weight:600;">{{why.desc2}}</p>
         </div>
 
-        <div style="display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));">
-          <div class="reveal reveal-scale" style="transition-delay:0ms">
-            <div class="glass-card" style="text-align:center;padding:40px 24px;">
-              <div style="width:48px;height:48px;border-radius:12px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c6 3 12 0 12 0v-5"/></svg>
-              </div>
-              <p style="font-weight:600;font-size:15px;">{{why.c1}}</p>
-            </div>
-          </div>
-          <div class="reveal reveal-scale" style="transition-delay:100ms">
-            <div class="glass-card" style="text-align:center;padding:40px 24px;">
-              <div style="width:48px;height:48px;border-radius:12px;background:var(--gold-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M9 2v2"/><path d="M9 20v2"/><path d="M2 9h2"/><path d="M2 15h2"/><path d="M20 9h2"/><path d="M20 15h2"/></svg>
-              </div>
-              <p style="font-weight:600;font-size:15px;">{{why.c2}}</p>
-            </div>
-          </div>
-          <div class="reveal reveal-scale" style="transition-delay:200ms">
-            <div class="glass-card" style="text-align:center;padding:40px 24px;">
-              <div style="width:48px;height:48px;border-radius:12px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
-              </div>
-              <p style="font-weight:600;font-size:15px;">{{why.c3}}</p>
-            </div>
-          </div>
-          <div class="reveal reveal-scale" style="transition-delay:300ms">
-            <div class="glass-card" style="text-align:center;padding:40px 24px;">
-              <div style="width:48px;height:48px;border-radius:12px;background:var(--gold-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></svg>
-              </div>
-              <p style="font-weight:600;font-size:15px;">{{why.c4}}</p>
-            </div>
-          </div>
+        <div class="why-container reveal" style="transition-delay:100ms">
+          <img src="/assets/why-concept.png" alt="Why MUUN" class="why-image" />
+          
+          <div class="why-card why-card-1">{{why.c1}}</div>
+          <div class="why-card why-card-2">{{why.c3}}</div>
+          <div class="why-card why-card-3">{{why.c2}}</div>
+          <div class="why-card why-card-4">{{why.c4}}</div>
         </div>
 
-        <div class="reveal" style="transition-delay:200ms;margin-top:48px;text-align:center;">
-          <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.25em;color:var(--text-tertiary);font-weight:600;">{{why.bottom}}</p>
+        <div class="reveal" style="transition-delay:200ms;text-align:center;max-width:800px;margin:40px auto 0;">
+          <p style="font-size:15px;color:var(--text-secondary);line-height:1.6;margin-bottom:32px;">{{why.desc2}}</p>
+          <p style="font-size:12px;text-transform:uppercase;letter-spacing:0.25em;color:var(--accent);font-weight:700;">{{why.bottom}}</p>
         </div>
       </div>
     </section>
 
     <!-- ============================== 360° OPPORTUNITIES ============================== -->
-    <section style="padding:100px 0;background:var(--bg-secondary);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+    <section style="padding:100px 0;background:var(--bg-secondary);border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;">
+      <style>
+        .opp-container {
+          position: relative;
+          width: 100%;
+          max-width: 1000px;
+          margin: 0 auto;
+        }
+        .opp-image {
+          width: 100%;
+          height: auto;
+          display: block;
+          margin: 0 auto;
+          position: relative;
+          z-index: 1;
+        }
+        .opp-card {
+          border-radius: 100px;
+          padding: 12px 24px 12px 12px;
+          color: #fff;
+          max-width: 340px;
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          margin: 0 auto 16px auto;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+          position: relative;
+          z-index: 2;
+          border: 1px solid rgba(255,255,255,0.1);
+        }
+        .opp-card-title {
+          font-family: 'Montserrat', sans-serif;
+          font-size: 14px;
+          font-weight: 800;
+          margin: 0 0 4px 0;
+          text-transform: uppercase;
+        }
+        .opp-card-desc {
+          font-size: 11px;
+          color: rgba(255,255,255,0.9);
+          margin: 0;
+          line-height: 1.4;
+        }
+        .opp-icon {
+          width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: rgba(0,0,0,0.2); font-size: 24px;
+        }
+        .opp-card-1 { background: rgba(59, 130, 246, 0.9); backdrop-filter: blur(10px); }
+        .opp-card-2 { background: rgba(16, 185, 129, 0.9); backdrop-filter: blur(10px); }
+        .opp-card-3 { background: rgba(245, 158, 11, 0.9); backdrop-filter: blur(10px); }
+        .opp-card-4 { background: rgba(139, 92, 246, 0.9); backdrop-filter: blur(10px); }
+        .opp-card-5 { background: rgba(239, 68, 68, 0.9); backdrop-filter: blur(10px); }
+        
+        @media (min-width: 1024px) {
+          .opp-card {
+            position: absolute;
+            margin-bottom: 0;
+            width: max-content;
+          }
+          .opp-card-1 { top: 0%; left: 50%; transform: translateX(-50%); }
+          .opp-card-2 { top: 25%; left: -5%; }
+          .opp-card-3 { top: 25%; right: -5%; flex-direction: row-reverse; padding: 12px 12px 12px 24px; text-align: right; }
+          .opp-card-4 { bottom: 10%; left: 0%; }
+          .opp-card-5 { bottom: 10%; right: 0%; flex-direction: row-reverse; padding: 12px 12px 12px 24px; text-align: right; }
+        }
+      </style>
+
       <div class="container-page">
-        <div class="reveal" style="transition-delay:0ms;text-align:center;max-width:700px;margin:0 auto 60px;">
+        <div class="reveal" style="transition-delay:0ms;text-align:center;max-width:700px;margin:0 auto 80px;">
           <h2 class="section-title" style="color:var(--accent);">{{opp.title}}</h2>
           <p class="section-desc" style="margin:20px auto 0;">{{opp.desc}}</p>
         </div>
 
-        <div style="display:grid;gap:2px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));background:var(--border);border-radius:var(--radius-lg);overflow:hidden;">
-          <div class="reveal" style="transition-delay:0ms">
-            <div style="background:var(--bg-primary);padding:36px 28px;height:100%;border-left:3px solid #3b82f6;">
-              <h3 style="font-family:'Montserrat',sans-serif;font-size:16px;font-weight:700;margin:0 0 8px;">{{opp.c1_t}}</h3>
-              <p style="font-size:14px;color:var(--text-secondary);margin:0;line-height:1.6;">{{opp.c1_d}}</p>
+        <div class="opp-container reveal" style="transition-delay:100ms">
+          <img src="/assets/360-concept.png" alt="360 Opportunities" class="opp-image" />
+          
+          <div class="opp-card opp-card-1">
+            <div class="opp-icon">🎓</div>
+            <div>
+              <h3 class="opp-card-title">{{opp.c1_t}}</h3>
+              <p class="opp-card-desc">{{opp.c1_d}}</p>
             </div>
           </div>
-          <div class="reveal" style="transition-delay:80ms">
-            <div style="background:var(--bg-primary);padding:36px 28px;height:100%;border-left:3px solid #10b981;">
-              <h3 style="font-family:'Montserrat',sans-serif;font-size:16px;font-weight:700;margin:0 0 8px;">{{opp.c2_t}}</h3>
-              <p style="font-size:14px;color:var(--text-secondary);margin:0;line-height:1.6;">{{opp.c2_d}}</p>
+          
+          <div class="opp-card opp-card-2">
+            <div class="opp-icon">📈</div>
+            <div>
+              <h3 class="opp-card-title">{{opp.c2_t}}</h3>
+              <p class="opp-card-desc">{{opp.c2_d}}</p>
             </div>
           </div>
-          <div class="reveal" style="transition-delay:160ms">
-            <div style="background:var(--bg-primary);padding:36px 28px;height:100%;border-left:3px solid var(--gold);">
-              <h3 style="font-family:'Montserrat',sans-serif;font-size:16px;font-weight:700;margin:0 0 8px;">{{opp.c3_t}}</h3>
-              <p style="font-size:14px;color:var(--text-secondary);margin:0;line-height:1.6;">{{opp.c3_d}}</p>
+          
+          <div class="opp-card opp-card-3">
+            <div class="opp-icon">💼</div>
+            <div>
+              <h3 class="opp-card-title">{{opp.c3_t}}</h3>
+              <p class="opp-card-desc">{{opp.c3_d}}</p>
             </div>
           </div>
-          <div class="reveal" style="transition-delay:240ms">
-            <div style="background:var(--bg-primary);padding:36px 28px;height:100%;border-left:3px solid #8b5cf6;">
-              <h3 style="font-family:'Montserrat',sans-serif;font-size:16px;font-weight:700;margin:0 0 8px;">{{opp.c4_t}}</h3>
-              <p style="font-size:14px;color:var(--text-secondary);margin:0;line-height:1.6;">{{opp.c4_d}}</p>
+          
+          <div class="opp-card opp-card-4">
+            <div class="opp-icon">⚙️</div>
+            <div>
+              <h3 class="opp-card-title">{{opp.c4_t}}</h3>
+              <p class="opp-card-desc">{{opp.c4_d}}</p>
             </div>
           </div>
-          <div class="reveal" style="transition-delay:320ms">
-            <div style="background:var(--bg-primary);padding:36px 28px;height:100%;border-left:3px solid var(--accent);grid-column:span 1;">
-              <h3 style="font-family:'Montserrat',sans-serif;font-size:16px;font-weight:700;margin:0 0 8px;">{{opp.c5_t}}</h3>
-              <p style="font-size:14px;color:var(--text-secondary);margin:0;line-height:1.6;">{{opp.c5_d}}</p>
+          
+          <div class="opp-card opp-card-5">
+            <div class="opp-icon">🌍</div>
+            <div>
+              <h3 class="opp-card-title">{{opp.c5_t}}</h3>
+              <p class="opp-card-desc">{{opp.c5_d}}</p>
             </div>
           </div>
         </div>
@@ -615,7 +723,7 @@
         </div>
       </div>
       <div style="text-align:right;">
-        <p style="font-family:'Montserrat',sans-serif;font-size:12px;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;">MAKSАТ · УМТУЛУУ · ҮЙРӨНҮҮ · НИЕТ</p>
+        <p style="font-family:'Montserrat',sans-serif;font-size:12px;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;">MAKSАТ · УМТУЛУУ · УЧУР · НИЕТ</p>
         <p style="margin-top:16px;font-size:12px;color:var(--text-tertiary);">{{footer.copyright}}</p>
       </div>
     </div>

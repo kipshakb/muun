@@ -7,7 +7,7 @@
       "label": "KG",
       "meta": {
         "title": "MUUN26 — Кыргызстандын келечек кесиптеринин жаштар көргөзмө-форуму",
-        "description": "MUUN26 — Кыргызстандын келечек кесиптеринин жаштар көргөзмө-форуму. 21–23 октябрь 2026, Бишкек Арена. Билим, карьера жана инновациялар."
+        "description": "MUUN26 — Кыргызстандын келечек кесиптеринин жаштар көргөзмө-форуму. 17–18 ноябрь 2026, Бишкек, Ырыс Ордо. Билим, карьера жана инновациялар."
       }
     },
     "ru": {
@@ -17,7 +17,7 @@
       "label": "RU",
       "meta": {
         "title": "MUUN26 — Молодежная выставка-форум профессий будущего Кыргызстана",
-        "description": "MUUN26 — молодежная выставка-форум профессий будущего Кыргызстана. 21–23 октября 2026, Бишкек Арена. Образование, карьера и инновации."
+        "description": "MUUN26 — молодежная выставка-форум профессий будущего Кыргызстана. 17–18 ноября 2026, Бишкек, Ырыс Ордо. Образование, карьера и инновации."
       }
     },
     "en": {
@@ -27,7 +27,7 @@
       "label": "EN",
       "meta": {
         "title": "MUUN26 — Kyrgyzstan's youth exhibition-forum of the professions of the future",
-        "description": "MUUN26 — Kyrgyzstan's youth exhibition-forum of the professions of the future. October 21–23, 2026, Bishkek Arena. Education, careers and innovation."
+        "description": "MUUN26 — Kyrgyzstan's youth exhibition-forum of the professions of the future. November 17–18, 2026, Bishkek, Yrys Ordo. Education, careers and innovation."
       }
     }
   },
@@ -43,7 +43,7 @@
       "hero.date": "17-18 ноябрь 2026 · «Ырыс Ордо» Конгресс-Холлу, Бишкек, Кыргызстан",
       "hero.title": "МААНИЛҮҮ ТАНДОО — КЕЛЕЧЕКТИН БАШТАЛЫШЫ",
       "hero.subtitle": "Кыргызстандын келечек кесиптеринин жаштар көргөзмө-форуму",
-      "hero.desc": "МАКСАТ · УМТУЛУУ · ҮЙРӨНҮҮ · НИЕТ. Билим берүү, карьера жана инновацияларды бир аянтчага бириктирген улуттук платформа.",
+      "hero.desc": "МАКСАТ · УМТУЛУУ · УЧУР · НИЕТ. Билим берүү, карьера жана инновацияларды бир аянтчага бириктирген улуттук платформа.",
       "hero.cta_register": "Катталуу",
       "hero.cta_whatsapp": "WhatsApp жазуу",
       "hero.ministry": "Кыргыз Республикасынын Билим берүү жана илим министрлигинин колдоосу менен",
@@ -69,7 +69,7 @@
       "values.title": "Төрт баалуулук",
       "value.maksat": "Максат — Цель. «Бийикке умтул — максатыңа жет!»",
       "value.umtuluu": "Умтулуу — Стремление. «Изден, тап, жет!»",
-      "value.uyronuu": "Үйрөнүү — Обучение. «Билим — жарык, үйрөн!»",
+      "value.uyronuu": "Учур — Обучение. «Билим — жарык, үйрөн!»",
       "value.niet": "Ниет — Намерение. «Ниетиң таза, жолуң ачык!»",
       "moon.title": "MUUN: Ай, ИИ жана өсүү жолу",
       "moon.p1": "Moon ≈ MUUN ≈ Ай — түнкү асман, ар бир талант — жылдыз.",
@@ -111,7 +111,7 @@
       "who.6": "Эл аралык уюмдар",
       "insp.title": "Дүйнөлүк лидерлерден шыктанган:",
       "insp.desc": "TED · WEF Davos · Slush · Web Summit · VivaTech — MUUN Кыргызстандын профориентация жана мүмкүнчүлүктөрдүн улуттук бренди болот.",
-      "final.title": "Кыргызстандын келечек кесиптеринин жаштар көргөзмө-форуму",
+      "final.title": "MUUN 2026 улуттук социалдык жаштар долбоору — жаңы муун үчүн 360° мүмкүнчүлүктөр платформасы",
       "final.desc": "MUUN — жеке демилге. Мамлекеттик каржылоо талап кылынбайт. Билим берүү мекемелери үчүн жеңилдетилген шарттар.",
       "final.partner": "Өнөктөш болуу",
       "final.register": "Катталуу",
@@ -251,7 +251,7 @@
       "values.title": "Четыре ценности",
       "value.maksat": "Максат — Цель. «Стремись к высоте — достигни цели!»",
       "value.umtuluu": "Умтулуу — Стремление. «Ищи, найди, достигни!»",
-      "value.uyronuu": "Үйрөнүү — Обучение. «Знание — свет, учись!»",
+      "value.uyronuu": "Учур — Обучение. «Знание — свет, учись!»",
       "value.niet": "Ниет — Намерение. «Чисты намерения — открыт путь!»",
       "moon.title": "MUUN: Луна, ИИ и путь роста",
       "moon.p1": "Moon ≈ MUUN ≈ Луна — ночное небо, каждый талант — звезда.",
@@ -293,7 +293,7 @@
       "who.6": "Международные организации",
       "insp.title": "Вдохновлено мировыми лидерами:",
       "insp.desc": "TED · WEF Davos · Slush · Web Summit · VivaTech — MUUN станет национальным брендом профориентации и возможностей Кыргызстана.",
-      "final.title": "Молодежная выставка-форум профессий будущего Кыргызстана",
+      "final.title": "Национальный социальный молодежный проект MUUN 2026 — платформа 360° возможностей для нового поколения",
       "final.desc": "MUUN — частная инициатива. Государственное финансирование не требуется. Льготные условия для образовательных учреждений.",
       "final.partner": "Стать партнёром",
       "final.register": "Регистрация",
@@ -433,7 +433,7 @@
       "values.title": "Four values",
       "value.maksat": "Maksat — Purpose. “Aim high — reach your goal!”",
       "value.umtuluu": "Umtuluu — Aspiration. “Seek, find, achieve!”",
-      "value.uyronuu": "Üyrönüü — Learning. “Knowledge is light — keep learning!”",
+      "value.uyronuu": "Uchur — Learning. “Knowledge is light — keep learning!”",
       "value.niet": "Niet — Intention. “Pure intentions — an open path!”",
       "moon.title": "MUUN: the Moon, AI and the path of growth",
       "moon.p1": "Moon ≈ MUUN ≈ Ay — the night sky, and every talent is a star.",
@@ -475,7 +475,7 @@
       "who.6": "International organizations",
       "insp.title": "Inspired by global leaders:",
       "insp.desc": "TED · WEF Davos · Slush · Web Summit · VivaTech — MUUN will become Kyrgyzstan's national brand of career guidance and opportunity.",
-      "final.title": "Kyrgyzstan's youth exhibition-forum of the professions of the future",
+      "final.title": "MUUN 2026 National Social Youth Project — a 360° opportunities platform for the new generation",
       "final.desc": "MUUN is a private initiative. No state funding required. Preferential terms for educational institutions.",
       "final.partner": "Become a partner",
       "final.register": "Register",

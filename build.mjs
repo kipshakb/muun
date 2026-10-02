@@ -5,7 +5,7 @@ import path from "node:path";
 
 // ─────────────────────────────────────────────────────────────
 // ВАЖНО: замените на реальный домен сайта (для canonical / hreflang / og).
-const SITE_URL = "https://placy.kz";
+const SITE_URL = "https://muun.kg";
 // ─────────────────────────────────────────────────────────────
 
 const OUT = "dist";
