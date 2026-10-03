@@ -101,6 +101,14 @@ const htaccess = `# gzip
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml
 </IfModule>
+
+# 301 Редирект с www на без-www (Основной хост)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP_HOST} ^www\.muun\.kg$ [NC]
+  RewriteRule ^(.*)$ https://muun.kg/$1 [R=301,L]
+</IfModule>
+
 # кэш: хешированные ассеты — навсегда, html — не кэшировать
 <IfModule mod_headers.c>
   <FilesMatch "\\.(css|js|woff2|png|jpe?g|svg)$">

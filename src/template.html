@@ -40,12 +40,12 @@
   <meta property="og:description" content="{{meta_description}}" />
   <meta property="og:locale" content="{{ogLocale}}" />
   <meta property="og:url" content="{{canonical}}" />
-  <meta property="og:image" content="https://muun.kg/assets/og-image.jpg" />
+  <meta property="og:image" content="https://muun.kg/assets/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="MUUN 2026 — 17-18 ноября, Бишкек" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image" content="https://muun.kg/assets/og-image.jpg" />
+  <meta name="twitter:image" content="https://muun.kg/assets/og-image.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -80,7 +80,7 @@
       "name": "MUUN26",
       "url": "https://muun.kg"
     },
-    "image": "https://muun.kg/assets/og-image.jpg",
+    "image": "https://muun.kg/assets/og-image.png",
     "url": "https://muun.kg",
     "offers": {
       "@type": "Offer",
@@ -148,7 +148,7 @@
         <img src="/assets/moon-hd-full.png" alt="MUUN" class="hero-moon-img anim-float" />
       </div>
 
-      <div class="container-page" style="position:relative;z-index:3;display:flex;flex-direction:column;align-items:flex-start;text-align:left;padding-top:15vh;padding-bottom:15vh;min-height:100vh;justify-content:center;">
+      <div class="container-page hero-inner" style="position:relative;z-index:3;display:flex;flex-direction:column;align-items:flex-start;text-align:left;padding-top:15vh;padding-bottom:15vh;min-height:100vh;justify-content:center;">
         
         <div class="reveal is-visible" style="transition-delay:0ms">
           <div class="hero-badge" style="margin-bottom:24px;">
@@ -167,7 +167,7 @@
           <p style="margin-top:24px;font-size:16px;color:rgba(255,255,255,0.7);line-height:1.7;">{{hero.subtitle}}</p>
         </div>
 
-        <div class="reveal is-visible" style="transition-delay:350ms;margin-top:36px;display:flex;flex-wrap:wrap;gap:16px;">
+        <div class="reveal is-visible hero-actions" style="transition-delay:350ms;margin-top:36px;display:flex;flex-wrap:wrap;gap:16px;">
           <button class="hero-cta" onclick="document.getElementById('modal-participant').classList.add('is-open')">
             {{modal.become_participant}} <span style="font-size:18px;">&rarr;</span>
           </button>
@@ -178,7 +178,7 @@
 
         <div class="reveal is-visible" style="transition-delay:450ms;margin-top:48px;">
           <p style="font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;">МАКСАТ · УМТУЛУУ · УЧУР · НИЕТ</p>
-          <div style="display:flex;align-items:center;gap:16px;margin-top:16px;">
+          <div class="hero-ministry" style="display:flex;align-items:center;gap:16px;margin-top:16px;">
             <img src="/assets/ministry-logo.png" alt="Ministry Logo" style="height:60px;object-fit:contain;opacity:1;" />
             <p style="font-size:14px;color:rgba(255,255,255,0.7);max-width:440px;margin:0;line-height:1.4;">{{hero.ministry}}</p>
           </div>
@@ -235,7 +235,7 @@
     <!-- ============================== QUOTE ============================== -->
     <section id="quote-section" style="padding:100px 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
       <div class="container-page">
-        <div class="reveal" style="transition-delay:0ms; background:var(--bg-secondary); border:1px solid var(--border); border-radius:32px; padding:48px; display:flex; flex-wrap:wrap; align-items:stretch; gap:48px; box-shadow:0 20px 40px rgba(0,0,0,0.2);">
+        <div class="reveal quote-card" style="transition-delay:0ms; background:var(--bg-secondary); border:1px solid var(--border); border-radius:32px; padding:48px; display:flex; flex-wrap:wrap; align-items:stretch; gap:48px; box-shadow:0 20px 40px rgba(0,0,0,0.2);">
           
           <div style="flex:1; min-width:300px; display:flex; flex-direction:column; position:relative; padding-top:4px;">
             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="var(--accent)" style="opacity:0.15; position:absolute; top:-20px; left:-16px; z-index:0;"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
@@ -291,8 +291,8 @@
 
         <div class="reveal" style="transition-delay:200ms;margin-top:80px;text-align:center;">
           <h2 class="section-title">{{scale.partners}}</h2>
-          <div style="background:white; padding:60px 80px; border-radius:24px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); margin:40px auto 0; max-width:960px;">
-            <div style="display:flex; justify-content:center; align-items:center; gap:80px; flex-wrap:wrap;">
+          <div class="partners-box" style="background:white; padding:60px 80px; border-radius:24px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); margin:40px auto 0; max-width:960px;">
+            <div class="partners-row" style="display:flex; justify-content:center; align-items:center; gap:80px; flex-wrap:wrap;">
               <img src="/assets/aeroporty%20kyrgyzstana.png" alt="Аэропорты Кыргызстана" style="width:260px; object-fit:contain;" />
               <img src="/assets/kumtor.png" alt="Кумтор" style="width:120px; object-fit:contain;" />
               <img src="/assets/kyrgyzaltyn.png" alt="Кыргызалтын" style="width:200px; object-fit:contain;" />
@@ -303,196 +303,127 @@
     </section>
 
     <!-- ============================== WHY MUUN ============================== -->
-    <section style="padding:100px 0;border-top:1px solid var(--border); overflow:hidden;">
-      <style>
-        .why-container {
-          position: relative;
-          width: 100%;
-          max-width: 900px;
-          margin: 40px auto;
-        }
-        .why-image {
-          width: 100%;
-          height: auto;
-          display: block;
-          margin: 0 auto;
-          position: relative;
-          z-index: 1;
-        }
-        .why-card {
-          background: rgba(255, 255, 255, 0.95);
-          backdrop-filter: blur(10px);
-          border: 1px solid rgba(255,255,255,0.8);
-          border-radius: 100px;
-          padding: 16px 32px;
-          color: #0f172a;
-          max-width: 260px;
-          text-align: center;
-          margin: 0 auto 16px auto;
-          box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-          position: relative;
-          z-index: 2;
-          font-family: 'Inter', sans-serif;
-          font-size: 14px;
-          font-weight: 700;
-          line-height: 1.4;
-          transition: transform 0.3s ease, border-color 0.3s ease;
-        }
-        .why-card:hover {
-          transform: translateY(-5px);
-          border-color: var(--accent);
-        }
-        
-        @media (min-width: 1024px) {
-          .why-card {
-            position: absolute;
-            margin-bottom: 0;
-            width: max-content;
-          }
-          .why-card-1 { top: 20%; left: -5%; }
-          .why-card-2 { top: 20%; right: -5%; }
-          .why-card-3 { bottom: 20%; left: -5%; }
-          .why-card-4 { bottom: 20%; right: -5%; }
-        }
-      </style>
-
+    <section class="why-section">
+      <div class="why-bg-glow" aria-hidden="true"></div>
       <div class="container-page">
-        <div class="reveal" style="transition-delay:0ms;text-align:center;max-width:800px;margin:0 auto 40px;">
-          <h2 class="section-title">{{why.title}}</h2>
-          <p class="section-desc" style="margin:20px auto 0;">{{why.desc1}}</p>
+        <div class="why-layout">
+          <div class="why-left">
+            <div class="reveal why-head" style="transition-delay:0ms;">
+              <span class="eyebrow"><span class="eyebrow-dot"></span>MUUN 2026</span>
+              <h2 class="section-title why-title">{{why.title}}</h2>
+              <p class="why-lead">{{why.desc1}}</p>
+            </div>
+
+            <ul class="why-list">
+              <li class="why-item reveal" style="--c:239,68,68;transition-delay:80ms;">
+                <span class="why-ico"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg></span>
+                <span class="why-text">{{why.c1}}</span>
+                <span class="why-num">01</span>
+              </li>
+              <li class="why-item reveal" style="--c:139,92,246;transition-delay:160ms;">
+                <span class="why-ico"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg></span>
+                <span class="why-text">{{why.c2}}</span>
+                <span class="why-num">02</span>
+              </li>
+              <li class="why-item reveal" style="--c:59,130,246;transition-delay:240ms;">
+                <span class="why-ico"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></svg></span>
+                <span class="why-text">{{why.c3}}</span>
+                <span class="why-num">03</span>
+              </li>
+              <li class="why-item reveal" style="--c:34,197,94;transition-delay:320ms;">
+                <span class="why-ico"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg></span>
+                <span class="why-text">{{why.c4}}</span>
+                <span class="why-num">04</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="why-visual reveal reveal-scale" style="transition-delay:120ms;">
+            <div class="why-visual-ring" aria-hidden="true"></div>
+            <img src="/assets/why-concept.png" alt="{{why.title}}" class="why-image" loading="lazy" width="1287" height="765" />
+          </div>
         </div>
 
-        <div class="why-container reveal" style="transition-delay:100ms">
-          <img src="/assets/why-concept.png" alt="Why MUUN" class="why-image" />
-          
-          <div class="why-card why-card-1">{{why.c1}}</div>
-          <div class="why-card why-card-2">{{why.c3}}</div>
-          <div class="why-card why-card-3">{{why.c2}}</div>
-          <div class="why-card why-card-4">{{why.c4}}</div>
-        </div>
-
-        <div class="reveal" style="transition-delay:200ms;text-align:center;max-width:800px;margin:40px auto 0;">
-          <p style="font-size:15px;color:var(--text-secondary);line-height:1.6;margin-bottom:32px;">{{why.desc2}}</p>
-          <p style="font-size:12px;text-transform:uppercase;letter-spacing:0.25em;color:var(--accent);font-weight:700;">{{why.bottom}}</p>
+        <div class="why-mission reveal" style="transition-delay:100ms;">
+          <div class="why-mission-head">
+            <span class="why-mission-label">{{why.mission}}</span>
+          </div>
+          <p class="why-mission-text">{{why.desc2}}</p>
+          <p class="why-tagline">{{why.bottom}}</p>
         </div>
       </div>
     </section>
 
     <!-- ============================== 360° OPPORTUNITIES ============================== -->
-    <section style="padding:100px 0;background:var(--bg-secondary);border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;">
-      <style>
-        .opp-container {
-          position: relative;
-          width: 100%;
-          max-width: 1000px;
-          margin: 0 auto;
-        }
-        .opp-image {
-          width: 100%;
-          height: auto;
-          display: block;
-          margin: 0 auto;
-          position: relative;
-          z-index: 1;
-        }
-        .opp-card {
-          border-radius: 100px;
-          padding: 12px 24px 12px 12px;
-          color: #fff;
-          max-width: 340px;
-          display: flex;
-          align-items: center;
-          gap: 16px;
-          margin: 0 auto 16px auto;
-          box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-          position: relative;
-          z-index: 2;
-          border: 1px solid rgba(255,255,255,0.1);
-        }
-        .opp-card-title {
-          font-family: 'Montserrat', sans-serif;
-          font-size: 14px;
-          font-weight: 800;
-          margin: 0 0 4px 0;
-          text-transform: uppercase;
-        }
-        .opp-card-desc {
-          font-size: 11px;
-          color: rgba(255,255,255,0.9);
-          margin: 0;
-          line-height: 1.4;
-        }
-        .opp-icon {
-          width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: rgba(0,0,0,0.2); font-size: 24px;
-        }
-        .opp-card-1 { background: rgba(59, 130, 246, 0.9); backdrop-filter: blur(10px); }
-        .opp-card-2 { background: rgba(16, 185, 129, 0.9); backdrop-filter: blur(10px); }
-        .opp-card-3 { background: rgba(245, 158, 11, 0.9); backdrop-filter: blur(10px); }
-        .opp-card-4 { background: rgba(139, 92, 246, 0.9); backdrop-filter: blur(10px); }
-        .opp-card-5 { background: rgba(239, 68, 68, 0.9); backdrop-filter: blur(10px); }
-        
-        @media (min-width: 1024px) {
-          .opp-card {
-            position: absolute;
-            margin-bottom: 0;
-            width: max-content;
-          }
-          .opp-card-1 { top: 0%; left: 50%; transform: translateX(-50%); }
-          .opp-card-2 { top: 25%; left: -5%; }
-          .opp-card-3 { top: 25%; right: -5%; flex-direction: row-reverse; padding: 12px 12px 12px 24px; text-align: right; }
-          .opp-card-4 { bottom: 10%; left: 0%; }
-          .opp-card-5 { bottom: 10%; right: 0%; flex-direction: row-reverse; padding: 12px 12px 12px 24px; text-align: right; }
-        }
-      </style>
-
+    <section class="opp-section">
       <div class="container-page">
-        <div class="reveal" style="transition-delay:0ms;text-align:center;max-width:700px;margin:0 auto 80px;">
-          <h2 class="section-title" style="color:var(--accent);">{{opp.title}}</h2>
-          <p class="section-desc" style="margin:20px auto 0;">{{opp.desc}}</p>
+        <div class="opp-head reveal" style="transition-delay:0ms;">
+          <span class="eyebrow"><span class="eyebrow-dot"></span>{{opp.kicker}}</span>
+          <h2 class="section-title opp-title">{{opp.title}}</h2>
+          <p class="opp-lead">{{opp.desc}}</p>
         </div>
 
-        <div class="opp-container reveal" style="transition-delay:100ms">
-          <img src="/assets/360-concept.png" alt="360 Opportunities" class="opp-image" />
-          
-          <div class="opp-card opp-card-1">
-            <div class="opp-icon">🎓</div>
-            <div>
-              <h3 class="opp-card-title">{{opp.c1_t}}</h3>
-              <p class="opp-card-desc">{{opp.c1_d}}</p>
+        <div class="opp-stage reveal reveal-scale" style="transition-delay:100ms;">
+          <div class="opp-stage-glow" aria-hidden="true"></div>
+          <div class="opp-stage-floor" aria-hidden="true"></div>
+          <img src="/assets/360-concept.png" alt="{{opp.title}}" class="opp-image" loading="lazy" width="1203" height="677" />
+        </div>
+
+        <div class="opp-grid">
+          <article class="opp-tile reveal" style="--c:59,130,246;transition-delay:0ms;">
+            <div class="opp-tile-top">
+              <span class="opp-tile-ico"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg></span>
+              <span class="opp-tile-num">01</span>
             </div>
-          </div>
-          
-          <div class="opp-card opp-card-2">
-            <div class="opp-icon">📈</div>
-            <div>
-              <h3 class="opp-card-title">{{opp.c2_t}}</h3>
-              <p class="opp-card-desc">{{opp.c2_d}}</p>
+            <div class="opp-tile-body">
+              <h3 class="opp-tile-title">{{opp.c1_t}}</h3>
+              <p class="opp-tile-desc" data-chips>{{opp.c1_d}}</p>
             </div>
-          </div>
-          
-          <div class="opp-card opp-card-3">
-            <div class="opp-icon">💼</div>
-            <div>
-              <h3 class="opp-card-title">{{opp.c3_t}}</h3>
-              <p class="opp-card-desc">{{opp.c3_d}}</p>
+          </article>
+
+          <article class="opp-tile reveal" style="--c:139,92,246;transition-delay:80ms;">
+            <div class="opp-tile-top">
+              <span class="opp-tile-ico"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></svg></span>
+              <span class="opp-tile-num">02</span>
             </div>
-          </div>
-          
-          <div class="opp-card opp-card-4">
-            <div class="opp-icon">⚙️</div>
-            <div>
-              <h3 class="opp-card-title">{{opp.c4_t}}</h3>
-              <p class="opp-card-desc">{{opp.c4_d}}</p>
+            <div class="opp-tile-body">
+              <h3 class="opp-tile-title">{{opp.c2_t}}</h3>
+              <p class="opp-tile-desc" data-chips>{{opp.c2_d}}</p>
             </div>
-          </div>
-          
-          <div class="opp-card opp-card-5">
-            <div class="opp-icon">🌍</div>
-            <div>
-              <h3 class="opp-card-title">{{opp.c5_t}}</h3>
-              <p class="opp-card-desc">{{opp.c5_d}}</p>
+          </article>
+
+          <article class="opp-tile reveal" style="--c:34,197,94;transition-delay:160ms;">
+            <div class="opp-tile-top">
+              <span class="opp-tile-ico"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg></span>
+              <span class="opp-tile-num">03</span>
             </div>
-          </div>
+            <div class="opp-tile-body">
+              <h3 class="opp-tile-title">{{opp.c3_t}}</h3>
+              <p class="opp-tile-desc" data-chips>{{opp.c3_d}}</p>
+            </div>
+          </article>
+
+          <article class="opp-tile reveal" style="--c:249,115,22;transition-delay:0ms;">
+            <div class="opp-tile-top">
+              <span class="opp-tile-ico"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></span>
+              <span class="opp-tile-num">04</span>
+            </div>
+            <div class="opp-tile-body">
+              <h3 class="opp-tile-title">{{opp.c4_t}}</h3>
+              <p class="opp-tile-desc" data-chips>{{opp.c4_d}}</p>
+            </div>
+          </article>
+
+          <article class="opp-tile reveal" style="--c:239,68,68;transition-delay:80ms;">
+            <div class="opp-tile-top">
+              <span class="opp-tile-ico"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></span>
+              <span class="opp-tile-num">05</span>
+            </div>
+            <div class="opp-tile-body">
+              <h3 class="opp-tile-title">{{opp.c5_t}}</h3>
+              <p class="opp-tile-desc" data-chips>{{opp.c5_d}}</p>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -516,7 +447,7 @@
             <p style="margin-top:20px;font-size:16px;color:var(--text-secondary);line-height:1.7;">{{moon.p1}}</p>
             <p style="margin-top:12px;font-size:16px;color:var(--text-secondary);line-height:1.7;">{{moon.p2}}</p>
 
-            <div style="margin-top:36px;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;">
+            <div class="moon-phases" style="margin-top:36px;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;">
               <div class="reveal reveal-scale" style="transition-delay:0ms">
                 <div class="glass-card" style="text-align:center;padding:24px 16px;">
                   <img src="/assets/moon-hd-new.png" alt="" loading="lazy" width="1024" height="1024" class="anim-float" style="width:100%;max-width:140px;margin:0 auto;aspect-ratio:1;object-fit:contain;animation-delay:0s;" />
@@ -569,21 +500,21 @@
           <img src="/assets/venue-exterior.jpg" alt="Yrys Ordo" class="venue-image" style="width:100%;height:500px;object-fit:cover;border-radius:var(--radius-lg);border:1px solid var(--border);" />
         </div>
         
-        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px;">
+        <div class="gallery-grid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px;">
           <div class="reveal reveal-scale" style="transition-delay:100ms">
-            <img src="/assets/gallery-mainstage.jpg" alt="Main Stage" style="width:100%;height:450px;object-fit:cover;border-radius:var(--radius-lg);border:1px solid var(--border);" />
+            <img src="/assets/gallery-mainstage.jpg" alt="Main Stage" class="gallery-img" style="width:100%;height:450px;object-fit:cover;border-radius:var(--radius-lg);border:1px solid var(--border);" />
             <p style="margin-top:20px;font-size:18px;font-weight:600;color:var(--text-primary);text-align:center;">{{gallery.stage}}</p>
           </div>
           <div class="reveal reveal-scale" style="transition-delay:200ms">
-            <img src="/assets/gallery-panel.jpg" alt="Panel Session" style="width:100%;height:450px;object-fit:cover;border-radius:var(--radius-lg);border:1px solid var(--border);" />
+            <img src="/assets/gallery-panel.jpg" alt="Panel Session" class="gallery-img" style="width:100%;height:450px;object-fit:cover;border-radius:var(--radius-lg);border:1px solid var(--border);" />
             <p style="margin-top:20px;font-size:18px;font-weight:600;color:var(--text-primary);text-align:center;">{{gallery.panel}}</p>
           </div>
           <div class="reveal reveal-scale" style="transition-delay:300ms">
-            <img src="/assets/gallery-exhibition.png" alt="Exhibition" style="width:100%;height:450px;object-fit:cover;border-radius:var(--radius-lg);border:1px solid var(--border);" />
+            <img src="/assets/gallery-exhibition.png" alt="Exhibition" class="gallery-img" style="width:100%;height:450px;object-fit:cover;border-radius:var(--radius-lg);border:1px solid var(--border);" />
             <p style="margin-top:20px;font-size:18px;font-weight:600;color:var(--text-primary);text-align:center;">{{gallery.exhibition}}</p>
           </div>
           <div class="reveal reveal-scale" style="transition-delay:400ms">
-            <img src="/assets/gallery-registration.jpg" alt="Registration" style="width:100%;height:450px;object-fit:cover;border-radius:var(--radius-lg);border:1px solid var(--border);" />
+            <img src="/assets/gallery-registration.jpg" alt="Registration" class="gallery-img" style="width:100%;height:450px;object-fit:cover;border-radius:var(--radius-lg);border:1px solid var(--border);" />
             <p style="margin-top:20px;font-size:18px;font-weight:600;color:var(--text-primary);text-align:center;">{{gallery.registration}}</p>
           </div>
         </div>
@@ -623,7 +554,7 @@
         <div style="display:grid;gap:24px;max-width:900px;margin:0 auto;" class="md-2col">
           <!-- Day 1 -->
           <div class="reveal" style="transition-delay:0ms">
-            <div class="glass-card glass-card--accent" style="padding:40px 36px;">
+            <div class="glass-card glass-card--accent prog-card" style="padding:40px 36px;">
               <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;">
                 <div>
                   <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.2em;color:var(--accent);font-weight:700;margin:0;">{{prog.d1}}</p>
@@ -648,7 +579,7 @@
 
           <!-- Day 2 -->
           <div class="reveal" style="transition-delay:150ms">
-            <div class="glass-card glass-card--accent" style="padding:40px 36px;">
+            <div class="glass-card glass-card--accent prog-card" style="padding:40px 36px;">
               <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;">
                 <div>
                   <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.2em;color:var(--accent);font-weight:700;margin:0;">{{prog.d2}}</p>
@@ -745,12 +676,12 @@
     <section id="partnership" style="padding:100px 0;">
       <div class="container-page">
         <div class="reveal" style="transition-delay:0ms">
-          <div style="background:linear-gradient(135deg, var(--bg-elevated), var(--bg-secondary));border:1px solid var(--border);border-radius:var(--radius-lg);padding:60px 40px;text-align:center;position:relative;overflow:hidden;">
+          <div class="cta-box" style="background:linear-gradient(135deg, var(--bg-elevated), var(--bg-secondary));border:1px solid var(--border);border-radius:var(--radius-lg);padding:60px 40px;text-align:center;position:relative;overflow:hidden;">
             <div style="position:absolute;inset:0;background:radial-gradient(circle at 30% 50%,var(--accent-glow),transparent 50%);opacity:0.15;pointer-events:none;"></div>
             <div style="position:relative;z-index:1;">
               <h3 style="font-family:'Montserrat',sans-serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:800;margin:0;">{{final.title}}</h3>
               <p style="margin:20px auto 0;font-size:16px;color:var(--text-secondary);max-width:600px;line-height:1.7;">{{final.desc}}</p>
-              <div style="margin-top:36px;display:flex;flex-wrap:wrap;gap:16px;justify-content:center;">
+              <div class="cta-actions" style="margin-top:36px;display:flex;flex-wrap:wrap;gap:16px;justify-content:center;">
                 <button class="hero-cta" onclick="document.getElementById('modal-participant').classList.add('is-open')">
                   {{modal.become_participant}} <span style="font-size:18px;">&rarr;</span>
                 </button>
@@ -786,7 +717,7 @@
           <a href="mailto:info@muun.kg" style="color:var(--text-secondary);transition:color 0.3s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-secondary)'">info@muun.kg</a>
         </div>
       </div>
-      <div style="text-align:right;">
+      <div class="footer-right" style="text-align:right;">
         <p style="font-family:'Montserrat',sans-serif;font-size:12px;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;">MAKSАТ · УМТУЛУУ · УЧУР · НИЕТ</p>
         <p style="margin-top:16px;font-size:12px;color:var(--text-tertiary);">{{footer.copyright}}</p>
       </div>
@@ -794,7 +725,7 @@
   </footer>
 
   <div id="modal-free-reg" class="modal-overlay" onclick="if(event.target===this) this.classList.remove('is-open')">
-    <div class="modal-content" style="padding:0; max-width:960px; width:95%; overflow:hidden; display:flex; flex-direction:row; background:#fff; position:relative; max-height:90vh;">
+    <div class="modal-content modal-sheet" style="padding:0; max-width:960px; width:95%; overflow:hidden; display:flex; flex-direction:row; background:#fff; position:relative; max-height:90vh;">
       <button class="modal-close" style="position:absolute; top:16px; right:16px; z-index:10; background:rgba(0,0,0,0.05); border-radius:50%; width:32px; height:32px; display:flex; align-items:center; justify-content:center; color:#333; font-size:24px; padding:0; border:none;" onclick="document.getElementById('modal-free-reg').classList.remove('is-open')">&times;</button>
       
       <!-- LEFT PANEL (hidden on mobile, lg-show) -->
@@ -827,11 +758,11 @@
       </div>
 
       <!-- RIGHT PANEL (Form) -->
-      <div style="flex:1; overflow-y:auto; overflow-x:hidden;">
+      <div class="modal-scroll" style="flex:1; overflow-y:auto; overflow-x:hidden;">
         
         <!-- STEP 1: Registration Form -->
         <div id="reg-step-form">
-          <div style="background:#fff; padding:32px 32px 16px 32px; text-align:center; position:relative;">
+          <div class="form-steps" style="background:#fff; padding:32px 32px 16px 32px; text-align:center; position:relative;">
             <div style="display:flex; align-items:center; justify-content:center; gap:16px; max-width:400px; margin:0 auto;">
               <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
                 <div style="width:24px; height:24px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;">1</div>
@@ -844,12 +775,12 @@
               </div>
             </div>
           </div>
-          <div style="padding:0 32px 32px 32px; background:#ffffff; color:#1a1a1a;">
-            <h3 style="font-size:24px; text-align:left; margin-bottom:4px; color:#1a1a1a; text-transform:uppercase; font-weight:800;">{{reg.title}}</h3>
+          <div class="form-body" style="padding:0 32px 32px 32px; background:#ffffff; color:#1a1a1a;">
+            <h3 class="form-title" style="font-size:24px; text-align:left; margin-bottom:4px; color:#1a1a1a; text-transform:uppercase; font-weight:800;">{{reg.title}}</h3>
             <p style="text-align:left; color:#666666; margin-bottom:24px; font-size:14px;">{{reg.subtitle}}</p>
           
           <form id="visitor-reg-form" onsubmit="submitVisitorForm(event, this)" style="display:flex; flex-direction:column; gap:16px;">
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+            <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
               <div>
                 <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{reg.name}} *</label>
                 <input type="text" name="firstName" required class="form-input-light" placeholder="{{reg.name_ph}}" />
@@ -860,7 +791,7 @@
               </div>
             </div>
             
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+            <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
               <div>
                 <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{reg.phone}} *</label>
                 <input type="tel" name="phone" required class="form-input-light" placeholder="+996 700 123 456" />
@@ -871,7 +802,7 @@
               </div>
             </div>
             
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+            <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
               <div>
                 <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{reg.city}} *</label>
                 <input type="text" name="city" required class="form-input-light" placeholder="" />
@@ -884,7 +815,7 @@
             
             <div>
               <label style="display:block; margin-bottom:8px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.category}} *</label>
-              <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px;">
+              <div class="cat-grid" style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px;">
                 <label class="icon-radio-card"><input type="radio" name="category" value="schoolStudent" required /> <div class="icon">🎒</div> <span>{{reg.cat_school}}</span></label>
                 <label class="icon-radio-card"><input type="radio" name="category" value="student" /> <div class="icon">🎓</div> <span>{{reg.cat_student}}</span></label>
                 <label class="icon-radio-card"><input type="radio" name="category" value="parent" /> <div class="icon">👨‍👩‍👧</div> <span>{{reg.cat_parent}}</span></label>
@@ -899,7 +830,7 @@
                 <span style="font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.interests}} *</span>
                 <span style="font-size:11px; color:#aaa; font-weight:400; margin-left:4px;">({{reg.max3}})</span>
               </label>
-              <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:8px;">
+              <div class="int-grid" style="display:grid; grid-template-columns:repeat(4, 1fr); gap:8px;">
                 <label class="icon-check-card"><input type="checkbox" name="interests" value="energy" /> <div class="icon">⚡</div> <span>{{reg.int_energy}}</span></label>
                 <label class="icon-check-card"><input type="checkbox" name="interests" value="it" /> <div class="icon">💻</div> <span>{{reg.int_it}}</span></label>
                 <label class="icon-check-card"><input type="checkbox" name="interests" value="engineering" /> <div class="icon">⚙️</div> <span>{{reg.int_engineering}}</span></label>
@@ -972,7 +903,7 @@
   </div>
 
   <div id="modal-participant" class="modal-overlay" onclick="if(event.target===this) this.classList.remove('is-open')">
-    <div class="modal-content" style="padding:0; max-width:1000px; width:95%; overflow:hidden; display:flex; flex-direction:row; background:#fff; position:relative; max-height:90vh;">
+    <div class="modal-content modal-sheet" style="padding:0; max-width:1000px; width:95%; overflow:hidden; display:flex; flex-direction:row; background:#fff; position:relative; max-height:90vh;">
       <button class="modal-close" style="position:absolute; top:16px; right:16px; z-index:10; background:rgba(0,0,0,0.05); border-radius:50%; width:32px; height:32px; display:flex; align-items:center; justify-content:center; color:#333; font-size:24px; padding:0; border:none;" onclick="document.getElementById('modal-participant').classList.remove('is-open')">&times;</button>
       
       <!-- LEFT PANEL -->
@@ -1009,9 +940,9 @@
       </div>
 
       <!-- RIGHT PANEL (Form) -->
-      <div style="flex:1; overflow-y:auto; overflow-x:hidden;">
+      <div class="modal-scroll" style="flex:1; overflow-y:auto; overflow-x:hidden;">
         
-        <div style="background:#fff; padding:32px 32px 16px 32px; text-align:center; position:relative;">
+        <div class="form-steps" style="background:#fff; padding:32px 32px 16px 32px; text-align:center; position:relative;">
           <div style="display:flex; align-items:center; justify-content:center; gap:16px; max-width:400px; margin:0 auto;">
             <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
               <div style="width:24px; height:24px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;">1</div>
@@ -1030,8 +961,8 @@
           </div>
         </div>
 
-        <div style="padding:0 32px 32px 32px; background:#ffffff; color:#1a1a1a;">
-          <h3 style="font-size:24px; text-align:left; margin-bottom:4px; color:#1a1a1a; text-transform:uppercase; font-weight:800;">{{p_title}}</h3>
+        <div class="form-body" style="padding:0 32px 32px 32px; background:#ffffff; color:#1a1a1a;">
+          <h3 class="form-title" style="font-size:24px; text-align:left; margin-bottom:4px; color:#1a1a1a; text-transform:uppercase; font-weight:800;">{{p_title}}</h3>
           <p style="text-align:left; color:#666666; margin-bottom:32px; font-size:14px;">{{p_desc}}</p>
           
           <form id="participant-form" onsubmit="submitParticipantForm(event, this)" style="display:flex; flex-direction:column; gap:24px; text-align:left;">
@@ -1045,7 +976,7 @@
                 <input type="text" required class="form-input-light" name="org" placeholder="" />
               </div>
               
-              <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
+              <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
                 <div>
                   <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{p_sector}}</label>
                   <select required class="form-input-light" name="sector">
@@ -1063,7 +994,7 @@
                 </div>
               </div>
               
-              <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+              <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
                 <div>
                   <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{p_country}}</label>
                   <select required class="form-input-light" name="country">
@@ -1086,7 +1017,7 @@
             <div style="border-top:1px solid #e2e8f0; padding-top:24px;">
               <h4 style="font-size:16px; font-weight:700; margin-bottom:12px; color:#1a1a1a;">{{p_sec_contact}}</h4>
               
-              <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
+              <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
                 <div>
                   <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{p_fio}}</label>
                   <input type="text" required class="form-input-light" name="fio" />
@@ -1097,7 +1028,7 @@
                 </div>
               </div>
               
-              <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+              <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
                 <div>
                   <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{p_phone}}</label>
                   <input type="tel" required class="form-input-light" name="phone" placeholder="+996 " />
@@ -1116,7 +1047,7 @@
                 <span style="font-size:11px; color:#888; font-weight:400; display:block; margin-top:2px;">{{p_interests_desc}}</span>
               </label>
               
-              <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+              <div class="pint-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
                 <label class="list-check-card"><span style="display:flex; align-items:center; gap:8px;"><span style="font-size:16px;">🏪</span> {{p_int_stand}}</span> <input type="checkbox" name="interests" value="stand" /></label>
                 <label class="list-check-card"><span style="display:flex; align-items:center; gap:8px;"><span style="font-size:16px;">👥</span> {{p_int_hr}}</span> <input type="checkbox" name="interests" value="hr" /></label>
                 <label class="list-check-card"><span style="display:flex; align-items:center; gap:8px;"><span style="font-size:16px;">🎙️</span> {{p_int_speaker}}</span> <input type="checkbox" name="interests" value="speaker" /></label>
@@ -1124,7 +1055,7 @@
                 <label class="list-check-card"><span style="display:flex; align-items:center; gap:8px;"><span style="font-size:16px;">🏫</span> {{p_int_masterclass}}</span> <input type="checkbox" name="interests" value="masterclass" /></label>
                 <label class="list-check-card"><span style="display:flex; align-items:center; gap:8px;"><span style="font-size:16px;">📢</span> {{p_int_brand}}</span> <input type="checkbox" name="interests" value="brand" /></label>
                 
-                <div class="list-check-card" style="grid-column:span 2; cursor:default;">
+                <div class="list-check-card pint-other" style="grid-column:span 2; cursor:default;">
                   <span style="display:flex; align-items:center; gap:8px; width:100%;">
                     <span style="font-size:16px;">💬</span> {{p_int_other}} 
                     <input type="text" name="other_interest" placeholder="{{p_other_ph}}" style="flex:1; margin-left:8px; background:none; border:none; border-bottom:1px solid #ccc; font-size:12px; outline:none;" />
@@ -1237,17 +1168,45 @@
       // Mobile nav
       var toggle = document.getElementById("navToggle");
       var panel = document.getElementById("mobileNav");
+      var header = document.querySelector(".site-header");
       if (toggle && panel) {
         toggle.addEventListener("click", function () {
           var open = panel.classList.toggle("is-open");
+          if (header) header.classList.toggle("nav-open", open);
           toggle.setAttribute("aria-expanded", open ? "true" : "false");
         });
         panel.querySelectorAll("a").forEach(function (a) {
           a.addEventListener("click", function () {
             panel.classList.remove("is-open");
+            if (header) header.classList.remove("nav-open");
             toggle.setAttribute("aria-expanded", "false");
           });
         });
+      }
+
+      // 360° tiles: render comma-separated lists as chips
+      document.querySelectorAll("[data-chips]").forEach(function (el) {
+        var parts = el.textContent.split(",").map(function (s) { return s.trim(); }).filter(Boolean);
+        if (parts.length < 2) return;
+        el.textContent = "";
+        parts.forEach(function (p) {
+          var chip = document.createElement("span");
+          chip.className = "opp-chip";
+          chip.textContent = p.charAt(0).toUpperCase() + p.slice(1);
+          el.appendChild(chip);
+        });
+        el.classList.add("is-chips");
+      });
+
+      // Lock page scroll while a modal is open (important on mobile)
+      var modals = document.querySelectorAll(".modal-overlay");
+      function syncScrollLock() {
+        var anyOpen = Array.prototype.some.call(modals, function (m) { return m.classList.contains("is-open"); });
+        document.documentElement.classList.toggle("modal-lock", anyOpen);
+      }
+      if ("MutationObserver" in window) {
+        var mo = new MutationObserver(syncScrollLock);
+        modals.forEach(function (m) { mo.observe(m, { attributes: true, attributeFilter: ["class"] }); });
       }
 
       // Image fallback
