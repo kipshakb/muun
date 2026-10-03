@@ -1,6 +1,32 @@
 <!doctype html>
 <html lang="{{htmlLang}}">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0ZHSFG3ZD8"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-0ZHSFG3ZD8');
+  </script>
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1464299552456682');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1464299552456682&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{{meta_title}}</title>
@@ -27,6 +53,44 @@
 
   <link rel="icon" href="/assets/favicon.png?v=6" />
   <link rel="stylesheet" href="{{css_href}}" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "MUUN 2026",
+    "description": "{{meta_description}}",
+    "startDate": "2026-11-17",
+    "endDate": "2026-11-18",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "location": {
+      "@type": "Place",
+      "name": "Конгресс-холл «Ырыс Ордо»",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Бишкек",
+        "addressCountry": "KG"
+      }
+    },
+    "organizer": {
+      "@type": "Organization",
+      "name": "MUUN26",
+      "url": "https://muun.kg"
+    },
+    "image": "https://muun.kg/assets/og-image.jpg",
+    "url": "https://muun.kg",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "KGS",
+      "availability": "https://schema.org/InStock",
+      "url": "https://muun.kg"
+    }
+  }
+  </script>
 </head>
 <body>
 <div class="noise-overlay"></div>
@@ -730,64 +794,362 @@
   </footer>
 
   <div id="modal-free-reg" class="modal-overlay" onclick="if(event.target===this) this.classList.remove('is-open')">
-    <div class="modal-content" style="text-align:center; padding:60px 40px; max-width:500px;">
-      <button class="modal-close" onclick="document.getElementById('modal-free-reg').classList.remove('is-open')">&times;</button>
-      <img src="/assets/logo-header.png" alt="MUUN26" style="height:40px; margin:0 auto 24px auto;" />
-      <h3 style="font-size:24px; margin-bottom:16px;">{{modal.registration}}</h3>
-      <p style="color:var(--text-secondary); line-height:1.6;">{{modal.free_reg_desc}}</p>
-      <button class="btn btn--primary" style="margin-top:32px; width:100%; justify-content:center;" onclick="document.getElementById('modal-free-reg').classList.remove('is-open')">{{modal.got_it}}</button>
+    <div class="modal-content" style="padding:0; max-width:960px; width:95%; overflow:hidden; display:flex; flex-direction:row; background:#fff; position:relative; max-height:90vh;">
+      <button class="modal-close" style="position:absolute; top:16px; right:16px; z-index:10; background:rgba(0,0,0,0.05); border-radius:50%; width:32px; height:32px; display:flex; align-items:center; justify-content:center; color:#333; font-size:24px; padding:0; border:none;" onclick="document.getElementById('modal-free-reg').classList.remove('is-open')">&times;</button>
+      
+      <!-- LEFT PANEL (hidden on mobile, lg-show) -->
+      <div class="lg-show" style="width:360px; min-width:360px; background:linear-gradient(180deg, #f0fdfa 0%, #e2e8f0 100%); padding:40px; flex-direction:column; justify-content:space-between; border-right:1px solid #cbd5e1; display:none;">
+        <div>
+           <img src="/assets/logo-header.png" alt="MUUN" style="height:32px; margin-bottom:24px; filter:invert(1) hue-rotate(180deg) brightness(0.2);" />
+           <p style="font-weight:700; font-size:12px; color:#475569; margin-bottom:8px;">📅 17-18 НОЯБРЯ 2026</p>
+           <p style="font-weight:700; font-size:12px; color:#475569; margin-bottom:32px;">📍 БИШКЕК</p>
+           
+           <h2 style="font-size:36px; color:#1e293b; font-weight:800; line-height:1.1; margin-bottom:32px; font-family:'Montserrat', sans-serif;">Твое будущее<br/><span style="color:var(--accent);">начинается здесь</span></h2>
+           
+           <div style="display:flex; flex-direction:column; gap:20px;">
+             <div style="display:flex; align-items:center; gap:12px;">
+               <div style="font-size:24px; color:var(--accent);">👥</div>
+               <div><div style="font-weight:700; color:#1e293b; font-size:16px;">10 000+</div><div style="font-size:12px; color:#64748b;">посетителей</div></div>
+             </div>
+             <div style="display:flex; align-items:center; gap:12px;">
+               <div style="font-size:24px; color:var(--accent);">🏢</div>
+               <div><div style="font-weight:700; color:#1e293b; font-size:16px;">100+</div><div style="font-size:12px; color:#64748b;">компаний и вузов</div></div>
+             </div>
+             <div style="display:flex; align-items:center; gap:12px;">
+               <div style="font-size:24px; color:var(--accent);">🎯</div>
+               <div><div style="font-weight:700; color:#1e293b; font-size:16px;">12</div><div style="font-size:12px; color:#64748b;">отраслевых зон</div></div>
+             </div>
+           </div>
+        </div>
+        <div style="margin-top:40px;">
+          <p style="font-size:12px; font-weight:700; color:#475569; letter-spacing:0.1em; line-height:1.5;">🎓 КАРЬЕРА<br/>ОБРАЗОВАНИЕ<br/>ВДОХНОВЕНИЕ</p>
+        </div>
+      </div>
+
+      <!-- RIGHT PANEL (Form) -->
+      <div style="flex:1; overflow-y:auto; overflow-x:hidden;">
+        
+        <!-- STEP 1: Registration Form -->
+        <div id="reg-step-form">
+          <div style="background:#fff; padding:32px 32px 16px 32px; text-align:center; position:relative;">
+            <div style="display:flex; align-items:center; justify-content:center; gap:16px; max-width:400px; margin:0 auto;">
+              <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
+                <div style="width:24px; height:24px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;">1</div>
+                <span style="font-size:10px; color:var(--text-tertiary);">{{reg.step1}}</span>
+              </div>
+              <div style="flex:1; height:1px; background:var(--border);"></div>
+              <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
+                <div style="width:24px; height:24px; border-radius:50%; background:var(--border); color:var(--text-tertiary); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;">2</div>
+                <span style="font-size:10px; color:var(--text-tertiary);">{{reg.step2}}</span>
+              </div>
+            </div>
+          </div>
+          <div style="padding:0 32px 32px 32px; background:#ffffff; color:#1a1a1a;">
+            <h3 style="font-size:24px; text-align:left; margin-bottom:4px; color:#1a1a1a; text-transform:uppercase; font-weight:800;">{{reg.title}}</h3>
+            <p style="text-align:left; color:#666666; margin-bottom:24px; font-size:14px;">{{reg.subtitle}}</p>
+          
+          <form id="visitor-reg-form" onsubmit="submitVisitorForm(event, this)" style="display:flex; flex-direction:column; gap:16px;">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+              <div>
+                <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{reg.name}} *</label>
+                <input type="text" name="firstName" required class="form-input-light" placeholder="{{reg.name_ph}}" />
+              </div>
+              <div>
+                <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{reg.surname}} *</label>
+                <input type="text" name="lastName" required class="form-input-light" placeholder="{{reg.surname_ph}}" />
+              </div>
+            </div>
+            
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+              <div>
+                <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{reg.phone}} *</label>
+                <input type="tel" name="phone" required class="form-input-light" placeholder="+996 700 123 456" />
+              </div>
+              <div>
+                <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">Email</label>
+                <input type="email" name="email" class="form-input-light" placeholder="example@gmail.com" />
+              </div>
+            </div>
+            
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+              <div>
+                <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{reg.city}} *</label>
+                <input type="text" name="city" required class="form-input-light" placeholder="" />
+              </div>
+              <div>
+                <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{reg.school_org}}</label>
+                <input type="text" name="school_org" class="form-input-light" placeholder="" />
+              </div>
+            </div>
+            
+            <div>
+              <label style="display:block; margin-bottom:8px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.category}} *</label>
+              <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px;">
+                <label class="icon-radio-card"><input type="radio" name="category" value="schoolStudent" required /> <div class="icon">🎒</div> <span>{{reg.cat_school}}</span></label>
+                <label class="icon-radio-card"><input type="radio" name="category" value="student" /> <div class="icon">🎓</div> <span>{{reg.cat_student}}</span></label>
+                <label class="icon-radio-card"><input type="radio" name="category" value="parent" /> <div class="icon">👨‍👩‍👧</div> <span>{{reg.cat_parent}}</span></label>
+                <label class="icon-radio-card"><input type="radio" name="category" value="jobSeeker" /> <div class="icon">💼</div> <span>{{reg.cat_jobseeker}}</span></label>
+                <label class="icon-radio-card"><input type="radio" name="category" value="teacher" /> <div class="icon">👨‍🏫</div> <span>{{reg.cat_teacher}}</span></label>
+                <label class="icon-radio-card"><input type="radio" name="category" value="other" /> <div class="icon">💬</div> <span>{{reg.other}}</span></label>
+              </div>
+            </div>
+            
+            <div>
+              <label style="display:block; margin-bottom:8px;">
+                <span style="font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.interests}} *</span>
+                <span style="font-size:11px; color:#aaa; font-weight:400; margin-left:4px;">({{reg.max3}})</span>
+              </label>
+              <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:8px;">
+                <label class="icon-check-card"><input type="checkbox" name="interests" value="energy" /> <div class="icon">⚡</div> <span>{{reg.int_energy}}</span></label>
+                <label class="icon-check-card"><input type="checkbox" name="interests" value="it" /> <div class="icon">💻</div> <span>{{reg.int_it}}</span></label>
+                <label class="icon-check-card"><input type="checkbox" name="interests" value="engineering" /> <div class="icon">⚙️</div> <span>{{reg.int_engineering}}</span></label>
+                <label class="icon-check-card"><input type="checkbox" name="interests" value="medicine" /> <div class="icon">❤️</div> <span>{{reg.int_medicine}}</span></label>
+                <label class="icon-check-card"><input type="checkbox" name="interests" value="industry" /> <div class="icon">🏭</div> <span>{{reg.int_industry}}</span></label>
+                <label class="icon-check-card"><input type="checkbox" name="interests" value="transport" /> <div class="icon">🚚</div> <span>{{reg.int_transport}}</span></label>
+                <label class="icon-check-card"><input type="checkbox" name="interests" value="finance" /> <div class="icon">🏦</div> <span>{{reg.int_finance}}</span></label>
+                <label class="icon-check-card"><input type="checkbox" name="interests" value="gov" /> <div class="icon">🏛️</div> <span>{{reg.int_gov}}</span></label>
+                <label class="icon-check-card"><input type="checkbox" name="interests" value="abroad" /> <div class="icon">🌍</div> <span>{{reg.int_abroad}}</span></label>
+                <label class="icon-check-card"><input type="checkbox" name="interests" value="startup" /> <div class="icon">🚀</div> <span>{{reg.int_startup}}</span></label>
+                <label class="icon-check-card"><input type="checkbox" name="interests" value="creative" /> <div class="icon">🎨</div> <span>{{reg.int_creative}}</span></label>
+                <label class="icon-check-card"><input type="checkbox" name="interests" value="agriculture" /> <div class="icon">🌱</div> <span>{{reg.int_agriculture}}</span></label>
+              </div>
+            </div>
+            
+            <div style="margin-top:8px;">
+              <label style="display:flex; align-items:flex-start; gap:8px; font-size:12px; color:#666; cursor:pointer;">
+                <input type="checkbox" required style="margin-top:2px;" />
+                <span>{{reg.privacy}} *</span>
+              </label>
+            </div>
+            
+            <button type="submit" id="reg-submit-btn" class="btn btn--primary" style="width:100%; justify-content:center; padding:16px; font-size:16px; margin-top:8px; border-radius:100px; background:var(--accent); border:none; color:#fff; cursor:pointer; font-weight:700; letter-spacing:0.05em;">
+              {{reg.get_ticket}} &rarr;
+            </button>
+            
+            <p style="text-align:center; font-size:11px; color:#999; margin-top:4px;">🔒 {{reg.data_safe}}</p>
+          </form>
+        </div>
+      </div>
+      
+      <!-- STEP 2: QR Ticket -->
+      <div id="reg-step-ticket" style="display:none;">
+        <div style="background:var(--bg-primary); padding:32px; text-align:center; position:relative; border-bottom:1px solid var(--border);">
+          <button class="modal-close" onclick="document.getElementById('modal-free-reg').classList.remove('is-open'); document.getElementById('reg-step-form').style.display='block'; document.getElementById('reg-step-ticket').style.display='none';">&times;</button>
+          <div style="font-size:40px; margin-bottom:12px;">🎉</div>
+          <h3 style="font-size:22px; color:#fff; margin:0;">{{reg.success_title}}</h3>
+          <p style="color:var(--text-secondary); margin-top:8px; font-size:14px;">{{reg.success_desc}}</p>
+        </div>
+        <div style="padding:32px; background:#ffffff; text-align:center;">
+          <div id="ticket-card" style="background:linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border-radius:24px; padding:32px 24px; max-width:360px; margin:0 auto; position:relative; overflow:hidden;">
+            <div style="position:absolute; top:0; right:0; width:120px; height:120px; background:radial-gradient(circle, rgba(59,130,246,0.2) 0%, transparent 70%);"></div>
+            <img src="/assets/logo-header.png" alt="MUUN26" style="height:32px; margin:0 auto 16px; display:block;" />
+            <p style="font-size:11px; color:rgba(255,255,255,0.5); text-transform:uppercase; letter-spacing:0.15em; margin:0 0 4px 0;">{{reg.visitor_pass}}</p>
+            <div id="ticket-qr" style="background:#fff; border-radius:16px; padding:16px; width:160px; height:160px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center; margin:16px auto;"></div>
+            <p id="ticket-name" style="font-size:20px; font-weight:700; color:#fff; margin:8px 0 4px 0;"></p>
+            <p id="ticket-id" style="font-size:12px; color:rgba(255,255,255,0.4); font-family:monospace; margin:0 0 12px 0;"></p>
+            <div style="border-top:1px dashed rgba(255,255,255,0.15); padding-top:12px; display:flex; justify-content:space-between; align-items:center;">
+              <div style="text-align:left;">
+                <p style="font-size:10px; color:rgba(255,255,255,0.4); margin:0;">{{reg.date_label}}</p>
+                <p style="font-size:13px; color:#fff; font-weight:600; margin:2px 0 0 0;">17-18 Nov 2026</p>
+              </div>
+              <div style="text-align:right;">
+                <p style="font-size:10px; color:rgba(255,255,255,0.4); margin:0;">{{reg.venue_label}}</p>
+                <p style="font-size:13px; color:#fff; font-weight:600; margin:2px 0 0 0;">Ырыс Ордо</p>
+              </div>
+            </div>
+          </div>
+          <button id="btn-download-ticket" onclick="downloadTicket()" class="btn btn--primary" style="width:100%; max-width:360px; justify-content:center; padding:14px; font-size:14px; margin-top:20px; border-radius:100px; background:var(--accent); border:none; color:#fff; cursor:pointer; font-weight:700;">
+            📥 {{reg.download_ticket}}
+          </button>
+          <button type="button" onclick="resetTicketForm()" style="display:block; width:100%; max-width:360px; margin:12px auto 0; background:none; border:none; color:#64748b; font-size:13px; cursor:pointer; text-decoration:underline;">
+            🔄 {{reg.reset}}
+          </button>
+        </div>
+      </div>
+      <!-- END OF RIGHT PANEL -->
+      </div>
     </div>
   </div>
 
   <div id="modal-participant" class="modal-overlay" onclick="if(event.target===this) this.classList.remove('is-open')">
-    <div class="modal-content" style="padding:0; max-width:600px; overflow-y:auto; overflow-x:hidden;">
-      <div style="background:var(--bg-primary); padding:32px; text-align:center; position:relative; border-bottom:1px solid var(--border);">
-        <button class="modal-close" onclick="document.getElementById('modal-participant').classList.remove('is-open')">&times;</button>
-        <img src="/assets/logo-header.png" alt="MUUN26" style="height:48px; margin:0 auto;" />
+    <div class="modal-content" style="padding:0; max-width:1000px; width:95%; overflow:hidden; display:flex; flex-direction:row; background:#fff; position:relative; max-height:90vh;">
+      <button class="modal-close" style="position:absolute; top:16px; right:16px; z-index:10; background:rgba(0,0,0,0.05); border-radius:50%; width:32px; height:32px; display:flex; align-items:center; justify-content:center; color:#333; font-size:24px; padding:0; border:none;" onclick="document.getElementById('modal-participant').classList.remove('is-open')">&times;</button>
+      
+      <!-- LEFT PANEL -->
+      <div class="lg-show" style="width:360px; min-width:360px; background:linear-gradient(180deg, #1e293b 0%, #0f172a 100%); padding:40px; flex-direction:column; justify-content:space-between; border-right:1px solid #334155; display:none;">
+        <div>
+           <img src="/assets/logo-header.png" alt="MUUN" style="height:32px; margin-bottom:24px;" />
+           <p style="font-weight:700; font-size:12px; color:#cbd5e1; margin-bottom:8px;">📅 17-18 НОЯБРЯ 2026</p>
+           <p style="font-weight:700; font-size:12px; color:#cbd5e1; margin-bottom:32px;">📍 БИШКЕК</p>
+           
+           <h2 style="font-size:32px; color:#fff; font-weight:800; line-height:1.2; margin-bottom:32px; font-family:'Montserrat', sans-serif;">ТАЛАНТЫ СЕГОДНЯ.<br/><span style="color:var(--accent);">СИЛЬНАЯ ЭКОНОМИКА ЗАВТРА.</span></h2>
+           
+           <div style="display:flex; flex-direction:column; gap:24px;">
+             <div style="display:flex; align-items:center; gap:12px;">
+               <div style="font-size:20px; color:var(--accent);">👥</div>
+               <div style="font-weight:700; color:#fff; font-size:13px; text-transform:uppercase;">ПРЯМОЙ ДОСТУП К ТАЛАНТАМ</div>
+             </div>
+             <div style="display:flex; align-items:center; gap:12px;">
+               <div style="font-size:20px; color:var(--accent);">🤝</div>
+               <div style="font-weight:700; color:#fff; font-size:13px; text-transform:uppercase;">УКРЕПЛЕНИЕ HR-БРЕНДА</div>
+             </div>
+             <div style="display:flex; align-items:center; gap:12px;">
+               <div style="font-size:20px; color:var(--accent);">📈</div>
+               <div style="font-weight:700; color:#fff; font-size:13px; text-transform:uppercase;">НОВЫЕ ПАРТНЁРСТВА</div>
+             </div>
+             <div style="display:flex; align-items:center; gap:12px;">
+               <div style="font-size:20px; color:var(--accent);">💡</div>
+               <div style="font-weight:700; color:#fff; font-size:13px; text-transform:uppercase;">ПРОДВИЖЕНИЕ ПРОЕКТОВ И ИНИЦИАТИВ</div>
+             </div>
+           </div>
+        </div>
+        <div style="margin-top:40px;">
+          <p style="font-size:11px; font-weight:700; color:#64748b; letter-spacing:0.1em; line-height:1.5;">ВМЕСТЕ СОЗДАЕМ БУДУЩЕЕ</p>
+        </div>
       </div>
-      <div style="padding:40px; background:#ffffff; color:#1a1a1a;">
-        <h3 style="font-size:28px; text-align:center; margin-bottom:8px; color:#1a1a1a;">{{modal.leave_request}}</h3>
-        <p style="text-align:center; color:#666666; margin-bottom:32px;">{{modal.we_will_contact}}</p>
+
+      <!-- RIGHT PANEL (Form) -->
+      <div style="flex:1; overflow-y:auto; overflow-x:hidden;">
         
-        <form id="participant-form" onsubmit="submitParticipantForm(event, this)" style="display:flex; flex-direction:column; gap:20px;">
-          <div>
-            <label style="display:block; margin-bottom:8px; font-size:14px; color:var(--accent);">{{modal.you_want}}</label>
-            <select required class="form-input-light" name="role">
-              <option value="" disabled selected>{{modal.select_option}}</option>
-              <option value="partner">{{modal.opt_partner}}</option>
-              <option value="stand">{{modal.opt_stand}}</option>
-              <option value="university">{{modal.opt_uni}}</option>
-              <option value="startup">{{modal.opt_startup}}</option>
-              <option value="speaker">{{modal.opt_speaker}}</option>
-            </select>
+        <div style="background:#fff; padding:32px 32px 16px 32px; text-align:center; position:relative;">
+          <div style="display:flex; align-items:center; justify-content:center; gap:16px; max-width:400px; margin:0 auto;">
+            <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
+              <div style="width:24px; height:24px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;">1</div>
+              <span style="font-size:10px; color:var(--text-tertiary); white-space:nowrap;">{{p_step1}}</span>
+            </div>
+            <div style="flex:1; height:1px; background:var(--border);"></div>
+            <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
+              <div style="width:24px; height:24px; border-radius:50%; background:var(--border); color:var(--text-tertiary); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;">2</div>
+              <span style="font-size:10px; color:var(--text-tertiary); white-space:nowrap;">{{p_step2}}</span>
+            </div>
+            <div style="flex:1; height:1px; background:var(--border);"></div>
+            <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
+              <div style="width:24px; height:24px; border-radius:50%; background:var(--border); color:var(--text-tertiary); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;">3</div>
+              <span style="font-size:10px; color:var(--text-tertiary); white-space:nowrap;">{{p_step3}}</span>
+            </div>
           </div>
+        </div>
+
+        <div style="padding:0 32px 32px 32px; background:#ffffff; color:#1a1a1a;">
+          <h3 style="font-size:24px; text-align:left; margin-bottom:4px; color:#1a1a1a; text-transform:uppercase; font-weight:800;">{{p_title}}</h3>
+          <p style="text-align:left; color:#666666; margin-bottom:32px; font-size:14px;">{{p_desc}}</p>
           
-          <div>
-            <input type="text" placeholder="{{modal.fio}}" required class="form-input-light" name="fio" />
-          </div>
-          
-          <div>
-            <input type="text" placeholder="{{modal.org}}" required class="form-input-light" name="org" />
-          </div>
-          
-          <div>
-            <input type="text" placeholder="{{modal.position}}" required class="form-input-light" name="position" />
-          </div>
-          
-          <div>
-            <input type="tel" placeholder="{{modal.phone}}" required class="form-input-light" name="phone" />
-          </div>
-          
-          <div>
-            <input type="email" placeholder="{{modal.email}}" required class="form-input-light" name="email" />
-          </div>
-          
-          <div>
-            <textarea placeholder="{{modal.comment}}" rows="3" class="form-input-light" name="comment"></textarea>
-          </div>
-          
-          <button type="submit" class="btn btn--primary" style="width:100%; justify-content:center; padding:16px; font-size:16px; margin-top:16px;">{{modal.submit}}</button>
-        </form>
+          <form id="participant-form" onsubmit="submitParticipantForm(event, this)" style="display:flex; flex-direction:column; gap:24px; text-align:left;">
+            
+            <!-- SECTION 1: Company -->
+            <div>
+              <h4 style="font-size:16px; font-weight:700; margin-bottom:12px; color:#1a1a1a;">{{p_sec_company}}</h4>
+              
+              <div style="margin-bottom:12px;">
+                <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{p_org_name}}</label>
+                <input type="text" required class="form-input-light" name="org" placeholder="" />
+              </div>
+              
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
+                <div>
+                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{p_sector}}</label>
+                  <select required class="form-input-light" name="sector">
+                    <option value="" disabled selected>{{p_sector_ph}}</option>
+                    <option value="IT">IT</option>
+                    <option value="Education">Образование</option>
+                    <option value="Finance">Финансы</option>
+                    <option value="Production">Производство</option>
+                    <option value="Other">Другое</option>
+                  </select>
+                </div>
+                <div>
+                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{p_website}}</label>
+                  <input type="url" class="form-input-light" name="website" placeholder="https://" />
+                </div>
+              </div>
+              
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                <div>
+                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{p_country}}</label>
+                  <select required class="form-input-light" name="country">
+                    <option value="" disabled selected>{{p_country_ph}}</option>
+                    <option value="Kyrgyzstan">Кыргызстан</option>
+                    <option value="Kazakhstan">Казахстан</option>
+                    <option value="Uzbekistan">Узбекистан</option>
+                    <option value="Russia">Россия</option>
+                    <option value="Other">Другое</option>
+                  </select>
+                </div>
+                <div>
+                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{p_city}}</label>
+                  <input type="text" required class="form-input-light" name="city" />
+                </div>
+              </div>
+            </div>
+
+            <!-- SECTION 2: Contact -->
+            <div style="border-top:1px solid #e2e8f0; padding-top:24px;">
+              <h4 style="font-size:16px; font-weight:700; margin-bottom:12px; color:#1a1a1a;">{{p_sec_contact}}</h4>
+              
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
+                <div>
+                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{p_fio}}</label>
+                  <input type="text" required class="form-input-light" name="fio" />
+                </div>
+                <div>
+                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{p_position}}</label>
+                  <input type="text" required class="form-input-light" name="position" />
+                </div>
+              </div>
+              
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                <div>
+                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{p_phone}}</label>
+                  <input type="tel" required class="form-input-light" name="phone" placeholder="+996 " />
+                </div>
+                <div>
+                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{p_email}}</label>
+                  <input type="email" required class="form-input-light" name="email" />
+                </div>
+              </div>
+            </div>
+
+            <!-- SECTION 3: Interests -->
+            <div style="border-top:1px solid #e2e8f0; padding-top:24px;">
+              <label style="display:block; margin-bottom:8px;">
+                <span style="font-size:14px; font-weight:700; color:#1a1a1a;">{{p_interests}}</span>
+                <span style="font-size:11px; color:#888; font-weight:400; display:block; margin-top:2px;">{{p_interests_desc}}</span>
+              </label>
+              
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                <label class="list-check-card"><span style="display:flex; align-items:center; gap:8px;"><span style="font-size:16px;">🏪</span> {{p_int_stand}}</span> <input type="checkbox" name="interests" value="stand" /></label>
+                <label class="list-check-card"><span style="display:flex; align-items:center; gap:8px;"><span style="font-size:16px;">👥</span> {{p_int_hr}}</span> <input type="checkbox" name="interests" value="hr" /></label>
+                <label class="list-check-card"><span style="display:flex; align-items:center; gap:8px;"><span style="font-size:16px;">🎙️</span> {{p_int_speaker}}</span> <input type="checkbox" name="interests" value="speaker" /></label>
+                <label class="list-check-card"><span style="display:flex; align-items:center; gap:8px;"><span style="font-size:16px;">🤝</span> {{p_int_partner}}</span> <input type="checkbox" name="interests" value="partner" /></label>
+                <label class="list-check-card"><span style="display:flex; align-items:center; gap:8px;"><span style="font-size:16px;">🏫</span> {{p_int_masterclass}}</span> <input type="checkbox" name="interests" value="masterclass" /></label>
+                <label class="list-check-card"><span style="display:flex; align-items:center; gap:8px;"><span style="font-size:16px;">📢</span> {{p_int_brand}}</span> <input type="checkbox" name="interests" value="brand" /></label>
+                
+                <div class="list-check-card" style="grid-column:span 2; cursor:default;">
+                  <span style="display:flex; align-items:center; gap:8px; width:100%;">
+                    <span style="font-size:16px;">💬</span> {{p_int_other}} 
+                    <input type="text" name="other_interest" placeholder="{{p_other_ph}}" style="flex:1; margin-left:8px; background:none; border:none; border-bottom:1px solid #ccc; font-size:12px; outline:none;" />
+                  </span>
+                  <input type="checkbox" name="interests" value="other" />
+                </div>
+              </div>
+            </div>
+            
+            <!-- SECTION 4: Extra -->
+            <div style="border-top:1px solid #e2e8f0; padding-top:24px;">
+              <h4 style="font-size:14px; font-weight:700; margin-bottom:8px; color:#1a1a1a;">{{p_sec_extra}}</h4>
+              <textarea placeholder="{{p_comment}}" rows="3" class="form-input-light" name="comment"></textarea>
+            </div>
+            
+            <div style="margin-top:8px;">
+              <label style="display:flex; align-items:flex-start; gap:8px; font-size:12px; color:#666; cursor:pointer;">
+                <input type="checkbox" required style="margin-top:2px;" />
+                <span>{{reg.privacy}} *</span>
+              </label>
+            </div>
+            
+            <button type="submit" class="btn btn--primary" style="width:100%; justify-content:center; padding:16px; font-size:16px; border-radius:100px; background:#dcfce3; color:#15803d; border:none; cursor:pointer; font-weight:800; letter-spacing:0.05em; transition:all 0.2s;" onmouseover="this.style.background='#bbf7d0'" onmouseout="this.style.background='#dcfce3'">{{p_submit}} &rarr;</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
@@ -802,6 +1164,54 @@
     }
     @media (min-width: 768px) {
       .md-2col { grid-template-columns: repeat(2, 1fr); }
+    }
+    .form-input-light {
+      width: 100%; padding: 12px; background: #f5f5f5; border: 1px solid #ddd;
+      border-radius: 8px; font-family: inherit; font-size: 14px;
+      transition: all 0.2s; color: #1a1a1a;
+    }
+    .form-input-light:focus {
+      outline: none; border-color: var(--accent); background: #fff;
+    }
+    .icon-radio-card, .icon-check-card {
+      display: flex; flex-direction: column; align-items: center; text-align: center; justify-content: center;
+      background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px 8px;
+      cursor: pointer; position: relative; transition: all 0.2s; font-size: 11px; color: #475569; font-weight: 500;
+      gap: 4px;
+    }
+    .icon-radio-card:hover, .icon-check-card:hover {
+      background: #f1f5f9; border-color: #cbd5e1;
+    }
+    .icon-radio-card:has(input:checked), .icon-check-card:has(input:checked) {
+      background: #f0fdf4; border-color: #22c55e; color: #15803d;
+    }
+    .icon-radio-card input, .icon-check-card input {
+      position: absolute; top: 8px; left: 8px; margin: 0; width: 14px; height: 14px; accent-color: #22c55e;
+    }
+    .icon-radio-card .icon, .icon-check-card .icon {
+      font-size: 20px;
+    }
+    .list-check-card {
+      display: flex; align-items: center; justify-content: space-between;
+      background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 16px;
+      cursor: pointer; transition: all 0.2s; font-size: 13px; color: #1a1a1a; font-weight: 500;
+    }
+    .list-check-card:hover {
+      background: #f8fafc; border-color: #cbd5e1;
+    }
+    .list-check-card:has(input:checked) {
+      background: #f0fdf4; border-color: #22c55e;
+    }
+    .list-check-card input {
+      accent-color: #22c55e; width: 16px; height: 16px; margin: 0;
+    }
+    @media (max-width: 600px) {
+      .icon-radio-card, .icon-check-card {
+        padding: 8px; font-size: 10px;
+      }
+      .icon-radio-card input, .icon-check-card input {
+        top: 4px; left: 4px; width: 12px; height: 12px;
+      }
     }
   </style>
 
@@ -901,13 +1311,27 @@
       window.submitParticipantForm = function(event, form) {
         event.preventDefault();
         var btn = form.querySelector('button[type="submit"]');
-        var originalText = btn.textContent;
-        btn.textContent = '...';
+        var originalText = btn.innerHTML;
+        btn.innerHTML = '...';
         btn.disabled = true;
 
-        var urlEncodedData = new URLSearchParams(new FormData(form)).toString();
+        var formData = new FormData(form);
+        var interestsArray = formData.getAll('interests');
+        var otherInt = formData.get('other_interest');
+        if (interestsArray.length > 0 || otherInt) {
+            var combined = interestsArray;
+            if (otherInt && combined.indexOf('other') !== -1) {
+                combined = combined.filter(function(v) { return v !== 'other'; });
+                combined.push(otherInt);
+            }
+            formData.delete('interests');
+            if (combined.length > 0) {
+              formData.append('interests', combined.join(', '));
+            }
+        }
+        var urlEncodedData = new URLSearchParams(formData).toString();
 
-        fetch('https://script.google.com/macros/s/AKfycbyY8VSRZDLHLpLjpCT2wCRFikxRxOVq0AsL8LZLk0r1pDCgEK5SNkn0ihCdeXRkmuL0/exec', {
+        fetch('https://script.google.com/macros/s/AKfycbyVnRhf4OSgB5H3GZ4wutFhdt2A8rIxkf010ailJrdeCBxJzv2HsX-oJfkkozxJI3YNYQ/exec', {
           method: 'POST',
           mode: 'no-cors',
           headers: {
@@ -916,7 +1340,6 @@
           body: urlEncodedData
         })
         .then(function() {
-          // В режиме no-cors ответ прочитать нельзя, поэтому просто считаем, что всё прошло успешно
           alert('{{modal.success}}');
           document.getElementById('modal-participant').classList.remove('is-open');
           form.reset();
@@ -926,9 +1349,291 @@
           console.error(err);
         })
         .finally(function() {
-          btn.textContent = originalText;
+          btn.innerHTML = originalText;
           btn.disabled = false;
         });
+      };
+      // Form submission for visitor
+      window.submitVisitorForm = function(event, form) {
+        event.preventDefault();
+        var btn = document.getElementById('reg-submit-btn');
+        var originalText = btn.innerHTML;
+        btn.innerHTML = '...';
+        btn.disabled = true;
+
+        var formData = new FormData(form);
+        var interestsArray = formData.getAll('interests');
+        if (interestsArray.length > 0) {
+          formData.delete('interests');
+          formData.append('interests', interestsArray.join(', '));
+        }
+        var urlEncodedData = new URLSearchParams(formData).toString();
+        
+        // Generate unique ID
+        var visitorId = 'MUUN26-' + Math.random().toString(36).substr(2, 6).toUpperCase();
+        urlEncodedData += '&visitorId=' + visitorId;
+
+        fetch('https://script.google.com/macros/s/AKfycbwWErGImzzLoBqAWDNyNOLvARpYNxNiHV-gKXIsrhWPEBmI1VyfFYxOiEm2Q-Nay6lm/exec', {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: urlEncodedData
+        })
+        .then(function() {
+          var fullName = formData.get('firstName') + ' ' + formData.get('lastName');
+          window.showTicket(visitorId, fullName);
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+        })
+        .catch(function(err) {
+          alert('Error submitting form');
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+        });
+      };
+
+      // Save and render ticket
+      window.showTicket = function(visitorId, fullName) {
+        document.getElementById('reg-step-form').style.display = 'none';
+        document.getElementById('reg-step-ticket').style.display = 'block';
+
+        document.getElementById('ticket-name').textContent = fullName;
+        document.getElementById('ticket-id').textContent = 'ID: ' + visitorId;
+
+        var qrContainer = document.getElementById('ticket-qr');
+        qrContainer.innerHTML = '';
+
+        function doGenerate() {
+          if (typeof QRCode === 'undefined') {
+            setTimeout(doGenerate, 30);
+            return;
+          }
+          qrContainer.innerHTML = '';
+          new QRCode(qrContainer, {
+            text: visitorId,
+            width: 128,
+            height: 128,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.M
+          });
+
+          setTimeout(function() {
+            var canvas = qrContainer.querySelector('canvas');
+            var img = qrContainer.querySelector('img');
+            if (canvas) {
+              try { window._currentTicketQR = canvas.toDataURL('image/png'); } catch(e) {}
+            } else if (img && img.src) {
+              window._currentTicketQR = img.src;
+            }
+            if (canvas && img) {
+              img.style.display = 'block';
+              img.style.margin = '0 auto';
+              canvas.style.display = 'none';
+            }
+          }, 100);
+        }
+
+        doGenerate();
+
+        // Store ticket in localStorage so user doesn't have to refill the form!
+        try {
+          localStorage.setItem('muun_saved_ticket', JSON.stringify({
+            visitorId: visitorId,
+            fullName: fullName
+          }));
+        } catch(e) {}
+      };
+
+      // Reset form to register another attendee
+      window.resetTicketForm = function() {
+        try { localStorage.removeItem('muun_saved_ticket'); } catch(e) {}
+        document.getElementById('reg-step-ticket').style.display = 'none';
+        document.getElementById('reg-step-form').style.display = 'block';
+        var form = document.getElementById('visitor-reg-form');
+        if (form) form.reset();
+      };
+
+      // Quick test helper for console: testTicket('Test User', 'MUUN26-TEST')
+      window.testTicket = function(name, id) {
+        window.showTicket(id || 'MUUN26-TEST', name || 'Test User');
+      };
+
+      // Check on startup if user already has a saved ticket
+      try {
+        var savedTicket = localStorage.getItem('muun_saved_ticket');
+        if (savedTicket) {
+          var data = JSON.parse(savedTicket);
+          if (data && data.visitorId && data.fullName) {
+            window.showTicket(data.visitorId, data.fullName);
+          }
+        }
+      } catch(e) {}
+
+      window.downloadTicket = function() {
+        var dlBtn = document.getElementById('btn-download-ticket');
+        var origText = dlBtn ? dlBtn.innerHTML : '';
+        if (dlBtn) {
+          dlBtn.innerHTML = '⏳ Экспорт...';
+          dlBtn.disabled = true;
+        }
+
+        try {
+          var fullName = (document.getElementById('ticket-name').textContent || 'Test User').trim();
+          var visitorIdText = (document.getElementById('ticket-id').textContent || 'ID: MUUN26-TEST').trim();
+          var qrSource = document.querySelector('#ticket-qr img') || document.querySelector('#ticket-qr canvas');
+          var logoImg = document.querySelector('#ticket-card img');
+
+          var width = 640;
+          var height = 860;
+          var canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          var ctx = canvas.getContext('2d');
+
+          // Helper: Draw rounded rectangle path
+          function roundedRect(x, y, w, h, r) {
+            ctx.beginPath();
+            ctx.moveTo(x + r, y);
+            ctx.lineTo(x + w - r, y);
+            ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+            ctx.lineTo(x + w, y + h - r);
+            ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+            ctx.lineTo(x + r, y + h);
+            ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+            ctx.lineTo(x, y + r);
+            ctx.quadraticCurveTo(x, y, x + r, y);
+            ctx.closePath();
+          }
+
+          // 1. Background Card with Rounded Corners
+          ctx.save();
+          roundedRect(0, 0, width, height, 32);
+          ctx.clip();
+
+          // Gradient #0f172a to #1e293b
+          var grad = ctx.createLinearGradient(0, 0, width, height);
+          grad.addColorStop(0, '#0f172a');
+          grad.addColorStop(1, '#1e293b');
+          ctx.fillStyle = grad;
+          ctx.fillRect(0, 0, width, height);
+
+          // Top-right radial glow
+          var glow = ctx.createRadialGradient(width, 0, 10, width, 0, 320);
+          glow.addColorStop(0, 'rgba(59, 130, 246, 0.25)');
+          glow.addColorStop(1, 'rgba(59, 130, 246, 0)');
+          ctx.fillStyle = glow;
+          ctx.fillRect(0, 0, width, height);
+
+          function drawRestOfTicket() {
+            // Text: Visitor pass
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+            ctx.font = '600 13px "Montserrat", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('{{reg.visitor_pass}}'.toUpperCase(), width / 2, 130);
+
+            // 3. White box for QR code
+            var qrBoxW = 280;
+            var qrBoxH = 280;
+            var qrBoxX = (width - qrBoxW) / 2;
+            var qrBoxY = 156;
+            ctx.fillStyle = '#ffffff';
+            roundedRect(qrBoxX, qrBoxY, qrBoxW, qrBoxH, 24);
+            ctx.fill();
+
+            // 4. Draw QR Code inside the white box
+            var qrSize = 224;
+            var qrX = (width - qrSize) / 2;
+            var qrY = qrBoxY + (qrBoxH - qrSize) / 2;
+            if (qrSource) {
+              try {
+                ctx.drawImage(qrSource, qrX, qrY, qrSize, qrSize);
+              } catch(e) {
+                console.error('Error drawing QR source:', e);
+              }
+            }
+
+            // 5. Visitor Name
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '700 28px "Montserrat", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(fullName, width / 2, 490);
+
+            // 6. Visitor ID
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
+            ctx.font = '500 16px monospace';
+            ctx.textAlign = 'center';
+            ctx.fillText(visitorIdText, width / 2, 524);
+
+            // 7. Dashed line
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([8, 6]);
+            ctx.beginPath();
+            ctx.moveTo(48, 570);
+            ctx.lineTo(width - 48, 570);
+            ctx.stroke();
+            ctx.setLineDash([]); // clear dash
+
+            // 8. Footer: Date
+            ctx.textAlign = 'left';
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+            ctx.font = '500 12px "Montserrat", sans-serif';
+            ctx.fillText('{{reg.date_label}}', 48, 620);
+
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '700 18px "Montserrat", sans-serif';
+            ctx.fillText('17-18 Nov 2026', 48, 650);
+
+            // Footer: Venue
+            ctx.textAlign = 'right';
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+            ctx.font = '500 12px "Montserrat", sans-serif';
+            ctx.fillText('{{reg.venue_label}}', width - 48, 620);
+
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '700 18px "Montserrat", sans-serif';
+            ctx.fillText('Ырыс Ордо', width - 48, 650);
+
+            ctx.restore();
+
+            // Single reliable download trigger
+            var link = document.createElement('a');
+            link.download = 'MUUN26-Ticket.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+
+            if (dlBtn) {
+              dlBtn.innerHTML = origText;
+              dlBtn.disabled = false;
+            }
+          }
+
+          if (logoImg && logoImg.complete && logoImg.naturalWidth > 0) {
+            var logoH = 40;
+            var logoW = (logoImg.naturalWidth / logoImg.naturalHeight) * logoH;
+            ctx.drawImage(logoImg, (width - logoW) / 2, 48, logoW, logoH);
+            drawRestOfTicket();
+          } else {
+            var lImg = new Image();
+            lImg.onload = function() {
+              var logoH = 40;
+              var logoW = (lImg.naturalWidth / lImg.naturalHeight) * logoH;
+              ctx.drawImage(lImg, (width - logoW) / 2, 48, logoW, logoH);
+              drawRestOfTicket();
+            };
+            lImg.onerror = function() {
+              drawRestOfTicket();
+            };
+            lImg.src = '/assets/logo-header.png';
+          }
+        } catch(err) {
+          console.error('Download ticket error:', err);
+          if (dlBtn) {
+            dlBtn.innerHTML = origText;
+            dlBtn.disabled = false;
+          }
+        }
       };
     })();
   </script>
