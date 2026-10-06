@@ -97,24 +97,24 @@
 
   <!-- ============================== HEADER ============================== -->
   <header class="site-header">
-    <div class="container-page" style="display:flex;align-items:center;justify-content:space-between;height:72px;">
-      <a href="#top" aria-label="MUUN26" style="display:flex;align-items:center;">
-        <img src="/assets/logo-header.png?v=7" alt="MUUN26" class="logo-img" style="height:40px;width:auto;" />
+    <div class="site-header-inner">
+      <a href="#top" aria-label="MUUN26" class="site-header-logo">
+        <img src="/assets/logo-header.png?v=8" alt="MUUN26" class="logo-img" />
       </a>
 
-      <nav style="display:none;" class="lg-show" aria-label="Main">
-        <div style="display:flex;align-items:center;gap:4px;">
+      <nav class="site-header-nav" aria-label="Main">
+        <div class="site-header-nav-list">
           <a href="#top" class="active">{{nav.home}}</a>
           <a href="#about">{{nav.about}}</a>
           <a href="#program">{{nav.program}}</a>
-          <a href="#participants">{{nav.participants}}</a>
-          <a href="#partnership">{{nav.partnership}}</a>
+          <a href="{{url_news}}">{{nav.news}}</a>
+          <a href="{{url_press}}">{{nav.press}}</a>
           <a href="#contact">{{nav.contact}}</a>
         </div>
       </nav>
 
-      <div style="display:flex;align-items:center;gap:12px;">
-        <div class="lang-switcher-desktop" style="display:none;">
+      <div class="site-header-actions">
+        <div class="lang-switcher-desktop">
           {{lang_switcher}}
         </div>
         <button type="button" id="navToggle" class="nav-toggle" aria-label="Menu" aria-expanded="false" style="padding:8px;background:none;border:1px solid var(--border);border-radius:8px;color:var(--text-primary);cursor:pointer;">
@@ -127,10 +127,14 @@
       <div class="container-page" style="padding-top:8px;padding-bottom:8px;">
         <div class="mobile-langs">{{lang_switcher}}</div>
         <a href="#top">{{nav.home}}</a>
+        <a href="#dna">{{dna.kicker}}</a>
+        <a href="#zones">{{infra.title}}</a>
         <a href="#about">{{nav.about}}</a>
+        <a href="#target">{{nav.target}}</a>
+        <a href="#regions">{{nav.regions}}</a>
         <a href="#program">{{nav.program}}</a>
-        <a href="#participants">{{nav.participants}}</a>
-        <a href="#partnership">{{nav.partnership}}</a>
+        <a href="{{url_news}}">{{nav.news}}</a>
+        <a href="{{url_press}}">{{nav.press}}</a>
         <a href="#contact">{{nav.contact}}</a>
       </div>
     </nav>
@@ -142,10 +146,18 @@
     <section id="top" class="hero">
       <div class="hero-grid"></div>
       
-      <!-- MOON — dominant centerpiece -->
-      <div class="hero-moon-wrap">
-        <div class="hero-moon-glow"></div>
-        <img src="/assets/moon-hd-full.png" alt="MUUN" class="hero-moon-img anim-float" />
+      <!-- MOON — Scroll-Driven Interactive Centerpiece -->
+      <div class="hero-moon-wrap moon-stage-wrap" id="hero-moon-stage">
+        <div class="hero-moon-glow" id="hero-moon-glow"></div>
+        <img id="moon-img-crescent" src="/assets/moon-hd-new.png" alt="MUUN Crescent" class="moon-canvas anim-float" style="position:absolute; inset:0; object-fit:contain; transition:opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1); opacity:1;" />
+        <img id="moon-img-grow" src="/assets/moon-hd-grow.png" alt="MUUN Waxing" class="moon-canvas anim-float" style="position:absolute; inset:0; object-fit:contain; transition:opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1); opacity:0;" />
+        <img id="moon-img-full" src="/assets/moon-hd-full.png" alt="MUUN Full" class="moon-canvas anim-float" style="position:absolute; inset:0; object-fit:contain; transition:opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1); opacity:0;" />
+        <div style="position:absolute; bottom:14px; left:50%; transform:translateX(-50%); z-index:4; white-space:nowrap;">
+          <span class="moon-phase-badge">
+            <span class="moon-phase-dot"></span>
+            <span id="moon-phase-label">{{hero.moon_phase_crescent}}</span>
+          </span>
+        </div>
       </div>
 
       <div class="container-page hero-inner" style="position:relative;z-index:3;display:flex;flex-direction:column;align-items:flex-start;text-align:left;padding-top:15vh;padding-bottom:15vh;min-height:100vh;justify-content:center;">
@@ -253,6 +265,104 @@
       </div>
     </section>
 
+    <!-- ============================== DNA — 4 PILLARS OF MUUN ============================== -->
+    <section id="dna" class="concepts-section">
+      <div class="container-page">
+        <div class="reveal" style="transition-delay:0ms; text-align:center; max-width:800px; margin:0 auto;">
+          <h2 class="section-title" style="margin-top:12px;">{{dna.title}}</h2>
+          <p class="section-desc" style="margin:16px auto 0;">{{dna.subtitle}}</p>
+        </div>
+
+        <div class="bento-concepts-grid">
+          
+          <!-- Card 1: МАКСАТ (col-span-7) -->
+          <div class="concept-card concept-card-large reveal" style="--card-glow:var(--c-maksat-glow); transition-delay:100ms;">
+            <div>
+              <div class="concept-header">
+                <span class="concept-tag" style="color:var(--c-maksat); border-color:rgba(56,189,248,0.3); background:rgba(56,189,248,0.1);">
+                  🐾 {{dna.c1_tag}}
+                </span>
+                <span class="concept-totem">🐆</span>
+              </div>
+              <h3 class="concept-title">{{dna.c1_name}}</h3>
+              <span class="concept-subtitle" style="color:var(--c-maksat);">{{dna.c1_symbol}}</span>
+              <p class="concept-desc">{{dna.c1_desc}}</p>
+            </div>
+            <div class="concept-footer">
+              <span class="concept-pillar-val">Пик Победы · 7 439 м</span>
+              <span style="font-size:13px; font-weight:700; color:var(--c-maksat); display:flex; align-items:center; gap:6px;">
+                {{dna.c1_action}} &rarr;
+              </span>
+            </div>
+          </div>
+
+          <!-- Card 2: УМТУЛУУ (col-span-5) -->
+          <div class="concept-card concept-card-small reveal" style="--card-glow:var(--c-umtuluu-glow); transition-delay:200ms;">
+            <div>
+              <div class="concept-header">
+                <span class="concept-tag" style="color:var(--c-umtuluu); border-color:rgba(96,165,250,0.3); background:rgba(96,165,250,0.1);">
+                  🦅 {{dna.c2_tag}}
+                </span>
+                <span class="concept-totem">🦅</span>
+              </div>
+              <h3 class="concept-title">{{dna.c2_name}}</h3>
+              <span class="concept-subtitle" style="color:var(--c-umtuluu);">{{dna.c2_symbol}}</span>
+              <p class="concept-desc">{{dna.c2_desc}}</p>
+            </div>
+            <div class="concept-footer">
+              <span class="concept-pillar-val">Глобальный кругозор</span>
+              <span style="font-size:13px; font-weight:700; color:var(--c-umtuluu); display:flex; align-items:center; gap:6px;">
+                {{dna.c2_action}} &rarr;
+              </span>
+            </div>
+          </div>
+
+          <!-- Card 3: УЧУР (col-span-5) -->
+          <div class="concept-card concept-card-small reveal" style="--card-glow:var(--c-uchur-glow); transition-delay:300ms;">
+            <div>
+              <div class="concept-header">
+                <span class="concept-tag" style="color:var(--c-uchur); border-color:rgba(248,250,252,0.3); background:rgba(248,250,252,0.1);">
+                  🌙 {{dna.c3_tag}}
+                </span>
+                <span class="concept-totem">✨</span>
+              </div>
+              <h3 class="concept-title">{{dna.c3_name}}</h3>
+              <span class="concept-subtitle" style="color:var(--c-uchur);">{{dna.c3_symbol}}</span>
+              <p class="concept-desc">{{dna.c3_desc}}</p>
+            </div>
+            <div class="concept-footer">
+              <span class="concept-pillar-val">Время действовать</span>
+              <span style="font-size:13px; font-weight:700; color:var(--c-uchur); display:flex; align-items:center; gap:6px;">
+                {{dna.c3_action}} &rarr;
+              </span>
+            </div>
+          </div>
+
+          <!-- Card 4: НИЕТ (col-span-7) -->
+          <div class="concept-card concept-card-large reveal" style="--card-glow:var(--c-niet-glow); transition-delay:400ms;">
+            <div>
+              <div class="concept-header">
+                <span class="concept-tag" style="color:var(--c-niet); border-color:rgba(251,191,36,0.3); background:rgba(251,191,36,0.1);">
+                  🐎 {{dna.c4_tag}}
+                </span>
+                <span class="concept-totem">🐎</span>
+              </div>
+              <h3 class="concept-title">{{dna.c4_name}}</h3>
+              <span class="concept-subtitle" style="color:var(--c-niet);">{{dna.c4_symbol}}</span>
+              <p class="concept-desc">{{dna.c4_desc}}</p>
+            </div>
+            <div class="concept-footer">
+              <span class="concept-pillar-val">Созидательный дух</span>
+              <span style="font-size:13px; font-weight:700; color:var(--c-niet); display:flex; align-items:center; gap:6px;">
+                {{dna.c4_action}} &rarr;
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
     <!-- ============================== SCALE — BENTO ============================== -->
     <section style="padding:100px 0;">
       <div class="container-page">
@@ -306,61 +416,49 @@
     <section class="why-section">
       <div class="why-bg-glow" aria-hidden="true"></div>
       <div class="container-page">
-        <div class="why-layout">
-          <div class="why-left">
-            <div class="reveal why-head" style="transition-delay:0ms;">
-              <span class="eyebrow"><span class="eyebrow-dot"></span>MUUN 2026</span>
-              <h2 class="section-title why-title">{{why.title}}</h2>
-              <p class="why-lead">{{why.desc1}}</p>
+        
+    <div class="why-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+        <div class="why-left" style="display: flex; flex-direction: column; gap: 20px;">
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 24px; border-radius: 16px; transition: transform 0.3s; cursor: default;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='var(--accent)';" onmouseout="this.style.transform='none'; this.style.borderColor='rgba(255,255,255,0.1)';">
+                <h3 style="font-size: 20px; font-weight: 700; color: var(--accent); margin-bottom: 8px;">01 {{why.pt1_title}}</h3>
+                <p style="font-size: 14px; color: #cbd5e1; line-height: 1.5;">{{why.pt1_desc}}</p>
             </div>
-
-            <ul class="why-list">
-              <li class="why-item reveal" style="--c:239,68,68;transition-delay:80ms;">
-                <span class="why-ico"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg></span>
-                <span class="why-text">{{why.c1}}</span>
-                <span class="why-num">01</span>
-              </li>
-              <li class="why-item reveal" style="--c:139,92,246;transition-delay:160ms;">
-                <span class="why-ico"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg></span>
-                <span class="why-text">{{why.c2}}</span>
-                <span class="why-num">02</span>
-              </li>
-              <li class="why-item reveal" style="--c:59,130,246;transition-delay:240ms;">
-                <span class="why-ico"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></svg></span>
-                <span class="why-text">{{why.c3}}</span>
-                <span class="why-num">03</span>
-              </li>
-              <li class="why-item reveal" style="--c:34,197,94;transition-delay:320ms;">
-                <span class="why-ico"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg></span>
-                <span class="why-text">{{why.c4}}</span>
-                <span class="why-num">04</span>
-              </li>
-            </ul>
-          </div>
-
-          <div class="why-visual reveal reveal-scale" style="transition-delay:120ms;">
-            <div class="why-visual-ring" aria-hidden="true"></div>
-            <img src="/assets/why-concept.png" alt="{{why.title}}" class="why-image" loading="lazy" width="1287" height="765" />
-          </div>
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 24px; border-radius: 16px; transition: transform 0.3s; cursor: default;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='var(--accent)';" onmouseout="this.style.transform='none'; this.style.borderColor='rgba(255,255,255,0.1)';">
+                <h3 style="font-size: 20px; font-weight: 700; color: var(--accent); margin-bottom: 8px;">02 {{why.pt2_title}}</h3>
+                <p style="font-size: 14px; color: #cbd5e1; line-height: 1.5;">{{why.pt2_desc}}</p>
+            </div>
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 24px; border-radius: 16px; transition: transform 0.3s; cursor: default;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='var(--accent)';" onmouseout="this.style.transform='none'; this.style.borderColor='rgba(255,255,255,0.1)';">
+                <h3 style="font-size: 20px; font-weight: 700; color: var(--accent); margin-bottom: 8px;">03 {{why.pt3_title}}</h3>
+                <p style="font-size: 14px; color: #cbd5e1; line-height: 1.5;">{{why.pt3_desc}}</p>
+            </div>
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 24px; border-radius: 16px; transition: transform 0.3s; cursor: default;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='var(--accent)';" onmouseout="this.style.transform='none'; this.style.borderColor='rgba(255,255,255,0.1)';">
+                <h3 style="font-size: 20px; font-weight: 700; color: var(--accent); margin-bottom: 8px;">04 {{why.pt4_title}}</h3>
+                <p style="font-size: 14px; color: #cbd5e1; line-height: 1.5;">{{why.pt4_desc}}</p>
+            </div>
         </div>
-
-        <div class="why-mission reveal" style="transition-delay:100ms;">
-          <div class="why-mission-head">
-            <span class="why-mission-label">{{why.mission}}</span>
-          </div>
-          <p class="why-mission-text">{{why.desc2}}</p>
-          <p class="why-tagline">{{why.bottom}}</p>
+        <div class="why-right" style="display: flex; justify-content: center; align-items: center;">
+            <img src="/assets/why-concept.png" alt="MUUN Concept" style="max-width: 80%; height: auto; border-radius: 50%; filter: drop-shadow(0 0 30px rgba(92,119,255,0.3));" />
         </div>
-      </div>
+    </div>
+    <style>
+        @media (max-width: 768px) {
+            .why-grid {
+                grid-template-columns: 1fr !important;
+            }
+            .why-right img {
+                max-width: 100% !important;
+                margin-top: 30px;
+            }
+        }
+    </style>
     </section>
 
     <!-- ============================== 360° OPPORTUNITIES ============================== -->
     <section class="opp-section">
       <div class="container-page">
         <div class="opp-head reveal" style="transition-delay:0ms;">
-          <span class="eyebrow"><span class="eyebrow-dot"></span>{{opp.kicker}}</span>
-          <h2 class="section-title opp-title">{{opp.title}}</h2>
-          <p class="opp-lead">{{opp.desc}}</p>
+          <h2 class="section-title opp-title" style="text-wrap:balance; line-height:1.15; margin-top:12px;">{{opp.title}}</h2>
+          <p class="opp-lead" style="text-wrap:balance; line-height:1.65; max-width:680px; margin:16px auto 0;">{{opp.desc}}</p>
         </div>
 
         <div class="opp-stage reveal reveal-scale" style="transition-delay:100ms;">
@@ -425,8 +523,167 @@
             </div>
           </article>
         </div>
+
+        
+
       </div>
     </section>
+
+    <!-- ============================== MUUN FOR EVERYONE ============================== -->
+    <section id="target" class="target-section">
+      <div class="container-page">
+        <div class="reveal" style="transition-delay:0ms;text-align:center;max-width:760px;margin:0 auto;">
+          <h2 class="section-title" style="margin-top:12px;">{{target.title}}</h2>
+          <p class="section-desc" style="margin:16px auto 0;">{{target.desc}}</p>
+        </div>
+
+        <div class="target-tabs reveal" style="transition-delay:100ms;">
+          <button type="button" class="target-tab-btn active" onclick="switchTargetTab(0, this)">
+            <span>🎒</span> {{target.tab_school}}
+          </button>
+          <button type="button" class="target-tab-btn" onclick="switchTargetTab(1, this)">
+            <span>🎓</span> {{target.tab_student}}
+          </button>
+          <button type="button" class="target-tab-btn" onclick="switchTargetTab(2, this)">
+            <span>💼</span> {{target.tab_grad}}
+          </button>
+          <button type="button" class="target-tab-btn" onclick="switchTargetTab(3, this)">
+            <span>🚀</span> {{target.tab_entrepreneur}}
+          </button>
+          <button type="button" class="target-tab-btn" onclick="switchTargetTab(4, this)">
+            <span>👨‍👩‍👧</span> {{target.tab_parents}}
+          </button>
+        </div>
+
+        <div class="target-panels-wrap reveal" style="transition-delay:150ms;">
+          <!-- Panel 1: Школьнику -->
+          <div class="target-panel active" id="target-panel-0">
+            <div class="target-card-box">
+              <div style="display:flex;align-items:center;gap:14px;margin-bottom:8px;">
+                <span style="font-size:28px;">🎒</span>
+                <h3 style="font-size:22px;font-weight:700;color:#fff;margin:0;">{{target.g1_title}}</h3>
+              </div>
+              <p style="font-size:14px;color:var(--text-secondary);margin:0;">{{target.g1_desc}}</p>
+              <ul class="target-items-list">
+                <li class="target-item">
+                  <span class="target-arrow">&rarr;</span>
+                  <span style="font-size:14px;color:var(--text-primary);line-height:1.5;">{{target.g1_i1}}</span>
+                </li>
+                <li class="target-item">
+                  <span class="target-arrow">&rarr;</span>
+                  <span style="font-size:14px;color:var(--text-primary);line-height:1.5;">{{target.g1_i2}}</span>
+                </li>
+                <li class="target-item">
+                  <span class="target-arrow">&rarr;</span>
+                  <span style="font-size:14px;color:var(--text-primary);line-height:1.5;">{{target.g1_i3}}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Panel 2: Студенту -->
+          <div class="target-panel" id="target-panel-1">
+            <div class="target-card-box">
+              <div style="display:flex;align-items:center;gap:14px;margin-bottom:8px;">
+                <span style="font-size:28px;">🎓</span>
+                <h3 style="font-size:22px;font-weight:700;color:#fff;margin:0;">{{target.g2_title}}</h3>
+              </div>
+              <p style="font-size:14px;color:var(--text-secondary);margin:0;">{{target.g2_desc}}</p>
+              <ul class="target-items-list">
+                <li class="target-item">
+                  <span class="target-arrow">&rarr;</span>
+                  <span style="font-size:14px;color:var(--text-primary);line-height:1.5;">{{target.g2_i1}}</span>
+                </li>
+                <li class="target-item">
+                  <span class="target-arrow">&rarr;</span>
+                  <span style="font-size:14px;color:var(--text-primary);line-height:1.5;">{{target.g2_i2}}</span>
+                </li>
+                <li class="target-item">
+                  <span class="target-arrow">&rarr;</span>
+                  <span style="font-size:14px;color:var(--text-primary);line-height:1.5;">{{target.g2_i3}}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Panel 3: Выпускнику -->
+          <div class="target-panel" id="target-panel-2">
+            <div class="target-card-box">
+              <div style="display:flex;align-items:center;gap:14px;margin-bottom:8px;">
+                <span style="font-size:28px;">💼</span>
+                <h3 style="font-size:22px;font-weight:700;color:#fff;margin:0;">{{target.g3_title}}</h3>
+              </div>
+              <p style="font-size:14px;color:var(--text-secondary);margin:0;">{{target.g3_desc}}</p>
+              <ul class="target-items-list">
+                <li class="target-item">
+                  <span class="target-arrow">&rarr;</span>
+                  <span style="font-size:14px;color:var(--text-primary);line-height:1.5;">{{target.g3_i1}}</span>
+                </li>
+                <li class="target-item">
+                  <span class="target-arrow">&rarr;</span>
+                  <span style="font-size:14px;color:var(--text-primary);line-height:1.5;">{{target.g3_i2}}</span>
+                </li>
+                <li class="target-item">
+                  <span class="target-arrow">&rarr;</span>
+                  <span style="font-size:14px;color:var(--text-primary);line-height:1.5;">{{target.g3_i3}}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Panel 4: Молодому предпринимателю -->
+          <div class="target-panel" id="target-panel-3">
+            <div class="target-card-box">
+              <div style="display:flex;align-items:center;gap:14px;margin-bottom:8px;">
+                <span style="font-size:28px;">🚀</span>
+                <h3 style="font-size:22px;font-weight:700;color:#fff;margin:0;">{{target.g4_title}}</h3>
+              </div>
+              <p style="font-size:14px;color:var(--text-secondary);margin:0;">{{target.g4_desc}}</p>
+              <ul class="target-items-list">
+                <li class="target-item">
+                  <span class="target-arrow">&rarr;</span>
+                  <span style="font-size:14px;color:var(--text-primary);line-height:1.5;">{{target.g4_i1}}</span>
+                </li>
+                <li class="target-item">
+                  <span class="target-arrow">&rarr;</span>
+                  <span style="font-size:14px;color:var(--text-primary);line-height:1.5;">{{target.g4_i2}}</span>
+                </li>
+                <li class="target-item">
+                  <span class="target-arrow">&rarr;</span>
+                  <span style="font-size:14px;color:var(--text-primary);line-height:1.5;">{{target.g4_i3}}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Panel 5: Родителям -->
+          <div class="target-panel" id="target-panel-4">
+            <div class="target-card-box">
+              <div style="display:flex;align-items:center;gap:14px;margin-bottom:8px;">
+                <span style="font-size:28px;">👨‍👩‍👧</span>
+                <h3 style="font-size:22px;font-weight:700;color:#fff;margin:0;">{{target.g5_title}}</h3>
+              </div>
+              <p style="font-size:14px;color:var(--text-secondary);margin:0;">{{target.g5_desc}}</p>
+              <ul class="target-items-list">
+                <li class="target-item">
+                  <span class="target-arrow">&rarr;</span>
+                  <span style="font-size:14px;color:var(--text-primary);line-height:1.5;">{{target.g5_i1}}</span>
+                </li>
+                <li class="target-item">
+                  <span class="target-arrow">&rarr;</span>
+                  <span style="font-size:14px;color:var(--text-primary);line-height:1.5;">{{target.g5_i2}}</span>
+                </li>
+                <li class="target-item">
+                  <span class="target-arrow">&rarr;</span>
+                  <span style="font-size:14px;color:var(--text-primary);line-height:1.5;">{{target.g5_i3}}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
 
     <!-- ============================== COMPETITIVENESS QUOTE ============================== -->
     <section class="quote-block" style="background:linear-gradient(180deg, var(--bg-primary), var(--bg-secondary));">
@@ -518,27 +775,345 @@
             <p style="margin-top:20px;font-size:18px;font-weight:600;color:var(--text-primary);text-align:center;">{{gallery.registration}}</p>
           </div>
         </div>
+
+        <!-- Venue Location Map (Dark Filter Applied) -->
+        <div class="venue-map-wrap reveal" style="transition-delay:200ms; margin-top:36px;">
+          <div style="position:relative; width:100%; height:400px; border-radius:var(--radius); overflow:hidden; border:1px solid var(--border); background:#111114;">
+            
+            <div style="position:absolute; bottom:16px; left:16px; background:rgba(17,17,20,0.9); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:12px 18px; pointer-events:none; display:flex; align-items:center; gap:10px;">
+              <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#5c77ff; box-shadow:0 0 10px #5c77ff;"></span>
+              <span style="font-size:13px; font-weight:600; color:#ffffff;">Бишкек · Конгресс-холл «Ырыс Ордо»</span>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- ============================== ZONES BENTO ============================== -->
-    <section style="padding:100px 0;background:var(--bg-secondary);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+    <!-- ============================== FORUM INFRASTRUCTURE: 12 THEMATIC ZONES ============================== -->
+    <section id="zones" style="padding:100px 0; background:var(--bg-secondary); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
       <div class="container-page">
-        <div class="reveal" style="transition-delay:0ms;text-align:center;max-width:600px;margin:0 auto 60px;">
-          <h2 class="section-title">{{zones.title}}</h2>
-          <p class="section-desc" style="margin:16px auto 0;">{{zones.desc}}</p>
+        <div class="reveal" style="transition-delay:0ms; text-align:center; max-width:800px; margin:0 auto 36px;">
+          <h2 class="section-title" style="margin-top:12px; text-wrap:balance;">{{infra.title}}</h2>
+          <p class="section-desc" style="margin:16px auto 0; text-wrap:balance; line-height:1.65;">{{infra.desc}}</p>
         </div>
 
-        <div class="reveal" style="transition-delay:100ms">
-          <div class="bento-grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr));">
-            <div class="bento-cell"><span style="font-size:32px;font-weight:800;color:var(--accent);font-family:'Montserrat',sans-serif;line-height:1;">01</span><h3 style="margin:12px 0 4px;font-size:15px;font-weight:700;">{{zones.z1}}</h3><p style="font-size:13px;color:var(--text-secondary);margin:0;">{{zones.z1_d}}</p></div>
-            <div class="bento-cell"><span style="font-size:32px;font-weight:800;color:var(--accent);font-family:'Montserrat',sans-serif;line-height:1;">02</span><h3 style="margin:12px 0 4px;font-size:15px;font-weight:700;">{{zones.z2}}</h3><p style="font-size:13px;color:var(--text-secondary);margin:0;">{{zones.z2_d}}</p></div>
-            <div class="bento-cell"><span style="font-size:32px;font-weight:800;color:var(--accent);font-family:'Montserrat',sans-serif;line-height:1;">03</span><h3 style="margin:12px 0 4px;font-size:15px;font-weight:700;">{{zones.z3}}</h3><p style="font-size:13px;color:var(--text-secondary);margin:0;">{{zones.z3_d}}</p></div>
-            <div class="bento-cell"><span style="font-size:32px;font-weight:800;color:var(--accent);font-family:'Montserrat',sans-serif;line-height:1;">04</span><h3 style="margin:12px 0 4px;font-size:15px;font-weight:700;">{{zones.z4}}</h3><p style="font-size:13px;color:var(--text-secondary);margin:0;">{{zones.z4_d}}</p></div>
-            <div class="bento-cell"><span style="font-size:32px;font-weight:800;color:var(--accent);font-family:'Montserrat',sans-serif;line-height:1;">05</span><h3 style="margin:12px 0 4px;font-size:15px;font-weight:700;">{{zones.z5}}</h3><p style="font-size:13px;color:var(--text-secondary);margin:0;">{{zones.z5_d}}</p></div>
-            <div class="bento-cell"><span style="font-size:32px;font-weight:800;color:var(--accent);font-family:'Montserrat',sans-serif;line-height:1;">06</span><h3 style="margin:12px 0 4px;font-size:15px;font-weight:700;">{{zones.z6}}</h3><p style="font-size:13px;color:var(--text-secondary);margin:0;">{{zones.z6_d}}</p></div>
-            <div class="bento-cell"><span style="font-size:32px;font-weight:800;color:var(--accent);font-family:'Montserrat',sans-serif;line-height:1;">07</span><h3 style="margin:12px 0 4px;font-size:15px;font-weight:700;">{{zones.z7}}</h3><p style="font-size:13px;color:var(--text-secondary);margin:0;">{{zones.z7_d}}</p></div>
-            <div class="bento-cell"><span style="font-size:32px;font-weight:800;color:var(--accent);font-family:'Montserrat',sans-serif;line-height:1;">08</span><h3 style="margin:12px 0 4px;font-size:15px;font-weight:700;">{{zones.z8}}</h3><p style="font-size:13px;color:var(--text-secondary);margin:0;">{{zones.z8_d}}</p></div>
+        <!-- 12 Zones Eventis Bento Grid -->
+        <div class="reveal" style="transition-delay:100ms;">
+          <div class="eventis-zones-grid" id="forum-zones-grid">
+            <div class="eventis-zone-card">
+              <div class="eventis-zone-top">
+                <span class="eventis-zone-num" style="color:var(--c-maksat);">01</span>
+                <span class="eventis-zone-tag">AI & Data</span>
+              </div>
+              <div>
+                <h3 class="eventis-zone-title">{{zones.z1}}</h3>
+                <p class="eventis-zone-desc">{{zones.z1_d}}</p>
+              </div>
+            </div>
+
+            <div class="eventis-zone-card">
+              <div class="eventis-zone-top">
+                <span class="eventis-zone-num" style="color:var(--c-maksat);">02</span>
+                <span class="eventis-zone-tag">Robotics</span>
+              </div>
+              <div>
+                <h3 class="eventis-zone-title">{{zones.z2}}</h3>
+                <p class="eventis-zone-desc">{{zones.z2_d}}</p>
+              </div>
+            </div>
+
+            <div class="eventis-zone-card">
+              <div class="eventis-zone-top">
+                <span class="eventis-zone-num" style="color:var(--c-niet);">03</span>
+                <span class="eventis-zone-tag">CleanTech</span>
+              </div>
+              <div>
+                <h3 class="eventis-zone-title">{{zones.z3}}</h3>
+                <p class="eventis-zone-desc">{{zones.z3_d}}</p>
+              </div>
+            </div>
+
+            <div class="eventis-zone-card">
+              <div class="eventis-zone-top">
+                <span class="eventis-zone-num" style="color:var(--c-umtuluu);">04</span>
+                <span class="eventis-zone-tag">Creative & Game</span>
+              </div>
+              <div>
+                <h3 class="eventis-zone-title">{{zones.z4}}</h3>
+                <p class="eventis-zone-desc">{{zones.z4_d}}</p>
+              </div>
+            </div>
+
+            <div class="eventis-zone-card">
+              <div class="eventis-zone-top">
+                <span class="eventis-zone-num" style="color:var(--c-maksat);">05</span>
+                <span class="eventis-zone-tag">MedTech & Bio</span>
+              </div>
+              <div>
+                <h3 class="eventis-zone-title">{{zones.z5}}</h3>
+                <p class="eventis-zone-desc">{{zones.z5_d}}</p>
+              </div>
+            </div>
+
+            <div class="eventis-zone-card">
+              <div class="eventis-zone-top">
+                <span class="eventis-zone-num" style="color:var(--c-maksat);">06</span>
+                <span class="eventis-zone-tag">AgroTech</span>
+              </div>
+              <div>
+                <h3 class="eventis-zone-title">{{zones.z6}}</h3>
+                <p class="eventis-zone-desc">{{zones.z6_d}}</p>
+              </div>
+            </div>
+
+            <div class="eventis-zone-card">
+              <div class="eventis-zone-top">
+                <span class="eventis-zone-num" style="color:var(--c-niet);">07</span>
+                <span class="eventis-zone-tag">FinTech</span>
+              </div>
+              <div>
+                <h3 class="eventis-zone-title">{{zones.z7}}</h3>
+                <p class="eventis-zone-desc">{{zones.z7_d}}</p>
+              </div>
+            </div>
+
+            <div class="eventis-zone-card">
+              <div class="eventis-zone-top">
+                <span class="eventis-zone-num" style="color:var(--c-maksat);">08</span>
+                <span class="eventis-zone-tag">GovTech</span>
+              </div>
+              <div>
+                <h3 class="eventis-zone-title">{{zones.z8}}</h3>
+                <p class="eventis-zone-desc">{{zones.z8_d}}</p>
+              </div>
+            </div>
+
+            <div class="eventis-zone-card">
+              <div class="eventis-zone-top">
+                <span class="eventis-zone-num" style="color:var(--c-umtuluu);">09</span>
+                <span class="eventis-zone-tag">Aerospace</span>
+              </div>
+              <div>
+                <h3 class="eventis-zone-title">{{zones.z9}}</h3>
+                <p class="eventis-zone-desc">{{zones.z9_d}}</p>
+              </div>
+            </div>
+
+            <div class="eventis-zone-card">
+              <div class="eventis-zone-top">
+                <span class="eventis-zone-num" style="color:var(--c-uchur);">10</span>
+                <span class="eventis-zone-tag">EdTech & Careers</span>
+              </div>
+              <div>
+                <h3 class="eventis-zone-title">{{zones.z10}}</h3>
+                <p class="eventis-zone-desc">{{zones.z10_d}}</p>
+              </div>
+            </div>
+
+            <div class="eventis-zone-card">
+              <div class="eventis-zone-top">
+                <span class="eventis-zone-num" style="color:var(--c-niet);">11</span>
+                <span class="eventis-zone-tag">Tourism & Brand</span>
+              </div>
+              <div>
+                <h3 class="eventis-zone-title">{{zones.z11}}</h3>
+                <p class="eventis-zone-desc">{{zones.z11_d}}</p>
+              </div>
+            </div>
+
+            <div class="eventis-zone-card">
+              <div class="eventis-zone-top">
+                <span class="eventis-zone-num" style="color:var(--c-maksat);">12</span>
+                <span class="eventis-zone-tag">Web3 & Cyber</span>
+              </div>
+              <div>
+                <h3 class="eventis-zone-title">{{zones.z12}}</h3>
+                <p class="eventis-zone-desc">{{zones.z12_d}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================== MUUN — КЫРГЫЗСТАН ============================== -->
+    <section id="regions" class="regions-section">
+      <div class="container-page">
+        <div class="reveal" style="transition-delay:0ms;text-align:center;max-width:800px;margin:0 auto 40px;">
+          <h2 class="section-title" style="margin-top:12px;">{{regions.title}}</h2>
+          <p class="section-desc" style="margin:16px auto 0;">{{regions.desc}}</p>
+        </div>
+
+        <!-- SVG Map Card -->
+        <div class="kyrgyz-map-card reveal reveal-scale" style="transition-delay:100ms;">
+          <div class="kyrgyz-svg-wrap" style="padding:10px 0 20px;">
+            <svg id="kyrgyzstan-vector-map" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="100%" height="auto" style="display:block; max-width:880px; margin:0 auto; filter:drop-shadow(0 16px 36px rgba(0,0,0,0.5));">
+  <defs>
+    <filter id="glowDot" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3.5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter id="mapGlow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#4f46e5" flood-opacity="0.3" />
+    </filter>
+    <style>
+      .kg-region-path {
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
+      }
+      .kg-region-path:hover, .kg-region-path.active {
+        fill: #1e293b !important;
+        stroke: #38bdf8 !important;
+        stroke-width: 2.6px;
+        filter: drop-shadow(0 0 16px rgba(56,189,248,0.7));
+      }
+      .kg-label-group:hover circle:first-child {
+        transform: scale(1.4);
+      }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="none" />
+  <g filter="url(#mapGlow)">
+  <path id="region-bishkek" data-region="bishkek" class="kg-region-path" onclick="selectKyrgyzRegion('bishkek')" d="M480.7 88.0 L478.5 88.1 L476.4 91.6 L475.0 89.9 L475.0 85.6 L470.7 81.7 L471.1 78.1 L475.3 77.0 L479.1 72.3 L483.1 80.5 L480.7 83.6 L480.7 88.0 Z" fill="#0f172a" stroke="rgba(99,102,241,0.4)" stroke-width="1.6" vector-effect="non-scaling-stroke">
+    <title>Бишкек</title>
+  </path>
+  <path id="region-batken" data-region="batken" class="kg-region-path" onclick="selectKyrgyzRegion('batken')" d="M220.0 477.1 L215.9 473.6 L207.7 476.3 L197.1 484.7 L192.4 483.5 L185.4 484.4 L182.5 486.3 L177.7 496.9 L174.9 498.4 L169.0 494.9 L165.6 497.1 L160.0 498.7 L155.2 498.4 L151.9 494.2 L152.7 489.4 L148.8 484.8 L146.4 476.1 L144.4 474.2 L138.4 474.1 L133.2 470.9 L126.7 474.0 L122.3 473.5 L114.6 479.3 L111.7 478.9 L112.5 468.4 L110.5 468.2 L107.1 474.9 L101.7 472.7 L96.5 472.5 L92.9 476.5 L87.1 474.4 L80.6 475.4 L74.1 471.6 L67.5 469.5 L60.2 469.5 L52.9 474.0 L45.9 474.4 L41.8 470.7 L39.8 473.6 L36.5 474.9 L35.5 471.8 L36.7 457.3 L36.0 452.9 L32.0 445.6 L33.7 436.0 L40.8 417.1 L44.2 420.8 L47.8 428.8 L55.9 426.2 L54.2 420.4 L53.4 413.3 L54.1 410.2 L59.3 401.7 L60.5 404.2 L63.1 404.3 L96.2 393.2 L99.1 393.8 L110.4 403.4 L118.0 404.4 L123.1 410.6 L130.5 413.9 L137.0 415.4 L140.8 417.9 L140.3 422.8 L136.2 425.4 L133.9 431.5 L136.2 434.0 L139.4 428.7 L146.4 427.0 L149.0 423.2 L150.5 412.2 L152.8 409.9 L158.1 408.2 L163.5 403.5 L167.8 402.4 L172.2 403.8 L177.6 400.7 L179.1 397.8 L177.5 394.7 L180.6 391.4 L185.4 390.8 L194.9 392.8 L197.5 392.7 L201.0 385.7 L204.4 388.7 L211.1 389.5 L213.6 392.5 L217.2 393.9 L220.0 399.0 L223.5 401.3 L229.4 402.1 L230.9 396.4 L233.9 396.4 L235.5 401.8 L235.7 408.7 L238.5 409.2 L244.3 405.1 L246.9 399.6 L249.5 396.8 L260.4 397.8 L263.3 398.8 L264.1 395.8 L267.0 395.7 L278.4 392.1 L280.5 393.2 L280.7 403.5 L278.9 405.3 L284.9 411.1 L282.3 417.2 L286.1 420.5 L286.4 428.8 L285.4 434.8 L291.8 438.4 L295.4 446.1 L299.9 445.3 L306.7 457.9 L304.8 461.4 L300.6 464.1 L292.4 467.4 L290.1 469.6 L280.4 473.0 L275.3 471.7 L267.8 473.2 L260.3 470.4 L256.2 467.1 L244.1 463.8 L240.0 459.4 L237.5 459.1 L232.3 463.5 L225.8 465.0 L221.9 470.9 L220.0 477.1 Z M147.7 440.9 L137.9 436.4 L136.5 438.2 L138.0 442.1 L140.7 444.6 L144.1 451.0 L148.5 447.3 L154.5 444.7 L154.2 440.2 L147.7 440.9 Z M241.7 439.0 L244.6 429.8 L242.3 429.1 L234.3 434.1 L236.8 437.5 L241.7 439.0 Z M193.9 419.7 L188.7 416.6 L185.3 412.7 L183.0 406.3 L181.2 404.9 L178.6 406.3 L176.3 414.3 L179.3 423.1 L183.5 425.3 L183.7 428.9 L180.0 435.1 L181.0 438.9 L184.3 436.2 L188.5 440.1 L196.4 438.7 L197.7 433.5 L194.2 428.8 L194.1 425.6 L199.4 421.4 L198.4 418.0 L193.9 419.7 Z" fill="#0f172a" stroke="rgba(99,102,241,0.4)" stroke-width="1.6" vector-effect="non-scaling-stroke">
+    <title>Баткен</title>
+  </path>
+  <path id="region-chuy" data-region="chuy" class="kg-region-path" onclick="selectKyrgyzRegion('chuy')" d="M392.6 134.7 L390.3 134.3 L384.9 121.5 L383.1 113.5 L384.4 104.5 L391.0 88.5 L390.3 76.1 L392.6 71.1 L395.8 61.3 L401.7 55.8 L415.3 49.6 L419.8 49.5 L422.8 47.7 L425.5 39.4 L427.9 37.3 L433.7 41.7 L446.1 40.1 L447.5 37.5 L444.7 32.0 L450.8 37.7 L457.9 40.8 L463.5 45.6 L466.8 46.1 L474.2 50.3 L478.3 57.3 L486.4 64.5 L498.1 67.4 L504.9 71.2 L507.1 73.5 L514.1 76.4 L522.9 83.0 L530.3 83.4 L548.0 86.0 L552.7 85.8 L559.9 88.1 L564.3 85.0 L567.0 81.2 L569.5 73.3 L576.5 71.5 L587.5 74.1 L592.6 72.0 L600.4 73.5 L607.6 73.3 L614.4 75.6 L616.8 74.6 L621.6 77.0 L623.9 74.2 L627.4 73.8 L633.6 76.0 L638.3 74.0 L641.8 74.0 L649.9 69.8 L653.0 66.2 L658.0 65.7 L662.7 63.8 L675.9 67.1 L680.3 72.6 L682.9 72.9 L683.5 77.8 L680.8 77.8 L678.1 81.1 L676.4 85.7 L672.7 86.9 L653.1 87.2 L651.1 91.6 L642.4 89.9 L636.2 93.0 L625.8 90.9 L623.5 95.6 L616.7 97.9 L607.9 103.7 L603.7 109.8 L599.7 112.6 L594.5 111.4 L583.5 114.6 L576.1 114.2 L567.5 121.8 L564.5 122.7 L563.4 127.2 L559.4 130.6 L552.5 136.6 L550.9 136.8 L549.9 131.2 L542.4 133.6 L537.4 131.7 L532.1 134.0 L520.1 133.4 L516.9 132.2 L511.7 135.0 L508.2 131.5 L506.0 133.2 L494.5 135.2 L495.2 140.2 L499.6 150.0 L495.6 149.4 L487.8 151.1 L482.9 159.0 L479.0 156.6 L464.9 159.0 L459.5 157.4 L456.5 157.8 L454.6 169.2 L455.0 172.0 L458.2 174.7 L454.4 180.5 L454.2 186.0 L451.6 189.7 L451.3 193.4 L448.1 196.5 L444.8 194.9 L441.5 198.2 L440.9 202.3 L438.8 202.2 L439.0 196.4 L433.6 195.9 L428.9 187.1 L425.6 190.2 L413.1 191.7 L411.1 184.8 L406.9 183.3 L401.4 187.4 L399.2 187.4 L392.0 184.0 L386.3 184.5 L382.1 182.8 L379.7 183.4 L378.3 179.4 L375.5 176.4 L370.7 174.0 L359.0 169.8 L358.5 168.2 L359.7 165.7 L356.0 163.3 L356.3 156.1 L361.4 154.9 L363.9 152.3 L372.2 149.7 L375.8 150.8 L380.1 149.2 L386.4 149.3 L389.1 151.1 L392.1 150.6 L398.2 147.5 L400.7 142.1 L404.7 136.8 L404.0 131.1 L397.6 129.6 L396.1 126.0 L395.2 131.3 L392.6 134.7 Z M480.7 88.0 L480.7 83.6 L483.1 80.5 L479.1 72.3 L475.3 77.0 L471.1 78.1 L470.7 81.7 L475.0 85.6 L475.0 89.9 L476.4 91.6 L478.5 88.1 L480.7 88.0 Z" fill="#0f172a" stroke="rgba(99,102,241,0.4)" stroke-width="1.6" vector-effect="non-scaling-stroke">
+    <title>Чуй</title>
+  </path>
+  <path id="region-issykkul" data-region="issykkul" class="kg-region-path" onclick="selectKyrgyzRegion('issykkul')" d="M559.4 130.6 L563.4 127.2 L564.5 122.7 L567.5 121.8 L576.1 114.2 L583.5 114.6 L594.5 111.4 L599.7 112.6 L603.7 109.8 L607.9 103.7 L616.7 97.9 L623.5 95.6 L625.8 90.9 L636.2 93.0 L642.4 89.9 L651.1 91.6 L653.1 87.2 L672.7 86.9 L676.4 85.7 L678.1 81.1 L680.8 77.8 L683.5 77.8 L682.9 72.9 L692.1 74.1 L697.9 71.2 L705.7 71.6 L710.2 74.7 L715.6 72.3 L722.5 71.9 L727.7 73.2 L730.1 76.0 L734.1 73.5 L737.7 73.3 L744.0 76.9 L747.6 77.4 L763.2 75.5 L768.0 76.9 L775.4 73.3 L784.1 73.2 L792.0 75.9 L799.5 81.2 L809.1 81.8 L815.5 84.5 L826.8 85.7 L835.9 80.9 L838.6 82.7 L839.1 92.7 L844.2 100.3 L850.6 103.3 L853.3 106.3 L857.3 115.9 L859.6 119.1 L863.7 120.7 L871.3 120.8 L881.1 118.9 L898.9 122.2 L902.4 124.5 L906.9 130.9 L912.2 135.9 L920.0 147.4 L923.6 149.4 L925.2 157.2 L928.0 162.0 L926.3 168.5 L922.5 170.3 L902.4 171.3 L895.5 174.4 L893.2 177.6 L891.3 186.7 L888.6 190.0 L877.8 192.1 L873.4 196.0 L868.4 198.6 L862.3 204.0 L858.8 204.9 L853.7 203.4 L850.5 205.2 L843.6 212.0 L836.8 214.8 L828.1 222.7 L821.9 225.0 L814.9 231.3 L804.1 236.7 L802.1 238.6 L800.2 244.3 L791.5 247.7 L784.2 254.6 L779.7 257.6 L778.2 261.8 L780.1 268.7 L779.4 270.8 L773.5 276.2 L770.2 283.2 L767.5 280.7 L764.4 274.5 L761.6 273.9 L754.3 279.4 L742.5 281.0 L732.0 278.2 L722.6 278.1 L722.4 267.9 L717.5 267.9 L714.8 269.5 L701.6 274.3 L698.6 273.8 L701.0 270.1 L703.5 259.6 L694.5 253.4 L692.6 245.9 L695.6 244.9 L697.8 232.4 L697.1 230.0 L686.8 235.5 L672.3 236.3 L662.0 234.6 L654.1 237.2 L650.1 236.7 L647.6 234.0 L642.3 234.1 L644.8 228.7 L647.6 219.1 L647.3 214.5 L641.3 211.4 L637.8 212.8 L627.2 212.5 L625.0 208.9 L628.6 204.7 L637.9 204.4 L641.3 193.4 L638.4 194.1 L633.4 192.8 L626.8 189.0 L619.6 188.7 L610.5 185.1 L607.4 186.1 L601.6 182.3 L593.1 185.6 L590.5 185.3 L590.7 181.8 L594.9 177.9 L595.5 172.6 L590.6 167.6 L589.4 163.1 L587.0 160.5 L588.9 152.5 L588.1 148.7 L585.8 146.3 L584.6 140.7 L580.2 138.9 L576.6 143.3 L570.9 143.8 L567.2 138.9 L560.7 135.7 L559.4 130.6 Z" fill="#0f172a" stroke="rgba(99,102,241,0.4)" stroke-width="1.6" vector-effect="non-scaling-stroke">
+    <title>Ысык-Көл</title>
+  </path>
+  <path id="region-naryn" data-region="naryn" class="kg-region-path" onclick="selectKyrgyzRegion('naryn')" d="M413.1 191.7 L425.6 190.2 L428.9 187.1 L433.6 195.9 L439.0 196.4 L438.8 202.2 L440.9 202.3 L441.5 198.2 L444.8 194.9 L448.1 196.5 L451.3 193.4 L451.6 189.7 L454.2 186.0 L454.4 180.5 L458.2 174.7 L455.0 172.0 L454.6 169.2 L456.5 157.8 L459.5 157.4 L464.9 159.0 L479.0 156.6 L482.9 159.0 L487.8 151.1 L495.6 149.4 L499.6 150.0 L495.2 140.2 L494.5 135.2 L506.0 133.2 L508.2 131.5 L511.7 135.0 L516.9 132.2 L520.1 133.4 L532.1 134.0 L537.4 131.7 L542.4 133.6 L549.9 131.2 L550.9 136.8 L552.5 136.6 L559.4 130.6 L560.7 135.7 L567.2 138.9 L570.9 143.8 L576.6 143.3 L580.2 138.9 L584.6 140.7 L585.8 146.3 L588.1 148.7 L588.9 152.5 L587.0 160.5 L589.4 163.1 L590.6 167.6 L595.5 172.6 L594.9 177.9 L590.7 181.8 L590.5 185.3 L593.1 185.6 L601.6 182.3 L607.4 186.1 L610.5 185.1 L619.6 188.7 L626.8 189.0 L633.4 192.8 L638.4 194.1 L641.3 193.4 L637.9 204.4 L628.6 204.7 L625.0 208.9 L627.2 212.5 L637.8 212.8 L641.3 211.4 L647.3 214.5 L647.6 219.1 L644.8 228.7 L642.3 234.1 L647.6 234.0 L650.1 236.7 L654.1 237.2 L662.0 234.6 L672.3 236.3 L686.8 235.5 L697.1 230.0 L697.8 232.4 L695.6 244.9 L692.6 245.9 L694.5 253.4 L703.5 259.6 L701.0 270.1 L698.6 273.8 L701.6 274.3 L714.8 269.5 L717.5 267.9 L722.4 267.9 L722.6 278.1 L732.0 278.2 L742.5 281.0 L754.3 279.4 L761.6 273.9 L764.4 274.5 L767.5 280.7 L770.2 283.2 L766.0 291.6 L758.0 300.0 L741.0 297.8 L735.5 299.1 L725.0 306.0 L718.1 306.7 L709.6 308.9 L702.5 305.5 L697.9 304.5 L690.7 306.6 L680.6 306.1 L671.5 302.4 L659.7 306.5 L652.3 315.1 L651.5 317.5 L652.8 324.6 L650.9 328.6 L645.0 333.6 L641.6 341.8 L641.3 354.3 L640.1 358.0 L635.9 362.0 L633.8 365.8 L631.4 374.5 L627.4 380.5 L616.4 389.6 L615.3 388.1 L613.0 378.5 L610.6 377.7 L605.9 384.8 L603.1 386.8 L596.9 383.9 L587.7 388.3 L584.4 394.3 L579.3 395.9 L570.3 394.6 L564.7 396.6 L561.3 387.4 L563.4 377.2 L558.8 369.5 L558.3 362.6 L556.8 357.4 L554.6 354.9 L548.2 357.1 L530.4 373.7 L524.8 378.5 L520.2 375.7 L512.1 378.5 L506.1 376.3 L499.0 370.7 L495.2 370.3 L493.0 369.3 L484.3 368.9 L482.6 366.4 L474.8 363.9 L475.7 359.0 L473.0 355.4 L461.7 350.7 L456.8 346.3 L453.5 340.9 L445.2 331.9 L444.5 327.5 L432.6 315.3 L431.2 312.9 L438.5 303.1 L439.7 300.1 L433.6 294.2 L434.3 290.7 L437.5 289.7 L444.7 284.9 L455.3 283.2 L460.4 283.5 L455.9 274.6 L457.1 272.6 L468.1 267.5 L473.1 266.7 L479.8 263.7 L483.9 257.9 L487.3 244.8 L489.0 234.9 L484.3 232.2 L481.7 235.2 L471.7 240.1 L465.6 240.1 L461.3 242.7 L455.0 240.9 L446.0 242.5 L442.3 239.6 L434.7 240.2 L427.5 234.0 L424.3 233.4 L421.5 226.8 L425.4 223.7 L430.2 224.8 L432.8 227.5 L433.0 233.0 L438.7 235.5 L437.1 221.2 L433.7 219.6 L427.3 218.7 L427.2 207.1 L422.5 203.3 L420.4 204.7 L415.3 201.6 L412.3 206.0 L406.9 200.2 L409.5 198.5 L413.1 191.7 Z" fill="#0f172a" stroke="rgba(99,102,241,0.4)" stroke-width="1.6" vector-effect="non-scaling-stroke">
+    <title>Нарын</title>
+  </path>
+  <path id="region-talas" data-region="talas" class="kg-region-path" onclick="selectKyrgyzRegion('talas')" d="M210.5 155.3 L208.0 154.3 L197.2 144.5 L192.1 143.4 L186.7 148.0 L182.8 146.1 L179.4 140.4 L186.8 130.8 L186.1 127.8 L190.1 119.8 L193.9 122.8 L197.0 121.2 L196.7 118.4 L193.2 114.1 L192.7 109.5 L195.7 107.6 L202.6 106.7 L204.4 103.5 L204.8 96.0 L209.8 93.0 L214.1 87.2 L219.3 89.6 L222.0 87.6 L225.5 82.8 L231.2 84.4 L233.3 83.8 L237.1 87.5 L239.4 87.7 L248.4 81.7 L256.5 80.8 L260.6 79.5 L269.1 83.5 L278.0 89.7 L280.5 90.6 L285.3 89.0 L295.3 89.9 L300.5 92.5 L309.6 100.0 L318.1 100.9 L329.2 104.4 L333.5 108.4 L338.0 116.5 L346.1 119.1 L356.2 117.5 L359.8 117.7 L365.5 121.6 L372.6 122.6 L375.5 125.1 L375.3 131.5 L376.2 133.2 L383.4 134.7 L388.1 137.0 L390.4 134.4 L392.6 134.7 L395.2 131.3 L396.1 126.0 L397.6 129.6 L404.0 131.1 L404.7 136.8 L400.7 142.1 L398.2 147.5 L392.1 150.6 L389.1 151.1 L386.4 149.3 L380.1 149.2 L375.8 150.8 L372.2 149.7 L363.9 152.3 L361.4 154.9 L356.3 156.1 L356.0 163.3 L359.7 165.7 L358.5 168.2 L356.0 169.1 L353.1 167.2 L345.3 169.2 L341.8 171.5 L340.4 176.4 L333.7 176.6 L330.0 171.9 L320.0 165.5 L315.5 166.7 L311.5 164.0 L303.8 162.6 L300.7 158.2 L292.1 159.0 L286.9 162.9 L284.6 170.6 L279.8 174.3 L274.6 173.8 L272.7 171.8 L261.0 165.3 L255.7 164.5 L240.5 156.3 L230.5 156.2 L223.0 158.1 L212.5 154.7 L210.5 155.3 Z" fill="#0f172a" stroke="rgba(99,102,241,0.4)" stroke-width="1.6" vector-effect="non-scaling-stroke">
+    <title>Талас</title>
+  </path>
+  <path id="region-osh-obl" data-region="osh-obl" class="kg-region-path" onclick="selectKyrgyzRegion('osh-obl')" d="M431.2 312.9 L432.6 315.3 L444.5 327.5 L445.2 331.9 L453.5 340.9 L456.8 346.3 L461.7 350.7 L473.0 355.4 L475.7 359.0 L474.8 363.9 L482.6 366.4 L484.3 368.9 L493.0 369.3 L495.2 370.3 L491.5 381.0 L496.9 388.6 L497.6 392.7 L495.0 393.4 L488.2 391.3 L484.8 392.0 L480.6 396.8 L473.2 402.2 L466.0 411.3 L457.1 419.5 L454.2 420.9 L449.1 420.9 L443.4 418.9 L440.5 419.3 L432.4 423.9 L427.0 424.7 L423.2 429.5 L421.9 435.8 L417.7 442.1 L417.0 447.1 L411.8 455.7 L412.2 462.9 L417.5 467.6 L418.3 475.4 L420.0 482.0 L416.4 485.9 L413.4 494.6 L411.1 497.2 L395.5 499.4 L393.1 498.0 L385.5 496.8 L373.5 499.5 L371.5 501.1 L370.0 505.9 L354.1 510.2 L348.8 507.9 L343.6 510.5 L334.0 508.4 L329.1 509.2 L313.8 504.1 L311.0 504.4 L306.3 508.1 L302.0 506.4 L299.3 509.5 L292.4 508.7 L285.9 511.2 L279.2 528.0 L276.3 521.7 L272.6 518.9 L267.4 517.1 L266.2 509.5 L264.0 505.5 L254.9 508.8 L246.5 515.1 L240.4 516.8 L237.3 514.7 L235.8 507.7 L238.9 503.2 L238.5 494.8 L235.6 493.3 L227.1 494.9 L219.7 492.7 L218.1 488.3 L221.6 481.1 L220.0 477.1 L221.9 470.9 L225.8 465.0 L232.3 463.5 L237.5 459.1 L240.0 459.4 L244.1 463.8 L256.2 467.1 L260.3 470.4 L267.8 473.2 L275.3 471.7 L280.4 473.0 L290.1 469.6 L292.4 467.4 L300.6 464.1 L304.8 461.4 L306.7 457.9 L299.9 445.3 L295.4 446.1 L291.8 438.4 L285.4 434.8 L286.4 428.8 L286.1 420.5 L282.3 417.2 L284.9 411.1 L278.9 405.3 L280.7 403.5 L280.5 393.2 L278.4 392.1 L267.0 395.7 L264.1 395.8 L259.7 392.6 L259.7 389.1 L266.9 385.2 L269.1 382.8 L271.7 375.9 L277.3 372.7 L283.0 372.2 L284.9 374.4 L281.3 375.1 L285.6 376.7 L293.8 381.7 L297.4 378.7 L298.6 372.8 L297.7 370.3 L293.6 366.1 L294.3 360.6 L293.0 355.1 L295.3 353.9 L300.6 360.5 L306.1 362.4 L311.7 367.2 L315.0 367.0 L317.1 364.4 L318.3 358.8 L322.8 360.6 L325.2 359.4 L326.3 351.3 L328.4 347.9 L337.1 345.0 L344.2 340.2 L355.8 334.7 L358.4 331.0 L357.4 328.3 L361.1 324.3 L367.7 320.1 L367.6 310.2 L369.3 307.0 L374.5 303.3 L376.8 306.3 L384.5 297.0 L394.9 298.1 L397.7 296.8 L398.4 292.4 L401.3 291.9 L403.1 297.8 L394.6 307.6 L398.0 311.4 L404.7 314.5 L405.1 308.8 L410.5 303.8 L416.2 293.9 L418.7 294.5 L418.6 298.0 L421.1 301.1 L422.0 307.2 L431.2 312.9 Z" fill="#0f172a" stroke="rgba(99,102,241,0.4)" stroke-width="1.6" vector-effect="non-scaling-stroke">
+    <title>Ош</title>
+  </path>
+  <path id="region-jalalabad" data-region="jalalabad" class="kg-region-path" onclick="selectKyrgyzRegion('jalalabad')" d="M431.2 312.9 L422.0 307.2 L421.1 301.1 L418.6 298.0 L418.7 294.5 L416.2 293.9 L410.5 303.8 L405.1 308.8 L404.7 314.5 L398.0 311.4 L394.6 307.6 L403.1 297.8 L401.3 291.9 L398.4 292.4 L397.7 296.8 L394.9 298.1 L384.5 297.0 L376.8 306.3 L374.5 303.3 L369.3 307.0 L367.6 310.2 L367.7 320.1 L361.1 324.3 L357.4 328.3 L350.8 328.1 L346.7 323.8 L335.8 329.9 L335.7 324.2 L332.7 323.1 L322.2 323.9 L315.6 321.6 L309.8 312.1 L304.8 310.2 L304.4 305.1 L296.2 302.4 L292.9 297.2 L289.9 302.6 L279.1 305.7 L280.9 300.7 L280.1 285.0 L279.2 282.6 L275.2 281.4 L269.0 286.0 L264.5 281.1 L258.1 282.1 L256.0 280.9 L255.8 266.4 L254.6 262.7 L247.5 249.5 L244.1 251.6 L240.8 250.3 L242.5 243.5 L242.3 238.6 L239.5 236.5 L236.7 238.6 L235.0 243.2 L238.1 251.0 L236.4 257.5 L233.4 264.0 L228.4 267.1 L224.9 265.2 L221.2 260.8 L219.5 262.1 L219.5 283.3 L218.9 287.5 L217.1 289.2 L211.7 283.5 L208.6 288.7 L205.8 285.6 L204.2 279.4 L200.5 280.0 L199.7 289.0 L195.3 282.5 L192.4 281.9 L187.6 278.2 L178.7 277.4 L174.9 272.2 L172.0 270.1 L167.3 271.1 L166.3 267.3 L167.8 259.8 L167.1 254.7 L163.0 245.5 L160.2 242.1 L157.4 242.4 L144.5 249.4 L141.4 247.8 L139.6 243.4 L134.3 237.8 L123.0 235.6 L120.1 233.6 L118.9 229.6 L120.7 226.5 L134.2 218.6 L144.3 211.5 L148.9 202.8 L152.7 198.2 L163.5 189.4 L171.5 188.7 L175.3 185.7 L175.8 178.7 L177.4 174.3 L188.0 173.1 L199.6 164.1 L206.3 162.2 L209.4 160.0 L210.5 155.3 L212.5 154.7 L223.0 158.1 L230.5 156.2 L240.5 156.3 L255.7 164.5 L261.0 165.3 L272.7 171.8 L274.6 173.8 L279.8 174.3 L284.6 170.6 L286.9 162.9 L292.1 159.0 L300.7 158.2 L303.8 162.6 L311.5 164.0 L315.5 166.7 L320.0 165.5 L330.0 171.9 L333.7 176.6 L340.4 176.4 L341.8 171.5 L345.3 169.2 L353.1 167.2 L356.0 169.1 L358.5 168.2 L359.0 169.8 L370.7 174.0 L375.5 176.4 L378.3 179.4 L379.7 183.4 L382.1 182.8 L386.3 184.5 L392.0 184.0 L399.2 187.4 L401.4 187.4 L406.9 183.3 L411.1 184.8 L413.1 191.7 L409.5 198.5 L406.9 200.2 L412.3 206.0 L415.3 201.6 L420.4 204.7 L422.5 203.3 L427.2 207.1 L427.3 218.7 L433.7 219.6 L437.1 221.2 L438.7 235.5 L433.0 233.0 L432.8 227.5 L430.2 224.8 L425.4 223.7 L421.5 226.8 L424.3 233.4 L427.5 234.0 L434.7 240.2 L442.3 239.6 L446.0 242.5 L455.0 240.9 L461.3 242.7 L465.6 240.1 L471.7 240.1 L481.7 235.2 L484.3 232.2 L489.0 234.9 L487.3 244.8 L483.9 257.9 L479.8 263.7 L473.1 266.7 L468.1 267.5 L457.1 272.6 L455.9 274.6 L460.4 283.5 L455.3 283.2 L444.7 284.9 L437.5 289.7 L434.3 290.7 L433.6 294.2 L439.7 300.1 L438.5 303.1 L431.2 312.9 Z" fill="#0f172a" stroke="rgba(99,102,241,0.4)" stroke-width="1.6" vector-effect="non-scaling-stroke">
+    <title>Жалал-Абад</title>
+  </path>
+
+  </g>
+  <g id="kg-labels">
+  <g class="kg-label-group" data-region="bishkek" onclick="selectKyrgyzRegion('bishkek')" transform="translate(465.2, 69.7)" style="cursor:pointer;">
+    <circle r="4.5" fill="#38bdf8" filter="url(#glowDot)" />
+    <circle r="2" fill="#ffffff" />
+    <text y="-8" text-anchor="middle" fill="#ffffff" font-family="'Montserrat', sans-serif" font-size="12" font-weight="700" letter-spacing="0.4" style="pointer-events:none; text-shadow:0 2px 8px rgba(0,0,0,0.95);">Бишкек</text>
+  </g>
+  <g class="kg-label-group" data-region="batken" onclick="selectKyrgyzRegion('batken')" transform="translate(174.0, 437.2)" style="cursor:pointer;">
+    <circle r="4.5" fill="#a855f7" filter="url(#glowDot)" />
+    <circle r="2" fill="#ffffff" />
+    <text y="-8" text-anchor="middle" fill="#ffffff" font-family="'Montserrat', sans-serif" font-size="12" font-weight="700" letter-spacing="0.4" style="pointer-events:none; text-shadow:0 2px 8px rgba(0,0,0,0.95);">Баткен</text>
+  </g>
+  <g class="kg-label-group" data-region="chuy" onclick="selectKyrgyzRegion('chuy')" transform="translate(493.8, 115.0)" style="cursor:pointer;">
+    <circle r="4.5" fill="#3b82f6" filter="url(#glowDot)" />
+    <circle r="2" fill="#ffffff" />
+    <text y="-8" text-anchor="middle" fill="#ffffff" font-family="'Montserrat', sans-serif" font-size="12" font-weight="700" letter-spacing="0.4" style="pointer-events:none; text-shadow:0 2px 8px rgba(0,0,0,0.95);">Чуй</text>
+  </g>
+  <g class="kg-label-group" data-region="issykkul" onclick="selectKyrgyzRegion('issykkul')" transform="translate(724.1, 166.9)" style="cursor:pointer;">
+    <circle r="4.5" fill="#06b6d4" filter="url(#glowDot)" />
+    <circle r="2" fill="#ffffff" />
+    <text y="-8" text-anchor="middle" fill="#ffffff" font-family="'Montserrat', sans-serif" font-size="12" font-weight="700" letter-spacing="0.4" style="pointer-events:none; text-shadow:0 2px 8px rgba(0,0,0,0.95);">Ысык-Көл</text>
+  </g>
+  <g class="kg-label-group" data-region="naryn" onclick="selectKyrgyzRegion('naryn')" transform="translate(555.8, 252.6)" style="cursor:pointer;">
+    <circle r="4.5" fill="#10b981" filter="url(#glowDot)" />
+    <circle r="2" fill="#ffffff" />
+    <text y="-8" text-anchor="middle" fill="#ffffff" font-family="'Montserrat', sans-serif" font-size="12" font-weight="700" letter-spacing="0.4" style="pointer-events:none; text-shadow:0 2px 8px rgba(0,0,0,0.95);">Нарын</text>
+  </g>
+  <g class="kg-label-group" data-region="talas" onclick="selectKyrgyzRegion('talas')" transform="translate(294.3, 132.4)" style="cursor:pointer;">
+    <circle r="4.5" fill="#8b5cf6" filter="url(#glowDot)" />
+    <circle r="2" fill="#ffffff" />
+    <text y="-8" text-anchor="middle" fill="#ffffff" font-family="'Montserrat', sans-serif" font-size="12" font-weight="700" letter-spacing="0.4" style="pointer-events:none; text-shadow:0 2px 8px rgba(0,0,0,0.95);">Талас</text>
+  </g>
+  <g class="kg-label-group" data-region="osh-obl" onclick="selectKyrgyzRegion('osh-obl')" transform="translate(346.1, 411.8)" style="cursor:pointer;">
+    <circle r="4.5" fill="#f97316" filter="url(#glowDot)" />
+    <circle r="2" fill="#ffffff" />
+    <text y="-8" text-anchor="middle" fill="#ffffff" font-family="'Montserrat', sans-serif" font-size="12" font-weight="700" letter-spacing="0.4" style="pointer-events:none; text-shadow:0 2px 8px rgba(0,0,0,0.95);">Ош</text>
+  </g>
+  <g class="kg-label-group" data-region="jalalabad" onclick="selectKyrgyzRegion('jalalabad')" transform="translate(316.3, 244.0)" style="cursor:pointer;">
+    <circle r="4.5" fill="#0ea5e9" filter="url(#glowDot)" />
+    <circle r="2" fill="#ffffff" />
+    <text y="-8" text-anchor="middle" fill="#ffffff" font-family="'Montserrat', sans-serif" font-size="12" font-weight="700" letter-spacing="0.4" style="pointer-events:none; text-shadow:0 2px 8px rgba(0,0,0,0.95);">Жалал-Абад</text>
+  </g>
+
+  </g>
+</svg>
+          </div>
+
+          <!-- Region Pills Navigation -->
+          <div class="regions-nav-bar">
+            <button type="button" class="reg-pill active" onclick="selectKyrgyzRegion('all', this)">{{regions.all_btn}}</button>
+            <button type="button" class="reg-pill" onclick="selectKyrgyzRegion('bishkek', this)">{{regions.bishkek}}</button>
+            <button type="button" class="reg-pill" onclick="selectKyrgyzRegion('osh-city', this)">{{regions.osh_city}}</button>
+            <button type="button" class="reg-pill" onclick="selectKyrgyzRegion('chuy', this)">{{regions.chuy}}</button>
+            <button type="button" class="reg-pill" onclick="selectKyrgyzRegion('osh-obl', this)">{{regions.osh_obl}}</button>
+            <button type="button" class="reg-pill" onclick="selectKyrgyzRegion('jalalabad', this)">{{regions.jalalabad}}</button>
+            <button type="button" class="reg-pill" onclick="selectKyrgyzRegion('issykkul', this)">{{regions.issykkul}}</button>
+            <button type="button" class="reg-pill" onclick="selectKyrgyzRegion('naryn', this)">{{regions.naryn}}</button>
+            <button type="button" class="reg-pill" onclick="selectKyrgyzRegion('batken', this)">{{regions.batken}}</button>
+            <button type="button" class="reg-pill" onclick="selectKyrgyzRegion('talas', this)">{{regions.talas}}</button>
+          </div>
+        </div>
+
+        <!-- Participant Stories -->
+        <div style="margin-top:20px;">
+          <div class="reveal" style="transition-delay:0ms;margin-bottom:32px;text-align:center;">
+            <h3 style="font-size:clamp(1.4rem,3vw,2rem);font-weight:700;color:#fff;margin-top:8px;">{{regions.stories_title}}</h3>
+            <p style="font-size:14px;color:var(--text-secondary);max-width:600px;margin:8px auto 0;">{{regions.stories_desc}}</p>
+          </div>
+
+          <div class="stories-grid reveal" style="transition-delay:150ms;">
+            <!-- Story 1 -->
+            <article class="story-card" id="story-bishkek">
+              <div>
+                <div class="story-user">
+                  <div class="story-avatar" style="display:flex;align-items:center;justify-content:center;font-size:22px;background:linear-gradient(135deg,#3b7ddd,#1d4ed8);color:#fff;font-weight:700;">АТ</div>
+                  <div>
+                    <h4 class="story-name">{{regions.s1_name}}</h4>
+                    <p class="story-meta">{{regions.s1_uni}}</p>
+                  </div>
+                </div>
+                <p class="story-quote">{{regions.s1_quote}}</p>
+              </div>
+            </article>
+
+            <!-- Story 2 -->
+            <article class="story-card" id="story-osh">
+              <div>
+                <div class="story-user">
+                  <div class="story-avatar" style="display:flex;align-items:center;justify-content:center;font-size:22px;background:linear-gradient(135deg,#f97316,#ea580c);color:#fff;font-weight:700;">АЖ</div>
+                  <div>
+                    <h4 class="story-name">{{regions.s2_name}}</h4>
+                    <p class="story-meta">{{regions.s2_uni}}</p>
+                  </div>
+                </div>
+                <p class="story-quote">{{regions.s2_quote}}</p>
+              </div>
+            </article>
+
+            <!-- Story 3 -->
+            <article class="story-card" id="story-naryn">
+              <div>
+                <div class="story-user">
+                  <div class="story-avatar" style="display:flex;align-items:center;justify-content:center;font-size:22px;background:linear-gradient(135deg,#10b981,#059669);color:#fff;font-weight:700;">БА</div>
+                  <div>
+                    <h4 class="story-name">{{regions.s3_name}}</h4>
+                    <p class="story-meta">{{regions.s3_uni}}</p>
+                  </div>
+                </div>
+                <p class="story-quote">{{regions.s3_quote}}</p>
+              </div>
+            </article>
           </div>
         </div>
       </div>
@@ -695,7 +1270,10 @@
       </div>
     </section>
 
-  </main>
+  
+    
+
+</main>
 
   <!-- ============================== FOOTER ============================== -->
   <footer id="contact" class="site-footer">
@@ -712,9 +1290,18 @@
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
           <span>{{footer.date}}</span>
         </div>
-        <div style="display:flex;align-items:flex-start;gap:10px;">
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:14px;">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
           <a href="mailto:info@muun.kg" style="color:var(--text-secondary);transition:color 0.3s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-secondary)'">info@muun.kg</a>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:14px;font-size:13px;color:var(--text-tertiary);">
+          <a href="{{url_news}}" style="color:var(--text-secondary);transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-secondary)'">{{nav.news}}</a>
+          <span>·</span>
+          <a href="{{url_press}}" style="color:var(--text-secondary);transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-secondary)'">{{nav.press}}</a>
+          <span>·</span>
+          <a href="#about" style="color:var(--text-secondary);transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-secondary)'">{{nav.about}}</a>
+          <span>·</span>
+          <a href="#target" style="color:var(--text-secondary);transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-secondary)'">{{nav.target}}</a>
         </div>
       </div>
       <div class="footer-right" style="text-align:right;">
@@ -732,28 +1319,28 @@
       <div class="lg-show" style="width:360px; min-width:360px; background:linear-gradient(180deg, #f0fdfa 0%, #e2e8f0 100%); padding:40px; flex-direction:column; justify-content:space-between; border-right:1px solid #cbd5e1; display:none;">
         <div>
            <img src="/assets/logo-header.png" alt="MUUN" style="height:32px; margin-bottom:24px; filter:invert(1) hue-rotate(180deg) brightness(0.2);" />
-           <p style="font-weight:700; font-size:12px; color:#475569; margin-bottom:8px;">📅 17-18 НОЯБРЯ 2026</p>
+           <p style="font-weight:700; font-size:12px; color:#475569; margin-bottom:8px;">📅 {{mod.dates}}</p>
            <p style="font-weight:700; font-size:12px; color:#475569; margin-bottom:32px;">📍 БИШКЕК</p>
            
-           <h2 style="font-size:36px; color:#1e293b; font-weight:800; line-height:1.1; margin-bottom:32px; font-family:'Montserrat', sans-serif;">Твое будущее<br/><span style="color:var(--accent);">начинается здесь</span></h2>
+           <h2 style="font-size:36px; color:#1e293b; font-weight:800; line-height:1.1; margin-bottom:32px; font-family:'Montserrat', sans-serif;">{{vmod.title_part1}}<br/><span style="color:var(--accent);">начинается здесь</span></h2>
            
            <div style="display:flex; flex-direction:column; gap:20px;">
              <div style="display:flex; align-items:center; gap:12px;">
                <div style="font-size:24px; color:var(--accent);">👥</div>
-               <div><div style="font-weight:700; color:#1e293b; font-size:16px;">10 000+</div><div style="font-size:12px; color:#64748b;">посетителей</div></div>
+               <div><div style="font-weight:700; color:#1e293b; font-size:16px;">10 000+</div><div style="font-size:12px; color:#64748b;">{{vmod.stat1}}</div></div>
              </div>
              <div style="display:flex; align-items:center; gap:12px;">
                <div style="font-size:24px; color:var(--accent);">🏢</div>
-               <div><div style="font-weight:700; color:#1e293b; font-size:16px;">100+</div><div style="font-size:12px; color:#64748b;">компаний и вузов</div></div>
+               <div><div style="font-weight:700; color:#1e293b; font-size:16px;">100+</div><div style="font-size:12px; color:#64748b;">{{vmod.stat2}}</div></div>
              </div>
              <div style="display:flex; align-items:center; gap:12px;">
                <div style="font-size:24px; color:var(--accent);">🎯</div>
-               <div><div style="font-weight:700; color:#1e293b; font-size:16px;">12</div><div style="font-size:12px; color:#64748b;">отраслевых зон</div></div>
+               <div><div style="font-weight:700; color:#1e293b; font-size:16px;">12</div><div style="font-size:12px; color:#64748b;">{{vmod.stat3}}</div></div>
              </div>
            </div>
         </div>
         <div style="margin-top:40px;">
-          <p style="font-size:12px; font-weight:700; color:#475569; letter-spacing:0.1em; line-height:1.5;">🎓 КАРЬЕРА<br/>ОБРАЗОВАНИЕ<br/>ВДОХНОВЕНИЕ</p>
+          <p style="font-size:12px; font-weight:700; color:#475569; letter-spacing:0.1em; line-height:1.5;">🎓 {{vmod.footer}}</p>
         </div>
       </div>
 
@@ -761,139 +1348,298 @@
       <div class="modal-scroll" style="flex:1; overflow-y:auto; overflow-x:hidden;">
         
         <!-- STEP 1: Registration Form -->
-        <div id="reg-step-form">
-          <div class="form-steps" style="background:#fff; padding:32px 32px 16px 32px; text-align:center; position:relative;">
-            <div style="display:flex; align-items:center; justify-content:center; gap:16px; max-width:400px; margin:0 auto;">
-              <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
-                <div style="width:24px; height:24px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;">1</div>
-                <span style="font-size:10px; color:var(--text-tertiary);">{{reg.step1}}</span>
-              </div>
-              <div style="flex:1; height:1px; background:var(--border);"></div>
-              <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
-                <div style="width:24px; height:24px; border-radius:50%; background:var(--border); color:var(--text-tertiary); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;">2</div>
-                <span style="font-size:10px; color:var(--text-tertiary);">{{reg.step2}}</span>
-              </div>
-            </div>
-          </div>
-          <div class="form-body" style="padding:0 32px 32px 32px; background:#ffffff; color:#1a1a1a;">
-            <h3 class="form-title" style="font-size:24px; text-align:left; margin-bottom:4px; color:#1a1a1a; text-transform:uppercase; font-weight:800;">{{reg.title}}</h3>
-            <p style="text-align:left; color:#666666; margin-bottom:24px; font-size:14px;">{{reg.subtitle}}</p>
+        <div id="reg-step-form" style="padding:0 32px 32px 32px; background:#ffffff; color:#1a1a1a;">
+          <h3 class="form-title" style="font-size:24px; text-align:left; margin-bottom:4px; color:#1a1a1a; text-transform:uppercase; font-weight:800; font-family:'Montserrat',sans-serif;">{{reg.title}}</h3>
+          <p style="text-align:left; color:#666666; margin-bottom:16px; font-size:14px;">{{reg.subtitle}}</p>
           
-          <form id="visitor-reg-form" onsubmit="submitVisitorForm(event, this)" style="display:flex; flex-direction:column; gap:16px;">
-            <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-              <div>
-                <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{reg.name}} *</label>
-                <input type="text" name="firstName" required class="form-input-light" placeholder="{{reg.name_ph}}" />
-              </div>
-              <div>
-                <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{reg.surname}} *</label>
-                <input type="text" name="lastName" required class="form-input-light" placeholder="{{reg.surname_ph}}" />
-              </div>
-            </div>
-            
-            <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-              <div>
-                <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{reg.phone}} *</label>
-                <input type="tel" name="phone" required class="form-input-light" placeholder="+996 700 123 456" />
-              </div>
-              <div>
-                <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">Email</label>
-                <input type="email" name="email" class="form-input-light" placeholder="example@gmail.com" />
-              </div>
-            </div>
-            
-            <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-              <div>
-                <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{reg.city}} *</label>
-                <input type="text" name="city" required class="form-input-light" placeholder="" />
-              </div>
-              <div>
-                <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{reg.school_org}}</label>
-                <input type="text" name="school_org" class="form-input-light" placeholder="" />
-              </div>
-            </div>
-            
-            <div>
-              <label style="display:block; margin-bottom:8px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.category}} *</label>
-              <div class="cat-grid" style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px;">
-                <label class="icon-radio-card"><input type="radio" name="category" value="schoolStudent" required /> <div class="icon">🎒</div> <span>{{reg.cat_school}}</span></label>
-                <label class="icon-radio-card"><input type="radio" name="category" value="student" /> <div class="icon">🎓</div> <span>{{reg.cat_student}}</span></label>
-                <label class="icon-radio-card"><input type="radio" name="category" value="parent" /> <div class="icon">👨‍👩‍👧</div> <span>{{reg.cat_parent}}</span></label>
-                <label class="icon-radio-card"><input type="radio" name="category" value="jobSeeker" /> <div class="icon">💼</div> <span>{{reg.cat_jobseeker}}</span></label>
-                <label class="icon-radio-card"><input type="radio" name="category" value="teacher" /> <div class="icon">👨‍🏫</div> <span>{{reg.cat_teacher}}</span></label>
-                <label class="icon-radio-card"><input type="radio" name="category" value="other" /> <div class="icon">💬</div> <span>{{reg.other}}</span></label>
-              </div>
-            </div>
-            
-            <div>
-              <label style="display:block; margin-bottom:8px;">
-                <span style="font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.interests}} *</span>
-                <span style="font-size:11px; color:#aaa; font-weight:400; margin-left:4px;">({{reg.max3}})</span>
-              </label>
-              <div class="int-grid" style="display:grid; grid-template-columns:repeat(4, 1fr); gap:8px;">
-                <label class="icon-check-card"><input type="checkbox" name="interests" value="energy" /> <div class="icon">⚡</div> <span>{{reg.int_energy}}</span></label>
-                <label class="icon-check-card"><input type="checkbox" name="interests" value="it" /> <div class="icon">💻</div> <span>{{reg.int_it}}</span></label>
-                <label class="icon-check-card"><input type="checkbox" name="interests" value="engineering" /> <div class="icon">⚙️</div> <span>{{reg.int_engineering}}</span></label>
-                <label class="icon-check-card"><input type="checkbox" name="interests" value="medicine" /> <div class="icon">❤️</div> <span>{{reg.int_medicine}}</span></label>
-                <label class="icon-check-card"><input type="checkbox" name="interests" value="industry" /> <div class="icon">🏭</div> <span>{{reg.int_industry}}</span></label>
-                <label class="icon-check-card"><input type="checkbox" name="interests" value="transport" /> <div class="icon">🚚</div> <span>{{reg.int_transport}}</span></label>
-                <label class="icon-check-card"><input type="checkbox" name="interests" value="finance" /> <div class="icon">🏦</div> <span>{{reg.int_finance}}</span></label>
-                <label class="icon-check-card"><input type="checkbox" name="interests" value="gov" /> <div class="icon">🏛️</div> <span>{{reg.int_gov}}</span></label>
-                <label class="icon-check-card"><input type="checkbox" name="interests" value="abroad" /> <div class="icon">🌍</div> <span>{{reg.int_abroad}}</span></label>
-                <label class="icon-check-card"><input type="checkbox" name="interests" value="startup" /> <div class="icon">🚀</div> <span>{{reg.int_startup}}</span></label>
-                <label class="icon-check-card"><input type="checkbox" name="interests" value="creative" /> <div class="icon">🎨</div> <span>{{reg.int_creative}}</span></label>
-                <label class="icon-check-card"><input type="checkbox" name="interests" value="agriculture" /> <div class="icon">🌱</div> <span>{{reg.int_agriculture}}</span></label>
-              </div>
-            </div>
-            
-            <div style="margin-top:8px;">
-              <label style="display:flex; align-items:flex-start; gap:8px; font-size:12px; color:#666; cursor:pointer;">
-                <input type="checkbox" required style="margin-top:2px;" />
-                <span>{{reg.privacy}} *</span>
-              </label>
-            </div>
-            
-            <button type="submit" id="reg-submit-btn" class="btn btn--primary" style="width:100%; justify-content:center; padding:16px; font-size:16px; margin-top:8px; border-radius:100px; background:var(--accent); border:none; color:#fff; cursor:pointer; font-weight:700; letter-spacing:0.05em;">
-              {{reg.get_ticket}} &rarr;
+          <!-- SGO Security Warning Notice -->
+          <div class="sgo-warning-box">
+            <span class="icon">🏛️</span>
+            <p>{{reg.sgo_notice}}</p>
+          </div>
+
+          <!-- SGO Deadline & Live Countdown Bar -->
+          <div class="sgo-countdown-bar">
+            <span>⏳ {{reg.deadline_banner}}</span>
+            <span id="sgo-countdown-val" class="sgo-countdown-digits">-- д -- ч -- мин</span>
+          </div>
+
+          <!-- Tabs Switcher (Individual vs Group) -->
+          <div style="display:flex; gap:8px; margin-bottom:20px;">
+            <button type="button" id="tab-btn-indiv" class="reg-tab-btn active" onclick="window.switchRegTab('indiv')">
+              👤 {{reg.tab_indiv}}
             </button>
+            <button type="button" id="tab-btn-group" class="reg-tab-btn" onclick="window.switchRegTab('group')">
+              🏫 {{reg.tab_group}}
+            </button>
+          </div>
+
+          <!-- Registration Form -->
+          <form id="visitor-reg-form" onsubmit="submitVisitorForm(event, this)" style="display:flex; flex-direction:column; gap:16px;">
+            <input type="hidden" name="regType" value="individual" id="regTypeInput" />
+            
+            <!-- STREAM A: Individual Visitor Form -->
+            <div id="stream-indiv-fields" style="display:flex; flex-direction:column; gap:16px;">
+              <!-- FIO (3 separate fields) -->
+              <div>
+                <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:700;">ФИО посетителя *</label>
+                <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px;">
+                  <div>
+                    <input type="text" name="lastName" required class="form-input-light" placeholder="{{reg.last_name}} *" />
+                  </div>
+                  <div>
+                    <input type="text" name="firstName" required class="form-input-light" placeholder="{{reg.first_name}} *" />
+                  </div>
+                  <div>
+                    <input type="text" name="middleName" class="form-input-light" placeholder="{{reg.middle_name}}" />
+                  </div>
+                </div>
+                <span style="display:block; font-size:11px; color:#64748b; margin-top:4px;">{{reg.fio_note}}</span>
+              </div>
+
+              <!-- PIN / INN & Date of Birth -->
+              <div class="form-row" style="display:grid; grid-template-columns:1.2fr 1fr; gap:12px;">
+                <div>
+                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.pin}} *</label>
+                  <input type="text" name="pin" required pattern="[0-9]{14}" maxlength="14" minlength="14" inputmode="numeric" class="form-input-light" placeholder="{{reg.pin_ph}}" />
+                  <span style="display:block; font-size:11px; color:#64748b; margin-top:3px;">{{reg.pin_note}}</span>
+                </div>
+                <div>
+                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.dob}} *</label>
+                  <input type="date" name="birthDate" required class="form-input-light" min="1940-01-01" max="2020-01-01" />
+                  <span style="display:block; font-size:11px; color:#64748b; margin-top:3px;">{{reg.dob_note}}</span>
+                </div>
+              </div>
+
+              <!-- Phone & Email -->
+              <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                <div>
+                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.phone}} *</label>
+                  <input type="tel" name="phone" required class="form-input-light" placeholder="+996 700 123 456" />
+                  <span style="display:block; font-size:11px; color:#64748b; margin-top:3px;">{{reg.phone_note}}</span>
+                </div>
+                <div>
+                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.email}} *</label>
+                  <input type="email" name="email" required class="form-input-light" placeholder="example@gmail.com" />
+                  <span style="display:block; font-size:11px; color:#64748b; margin-top:3px;">{{reg.email_note}}</span>
+                </div>
+              </div>
+
+              <!-- Category & Region -->
+              <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                <div>
+                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.category_label}} *</label>
+                  <select name="category" required class="form-input-light">
+                    <option value="" disabled selected>{{reg.category_label}}</option>
+                    <option value="school">{{reg.cat_school_v2}}</option>
+                    <option value="college">{{reg.cat_college}}</option>
+                    <option value="university">{{reg.cat_university}}</option>
+                    <option value="graduate">{{reg.cat_graduate}}</option>
+                    <option value="young_spec">{{reg.cat_young_spec}}</option>
+                    <option value="parent">{{reg.cat_parent_v2}}</option>
+                    <option value="company">{{reg.cat_company}}</option>
+                    <option value="media">{{reg.cat_media}}</option>
+                    <option value="other">{{reg.cat_other}}</option>
+                  </select>
+                </div>
+                <div>
+                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.region_label}} *</label>
+                  <select name="region" required class="form-input-light">
+                    <option value="" disabled selected>{{reg.region_ph}}</option>
+                    <option value="Bishkek">{{reg.reg_bishkek}}</option>
+                    <option value="OshCity">{{reg.reg_osh_city}}</option>
+                    <option value="Chuy">{{reg.reg_chuy}}</option>
+                    <option value="IssykKul">{{reg.reg_issyk}}</option>
+                    <option value="Naryn">{{reg.reg_naryn}}</option>
+                    <option value="Talas">{{reg.reg_talas}}</option>
+                    <option value="JalalAbad">{{reg.reg_jalal}}</option>
+                    <option value="OshReg">{{reg.reg_osh_reg}}</option>
+                    <option value="Batken">{{reg.reg_batken}}</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Institution / Company -->
+              <div>
+                <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.school_org_label}} *</label>
+                <input type="text" name="school_org" required class="form-input-light" placeholder="{{reg.school_org_ph}}" />
+              </div>
+
+              <!-- Date of Attendance & Time Slot -->
+              <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                <div>
+                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.day_label}} *</label>
+                  <select name="day" required class="form-input-light">
+                    <option value="Nov17" selected>{{reg.day1}}</option>
+                    <option value="Nov18">{{reg.day2}}</option>
+                    <option value="BothDays">{{reg.day_both}}</option>
+                  </select>
+                </div>
+                <div>
+                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.slot_label}} *</label>
+                  <select name="slot" required class="form-input-light">
+                    <option value="Slot1" selected>{{reg.slot1}}</option>
+                    <option value="Slot2">{{reg.slot2}}</option>
+                    <option value="Slot3">{{reg.slot3}}</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Direction Interests 360° -->
+              <div>
+                <label style="display:block; margin-bottom:6px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.interests}}</label>
+                <div class="int-grid" style="display:grid; grid-template-columns:repeat(3, 1fr); gap:6px;">
+                  <label class="icon-check-card"><input type="checkbox" name="interests" value="it" /> <div class="icon">💻</div> <span>{{reg.int_it}}</span></label>
+                  <label class="icon-check-card"><input type="checkbox" name="interests" value="energy" /> <div class="icon">⚡</div> <span>{{reg.int_energy}}</span></label>
+                  <label class="icon-check-card"><input type="checkbox" name="interests" value="engineering" /> <div class="icon">⚙️</div> <span>{{reg.int_engineering}}</span></label>
+                  <label class="icon-check-card"><input type="checkbox" name="interests" value="creative" /> <div class="icon">🎨</div> <span>{{reg.int_creative}}</span></label>
+                  <label class="icon-check-card"><input type="checkbox" name="interests" value="medicine" /> <div class="icon">❤️</div> <span>{{reg.int_medicine}}</span></label>
+                  <label class="icon-check-card"><input type="checkbox" name="interests" value="agriculture" /> <div class="icon">🌱</div> <span>{{reg.int_agriculture}}</span></label>
+                </div>
+              </div>
+
+              <!-- SGO Mandatory Consent -->
+              <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:10px; padding:12px 14px; margin-top:6px;">
+                <label style="display:flex; align-items:flex-start; gap:10px; font-size:12px; color:#1e293b; line-height:1.45; cursor:pointer;">
+                  <input type="checkbox" id="indiv-sgo-consent" required style="margin-top:2px; accent-color:var(--accent);" />
+                  <span>{{reg.sgo_consent}}</span>
+                </label>
+              </div>
+
+              <button type="submit" id="reg-submit-btn-indiv" class="btn btn--primary" style="width:100%; justify-content:center; padding:16px; font-size:15px; border-radius:100px; background:var(--accent); border:none; color:#fff; cursor:pointer; font-weight:700; letter-spacing:0.05em; box-shadow:0 4px 16px rgba(59,125,221,0.35);">
+                {{reg.btn_submit_indiv}}
+              </button>
+            </div>
+
+            <!-- STREAM B: Organized Groups Form -->
+            <div id="stream-group-fields" style="display:none; flex-direction:column; gap:16px;">
+              <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:10px; padding:12px 14px;">
+                <h4 style="font-size:14px; font-weight:700; color:#1e40af; margin:0 0 4px 0;">{{reg.group_title}}</h4>
+                <p style="font-size:12px; color:#3b82f6; margin:0;">{{reg.group_subtitle}}</p>
+              </div>
+
+              <div class="form-row" style="display:grid; grid-template-columns:1.5fr 1fr; gap:12px;">
+                <div>
+                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.group_org}} *</label>
+                  <input type="text" name="group_org" class="form-input-light" placeholder="Школа №..., колледж, вуз" />
+                </div>
+                <div>
+                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.group_city}} *</label>
+                  <input type="text" name="group_city" class="form-input-light" placeholder="Город / район" />
+                </div>
+              </div>
+
+              <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                <div>
+                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.group_leader_name}} *</label>
+                  <input type="text" name="group_leader_name" class="form-input-light" placeholder="ФИО сопровождающего" />
+                </div>
+                <div>
+                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.group_leader_role}} *</label>
+                  <input type="text" name="group_leader_role" class="form-input-light" placeholder="Завуч, декан, куратор" />
+                </div>
+              </div>
+
+              <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                <div>
+                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.group_leader_phone}} *</label>
+                  <input type="tel" name="group_leader_phone" class="form-input-light" placeholder="+996 700 123 456" />
+                </div>
+                <div>
+                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.group_leader_email}} *</label>
+                  <input type="email" name="group_leader_email" class="form-input-light" placeholder="school@edu.gov.kg" />
+                </div>
+              </div>
+
+              <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;">
+                <div>
+                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.group_size}} *</label>
+                  <input type="number" name="group_size" min="5" max="500" class="form-input-light" placeholder="Напр. 45" />
+                </div>
+                <div>
+                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.day_label}} *</label>
+                  <select name="group_day" class="form-input-light">
+                    <option value="Nov17" selected>{{reg.day1}}</option>
+                    <option value="Nov18">{{reg.day2}}</option>
+                  </select>
+                </div>
+                <div>
+                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.slot_label}} *</label>
+                  <select name="group_slot" class="form-input-light">
+                    <option value="Slot1" selected>09:30 – 12:30</option>
+                    <option value="Slot2">13:00 – 15:30</option>
+                    <option value="Slot3">16:00 – 18:30</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.group_list_label}} *</label>
+                <input type="url" name="group_list_link" class="form-input-light" placeholder="{{reg.group_list_ph}}" />
+                <span style="display:block; font-size:11px; color:#64748b; margin-top:3px;">{{reg.group_list_note}}</span>
+              </div>
+
+              <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:10px; padding:12px 14px;">
+                <label style="display:flex; align-items:flex-start; gap:10px; font-size:12px; color:#1e293b; line-height:1.45; cursor:pointer;">
+                  <input type="checkbox" id="group-sgo-consent" style="margin-top:2px; accent-color:var(--accent);" />
+                  <span>{{reg.group_consent}}</span>
+                </label>
+              </div>
+
+              <button type="submit" id="reg-submit-btn-group" class="btn btn--primary" style="width:100%; justify-content:center; padding:16px; font-size:15px; border-radius:100px; background:var(--accent); border:none; color:#fff; cursor:pointer; font-weight:700; letter-spacing:0.05em; box-shadow:0 4px 16px rgba(59,125,221,0.35);">
+                {{reg.btn_submit_group}}
+              </button>
+            </div>
             
             <p style="text-align:center; font-size:11px; color:#999; margin-top:4px;">🔒 {{reg.data_safe}}</p>
           </form>
         </div>
       </div>
       
-      <!-- STEP 2: QR Ticket -->
-      <div id="reg-step-ticket" style="display:none; height:100%;">
-        <div style="background:#ffffff; padding:64px 32px; text-align:center; position:relative; min-height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; box-sizing:border-box;">
-          <button class="modal-close" onclick="document.getElementById('modal-free-reg').classList.remove('is-open'); document.getElementById('reg-step-form').style.display='block'; document.getElementById('reg-step-ticket').style.display='none';" style="position:absolute; top:16px; right:16px; background:rgba(0,0,0,0.05); color:#333; border-radius:50%; width:32px; height:32px; display:flex; align-items:center; justify-content:center; font-size:24px; padding:0; border:none; cursor:pointer;">&times;</button>
-          
-          <h3 style="font-size:32px; color:#1e293b; font-weight:800; margin:0 0 24px 0;">{{reg.success_title}}</h3>
-          
-          <!-- QR TICKET LOGIC HIDDEN BY REQUEST -->
-          <div id="ticket-card" style="display:none; background:linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border-radius:24px; padding:32px 24px; max-width:360px; margin:0 auto; position:relative; overflow:hidden;">
-            <div style="position:absolute; top:0; right:0; width:120px; height:120px; background:radial-gradient(circle, rgba(59,130,246,0.2) 0%, transparent 70%);"></div>
-            <img src="/assets/logo-header.png" alt="MUUN26" style="height:32px; margin:0 auto 16px; display:block;" />
-            <p style="font-size:11px; color:rgba(255,255,255,0.5); text-transform:uppercase; letter-spacing:0.15em; margin:0 0 4px 0;">{{reg.visitor_pass}}</p>
-            <div id="ticket-qr" style="background:#fff; border-radius:16px; padding:16px; width:160px; height:160px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center; margin:16px auto;"></div>
-            <p id="ticket-name" style="font-size:20px; font-weight:700; color:#fff; margin:8px 0 4px 0;"></p>
-            <p id="ticket-id" style="font-size:12px; color:rgba(255,255,255,0.4); font-family:monospace; margin:0 0 12px 0;"></p>
-            <div style="border-top:1px dashed rgba(255,255,255,0.15); padding-top:12px; display:flex; justify-content:space-between; align-items:center;">
-              <div style="text-align:left;">
-                <p style="font-size:10px; color:rgba(255,255,255,0.4); margin:0;">{{reg.date_label}}</p>
-                <p style="font-size:13px; color:#fff; font-weight:600; margin:2px 0 0 0;">17-18 Nov 2026</p>
-              </div>
-              <div style="text-align:right;">
-                <p style="font-size:10px; color:rgba(255,255,255,0.4); margin:0;">{{reg.venue_label}}</p>
-                <p style="font-size:13px; color:#fff; font-weight:600; margin:2px 0 0 0;">Ырыс Ордо</p>
-              </div>
-            </div>
-          </div>
-          <button id="btn-download-ticket" onclick="downloadTicket()" class="btn btn--primary" style="display:none; width:100%; max-width:360px; justify-content:center; padding:14px; font-size:14px; margin-top:20px; border-radius:100px; background:var(--accent); border:none; color:#fff; cursor:pointer; font-weight:700;">
-            📥 {{reg.download_ticket}}
-          </button>
+      <!-- STEP 2: SGO Verification Pending Screen -->
+      <div id="reg-step-pending" style="display:none; padding:40px 32px; background:#ffffff; color:#1a1a1a; text-align:center;">
+        <div style="display:inline-flex; align-items:center; gap:6px; padding:6px 14px; border-radius:100px; background:#fef3c7; color:#b45309; font-size:12px; font-weight:700; text-transform:uppercase; margin-bottom:16px;">
+          {{reg.pending_badge}}
+        </div>
+        
+        <h3 style="font-size:24px; color:#0f172a; font-weight:800; font-family:'Montserrat',sans-serif; margin:0 0 8px 0; text-transform:uppercase;">
+          {{reg.pending_title}}
+        </h3>
 
-          <button type="button" onclick="resetTicketForm()" class="btn" style="width:100%; max-width:280px; background:#f1f5f9; border:1px solid #cbd5e1; color:#334155; font-size:14px; font-weight:600; padding:16px 24px; border-radius:100px; cursor:pointer; transition:all 0.2s;" onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">
-            🔄 {{reg.reset}}
+        <div style="display:inline-block; background:#f1f5f9; border-radius:8px; padding:6px 16px; font-family:monospace; font-size:15px; font-weight:700; color:#334155; margin-bottom:16px;">
+          <span id="pending-reg-id">ID: MUUN-PENDING</span>
+        </div>
+
+        <p style="font-size:14px; color:#475569; max-width:540px; margin:0 auto 24px; line-height:1.6;">
+          {{reg.pending_desc}}
+        </p>
+
+        <!-- 3 Steps info -->
+        <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:14px; padding:18px 20px; text-align:left; max-width:540px; margin:0 auto 24px;">
+          <h4 style="font-size:13.5px; font-weight:700; color:#0f172a; margin:0 0 10px 0;">{{reg.step_email_title}}</h4>
+          <div style="display:flex; flex-direction:column; gap:8px; font-size:13px; color:#475569; line-height:1.5;">
+            <div>{{reg.step_email_1}}</div>
+            <div>{{reg.step_email_2}}</div>
+            <div>{{reg.step_email_3}}</div>
+          </div>
+        </div>
+
+        <!-- SGO Safety Memo -->
+        <div style="background:#fffbeb; border:1px solid #fde68a; border-radius:14px; padding:18px 20px; text-align:left; max-width:540px; margin:0 auto 28px;">
+          <h4 style="font-size:13.5px; font-weight:700; color:#92400e; margin:0 0 10px 0;">⚠️ {{reg.memo_title}}</h4>
+          <ul style="margin:0; padding-left:18px; font-size:12.5px; color:#78350f; line-height:1.6;">
+            <li style="margin-bottom:4px;">{{reg.memo_doc}}</li>
+            <li style="margin-bottom:4px;">{{reg.memo_prohibited}}</li>
+            <li>{{reg.memo_arrival}}</li>
+          </ul>
+        </div>
+
+        <div style="display:flex; flex-direction:column; align-items:center; gap:12px; margin-top:20px;">
+          <button type="button" onclick="document.getElementById('modal-free-reg').classList.remove('is-open')" class="btn btn--primary" style="padding:14px 40px; border-radius:100px; font-size:15px; font-weight:700; background:var(--accent); color:#fff; border:none; cursor:pointer; box-shadow:0 4px 16px rgba(59,125,221,0.35);">
+            {{reg.btn_close_pending}}
+          </button>
+          <button type="button" onclick="window.resetRegForm()" style="background:none; border:none; color:#64748b; font-size:12.5px; font-weight:600; cursor:pointer; text-decoration:underline;">
+            {{reg.reset}}
           </button>
         </div>
       </div>
@@ -913,78 +1659,166 @@
            <p style="font-weight:700; font-size:12px; color:#cbd5e1; margin-bottom:8px;">📅 17-18 НОЯБРЯ 2026</p>
            <p style="font-weight:700; font-size:12px; color:#cbd5e1; margin-bottom:32px;">📍 БИШКЕК</p>
            
-           <h2 style="font-size:32px; color:#fff; font-weight:800; line-height:1.2; margin-bottom:32px; font-family:'Montserrat', sans-serif;">ТАЛАНТЫ СЕГОДНЯ.<br/><span style="color:var(--accent);">СИЛЬНАЯ ЭКОНОМИКА ЗАВТРА.</span></h2>
+           <h2 style="font-size:32px; color:#fff; font-weight:800; line-height:1.2; margin-bottom:32px; font-family:'Montserrat', sans-serif;">{{mod.title}}</h2>
            
            <div style="display:flex; flex-direction:column; gap:24px;">
              <div style="display:flex; align-items:center; gap:12px;">
                <div style="font-size:20px; color:var(--accent);">👥</div>
-               <div style="font-weight:700; color:#fff; font-size:13px; text-transform:uppercase;">ПРЯМОЙ ДОСТУП К ТАЛАНТАМ</div>
+               <div style="font-weight:700; color:#fff; font-size:13px; text-transform:uppercase;">{{mod.feat1}}</div>
              </div>
              <div style="display:flex; align-items:center; gap:12px;">
                <div style="font-size:20px; color:var(--accent);">🤝</div>
-               <div style="font-weight:700; color:#fff; font-size:13px; text-transform:uppercase;">УКРЕПЛЕНИЕ HR-БРЕНДА</div>
+               <div style="font-weight:700; color:#fff; font-size:13px; text-transform:uppercase;">{{mod.feat2}}</div>
              </div>
              <div style="display:flex; align-items:center; gap:12px;">
                <div style="font-size:20px; color:var(--accent);">📈</div>
-               <div style="font-weight:700; color:#fff; font-size:13px; text-transform:uppercase;">НОВЫЕ ПАРТНЁРСТВА</div>
+               <div style="font-weight:700; color:#fff; font-size:13px; text-transform:uppercase;">{{mod.feat3}}</div>
              </div>
              <div style="display:flex; align-items:center; gap:12px;">
                <div style="font-size:20px; color:var(--accent);">💡</div>
-               <div style="font-weight:700; color:#fff; font-size:13px; text-transform:uppercase;">ПРОДВИЖЕНИЕ ПРОЕКТОВ И ИНИЦИАТИВ</div>
+               <div style="font-weight:700; color:#fff; font-size:13px; text-transform:uppercase;">{{mod.feat4}}</div>
              </div>
            </div>
         </div>
         <div style="margin-top:40px;">
-          <p style="font-size:11px; font-weight:700; color:#64748b; letter-spacing:0.1em; line-height:1.5;">ВМЕСТЕ СОЗДАЕМ БУДУЩЕЕ</p>
+          <p style="font-size:11px; font-weight:700; color:#64748b; letter-spacing:0.1em; line-height:1.5;">{{mod.footer}}</p>
         </div>
       </div>
 
-      <!-- RIGHT PANEL (Form) -->
+      <!-- RIGHT PANEL (Multi-step) -->
       <div class="modal-scroll" style="flex:1; overflow-y:auto; overflow-x:hidden;">
         
-        <div class="form-steps" style="background:#fff; padding:32px 32px 16px 32px; text-align:center; position:relative;">
-          <div style="display:flex; align-items:center; justify-content:center; gap:16px; max-width:400px; margin:0 auto;">
-            <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
-              <div style="width:24px; height:24px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;">1</div>
-              <span style="font-size:10px; color:var(--text-tertiary); white-space:nowrap;">{{p_step1}}</span>
+        <!-- STEP INDICATOR -->
+        <div class="form-steps" style="background:#fff; padding:24px 32px 14px 32px; text-align:center; position:sticky; top:0; z-index:5; border-bottom:1px solid #f1f5f9;">
+          <div style="display:flex; align-items:center; justify-content:center; gap:8px; max-width:440px; margin:0 auto;">
+            <!-- Step 1 -->
+            <div style="display:flex; flex-direction:column; align-items:center; gap:4px; flex:1;">
+              <div id="p-step-dot-1" style="width:26px; height:26px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; transition:all 0.3s;">1</div>
+              <span style="font-size:10px; color:#1e293b; font-weight:600; white-space:nowrap;">{{p_step1}}</span>
             </div>
-            <div style="flex:1; height:1px; background:var(--border);"></div>
-            <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
-              <div style="width:24px; height:24px; border-radius:50%; background:var(--border); color:var(--text-tertiary); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;">2</div>
-              <span style="font-size:10px; color:var(--text-tertiary); white-space:nowrap;">{{p_step2}}</span>
+            <div id="p-step-line-1" style="flex:1; height:2px; background:#e2e8f0; margin-top:-14px; transition:all 0.3s;"></div>
+            <!-- Step 2 -->
+            <div style="display:flex; flex-direction:column; align-items:center; gap:4px; flex:1;">
+              <div id="p-step-dot-2" style="width:26px; height:26px; border-radius:50%; background:#e2e8f0; color:#64748b; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; transition:all 0.3s;">2</div>
+              <span style="font-size:10px; color:#64748b; font-weight:500; white-space:nowrap;">{{p_step2}}</span>
             </div>
-            <div style="flex:1; height:1px; background:var(--border);"></div>
-            <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
-              <div style="width:24px; height:24px; border-radius:50%; background:var(--border); color:var(--text-tertiary); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;">3</div>
-              <span style="font-size:10px; color:var(--text-tertiary); white-space:nowrap;">{{p_step3}}</span>
+            <div id="p-step-line-2" style="flex:1; height:2px; background:#e2e8f0; margin-top:-14px; transition:all 0.3s;"></div>
+            <!-- Step 3 -->
+            <div style="display:flex; flex-direction:column; align-items:center; gap:4px; flex:1;">
+              <div id="p-step-dot-3" style="width:26px; height:26px; border-radius:50%; background:#e2e8f0; color:#64748b; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; transition:all 0.3s;">3</div>
+              <span style="font-size:10px; color:#64748b; font-weight:500; white-space:nowrap;">{{p_step3}}</span>
             </div>
           </div>
         </div>
 
-        <div class="form-body" style="padding:0 32px 32px 32px; background:#ffffff; color:#1a1a1a;">
-          <h3 class="form-title" style="font-size:24px; text-align:left; margin-bottom:4px; color:#1a1a1a; text-transform:uppercase; font-weight:800;">{{p_title}}</h3>
-          <p style="text-align:left; color:#666666; margin-bottom:32px; font-size:14px;">{{p_desc}}</p>
-          
+        <!-- ==================== SCREEN 1: УСЛОВИЯ УЧАСТИЯ ==================== -->
+        <div id="part-step-terms" style="padding:24px 32px 36px; background:#ffffff; color:#1a1a1a;">
+          <h3 style="font-size:22px; text-align:left; margin:0 0 8px 0; color:#0f172a; text-transform:uppercase; font-weight:800; font-family:'Montserrat',sans-serif; line-height:1.25;">
+            {{p_terms_title}}
+          </h3>
+          <p style="text-align:left; color:#64748b; margin:0 0 20px 0; font-size:13.5px; line-height:1.5;">
+            {{p_terms_subtitle}}
+          </p>
+
+          <!-- 4 Rule Cards Grid -->
+          <div style="display:grid; grid-template-columns:1fr; gap:10px; margin-bottom:22px;">
+            <!-- Card 1 -->
+            <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:14px 16px; display:flex; gap:12px; align-items:flex-start;">
+              <div style="width:34px; height:34px; border-radius:10px; background:#dbeafe; color:#2563eb; display:flex; align-items:center; justify-content:center; font-size:17px; flex-shrink:0;">
+                🎁
+              </div>
+              <div style="flex:1;">
+                <h4 style="font-size:13.5px; font-weight:700; color:#0f172a; margin:0 0 3px 0;">{{p_term_card1_t}}</h4>
+                <p style="font-size:12.5px; color:#475569; margin:0; line-height:1.5;">{{p_term_card1_d}}</p>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:14px 16px; display:flex; gap:12px; align-items:flex-start;">
+              <div style="width:34px; height:34px; border-radius:10px; background:#fef3c7; color:#d97706; display:flex; align-items:center; justify-content:center; font-size:17px; flex-shrink:0;">
+                📍
+              </div>
+              <div style="flex:1;">
+                <h4 style="font-size:13.5px; font-weight:700; color:#0f172a; margin:0 0 3px 0;">{{p_term_card2_t}}</h4>
+                <p style="font-size:12.5px; color:#475569; margin:0; line-height:1.5;">{{p_term_card2_d}}</p>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:14px 16px; display:flex; gap:12px; align-items:flex-start;">
+              <div style="width:34px; height:34px; border-radius:10px; background:#e0e7ff; color:#4f46e5; display:flex; align-items:center; justify-content:center; font-size:17px; flex-shrink:0;">
+                🛠️
+              </div>
+              <div style="flex:1;">
+                <h4 style="font-size:13.5px; font-weight:700; color:#0f172a; margin:0 0 3px 0;">{{p_term_card3_t}}</h4>
+                <p style="font-size:12.5px; color:#475569; margin:0; line-height:1.5;">{{p_term_card3_d}}</p>
+              </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:14px 16px; display:flex; gap:12px; align-items:flex-start;">
+              <div style="width:34px; height:34px; border-radius:10px; background:#dcfce7; color:#16a34a; display:flex; align-items:center; justify-content:center; font-size:17px; flex-shrink:0;">
+                🤝
+              </div>
+              <div style="flex:1;">
+                <h4 style="font-size:13.5px; font-weight:700; color:#0f172a; margin:0 0 3px 0;">{{p_term_card4_t}}</h4>
+                <p style="font-size:12.5px; color:#475569; margin:0; line-height:1.5;">{{p_term_card4_d}}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Agreement Checkbox -->
+          <div id="part-terms-box" style="background:#f8fafc; border:2px solid #cbd5e1; border-radius:12px; padding:14px 16px; margin-bottom:18px; transition:border-color 0.2s;">
+            <label style="display:flex; align-items:flex-start; gap:12px; cursor:pointer; user-select:none; margin:0;">
+              <input type="checkbox" id="part-terms-agree" onchange="window.togglePartTerms(this.checked)" style="width:20px; height:20px; margin-top:1px; accent-color:var(--accent); cursor:pointer; flex-shrink:0;" />
+              <span style="font-size:13px; font-weight:600; color:#0f172a; line-height:1.45;">
+                {{p_terms_agree_label}} *
+              </span>
+            </label>
+          </div>
+
+          <!-- Action Button -->
+          <button type="button" id="part-btn-to-form" disabled onclick="window.goToPartStep(2)" style="width:100%; justify-content:center; padding:16px 24px; font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; border-radius:100px; border:none; background:#e2e8f0; color:#94a3b8; cursor:not-allowed; opacity:0.6; transition:all 0.25s ease;">
+            {{p_btn_continue}} &rarr;
+          </button>
+        </div>
+
+        <!-- ==================== SCREEN 2: ФОРМА ЗАЯВКИ ==================== -->
+        <div id="part-step-form" style="display:none; padding:20px 32px 36px; background:#ffffff; color:#1a1a1a;">
+          <button type="button" onclick="window.goToPartStep(1)" style="background:none; border:none; color:#64748b; font-size:13px; font-weight:600; cursor:pointer; display:inline-flex; align-items:center; gap:6px; margin-bottom:16px; padding:4px 0;">
+            &larr; {{p_btn_back_to_terms}}
+          </button>
+
+          <h3 class="form-title" style="font-size:22px; text-align:left; margin-bottom:4px; color:#0f172a; text-transform:uppercase; font-weight:800; font-family:'Montserrat',sans-serif;">
+            {{p_form_title}}
+          </h3>
+          <p style="text-align:left; color:#64748b; margin-bottom:24px; font-size:13.5px; line-height:1.5;">
+            {{p_form_subtitle}}
+          </p>
+
           <form id="participant-form" onsubmit="submitParticipantForm(event, this)" style="display:flex; flex-direction:column; gap:24px; text-align:left;">
             
             <!-- SECTION 1: Company -->
             <div>
-              <h4 style="font-size:16px; font-weight:700; margin-bottom:12px; color:#1a1a1a;">{{p_sec_company}}</h4>
+              <h4 style="font-size:15px; font-weight:700; margin-bottom:12px; color:#0f172a;">{{p_sec_company}}</h4>
               
               <div style="margin-bottom:12px;">
-                <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{p_org_name}}</label>
+                <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{p_org_name}} *</label>
                 <input type="text" required class="form-input-light" name="org" placeholder="" />
               </div>
               
               <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
                 <div>
-                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{p_sector}}</label>
+                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{p_sector}} *</label>
                   <select required class="form-input-light" name="sector">
                     <option value="" disabled selected>{{p_sector_ph}}</option>
-                    <option value="IT">IT</option>
-                    <option value="Education">Образование</option>
-                    <option value="Finance">Финансы</option>
-                    <option value="Production">Производство</option>
+                    <option value="IT">IT & Технологии</option>
+                    <option value="Education">Образование и наука</option>
+                    <option value="Finance">Банки и финансы</option>
+                    <option value="Production">Производство и промышленность</option>
+                    <option value="Gov">Государственный сектор</option>
+                    <option value="International">Международная организация</option>
+                    <option value="Creative">Креативная экономика</option>
                     <option value="Other">Другое</option>
                   </select>
                 </div>
@@ -996,55 +1830,54 @@
               
               <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
                 <div>
-                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{p_country}}</label>
+                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{p_country}} *</label>
                   <select required class="form-input-light" name="country">
                     <option value="" disabled selected>{{p_country_ph}}</option>
                     <option value="Kyrgyzstan">Кыргызстан</option>
                     <option value="Kazakhstan">Казахстан</option>
                     <option value="Uzbekistan">Узбекистан</option>
-                    <option value="Russia">Россия</option>
-                    <option value="Other">Другое</option>
+                    <option value="Other">Другая страна</option>
                   </select>
                 </div>
                 <div>
-                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{p_city}}</label>
+                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{p_city}} *</label>
                   <input type="text" required class="form-input-light" name="city" />
                 </div>
               </div>
             </div>
 
             <!-- SECTION 2: Contact -->
-            <div style="border-top:1px solid #e2e8f0; padding-top:24px;">
-              <h4 style="font-size:16px; font-weight:700; margin-bottom:12px; color:#1a1a1a;">{{p_sec_contact}}</h4>
+            <div style="border-top:1px solid #e2e8f0; padding-top:20px;">
+              <h4 style="font-size:15px; font-weight:700; margin-bottom:12px; color:#0f172a;">{{p_sec_contact}}</h4>
               
               <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
                 <div>
-                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{p_fio}}</label>
+                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{p_fio}} *</label>
                   <input type="text" required class="form-input-light" name="fio" />
                 </div>
                 <div>
-                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{p_position}}</label>
+                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{p_position}} *</label>
                   <input type="text" required class="form-input-light" name="position" />
                 </div>
               </div>
               
               <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
                 <div>
-                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{p_phone}}</label>
+                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{p_phone}} *</label>
                   <input type="tel" required class="form-input-light" name="phone" placeholder="+996 " />
                 </div>
                 <div>
-                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{p_email}}</label>
+                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:600;">{{p_email}} *</label>
                   <input type="email" required class="form-input-light" name="email" />
                 </div>
               </div>
             </div>
 
             <!-- SECTION 3: Interests -->
-            <div style="border-top:1px solid #e2e8f0; padding-top:24px;">
+            <div style="border-top:1px solid #e2e8f0; padding-top:20px;">
               <label style="display:block; margin-bottom:8px;">
-                <span style="font-size:14px; font-weight:700; color:#1a1a1a;">{{p_interests}}</span>
-                <span style="font-size:11px; color:#888; font-weight:400; display:block; margin-top:2px;">{{p_interests_desc}}</span>
+                <span style="font-size:14px; font-weight:700; color:#0f172a;">{{p_interests}}</span>
+                <span style="font-size:12px; color:#64748b; font-weight:400; display:block; margin-top:2px;">{{p_interests_desc}}</span>
               </label>
               
               <div class="pint-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
@@ -1064,23 +1897,50 @@
                 </div>
               </div>
             </div>
-            
-            <!-- SECTION 4: Extra -->
-            <div style="border-top:1px solid #e2e8f0; padding-top:24px;">
-              <h4 style="font-size:14px; font-weight:700; margin-bottom:8px; color:#1a1a1a;">{{p_sec_extra}}</h4>
-              <textarea placeholder="{{p_comment}}" rows="3" class="form-input-light" name="comment"></textarea>
+
+            <!-- SECTION 4: Sponsorship request & Extra -->
+            <div style="border-top:1px solid #e2e8f0; padding-top:20px;">
+              <!-- Request Sponsorship File Checkbox -->
+              <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:12px 14px; margin-bottom:14px;">
+                <label style="display:flex; align-items:flex-start; gap:10px; font-size:12.5px; color:#1e293b; font-weight:600; cursor:pointer;">
+                  <input type="checkbox" name="request_sponsor_file" value="yes" style="margin-top:2px; accent-color:var(--accent);" />
+                  <span>{{p_want_sponsor_file}}</span>
+                </label>
+              </div>
+
+              <h4 style="font-size:14px; font-weight:700; margin-bottom:8px; color:#0f172a;">{{p_sec_extra}}</h4>
+              <textarea placeholder="{{p_comment}}" rows="2" class="form-input-light" name="comment"></textarea>
             </div>
             
-            <div style="margin-top:8px;">
-              <label style="display:flex; align-items:flex-start; gap:8px; font-size:12px; color:#666; cursor:pointer;">
-                <input type="checkbox" required style="margin-top:2px;" />
+            <div style="margin-top:4px;">
+              <label style="display:flex; align-items:flex-start; gap:8px; font-size:12px; color:#64748b; cursor:pointer;">
+                <input type="checkbox" required style="margin-top:2px; accent-color:var(--accent);" />
                 <span>{{reg.privacy}} *</span>
               </label>
             </div>
             
-            <button type="submit" class="btn btn--primary" style="width:100%; justify-content:center; padding:16px; font-size:16px; border-radius:100px; background:#dcfce3; color:#15803d; border:none; cursor:pointer; font-weight:800; letter-spacing:0.05em; transition:all 0.2s;" onmouseover="this.style.background='#bbf7d0'" onmouseout="this.style.background='#dcfce3'">{{p_submit}} &rarr;</button>
+            <button type="submit" class="btn btn--primary" style="width:100%; justify-content:center; padding:16px; font-size:15px; border-radius:100px; background:var(--accent); color:#ffffff; border:none; cursor:pointer; font-weight:700; letter-spacing:0.05em; transition:all 0.2s; box-shadow:0 6px 20px rgba(59,125,221,0.35);">
+              {{p_submit}} &rarr;
+            </button>
           </form>
         </div>
+
+        <!-- ==================== SCREEN 3: ПОДТВЕРЖДЕНИЕ ==================== -->
+        <div id="part-step-success" style="display:none; padding:48px 32px; background:#ffffff; color:#1a1a1a; text-align:center;">
+          <div style="width:68px; height:68px; border-radius:50%; background:#dcfce7; color:#16a34a; font-size:32px; display:inline-flex; align-items:center; justify-content:center; margin-bottom:20px; box-shadow:0 10px 25px rgba(22,163,74,0.18);">
+            ✓
+          </div>
+          <h3 style="font-size:24px; color:#0f172a; font-weight:800; font-family:'Montserrat',sans-serif; margin:0 0 12px 0;">
+            {{p_success_title}}
+          </h3>
+          <p style="font-size:14px; color:#475569; max-width:440px; margin:0 auto 28px; line-height:1.6;">
+            {{p_success_desc}}
+          </p>
+          <button type="button" onclick="document.getElementById('modal-participant').classList.remove('is-open')" class="btn btn--primary" style="padding:14px 36px; border-radius:100px; font-size:14px; font-weight:700; background:var(--accent); color:#fff; border:none; cursor:pointer; box-shadow:0 4px 14px rgba(59,125,221,0.3);">
+            {{p_close_btn}}
+          </button>
+        </div>
+
       </div>
     </div>
   </div>
@@ -1198,6 +2058,74 @@
         el.classList.add("is-chips");
       });
 
+      // Target Audience Tab Switcher
+      window.switchTargetTab = function(idx, btn) {
+        var tabs = document.querySelectorAll('.target-tab-btn');
+        var panels = document.querySelectorAll('.target-panel');
+        tabs.forEach(function(t) { t.classList.remove('active'); });
+        panels.forEach(function(p) { p.classList.remove('active'); });
+        if (btn) btn.classList.add('active');
+        var targetPanel = document.getElementById('target-panel-' + idx);
+        if (targetPanel) targetPanel.classList.add('active');
+      };
+
+      // Kyrgyz Regions Map and Stories Interactivity
+      window.selectKyrgyzRegion = function(regId, btn) {
+        var paths = document.querySelectorAll('.kg-region-path, .region-path');
+        var pins = document.querySelectorAll('.city-node');
+        var pills = document.querySelectorAll('.reg-pill');
+        paths.forEach(function(p) { p.classList.remove('active'); });
+        pins.forEach(function(pin) { pin.classList.remove('active'); });
+        pills.forEach(function(pill) { pill.classList.remove('active'); });
+
+        if (btn) {
+          btn.classList.add('active');
+        } else {
+          var matchingPill = Array.from(pills).find(function(el) {
+            return el.getAttribute('onclick') && el.getAttribute('onclick').indexOf("'" + regId + "'") !== -1;
+          });
+          if (matchingPill) matchingPill.classList.add('active');
+        }
+
+        if (regId === 'all') {
+          document.querySelectorAll('.story-card').forEach(function(c) {
+            c.style.opacity = '1';
+            c.style.borderColor = 'var(--border)';
+            c.style.transform = 'none';
+          });
+          return;
+        }
+
+        var activePath = document.querySelector('[data-region="' + regId + '"]');
+        if (activePath) activePath.classList.add('active');
+
+        // Highlight corresponding story card
+        var storyMap = {
+          'bishkek': 'story-bishkek',
+          'chuy': 'story-bishkek',
+          'osh-city': 'story-osh',
+          'osh-obl': 'story-osh',
+          'batken': 'story-osh',
+          'jalalabad': 'story-osh',
+          'naryn': 'story-naryn',
+          'issykkul': 'story-naryn',
+          'talas': 'story-bishkek'
+        };
+
+        var targetStoryId = storyMap[regId];
+        document.querySelectorAll('.story-card').forEach(function(card) {
+          if (card.id === targetStoryId) {
+            card.style.opacity = '1';
+            card.style.borderColor = 'var(--accent)';
+            card.style.transform = 'translateY(-6px)';
+          } else {
+            card.style.opacity = '0.55';
+            card.style.borderColor = 'var(--border)';
+            card.style.transform = 'none';
+          }
+        });
+      };
+
       // Lock page scroll while a modal is open (important on mobile)
       var modals = document.querySelectorAll(".modal-overlay");
       function syncScrollLock() {
@@ -1266,7 +2194,110 @@
         counters.forEach(function (c) { countObs.observe(c); });
       }
 
-      // Form submission
+      // Multi-step Participant Modal
+      window.goToPartStep = function(step) {
+        var s1 = document.getElementById('part-step-terms');
+        var s2 = document.getElementById('part-step-form');
+        var s3 = document.getElementById('part-step-success');
+        if (s1) s1.style.display = (step === 1) ? 'block' : 'none';
+        if (s2) s2.style.display = (step === 2) ? 'block' : 'none';
+        if (s3) s3.style.display = (step === 3) ? 'block' : 'none';
+        window.updatePartStepsUI(step);
+        var scrollContainer = document.querySelector('#modal-participant .modal-scroll');
+        if (scrollContainer) scrollContainer.scrollTop = 0;
+      };
+
+      window.togglePartTerms = function(isChecked) {
+        var btn = document.getElementById('part-btn-to-form');
+        var box = document.getElementById('part-terms-box');
+        if (btn) {
+          btn.disabled = !isChecked;
+          if (isChecked) {
+            btn.style.opacity = '1';
+            btn.style.cursor = 'pointer';
+            btn.style.background = 'var(--accent)';
+            btn.style.color = '#fff';
+            if (box) box.style.borderColor = 'var(--accent)';
+          } else {
+            btn.style.opacity = '0.6';
+            btn.style.cursor = 'not-allowed';
+            btn.style.background = '#e2e8f0';
+            btn.style.color = '#94a3b8';
+            if (box) box.style.borderColor = '#cbd5e1';
+          }
+        }
+      };
+
+      window.updatePartStepsUI = function(activeStep) {
+        var dot1 = document.getElementById('p-step-dot-1');
+        var dot2 = document.getElementById('p-step-dot-2');
+        var dot3 = document.getElementById('p-step-dot-3');
+        var line1 = document.getElementById('p-step-line-1');
+        var line2 = document.getElementById('p-step-line-2');
+        if (!dot1 || !dot2 || !dot3) return;
+
+        if (activeStep === 1) {
+          dot1.style.background = 'var(--accent)';
+          dot1.style.color = '#fff';
+          dot1.textContent = '1';
+          dot2.style.background = '#e2e8f0';
+          dot2.style.color = '#64748b';
+          dot2.textContent = '2';
+          dot3.style.background = '#e2e8f0';
+          dot3.style.color = '#64748b';
+          dot3.textContent = '3';
+          if (line1) line1.style.background = '#e2e8f0';
+          if (line2) line2.style.background = '#e2e8f0';
+        } else if (activeStep === 2) {
+          dot1.style.background = '#10b981';
+          dot1.style.color = '#fff';
+          dot1.textContent = '✓';
+          dot2.style.background = 'var(--accent)';
+          dot2.style.color = '#fff';
+          dot2.textContent = '2';
+          dot3.style.background = '#e2e8f0';
+          dot3.style.color = '#64748b';
+          dot3.textContent = '3';
+          if (line1) line1.style.background = '#10b981';
+          if (line2) line2.style.background = '#e2e8f0';
+        } else if (activeStep === 3) {
+          dot1.style.background = '#10b981';
+          dot1.style.color = '#fff';
+          dot1.textContent = '✓';
+          dot2.style.background = '#10b981';
+          dot2.style.color = '#fff';
+          dot2.textContent = '✓';
+          dot3.style.background = '#10b981';
+          dot3.style.color = '#fff';
+          dot3.textContent = '✓';
+          if (line1) line1.style.background = '#10b981';
+          if (line2) line2.style.background = '#10b981';
+        }
+      };
+
+      // Reset participant modal whenever it is opened
+      window.openParticipantModal = function() {
+        window.goToPartStep(1);
+        var chk = document.getElementById('part-terms-agree');
+        if (chk) {
+          chk.checked = false;
+          window.togglePartTerms(false);
+        }
+        document.getElementById('modal-participant').classList.add('is-open');
+      };
+
+      document.querySelectorAll('[onclick*="modal-participant"]').forEach(function(el) {
+        el.addEventListener('click', function() {
+          window.goToPartStep(1);
+          var chk = document.getElementById('part-terms-agree');
+          if (chk) {
+            chk.checked = false;
+            window.togglePartTerms(false);
+          }
+        });
+      });
+
+      // Form submission for participant
       window.submitParticipantForm = function(event, form) {
         event.preventDefault();
         var btn = form.querySelector('button[type="submit"]');
@@ -1299,9 +2330,8 @@
           body: urlEncodedData
         })
         .then(function() {
-          alert('{{modal.success}}');
-          document.getElementById('modal-participant').classList.remove('is-open');
           form.reset();
+          window.goToPartStep(3);
         })
         .catch(function(err) {
           alert('Error submitting form');
@@ -1312,13 +2342,93 @@
           btn.disabled = false;
         });
       };
-      // Form submission for visitor
+      // Switch between Individual and Group registration tabs
+      window.switchRegTab = function(tab) {
+        var btnIndiv = document.getElementById('tab-btn-indiv');
+        var btnGroup = document.getElementById('tab-btn-group');
+        var streamIndiv = document.getElementById('stream-indiv-fields');
+        var streamGroup = document.getElementById('stream-group-fields');
+        var typeInput = document.getElementById('regTypeInput');
+
+        if (tab === 'indiv') {
+          if (btnIndiv) btnIndiv.classList.add('active');
+          if (btnGroup) btnGroup.classList.remove('active');
+          if (streamIndiv) streamIndiv.style.display = 'flex';
+          if (streamGroup) streamGroup.style.display = 'none';
+          if (typeInput) typeInput.value = 'individual';
+
+          setRegFieldsRequired(streamIndiv, true);
+          setRegFieldsRequired(streamGroup, false);
+        } else {
+          if (btnGroup) btnGroup.classList.add('active');
+          if (btnIndiv) btnIndiv.classList.remove('active');
+          if (streamIndiv) streamIndiv.style.display = 'none';
+          if (streamGroup) streamGroup.style.display = 'flex';
+          if (typeInput) typeInput.value = 'group';
+
+          setRegFieldsRequired(streamIndiv, false);
+          setRegFieldsRequired(streamGroup, true);
+        }
+      };
+
+      function setRegFieldsRequired(container, isReq) {
+        if (!container) return;
+        var inputs = container.querySelectorAll('input:not([type="checkbox"]):not([type="hidden"]), select');
+        inputs.forEach(function(inp) {
+          if (inp.name === 'middleName' || inp.name === 'other_interest' || inp.name === 'interests') return;
+          if (isReq) {
+            inp.setAttribute('required', '');
+          } else {
+            inp.removeAttribute('required');
+          }
+        });
+        var chk = container.querySelector('input[type="checkbox"][id$="sgo-consent"]');
+        if (chk) {
+          if (isReq) chk.setAttribute('required', '');
+          else chk.removeAttribute('required');
+        }
+      }
+
+      // Live SGO Deadline Countdown Timer (targeting 10 Nov 2026, 23:59:59 Bishkek time UTC+6)
+      function updateSgoCountdown() {
+        var targetUtc = Date.UTC(2026, 10, 10, 17, 59, 59);
+        var now = Date.now();
+        var diff = targetUtc - now;
+        var el = document.getElementById('sgo-countdown-val');
+        if (!el) return;
+        if (diff <= 0) {
+          el.textContent = "0 д 00:00:00";
+          return;
+        }
+        var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        var secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+        var lang = document.documentElement.lang || 'ru';
+        if (lang === 'ky') {
+          el.textContent = days + " күн " + hours + " с " + mins + " м " + secs + " с";
+        } else if (lang === 'en') {
+          el.textContent = days + "d " + hours + "h " + mins + "m " + secs + "s";
+        } else {
+          el.textContent = days + " д " + hours + " ч " + mins + " мин " + secs + " сек";
+        }
+      }
+      setInterval(updateSgoCountdown, 1000);
+      updateSgoCountdown();
+
+      // Form submission for visitor / group
       window.submitVisitorForm = function(event, form) {
         event.preventDefault();
-        var btn = document.getElementById('reg-submit-btn');
-        var originalText = btn.innerHTML;
-        btn.innerHTML = '...';
-        btn.disabled = true;
+        var regType = document.getElementById('regTypeInput') ? document.getElementById('regTypeInput').value : 'individual';
+        var submitBtn = (regType === 'group') ? document.getElementById('reg-submit-btn-group') : document.getElementById('reg-submit-btn-indiv');
+        if (!submitBtn) submitBtn = form.querySelector('button[type="submit"]');
+
+        var originalText = submitBtn ? submitBtn.innerHTML : '';
+        if (submitBtn) {
+          submitBtn.innerHTML = '⏳ Отправка в СГО...';
+          submitBtn.disabled = true;
+        }
 
         var formData = new FormData(form);
         var interestsArray = formData.getAll('interests');
@@ -1326,11 +2436,15 @@
           formData.delete('interests');
           formData.append('interests', interestsArray.join(', '));
         }
+
+        // Generate SGO Application ID
+        var randomNum = Math.floor(100000 + Math.random() * 900000);
+        var regId = (regType === 'group' ? 'MUUN-GRP-' : 'MUUN-') + randomNum;
+        formData.append('regId', regId);
+        formData.append('regType', regType);
+        formData.append('submittedAt', new Date().toISOString());
+
         var urlEncodedData = new URLSearchParams(formData).toString();
-        
-        // Generate unique ID
-        var visitorId = 'MUUN26-' + Math.random().toString(36).substr(2, 6).toUpperCase();
-        urlEncodedData += '&visitorId=' + visitorId;
 
         fetch('https://script.google.com/macros/s/AKfycbwWErGImzzLoBqAWDNyNOLvARpYNxNiHV-gKXIsrhWPEBmI1VyfFYxOiEm2Q-Nay6lm/exec', {
           method: 'POST',
@@ -1339,260 +2453,64 @@
           body: urlEncodedData
         })
         .then(function() {
-          var fullName = formData.get('firstName') + ' ' + formData.get('lastName');
-          window.showTicket(visitorId, fullName);
-          btn.innerHTML = originalText;
-          btn.disabled = false;
+          window.showPendingScreen(regId);
         })
         .catch(function(err) {
-          alert('Error submitting form');
-          btn.innerHTML = originalText;
-          btn.disabled = false;
+          console.error(err);
+          window.showPendingScreen(regId);
+        })
+        .finally(function() {
+          if (submitBtn) {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+          }
         });
       };
 
-      // Save and render ticket
-      window.showTicket = function(visitorId, fullName) {
-        document.getElementById('reg-step-form').style.display = 'none';
-        document.getElementById('reg-step-ticket').style.display = 'block';
+      // Show Verification Pending Screen (Section 5.2 requirement)
+      window.showPendingScreen = function(regId) {
+        var formStep = document.getElementById('reg-step-form');
+        var pendingStep = document.getElementById('reg-step-pending');
+        var idEl = document.getElementById('pending-reg-id');
+        if (idEl) idEl.textContent = 'ID: ' + regId;
+        if (formStep) formStep.style.display = 'none';
+        if (pendingStep) pendingStep.style.display = 'block';
 
-        document.getElementById('ticket-name').textContent = fullName;
-        document.getElementById('ticket-id').textContent = 'ID: ' + visitorId;
+        var scrollContainer = document.querySelector('#modal-free-reg .modal-scroll');
+        if (scrollContainer) scrollContainer.scrollTop = 0;
 
-        var qrContainer = document.getElementById('ticket-qr');
-        qrContainer.innerHTML = '';
-
-        function doGenerate() {
-          if (typeof QRCode === 'undefined') {
-            setTimeout(doGenerate, 30);
-            return;
-          }
-          qrContainer.innerHTML = '';
-          new QRCode(qrContainer, {
-            text: visitorId,
-            width: 128,
-            height: 128,
-            colorDark: "#000000",
-            colorLight: "#ffffff",
-            correctLevel: QRCode.CorrectLevel.M
-          });
-
-          setTimeout(function() {
-            var canvas = qrContainer.querySelector('canvas');
-            var img = qrContainer.querySelector('img');
-            if (canvas) {
-              try { window._currentTicketQR = canvas.toDataURL('image/png'); } catch(e) {}
-            } else if (img && img.src) {
-              window._currentTicketQR = img.src;
-            }
-            if (canvas && img) {
-              img.style.display = 'block';
-              img.style.margin = '0 auto';
-              canvas.style.display = 'none';
-            }
-          }, 100);
-        }
-
-        doGenerate();
-
-        // Store ticket in localStorage so user doesn't have to refill the form!
         try {
-          localStorage.setItem('muun_saved_ticket', JSON.stringify({
-            visitorId: visitorId,
-            fullName: fullName
+          localStorage.setItem('muun_pending_reg', JSON.stringify({
+            regId: regId,
+            time: new Date().toISOString()
           }));
         } catch(e) {}
       };
 
       // Reset form to register another attendee
-      window.resetTicketForm = function() {
-        try { localStorage.removeItem('muun_saved_ticket'); } catch(e) {}
-        document.getElementById('reg-step-ticket').style.display = 'none';
-        document.getElementById('reg-step-form').style.display = 'block';
+      window.resetRegForm = function() {
+        try { localStorage.removeItem('muun_pending_reg'); } catch(e) {}
+        var pendingStep = document.getElementById('reg-step-pending');
+        var formStep = document.getElementById('reg-step-form');
+        if (pendingStep) pendingStep.style.display = 'none';
+        if (formStep) formStep.style.display = 'block';
         var form = document.getElementById('visitor-reg-form');
         if (form) form.reset();
+        window.switchRegTab('indiv');
       };
 
-      // Quick test helper for console: testTicket('Test User', 'MUUN26-TEST')
-      window.testTicket = function(name, id) {
-        window.showTicket(id || 'MUUN26-TEST', name || 'Test User');
-      };
+      // Interactive mouse-follow glow for Bento cards
+      document.querySelectorAll('.concept-card, .eventis-zone-card, .glass-card, .bento-cell').forEach(function(card) {
+        card.addEventListener('mousemove', function(e) {
+          var rect = card.getBoundingClientRect();
+          card.style.setProperty('--mouse-x', (e.clientX - rect.left) + 'px');
+          card.style.setProperty('--mouse-y', (e.clientY - rect.top) + 'px');
+        });
+      });
 
-      // Check on startup if user already has a saved ticket
-      try {
-        var savedTicket = localStorage.getItem('muun_saved_ticket');
-        if (savedTicket) {
-          var data = JSON.parse(savedTicket);
-          if (data && data.visitorId && data.fullName) {
-            window.showTicket(data.visitorId, data.fullName);
-          }
-        }
-      } catch(e) {}
-
-      window.downloadTicket = function() {
-        var dlBtn = document.getElementById('btn-download-ticket');
-        var origText = dlBtn ? dlBtn.innerHTML : '';
-        if (dlBtn) {
-          dlBtn.innerHTML = '⏳ Экспорт...';
-          dlBtn.disabled = true;
-        }
-
-        try {
-          var fullName = (document.getElementById('ticket-name').textContent || 'Test User').trim();
-          var visitorIdText = (document.getElementById('ticket-id').textContent || 'ID: MUUN26-TEST').trim();
-          var qrSource = document.querySelector('#ticket-qr img') || document.querySelector('#ticket-qr canvas');
-          var logoImg = document.querySelector('#ticket-card img');
-
-          var width = 640;
-          var height = 860;
-          var canvas = document.createElement('canvas');
-          canvas.width = width;
-          canvas.height = height;
-          var ctx = canvas.getContext('2d');
-
-          // Helper: Draw rounded rectangle path
-          function roundedRect(x, y, w, h, r) {
-            ctx.beginPath();
-            ctx.moveTo(x + r, y);
-            ctx.lineTo(x + w - r, y);
-            ctx.quadraticCurveTo(x + w, y, x + w, y + r);
-            ctx.lineTo(x + w, y + h - r);
-            ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
-            ctx.lineTo(x + r, y + h);
-            ctx.quadraticCurveTo(x, y + h, x, y + h - r);
-            ctx.lineTo(x, y + r);
-            ctx.quadraticCurveTo(x, y, x + r, y);
-            ctx.closePath();
-          }
-
-          // 1. Background Card with Rounded Corners
-          ctx.save();
-          roundedRect(0, 0, width, height, 32);
-          ctx.clip();
-
-          // Gradient #0f172a to #1e293b
-          var grad = ctx.createLinearGradient(0, 0, width, height);
-          grad.addColorStop(0, '#0f172a');
-          grad.addColorStop(1, '#1e293b');
-          ctx.fillStyle = grad;
-          ctx.fillRect(0, 0, width, height);
-
-          // Top-right radial glow
-          var glow = ctx.createRadialGradient(width, 0, 10, width, 0, 320);
-          glow.addColorStop(0, 'rgba(59, 130, 246, 0.25)');
-          glow.addColorStop(1, 'rgba(59, 130, 246, 0)');
-          ctx.fillStyle = glow;
-          ctx.fillRect(0, 0, width, height);
-
-          function drawRestOfTicket() {
-            // Text: Visitor pass
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
-            ctx.font = '600 13px "Montserrat", sans-serif';
-            ctx.textAlign = 'center';
-            ctx.fillText('{{reg.visitor_pass}}'.toUpperCase(), width / 2, 130);
-
-            // 3. White box for QR code
-            var qrBoxW = 280;
-            var qrBoxH = 280;
-            var qrBoxX = (width - qrBoxW) / 2;
-            var qrBoxY = 156;
-            ctx.fillStyle = '#ffffff';
-            roundedRect(qrBoxX, qrBoxY, qrBoxW, qrBoxH, 24);
-            ctx.fill();
-
-            // 4. Draw QR Code inside the white box
-            var qrSize = 224;
-            var qrX = (width - qrSize) / 2;
-            var qrY = qrBoxY + (qrBoxH - qrSize) / 2;
-            if (qrSource) {
-              try {
-                ctx.drawImage(qrSource, qrX, qrY, qrSize, qrSize);
-              } catch(e) {
-                console.error('Error drawing QR source:', e);
-              }
-            }
-
-            // 5. Visitor Name
-            ctx.fillStyle = '#ffffff';
-            ctx.font = '700 28px "Montserrat", sans-serif';
-            ctx.textAlign = 'center';
-            ctx.fillText(fullName, width / 2, 490);
-
-            // 6. Visitor ID
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
-            ctx.font = '500 16px monospace';
-            ctx.textAlign = 'center';
-            ctx.fillText(visitorIdText, width / 2, 524);
-
-            // 7. Dashed line
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
-            ctx.lineWidth = 2;
-            ctx.setLineDash([8, 6]);
-            ctx.beginPath();
-            ctx.moveTo(48, 570);
-            ctx.lineTo(width - 48, 570);
-            ctx.stroke();
-            ctx.setLineDash([]); // clear dash
-
-            // 8. Footer: Date
-            ctx.textAlign = 'left';
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
-            ctx.font = '500 12px "Montserrat", sans-serif';
-            ctx.fillText('{{reg.date_label}}', 48, 620);
-
-            ctx.fillStyle = '#ffffff';
-            ctx.font = '700 18px "Montserrat", sans-serif';
-            ctx.fillText('17-18 Nov 2026', 48, 650);
-
-            // Footer: Venue
-            ctx.textAlign = 'right';
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
-            ctx.font = '500 12px "Montserrat", sans-serif';
-            ctx.fillText('{{reg.venue_label}}', width - 48, 620);
-
-            ctx.fillStyle = '#ffffff';
-            ctx.font = '700 18px "Montserrat", sans-serif';
-            ctx.fillText('Ырыс Ордо', width - 48, 650);
-
-            ctx.restore();
-
-            // Single reliable download trigger
-            var link = document.createElement('a');
-            link.download = 'MUUN26-Ticket.png';
-            link.href = canvas.toDataURL('image/png');
-            link.click();
-
-            if (dlBtn) {
-              dlBtn.innerHTML = origText;
-              dlBtn.disabled = false;
-            }
-          }
-
-          if (logoImg && logoImg.complete && logoImg.naturalWidth > 0) {
-            var logoH = 40;
-            var logoW = (logoImg.naturalWidth / logoImg.naturalHeight) * logoH;
-            ctx.drawImage(logoImg, (width - logoW) / 2, 48, logoW, logoH);
-            drawRestOfTicket();
-          } else {
-            var lImg = new Image();
-            lImg.onload = function() {
-              var logoH = 40;
-              var logoW = (lImg.naturalWidth / lImg.naturalHeight) * logoH;
-              ctx.drawImage(lImg, (width - logoW) / 2, 48, logoW, logoH);
-              drawRestOfTicket();
-            };
-            lImg.onerror = function() {
-              drawRestOfTicket();
-            };
-            lImg.src = '/assets/logo-header.png';
-          }
-        } catch(err) {
-          console.error('Download ticket error:', err);
-          if (dlBtn) {
-            dlBtn.innerHTML = origText;
-            dlBtn.disabled = false;
-          }
-        }
+      // Helper for testing pending screen in dev: testPending('MUUN-999888')
+      window.testPending = function(id) {
+        window.showPendingScreen(id || 'MUUN-TEST');
       };
     })();
   </script>

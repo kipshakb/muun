@@ -1,4 +1,5 @@
 import { readFile, writeFile, mkdir, rename, rm, cp } from "node:fs/promises";
+import fs from "node:fs";
 import { execSync } from "node:child_process";
 import crypto from "node:crypto";
 import path from "node:path";
@@ -69,32 +70,52 @@ function switcherHTML(active) {
 for (const code of codes) {
   const L = locales[code];
   const S = i18n.strings[code];
-  let html = template
-    .replaceAll("{{htmlLang}}", L.htmlLang)
-    .replaceAll("{{ogLocale}}", L.ogLocale)
-    .replaceAll("{{meta_title}}", esc(L.meta.title))
-    .replaceAll("{{meta_description}}", esc(L.meta.description))
-    .replaceAll("{{canonical}}", `${SITE_URL}/${L.path}`)
-    .replaceAll("{{home}}", `/${L.path}`)
-    .replaceAll("{{css_href}}", cssHref)
-    .replace("{{hreflang}}", hreflangBlock())
-    .replaceAll("{{lang_switcher}}", switcherHTML(code));
-
-  for (const [k, v] of Object.entries(S)) {
-    html = html.replaceAll(`{{${k}}}`, esc(v));
-  }
-
-  const leftover = html.match(/\{\{[a-z0-9_.]+\}\}/gi);
-  if (leftover)
-    throw new Error(
-      `[${code}] незаполненные плейсхолдеры: ${[...new Set(leftover)].join(", ")}`,
-    );
-
-  const dir = path.join(OUT, L.path);
+const dir = path.join(OUT, L.path);
   await mkdir(dir, { recursive: true });
-  await writeFile(path.join(dir, "index.html"), html, "utf8");
-  console.log("✓", path.join(dir, "index.html"), `(${L.htmlLang})`);
+
+const pages = [
+    { src: template, out: "index.html" },
+    { src: fs.readFileSync("src/news.html", "utf8"), out: "news.html" },
+    { src: fs.readFileSync("src/press.html", "utf8"), out: "press.html" }
+  ];
+
+  for (const page of pages) {
+    let html = page.src
+      .replaceAll("{{htmlLang}}", L.htmlLang)
+      .replaceAll("{{ogLocale}}", L.ogLocale)
+      .replaceAll("{{meta_title}}", esc(L.meta.title))
+      .replaceAll("{{meta_description}}", esc(L.meta.description))
+      .replaceAll("{{canonical}}", `${SITE_URL}/${L.path}`)
+      .replaceAll("{{home}}", `/${L.path}`)
+      .replaceAll("{{css_href}}", cssHref)
+      .replace("{{hreflang}}", hreflangBlock())
+      .replaceAll("{{lang_switcher}}", switcherHTML(code));
+
+    for (const [k, v] of Object.entries(S)) {
+      html = html.replaceAll(`{{${k}}}`, esc(v));
+    }
+
+    const leftover = html.match(/\{\{[a-z0-9_.]+\}\}/gi);
+    if (leftover)
+      throw new Error(
+        `[${code}] незаполненные плейсхолдеры в ${page.out}: ${[...new Set(leftover)].join(", ")}`
+      );
+
+    await writeFile(path.join(dir, page.out), html, "utf8");
+    console.log("✓", path.join(dir, page.out), `(${L.htmlLang})`);
+  }
 }
+
+// 3.1) Копируем служебную страницу проверки билетов
+const scannerHtml = await readFile("src/scanner.html", "utf8");
+await writeFile(path.join(OUT, "scanner.html"), scannerHtml, "utf8");
+for (const code of codes) {
+  const L = locales[code];
+  if (L.path) {
+    await writeFile(path.join(OUT, L.path, "scanner.html"), scannerHtml, "utf8");
+  }
+}
+console.log("✓ dist/scanner.html (сканер билетов)");
 
 // 4) .htaccess для Plesk/Apache: gzip + долгий кэш ассетов, html без кэша
 const htaccess = `# gzip

@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="{{htmlLang}}" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{press.meta_title}}</title>
+  <meta name="description" content="{{press.meta_desc}}" />
+  <link rel="canonical" href="{{canonical}}" />
+{{hreflang}}
+
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="{{press.meta_title}}" />
+  <meta property="og:description" content="{{press.meta_desc}}" />
+  <meta property="og:url" content="{{canonical}}" />
+  <meta property="og:site_name" content="MUUN 2026" />
+  <meta property="og:image" content="https://muun.kg/assets/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="{{ogLocale}}" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{css_href}}" />
+  <link rel="icon" type="image/png" href="/assets/favicon.png" />
+</head>
+<body>
+<div class="noise-overlay"></div>
+
+  <!-- ============================== HEADER ============================== -->
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a href="{{url_home}}" aria-label="MUUN26" class="site-header-logo">
+        <img src="/assets/logo-header.png?v=8" alt="MUUN26" class="logo-img" />
+      </a>
+
+      <nav class="site-header-nav" aria-label="Main">
+        <div class="site-header-nav-list">
+          <a href="{{url_home}}">{{nav.home}}</a>
+          <a href="{{url_home}}#about">{{nav.about}}</a>
+          <a href="{{url_home}}#program">{{nav.program}}</a>
+          <a href="{{url_news}}">{{nav.news}}</a>
+          <a href="{{url_press}}" class="active">{{nav.press}}</a>
+          <a href="#press-contacts">{{nav.contact}}</a>
+        </div>
+      </nav>
+
+      <div class="site-header-actions">
+        <div class="lang-switcher-desktop">
+          {{lang_switcher}}
+        </div>
+        <button type="button" id="navToggle" class="nav-toggle" aria-label="Menu" aria-expanded="false" style="padding:8px;background:none;border:1px solid var(--border);border-radius:8px;color:var(--text-primary);cursor:pointer;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <nav id="mobileNav" class="mobile-nav" aria-label="Mobile">
+      <div class="container-page" style="padding-top:8px;padding-bottom:8px;">
+        <div class="mobile-langs">{{lang_switcher}}</div>
+        <a href="{{url_home}}">{{nav.home}}</a>
+        <a href="{{url_home}}#about">{{nav.about}}</a>
+        <a href="{{url_home}}#target">{{nav.target}}</a>
+        <a href="{{url_home}}#regions">{{nav.regions}}</a>
+        <a href="{{url_home}}#program">{{nav.program}}</a>
+        <a href="{{url_news}}">{{nav.news}}</a>
+        <a href="{{url_press}}" class="active">{{nav.press}}</a>
+        <a href="{{url_home}}#participants">{{nav.participants}}</a>
+        <a href="#press-contacts">{{nav.contact}}</a>
+      </div>
+    </nav>
+  </header>
+
+  <main style="padding-top:72px;">
+    <!-- ============================== HERO ============================== -->
+    <section style="padding:80px 0 40px;position:relative;background:radial-gradient(ellipse at 50% 0%, rgba(59,125,221,0.2) 0%, transparent 70%);">
+      <div class="container-page">
+        <div class="reveal" style="text-align:center;max-width:840px;margin:0 auto;">
+          <span class="eyebrow"><span class="eyebrow-dot"></span>{{press.kicker}}</span>
+          <h1 class="section-title" style="font-size:clamp(2.2rem,5vw,3.6rem);margin-top:16px;">{{press.title}}</h1>
+          <p class="section-desc" style="margin:20px auto 32px;font-size:17px;line-height:1.7;">{{press.desc}}</p>
+          <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;">
+            <a href="#accreditation" class="hero-cta" style="padding:14px 28px;font-size:14px;">{{press.form_title}} &darr;</a>
+            <a href="#releases" class="btn btn--outline" style="border-radius:100px;padding:14px 28px;font-size:14px;border:1px solid var(--border);">{{press.releases_title}}</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== PRESS ANNOUNCEMENT ============================== -->
+    <section style="padding:40px 0;">
+      <div class="container-page">
+        <div class="press-anon-box reveal">
+          <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:20px;margin-bottom:24px;">
+            <div>
+              <span style="font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:0.1em;">ОФИЦИАЛЬНЫЙ ДОКУМЕНТ</span>
+              <h2 style="font-size:24px;font-weight:800;color:#fff;margin:4px 0 0;">{{press.anon_title}}</h2>
+            </div>
+            <a href="mailto:media@muun.kg?subject=Запрос документа пресс-анонса" class="btn btn--outline" style="border-radius:100px;padding:10px 20px;font-size:13px;border:1px solid rgba(255,255,255,0.2);color:#fff;">
+              📥 {{press.btn_download_docx}}
+            </a>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;">
+            <div>
+              <p style="font-size:12px;color:var(--text-tertiary);margin:0 0 4px;">📅 Даты и город</p>
+              <p style="font-size:15px;font-weight:700;color:#fff;margin:0;">{{press.anon_date}}</p>
+            </div>
+            <div>
+              <p style="font-size:12px;color:var(--text-tertiary);margin:0 0 4px;">📍 Локация</p>
+              <p style="font-size:15px;font-weight:700;color:#fff;margin:0;">{{press.anon_venue}}</p>
+            </div>
+            <div>
+              <p style="font-size:12px;color:var(--text-tertiary);margin:0 0 4px;">👥 Масштаб события</p>
+              <p style="font-size:15px;font-weight:700;color:#fff;margin:0;">{{press.anon_scale}}</p>
+            </div>
+            <div>
+              <p style="font-size:12px;color:var(--text-tertiary);margin:0 0 4px;">💡 Ключевые треки</p>
+              <p style="font-size:15px;font-weight:700;color:#fff;margin:0;">{{press.anon_topics}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== PRESS RELEASES ============================== -->
+    <section id="releases" style="padding:60px 0;">
+      <div class="container-page">
+        <div class="reveal" style="text-align:center;max-width:600px;margin:0 auto 30px;">
+          <h2 class="section-title">{{press.releases_title}}</h2>
+          <p class="section-desc" style="margin-top:12px;">{{press.releases_desc}}</p>
+        </div>
+
+        <div class="press-card-grid">
+          <!-- Release 1 -->
+          <article class="press-item-card reveal">
+            <div>
+              <span class="press-item-date">{{press.r1_date}}</span>
+              <h3 class="press-item-title">{{press.r1_title}}</h3>
+              <p class="press-item-desc">{{press.r1_desc}}</p>
+            </div>
+            <div class="press-item-actions">
+              <a href="mailto:media@muun.kg?subject=Пресс-релиз: {{press.r1_title}}" class="btn btn--outline" style="border-radius:100px;padding:8px 18px;font-size:12px;border:1px solid var(--border);color:#fff;">
+                📥 {{press.btn_download_docx}}
+              </a>
+            </div>
+          </article>
+
+          <!-- Release 2 -->
+          <article class="press-item-card reveal" style="transition-delay:100ms;">
+            <div>
+              <span class="press-item-date">{{press.r2_date}}</span>
+              <h3 class="press-item-title">{{press.r2_title}}</h3>
+              <p class="press-item-desc">{{press.r2_desc}}</p>
+            </div>
+            <div class="press-item-actions">
+              <a href="mailto:media@muun.kg?subject=Пресс-релиз: {{press.r2_title}}" class="btn btn--outline" style="border-radius:100px;padding:8px 18px;font-size:12px;border:1px solid var(--border);color:#fff;">
+                📥 {{press.btn_download_docx}}
+              </a>
+            </div>
+          </article>
+
+          <!-- Release 3 -->
+          <article class="press-item-card reveal" style="transition-delay:200ms;">
+            <div>
+              <span class="press-item-date">{{press.r3_date}}</span>
+              <h3 class="press-item-title">{{press.r3_title}}</h3>
+              <p class="press-item-desc">{{press.r3_desc}}</p>
+            </div>
+            <div class="press-item-actions">
+              <a href="mailto:media@muun.kg?subject=Пресс-релиз: {{press.r3_title}}" class="btn btn--outline" style="border-radius:100px;padding:8px 18px;font-size:12px;border:1px solid var(--border);color:#fff;">
+                📥 {{press.btn_download_docx}}
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== MEDIA ACCREDITATION FORM ============================== -->
+    <section id="accreditation" style="padding:80px 0;background:var(--bg-secondary);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+      <div class="container-page">
+        <div class="reveal" style="text-align:center;max-width:760px;margin:0 auto 40px;">
+          <span class="eyebrow"><span class="eyebrow-dot"></span>ОФИЦИАЛЬНАЯ РЕГИСТРАЦИЯ ПРЕССЫ</span>
+          <h2 class="section-title" style="margin-top:12px;">{{press.form_title}}</h2>
+          <p class="section-desc" style="margin:16px auto 0;">{{press.form_desc}}</p>
+        </div>
+
+        <div class="press-form-container reveal">
+          <form id="media-accreditation-form" onsubmit="submitPressAccreditation(event, this)" style="display:flex;flex-direction:column;gap:28px;">
+            
+            <!-- SECTION 1: Информация о СМИ -->
+            <div>
+              <h3 style="font-size:18px;font-weight:800;margin:0 0 16px;color:#0f172a;display:flex;align-items:center;gap:10px;">
+                <span style="width:26px;height:26px;border-radius:50%;background:#3b7ddd;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:13px;">1</span>
+                Информация о СМИ
+              </h3>
+              
+              <div style="margin-bottom:14px;">
+                <label style="display:block;font-size:13px;font-weight:600;color:#334155;margin-bottom:6px;">{{press.f_media_name}}</label>
+                <input type="text" required class="press-input-light" name="media_name" placeholder="Телеканал, агентство, издание, блог..." />
+              </div>
+
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:600;color:#334155;margin-bottom:8px;">{{press.f_media_type}}</label>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                  <label class="press-choice-pill"><input type="radio" name="media_type" value="TV" required style="accent-color:#3b7ddd;"> <span>{{press.f_type_tv}}</span></label>
+                  <label class="press-choice-pill"><input type="radio" name="media_type" value="Agency"> <span>{{press.f_type_agency}}</span></label>
+                  <label class="press-choice-pill"><input type="radio" name="media_type" value="Online" checked> <span>{{press.f_type_online}}</span></label>
+                  <label class="press-choice-pill"><input type="radio" name="media_type" value="Print"> <span>{{press.f_type_print}}</span></label>
+                  <label class="press-choice-pill"><input type="radio" name="media_type" value="Radio"> <span>{{press.f_type_radio}}</span></label>
+                  <label class="press-choice-pill"><input type="radio" name="media_type" value="Blog"> <span>{{press.f_type_blog}}</span></label>
+                  <label class="press-choice-pill"><input type="radio" name="media_type" value="PhotoVideo"> <span>{{press.f_type_photo}}</span></label>
+                  <label class="press-choice-pill"><input type="radio" name="media_type" value="Other"> <span>{{press.f_type_other}}</span></label>
+                </div>
+              </div>
+
+              <div>
+                <label style="display:block;font-size:13px;font-weight:600;color:#334155;margin-bottom:6px;">{{press.f_media_url}}</label>
+                <input type="url" required class="press-input-light" name="media_url" placeholder="https://..." />
+              </div>
+            </div>
+
+            <!-- SECTION 2: Контактная информация и пропуск -->
+            <div style="border-top:1px solid #e2e8f0;padding-top:24px;">
+              <h3 style="font-size:18px;font-weight:800;margin:0 0 16px;color:#0f172a;display:flex;align-items:center;gap:10px;">
+                <span style="width:26px;height:26px;border-radius:50%;background:#3b7ddd;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:13px;">2</span>
+                Контактные данные и допуск службы безопасности
+              </h3>
+
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-bottom:14px;">
+                <div>
+                  <label style="display:block;font-size:13px;font-weight:600;color:#334155;margin-bottom:6px;">{{press.f_name}}</label>
+                  <input type="text" required class="press-input-light" name="rep_name" />
+                </div>
+                <div>
+                  <label style="display:block;font-size:13px;font-weight:600;color:#334155;margin-bottom:6px;">{{press.f_role}}</label>
+                  <input type="text" required class="press-input-light" name="rep_role" placeholder="Корреспондент, оператор, продюсер..." />
+                </div>
+              </div>
+
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-bottom:14px;">
+                <div>
+                  <label style="display:block;font-size:13px;font-weight:600;color:#334155;margin-bottom:6px;">{{press.f_phone}}</label>
+                  <input type="tel" required class="press-input-light" name="phone" placeholder="+996 " />
+                </div>
+                <div>
+                  <label style="display:block;font-size:13px;font-weight:600;color:#334155;margin-bottom:6px;">{{press.f_email}}</label>
+                  <input type="email" required class="press-input-light" name="email" />
+                </div>
+              </div>
+
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-bottom:14px;">
+                <div>
+                  <label style="display:block;font-size:13px;font-weight:600;color:#334155;margin-bottom:6px;">{{press.f_pin}}</label>
+                  <input type="text" required class="press-input-light" name="pin" placeholder="14 цифр ПИН / ИНН" />
+                </div>
+                <div>
+                  <label style="display:block;font-size:13px;font-weight:600;color:#334155;margin-bottom:6px;">{{press.f_press_id}}</label>
+                  <input type="text" required class="press-input-light" name="press_id" placeholder="Номер удостоверения прессы" />
+                </div>
+              </div>
+
+              <div>
+                <label style="display:block;font-size:13px;font-weight:600;color:#334155;margin-bottom:6px;">{{press.f_equipment}}</label>
+                <input type="text" class="press-input-light" name="equipment" placeholder="Камеры Sony FX3, микрофоны петличные, штативы..." />
+              </div>
+            </div>
+
+            <!-- SECTION 3: Формат работы и даты -->
+            <div style="border-top:1px solid #e2e8f0;padding-top:24px;">
+              <h3 style="font-size:18px;font-weight:800;margin:0 0 16px;color:#0f172a;display:flex;align-items:center;gap:10px;">
+                <span style="width:26px;height:26px;border-radius:50%;background:#3b7ddd;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:13px;">3</span>
+                Формат работы и даты присутствия
+              </h3>
+
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:13px;font-weight:600;color:#334155;margin-bottom:8px;">{{press.f_formats_title}}</label>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;">
+                  <label class="press-choice-pill"><input type="checkbox" name="format" value="coverage" checked style="accent-color:#3b7ddd;"> <span>{{press.f_fmt_coverage}}</span></label>
+                  <label class="press-choice-pill"><input type="checkbox" name="format" value="interview" style="accent-color:#3b7ddd;"> <span>{{press.f_fmt_interview}}</span></label>
+                  <label class="press-choice-pill"><input type="checkbox" name="format" value="photo_video" style="accent-color:#3b7ddd;"> <span>{{press.f_fmt_photo_video}}</span></label>
+                  <label class="press-choice-pill"><input type="checkbox" name="format" value="crew" style="accent-color:#3b7ddd;"> <span>{{press.f_fmt_crew}}</span></label>
+                  <label class="press-choice-pill"><input type="checkbox" name="format" value="partner" style="accent-color:#3b7ddd;"> <span>{{press.f_fmt_partnership}}</span></label>
+                  <label class="press-choice-pill"><input type="checkbox" name="format" value="other" style="accent-color:#3b7ddd;"> <span>{{press.f_fmt_other}}</span></label>
+                </div>
+              </div>
+
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-bottom:16px;">
+                <div>
+                  <label style="display:block;font-size:13px;font-weight:600;color:#334155;margin-bottom:8px;">{{press.f_team_size_title}}</label>
+                  <div style="display:flex;gap:10px;">
+                    <label class="press-choice-pill" style="flex:1;justify-content:center;"><input type="radio" name="team_size" value="1" checked> <span>1</span></label>
+                    <label class="press-choice-pill" style="flex:1;justify-content:center;"><input type="radio" name="team_size" value="2"> <span>2</span></label>
+                    <label class="press-choice-pill" style="flex:1;justify-content:center;"><input type="radio" name="team_size" value="3"> <span>3</span></label>
+                    <label class="press-choice-pill" style="flex:1;justify-content:center;"><input type="radio" name="team_size" value="4+"> <span>4+</span></label>
+                  </div>
+                </div>
+
+                <div>
+                  <label style="display:block;font-size:13px;font-weight:600;color:#334155;margin-bottom:8px;">{{press.f_dates_title}}</label>
+                  <div style="display:flex;gap:8px;">
+                    <label class="press-choice-pill" style="flex:1;justify-content:center;"><input type="radio" name="dates" value="nov17"> <span>{{press.f_date_nov17}}</span></label>
+                    <label class="press-choice-pill" style="flex:1;justify-content:center;"><input type="radio" name="dates" value="nov18"> <span>{{press.f_date_nov18}}</span></label>
+                    <label class="press-choice-pill" style="flex:1;justify-content:center;"><input type="radio" name="dates" value="both" checked> <span>{{press.f_date_both}}</span></label>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <label style="display:block;font-size:13px;font-weight:600;color:#334155;margin-bottom:6px;">{{press.f_comment}}</label>
+                <textarea rows="3" class="press-input-light" name="comment" placeholder="Специальные запросы на синхроны, спикеров или подключение ПТС..."></textarea>
+              </div>
+            </div>
+
+            <!-- SUBMIT BUTTON -->
+            <div style="margin-top:12px;">
+              <button type="submit" id="press-submit-btn" class="btn btn--primary" style="width:100%;justify-content:center;padding:16px;font-size:15px;border-radius:100px;background:var(--accent);border:none;color:#fff;font-weight:700;letter-spacing:0.05em;cursor:pointer;">
+                {{press.f_submit_btn}}
+              </button>
+              <p style="font-size:12px;color:#64748b;text-align:center;margin:12px auto 0;max-width:680px;line-height:1.5;">
+                {{press.f_disclaimer}}
+              </p>
+            </div>
+
+            <!-- SUCCESS MESSAGE (Hidden by default) -->
+            <div id="press-success-box" style="display:none;background:#f0fdf4;border:1px solid #86efac;border-radius:12px;padding:24px;text-align:center;">
+              <div style="font-size:32px;margin-bottom:8px;">✅</div>
+              <h4 style="font-size:18px;font-weight:800;color:#166534;margin:0 0 6px;">{{press.f_success_title}}</h4>
+              <p style="font-size:14px;color:#15803d;margin:0;">{{press.f_success_desc}}</p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== FILMING RULES & MEDIA ZONE ============================== -->
+    <section style="padding:80px 0;">
+      <div class="container-page">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:32px;">
+          <!-- Rules Card -->
+          <div class="press-rules-panel reveal">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+              <span style="font-size:24px;">⚠️</span>
+              <h3 style="font-size:20px;font-weight:800;color:#fff;margin:0;">{{press.rules_title}}</h3>
+            </div>
+            <p style="font-size:13.5px;color:var(--text-secondary);margin-bottom:20px;line-height:1.6;">{{press.rules_desc}}</p>
+            <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px;">
+              <li style="display:flex;gap:10px;font-size:13.5px;color:var(--text-primary);"><span style="color:#ef4444;font-weight:700;">●</span> {{press.r_rule1}}</li>
+              <li style="display:flex;gap:10px;font-size:13.5px;color:var(--text-primary);"><span style="color:#ef4444;font-weight:700;">●</span> {{press.r_rule2}}</li>
+              <li style="display:flex;gap:10px;font-size:13.5px;color:var(--text-primary);"><span style="color:#ef4444;font-weight:700;">●</span> {{press.r_rule3}}</li>
+              <li style="display:flex;gap:10px;font-size:13.5px;color:var(--text-primary);"><span style="color:#ef4444;font-weight:700;">●</span> {{press.r_rule4}}</li>
+            </ul>
+          </div>
+
+          <!-- Media Zone Card -->
+          <div class="glass-card reveal" style="padding:32px;transition-delay:100ms;">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+              <span style="font-size:24px;">🎙️</span>
+              <h3 style="font-size:20px;font-weight:800;color:#fff;margin:0;">{{press.zone_title}}</h3>
+            </div>
+            <p style="font-size:13.5px;color:var(--text-secondary);margin-bottom:20px;line-height:1.6;">{{press.zone_desc}}</p>
+            <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px;">
+              <li style="display:flex;gap:10px;font-size:13.5px;color:var(--text-primary);"><span style="color:var(--gold);font-weight:700;">✓</span> {{press.z_feat1}}</li>
+              <li style="display:flex;gap:10px;font-size:13.5px;color:var(--gold);font-weight:700;"><span style="color:var(--gold);font-weight:700;">✓</span> {{press.z_feat2}}</li>
+              <li style="display:flex;gap:10px;font-size:13.5px;color:var(--text-primary);"><span style="color:var(--gold);font-weight:700;">✓</span> {{press.z_feat3}}</li>
+              <li style="display:flex;gap:10px;font-size:13.5px;color:var(--text-primary);"><span style="color:var(--gold);font-weight:700;">✓</span> {{press.z_feat4}}</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Press Kit Status Box (Page 7 requirement) -->
+        <div class="reveal" style="margin-top:36px;background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius);padding:28px 32px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px;">
+          <div>
+            <h4 style="font-size:18px;font-weight:700;color:#fff;margin:0 0 6px;">{{press.kit_title}}</h4>
+            <p style="font-size:13.5px;color:var(--text-secondary);margin:0;">{{press.kit_desc}}</p>
+          </div>
+          <div style="background:rgba(59,125,221,0.12);border:1px solid rgba(59,125,221,0.3);border-radius:100px;padding:10px 22px;color:var(--gold);font-size:13.5px;font-weight:600;">
+            ℹ️ {{press.kit_status_note}}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== MEDIA ASSETS GALLERY ============================== -->
+    <section style="padding:60px 0;background:var(--bg-secondary);border-top:1px solid var(--border);">
+      <div class="container-page">
+        <div class="reveal" style="text-align:center;max-width:600px;margin:0 auto 36px;">
+          <h2 class="section-title">{{press.gallery_title}}</h2>
+          <p class="section-desc" style="margin-top:12px;">{{press.gallery_desc}}</p>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;">
+          <div class="glass-card reveal" style="padding:0;overflow:hidden;">
+            <img src="/assets/gallery-mainstage.jpg" alt="MUUN Main Stage" style="width:100%;height:220px;object-fit:cover;" />
+            <div style="padding:16px 20px;display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:13px;font-weight:600;color:#fff;">Главная сцена</span>
+              <a href="/assets/gallery-mainstage.jpg" download class="btn btn--outline" style="border-radius:100px;padding:6px 14px;font-size:11px;">Скачать JPG</a>
+            </div>
+          </div>
+
+          <div class="glass-card reveal" style="padding:0;overflow:hidden;transition-delay:100ms;">
+            <img src="/assets/arena.jpg" alt="Congress Hall Arena" style="width:100%;height:220px;object-fit:cover;" />
+            <div style="padding:16px 20px;display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:13px;font-weight:600;color:#fff;">Конгресс-холл «Ырыс Ордо»</span>
+              <a href="/assets/arena.jpg" download class="btn btn--outline" style="border-radius:100px;padding:6px 14px;font-size:11px;">Скачать JPG</a>
+            </div>
+          </div>
+
+          <div class="glass-card reveal" style="padding:0;overflow:hidden;transition-delay:200ms;">
+            <img src="/assets/gallery-panel.jpg" alt="Panel Discussions" style="width:100%;height:220px;object-fit:cover;" />
+            <div style="padding:16px 20px;display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:13px;font-weight:600;color:#fff;">Панельные сессии</span>
+              <a href="/assets/gallery-panel.jpg" download class="btn btn--outline" style="border-radius:100px;padding:6px 14px;font-size:11px;">Скачать JPG</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== CONTACTS ============================== -->
+    <section id="press-contacts" style="padding:80px 0;">
+      <div class="container-page">
+        <div class="reveal" style="text-align:center;max-width:600px;margin:0 auto 36px;">
+          <h2 class="section-title">{{press.contacts_title}}</h2>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;max-width:900px;margin:0 auto;">
+          <div class="glass-card reveal" style="padding:32px;">
+            <div style="width:48px;height:48px;border-radius:12px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <h3 style="font-size:17px;font-weight:700;color:#fff;margin:0 0 8px;">Пресс-служба MUUN 2026</h3>
+            <p style="font-size:14px;color:var(--text-secondary);margin:0 0 16px;">{{press.c_muun_lead}}</p>
+            <a href="mailto:media@muun.kg" style="color:var(--accent);font-weight:600;font-size:14px;">media@muun.kg &rarr;</a>
+          </div>
+
+          <div class="glass-card reveal" style="padding:32px;transition-delay:100ms;">
+            <div style="width:48px;height:48px;border-radius:12px;background:var(--gold-soft);display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+            </div>
+            <h3 style="font-size:17px;font-weight:700;color:#fff;margin:0 0 8px;">{{press.c_min_title}}</h3>
+            <p style="font-size:14px;color:var(--text-secondary);margin:0 0 16px;">{{press.c_min_lead}}</p>
+            <a href="mailto:press@edu.gov.kg" style="color:var(--gold);font-weight:600;font-size:14px;">press@edu.gov.kg &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================== FOOTER ============================== -->
+  <footer class="site-footer">
+    <div class="container-page" style="display:grid;gap:40px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));">
+      <div>
+        <img src="/assets/logo-header.png?v=7" alt="MUUN26" class="logo-img" style="height:40px;width:auto;opacity:0.9;" />
+        <div style="display:flex;align-items:center;gap:14px;margin-top:16px;">
+          <img src="/assets/ministry-logo.png" alt="Ministry Logo" style="height:48px;object-fit:contain;opacity:1;" />
+          <p style="font-size:13px;color:rgba(255,255,255,0.7);max-width:440px;margin:0;">{{footer.ministry}}</p>
+        </div>
+      </div>
+      <div style="font-size:14px;color:var(--text-secondary);">
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>{{footer.date}}</span>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:14px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+          <a href="mailto:info@muun.kg" style="color:var(--text-secondary);transition:color 0.3s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-secondary)'">info@muun.kg</a>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:14px;font-size:13px;color:var(--text-tertiary);">
+          <a href="{{url_home}}" style="color:var(--text-secondary);">{{nav.home}}</a>
+          <span>·</span>
+          <a href="{{url_news}}" style="color:var(--text-secondary);">{{nav.news}}</a>
+          <span>·</span>
+          <a href="{{url_press}}" style="color:#fff;font-weight:600;">{{nav.press}}</a>
+        </div>
+      </div>
+      <div class="footer-right" style="text-align:right;">
+        <p style="font-family:'Montserrat',sans-serif;font-size:12px;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;">MAKSАТ · УМТУЛУУ · УЧУР · НИЕТ</p>
+        <p style="margin-top:16px;font-size:12px;color:var(--text-tertiary);">{{footer.copyright}}</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile navigation toggle
+    var navBtn = document.getElementById("navToggle");
+    var mobileNav = document.getElementById("mobileNav");
+    if (navBtn && mobileNav) {
+      navBtn.addEventListener("click", function () {
+        var isOpen = mobileNav.classList.toggle("is-open");
+        navBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      });
+      mobileNav.querySelectorAll("a").forEach(function (link) {
+        link.addEventListener("click", function () {
+          mobileNav.classList.remove("is-open");
+          navBtn.setAttribute("aria-expanded", "false");
+        });
+      });
+    }
+
+    // Scroll reveal observer
+    var items = Array.prototype.slice.call(document.querySelectorAll(".reveal"));
+    if (!("IntersectionObserver" in window)) {
+      items.forEach(function (el) { el.classList.add("is-visible"); });
+    } else {
+      items.forEach(function (el) { el.classList.add("reveal-armed"); });
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add("is-visible"); obs.unobserve(e.target); }
+        });
+      }, { threshold: 0.08, rootMargin: "0px 0px -5% 0px" });
+      items.forEach(function (el) { obs.observe(el); });
+    }
+
+    // Press accreditation submission simulation
+    window.submitPressAccreditation = function(e, form) {
+      e.preventDefault();
+      var btn = document.getElementById('press-submit-btn');
+      var origText = btn ? btn.innerHTML : '';
+      if (btn) {
+        btn.innerHTML = '⏳ Отправка заявки...';
+        btn.disabled = true;
+      }
+      setTimeout(function() {
+        if (btn) btn.style.display = 'none';
+        var successBox = document.getElementById('press-success-box');
+        if (successBox) successBox.style.display = 'block';
+        form.reset();
+      }, 700);
+    };
+  </script>
+</body>
+</html>
