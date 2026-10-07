@@ -416,41 +416,51 @@
     <section class="why-section">
       <div class="why-bg-glow" aria-hidden="true"></div>
       <div class="container-page">
-        
-    <div class="why-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px;">
-        <div class="why-left" style="display: flex; flex-direction: column; gap: 20px;">
-            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 24px; border-radius: 16px; transition: transform 0.3s; cursor: default;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='var(--accent)';" onmouseout="this.style.transform='none'; this.style.borderColor='rgba(255,255,255,0.1)';">
-                <h3 style="font-size: 20px; font-weight: 700; color: var(--accent); margin-bottom: 8px;">01 {{why.pt1_title}}</h3>
-                <p style="font-size: 14px; color: #cbd5e1; line-height: 1.5;">{{why.pt1_desc}}</p>
+        <div class="why-layout">
+          <div class="why-left">
+            <div class="reveal why-head" style="transition-delay:0ms;">
+              <h2 class="section-title why-title">{{why.title}}</h2>
+              <p class="why-lead">{{why.desc1}}</p>
             </div>
-            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 24px; border-radius: 16px; transition: transform 0.3s; cursor: default;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='var(--accent)';" onmouseout="this.style.transform='none'; this.style.borderColor='rgba(255,255,255,0.1)';">
-                <h3 style="font-size: 20px; font-weight: 700; color: var(--accent); margin-bottom: 8px;">02 {{why.pt2_title}}</h3>
-                <p style="font-size: 14px; color: #cbd5e1; line-height: 1.5;">{{why.pt2_desc}}</p>
-            </div>
-            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 24px; border-radius: 16px; transition: transform 0.3s; cursor: default;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='var(--accent)';" onmouseout="this.style.transform='none'; this.style.borderColor='rgba(255,255,255,0.1)';">
-                <h3 style="font-size: 20px; font-weight: 700; color: var(--accent); margin-bottom: 8px;">03 {{why.pt3_title}}</h3>
-                <p style="font-size: 14px; color: #cbd5e1; line-height: 1.5;">{{why.pt3_desc}}</p>
-            </div>
-            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 24px; border-radius: 16px; transition: transform 0.3s; cursor: default;" onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='var(--accent)';" onmouseout="this.style.transform='none'; this.style.borderColor='rgba(255,255,255,0.1)';">
-                <h3 style="font-size: 20px; font-weight: 700; color: var(--accent); margin-bottom: 8px;">04 {{why.pt4_title}}</h3>
-                <p style="font-size: 14px; color: #cbd5e1; line-height: 1.5;">{{why.pt4_desc}}</p>
-            </div>
+
+            <ul class="why-list">
+              <li class="why-item reveal" style="--c:239,68,68;transition-delay:80ms;">
+                <span class="why-ico"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg></span>
+                <span class="why-text">{{why.c1}}</span>
+                <span class="why-num">01</span>
+              </li>
+              <li class="why-item reveal" style="--c:139,92,246;transition-delay:160ms;">
+                <span class="why-ico"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg></span>
+                <span class="why-text">{{why.c2}}</span>
+                <span class="why-num">02</span>
+              </li>
+              <li class="why-item reveal" style="--c:59,130,246;transition-delay:240ms;">
+                <span class="why-ico"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></svg></span>
+                <span class="why-text">{{why.c3}}</span>
+                <span class="why-num">03</span>
+              </li>
+              <li class="why-item reveal" style="--c:34,197,94;transition-delay:320ms;">
+                <span class="why-ico"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg></span>
+                <span class="why-text">{{why.c4}}</span>
+                <span class="why-num">04</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="why-visual reveal reveal-scale" style="transition-delay:120ms;">
+            <div class="why-visual-ring" aria-hidden="true"></div>
+            <img src="/assets/why-concept.png" alt="{{why.title}}" class="why-image" loading="lazy" width="1287" height="765" />
+          </div>
         </div>
-        <div class="why-right" style="display: flex; justify-content: center; align-items: center;">
-            <img src="/assets/why-concept.png" alt="MUUN Concept" style="max-width: 80%; height: auto; border-radius: 50%; filter: drop-shadow(0 0 30px rgba(92,119,255,0.3));" />
+
+        <div class="why-mission reveal" style="transition-delay:100ms;">
+          <div class="why-mission-head">
+            <span class="why-mission-label">{{why.mission}}</span>
+          </div>
+          <p class="why-mission-text">{{why.desc2}}</p>
+          <p class="why-tagline">{{why.bottom}}</p>
         </div>
-    </div>
-    <style>
-        @media (max-width: 768px) {
-            .why-grid {
-                grid-template-columns: 1fr !important;
-            }
-            .why-right img {
-                max-width: 100% !important;
-                margin-top: 30px;
-            }
-        }
-    </style>
+      </div>
     </section>
 
     <!-- ============================== 360° OPPORTUNITIES ============================== -->
@@ -1320,9 +1330,9 @@
         <div>
            <img src="/assets/logo-header.png" alt="MUUN" style="height:32px; margin-bottom:24px; filter:invert(1) hue-rotate(180deg) brightness(0.2);" />
            <p style="font-weight:700; font-size:12px; color:#475569; margin-bottom:8px;">📅 {{mod.dates}}</p>
-           <p style="font-weight:700; font-size:12px; color:#475569; margin-bottom:32px;">📍 БИШКЕК</p>
+           <p style="font-weight:700; font-size:12px; color:#475569; margin-bottom:32px;">📍 {{mod.city}}</p>
            
-           <h2 style="font-size:36px; color:#1e293b; font-weight:800; line-height:1.1; margin-bottom:32px; font-family:'Montserrat', sans-serif;">{{vmod.title_part1}}<br/><span style="color:var(--accent);">начинается здесь</span></h2>
+           <h2 style="font-size:36px; color:#1e293b; font-weight:800; line-height:1.15; margin-bottom:32px; font-family:'Montserrat', sans-serif;">{{vmod.title_part1}}<br/><span style="color:var(--accent);">{{vmod.title_part2}}</span></h2>
            
            <div style="display:flex; flex-direction:column; gap:20px;">
              <div style="display:flex; align-items:center; gap:12px;">
@@ -1382,7 +1392,7 @@
             <div id="stream-indiv-fields" style="display:flex; flex-direction:column; gap:16px;">
               <!-- FIO (3 separate fields) -->
               <div>
-                <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:700;">ФИО посетителя *</label>
+                <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.fio_label}}</label>
                 <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px;">
                   <div>
                     <input type="text" name="lastName" required class="form-input-light" placeholder="{{reg.last_name}} *" />
@@ -1521,11 +1531,11 @@
               <div class="form-row" style="display:grid; grid-template-columns:1.5fr 1fr; gap:12px;">
                 <div>
                   <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.group_org}} *</label>
-                  <input type="text" name="group_org" class="form-input-light" placeholder="Школа №..., колледж, вуз" />
+                  <input type="text" name="group_org" class="form-input-light" placeholder="{{reg.group_org_ph}}" />
                 </div>
                 <div>
                   <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.group_city}} *</label>
-                  <input type="text" name="group_city" class="form-input-light" placeholder="Город / район" />
+                  <input type="text" name="group_city" class="form-input-light" placeholder="{{reg.group_city_ph}}" />
                 </div>
               </div>
 
@@ -1656,10 +1666,10 @@
       <div class="lg-show" style="width:360px; min-width:360px; background:linear-gradient(180deg, #1e293b 0%, #0f172a 100%); padding:40px; flex-direction:column; justify-content:space-between; border-right:1px solid #334155; display:none;">
         <div>
            <img src="/assets/logo-header.png" alt="MUUN" style="height:32px; margin-bottom:24px;" />
-           <p style="font-weight:700; font-size:12px; color:#cbd5e1; margin-bottom:8px;">📅 17-18 НОЯБРЯ 2026</p>
-           <p style="font-weight:700; font-size:12px; color:#cbd5e1; margin-bottom:32px;">📍 БИШКЕК</p>
+           <p style="font-weight:700; font-size:12px; color:#cbd5e1; margin-bottom:8px;">📅 {{mod.dates}}</p>
+           <p style="font-weight:700; font-size:12px; color:#cbd5e1; margin-bottom:32px;">📍 {{mod.city}}</p>
            
-           <h2 style="font-size:32px; color:#fff; font-weight:800; line-height:1.2; margin-bottom:32px; font-family:'Montserrat', sans-serif;">{{mod.title}}</h2>
+           <h2 style="font-size:30px; color:#fff; font-weight:800; line-height:1.2; margin-bottom:32px; font-family:'Montserrat', sans-serif;">{{mod.title_part1}}<br/><span style="color:var(--accent);">{{mod.title_part2}}</span></h2>
            
            <div style="display:flex; flex-direction:column; gap:24px;">
              <div style="display:flex; align-items:center; gap:12px;">
