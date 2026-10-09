@@ -37,37 +37,51 @@
 
       <nav class="site-header-nav" aria-label="Main">
         <div class="site-header-nav-list">
-          <a href="{{url_home}}">{{nav.home}}</a>
           <a href="{{url_home}}#about">{{nav.about}}</a>
           <a href="{{url_home}}#program">{{nav.program}}</a>
+          <a href="{{url_home}}#speakers">{{nav.speakers}}</a>
           <a href="{{url_news}}">{{nav.news}}</a>
           <a href="{{url_press}}" class="active">{{nav.press}}</a>
-          <a href="#press-contacts">{{nav.contact}}</a>
+          <a href="{{url_home}}#contact">{{nav.contact}}</a>
+          <a href="{{url_home}}#faq">{{nav.faq}}</a>
+          <div class="lang-switcher-desktop">
+            {{lang_switcher}}
+          </div>
         </div>
       </nav>
 
       <div class="site-header-actions">
-        <div class="lang-switcher-desktop">
-          {{lang_switcher}}
-        </div>
+        <a href="{{url_home}}#contact" class="hdr-btn hdr-btn--outline">
+          {{btn.become_participant}}
+        </a>
+        <a href="{{url_home}}#top" class="hdr-btn hdr-btn--primary">
+          <span>{{btn.free_reg}}</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
         <button type="button" id="navToggle" class="nav-toggle" aria-label="Menu" aria-expanded="false" style="padding:8px;background:none;border:1px solid var(--border);border-radius:8px;color:var(--text-primary);cursor:pointer;">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg>
         </button>
       </div>
     </div>
 
     <nav id="mobileNav" class="mobile-nav" aria-label="Mobile">
-      <div class="container-page" style="padding-top:8px;padding-bottom:8px;">
-        <div class="mobile-langs">{{lang_switcher}}</div>
-        <a href="{{url_home}}">{{nav.home}}</a>
+      <div class="container-page" style="padding-top:12px;padding-bottom:16px;display:flex;flex-direction:column;gap:8px;">
+        <div class="mobile-langs" style="margin-bottom:8px;">{{lang_switcher}}</div>
         <a href="{{url_home}}#about">{{nav.about}}</a>
-        <a href="{{url_home}}#target">{{nav.target}}</a>
-        <a href="{{url_home}}#regions">{{nav.regions}}</a>
         <a href="{{url_home}}#program">{{nav.program}}</a>
+        <a href="{{url_home}}#speakers">{{nav.speakers}}</a>
         <a href="{{url_news}}">{{nav.news}}</a>
         <a href="{{url_press}}" class="active">{{nav.press}}</a>
-        <a href="{{url_home}}#participants">{{nav.participants}}</a>
-        <a href="#press-contacts">{{nav.contact}}</a>
+        <a href="{{url_home}}#contact">{{nav.contact}}</a>
+        <a href="{{url_home}}#faq">{{nav.faq}}</a>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:16px;">
+          <a href="{{url_home}}#contact" class="btn btn--outline" style="width:100%;justify-content:center;padding:12px;font-size:13px;">
+            {{btn.become_participant}}
+          </a>
+          <a href="{{url_home}}#top" class="btn btn--primary" style="width:100%;justify-content:center;padding:12px;font-size:13px;">
+            {{btn.free_reg}}
+          </a>
+        </div>
       </div>
     </nav>
   </header>
@@ -479,6 +493,11 @@
         <p style="font-family:'Montserrat',sans-serif;font-size:12px;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;">MAKSАТ · УМТУЛУУ · УЧУР · НИЕТ</p>
         <p style="margin-top:16px;font-size:12px;color:var(--text-tertiary);">{{footer.copyright}}</p>
       </div>
+    </div>
+
+    <!-- Giant Watermark Typography -->
+    <div class="footer-giant-watermark">
+      MUUN 2026
     </div>
   </footer>
 

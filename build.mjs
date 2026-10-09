@@ -79,6 +79,9 @@ const pages = [
     { src: fs.readFileSync("src/press.html", "utf8"), out: "press.html" }
   ];
 
+  const assetPrefix = L.path ? "../assets/" : "assets/";
+  const currentCssHref = `${assetPrefix}${cssName}`;
+
   for (const page of pages) {
     let html = page.src
       .replaceAll("{{htmlLang}}", L.htmlLang)
@@ -87,7 +90,10 @@ const pages = [
       .replaceAll("{{meta_description}}", esc(L.meta.description))
       .replaceAll("{{canonical}}", `${SITE_URL}/${L.path}`)
       .replaceAll("{{home}}", `/${L.path}`)
-      .replaceAll("{{css_href}}", cssHref)
+      .replaceAll("{{css_href}}", currentCssHref)
+      .replaceAll("{{assets_path}}", assetPrefix)
+      .replaceAll('="/assets/', `="${assetPrefix}`)
+      .replaceAll("='/assets/", `='${assetPrefix}`)
       .replace("{{hreflang}}", hreflangBlock())
       .replaceAll("{{lang_switcher}}", switcherHTML(code));
 
@@ -143,4 +149,6 @@ const htaccess = `# gzip
 await writeFile(path.join(OUT, ".htaccess"), htaccess, "utf8");
 
 console.log("\n✓ CSS:", cssHref);
+console.log("✓ Генерируем точную копию Framer (pixel-perfect) с инъекцией MUUN контента...");
+execSync('node scratch/build_framer_i18n.mjs', { stdio: 'inherit' });
 console.log("✓ Готово. Залейте содержимое папки dist/ в httpdocs на Plesk.");
