@@ -756,13 +756,15 @@ for (const lang of ['ru', 'ky', 'en']) {
   const curAbout = aboutData[lang];
   const hd = SECTION_HEADINGS[lang];
 
+  const metaTitle = m.title || (lang === 'ky' ? 'MUUN 2026 - Кыргызстандын келечек кесиптеринин улуттук жаштар көргөзмө-форуму' : lang === 'en' ? 'MUUN 2026 - National Youth Exhibition-Forum of Professions of the Future' : 'MUUN 2026 - Национальная молодежная выставка-форум профессий будущего');
+
   // 1. String replacements in raw HTML
   const spTxt = lang === 'ky' ? 'Спикерлер' : lang === 'en' ? 'Speakers' : 'Спикеры';
   const saTxt = lang === 'ky' ? 'Баарын көрүү' : lang === 'en' ? 'See All' : 'Смотреть всех';
 
   const replacements = [
-    ['<title>Eventis - Free Event and Conference Template</title>', `<title>${loc.title.replace('<br>', ' ')}</title>`],
-    ['Eventis - Free Event and Conference Template', loc.title.replace('<br>', ' ')],
+    ['<title>Eventis - Free Event and Conference Template</title>', `<title>${metaTitle}</title>`],
+    ['Eventis - Free Event and Conference Template', metaTitle],
     ['Join Eventis, the premier technology and IT summit, bringing together developers, designers, entrepreneurs, and investors to explore the latest in software development, AI innovations, and startup growth.', m.description || loc.subtitle.replace('<br>', ' ')],
     ['https://eventis.framer.website/', 'https://muun.kg/'],
     ['https://framerusercontent.com/images/AxQMXkb9SNyxDMp63XvKlzyGFo.png', '/favicon.png'],
@@ -2955,6 +2957,7 @@ for (const lang of ['ru', 'ky', 'en']) {
 
     <script>
       (function() {
+        const META_TITLE = ${JSON.stringify(metaTitle)};
         const LOC_TITLE = ${JSON.stringify(loc.title)};
         const LOC_SUBTITLE = ${JSON.stringify(loc.subtitle)};
         const LOC_DATE = ${JSON.stringify(loc.date)};
@@ -3250,7 +3253,7 @@ for (const lang of ['ru', 'ky', 'en']) {
         }
 
         function fixHydration() {
-          if (document.title !== LOC_TITLE) document.title = LOC_TITLE;
+          if (document.title !== META_TITLE) document.title = META_TITLE;
 
           // 1. Text translations
           document.querySelectorAll('a, p, span, h1, h2, h3, h4, div').forEach(el => {

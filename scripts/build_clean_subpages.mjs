@@ -355,6 +355,7 @@ for (const lang of languages) {
       ${langSwitcherHtml}
       <script>
         (function() {
+          const EXPECTED_TITLE = "${pageTitle.meta} — MUUN 2026";
           const EXPECTED_H1 = "${pageTitle.h1}";
           const EXPECTED_KICKER = "${pageTitle.kicker}";
           const EXPECTED_H2 = "${pageTitle.sub.replace(/"/g, '\\"')}";
@@ -362,6 +363,7 @@ for (const lang of languages) {
           const NAV_ITEMS = ${JSON.stringify(navItemsList)};
 
           function fixSubpage() {
+            if (document.title !== EXPECTED_TITLE) document.title = EXPECTED_TITLE;
             // 1. Maintain Header Logo with full width & direct navigation to /${lang}/
             const logoImgs = document.querySelectorAll('[data-framer-name="Logo"] img, img[src*="tJ1jqpEOBL9Nna5facx9Yh1rSA"], img[src*="logo-header"]');
             logoImgs.forEach(img => {
