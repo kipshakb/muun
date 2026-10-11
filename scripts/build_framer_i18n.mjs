@@ -1,8 +1,14 @@
 import fs from 'fs';
 import { renderParticipantModal } from './participant_modal.mjs';
+import { SOCIAL, threadsIconSvg, footerSocialCss, footerFixerJs } from './muun_social.mjs';
+import { programCss, programClientJs, programFixerJs, injectProgramSsr } from './program_block.mjs';
 
 const rawHtml = fs.readFileSync('templates/eventis_raw.html', 'utf8');
 const i18n = JSON.parse(fs.readFileSync('src/i18n.json', 'utf8'));
+const homeTemplate = fs.readFileSync('src/template.html', 'utf8');
+const kgMapStart = homeTemplate.indexOf('<svg id="kyrgyzstan-vector-map"');
+const kgMapEnd = homeTemplate.indexOf('</svg>', kgMapStart);
+const kgMapSvg = kgMapStart >= 0 ? homeTemplate.slice(kgMapStart, kgMapEnd + 6) : '';
 
 // Copy all key assets to dist and dist/assets
 fs.mkdirSync('dist/assets', { recursive: true });
@@ -432,12 +438,6 @@ const SECTION_HEADINGS = {
 function renderRegForm(lang) {
   const S = i18n.strings[lang];
 
-  const badgeText = lang === 'ky'
-    ? 'АКЫСЫЗ КАТТОО · 0 СОМ'
-    : lang === 'en'
-      ? 'FREE REGISTRATION · 0 SOM'
-      : 'БЕСПЛАТНАЯ РЕГИСТРАЦИЯ · 0 СОМ';
-
   const protectMemo = lang === 'ky'
     ? 'Сиздин маалыматтарыңыз корголгон жана КР СГОго гана берилет'
     : lang === 'en'
@@ -455,10 +455,6 @@ function renderRegForm(lang) {
       
       <!-- STEP 1: Registration Form -->
       <div id="reg-step-form" style="display:block;">
-        <div class="muun-reg-badge">
-          <span style="font-size:12px;">🎟️</span>
-          <span>${badgeText}</span>
-        </div>
         <h3 class="muun-form-title">
           ${S['reg.title']}
         </h3>
@@ -747,6 +743,68 @@ function renderRegForm(lang) {
   `;
 }
 
+const HOME_SPEAKER_SLOTS = [
+  { slot: 'Speaker 01', name: 'Dr. Emma Parker', role: 'Chief AI Scientist', img: 'eTTTIcVnwyKXnDY6kbVhA1AyzQ' },
+  { slot: 'Speaker 02', name: 'John Mitchell', role: 'CEO, AI Solutions Corp', img: 'XhuDITv6DpWNuBYIj1HtJ4DvTQw' },
+  { slot: 'Speaker 03', name: 'Samantha Hayes', role: 'Senior Data Scientist', img: '86VJMTqMd6VC2SOf3RhzPDR4emk' },
+  { slot: 'Speaker 04', name: 'James Turner', role: 'Senior Data Scientist', img: 'TzozA0OcRZ36gzl3GAQAWwujo' }
+];
+
+function homeSpeakerPeople(lang) {
+  const people = {
+    ru: [
+      { name: 'Касымалиев Адылбек Алешович', role: 'Председатель Кабинета Министров Кыргызской Республики – Руководитель Администрации Президента Кыргызской Республики', photo: '/assets/speaker-kasymaliev.png', focus: 'center 15%' },
+      { name: 'Исаматова Гульзат Тыныбековна', role: 'Министр науки, высшего образования и инноваций Кыргызской Республики', photo: '/assets/speaker-isamatova.jpg', focus: '30% 20%' },
+      { name: 'Орунтаев Нурдан Кемелович', role: 'Министр строительства, архитектуры и жилищно-коммунального хозяйства Кыргызской Республики', photo: '/assets/speaker-oruntaev.jpg', focus: 'center 18%' },
+      { name: 'Динара Русланкызы', role: 'Основатель и директор ИТ-компании CODIFY', photo: '/assets/speaker-dinara.jpg', focus: 'center 30%' }
+    ],
+    ky: [
+      { name: 'Касымалиев Адылбек Алешович', role: 'Кыргыз Республикасынын Министрлер Кабинетинин Төрагасы – Кыргыз Республикасынын Президентинин Администрациясынын жетекчиси', photo: '/assets/speaker-kasymaliev.png', focus: 'center 15%' },
+      { name: 'Исаматова Гульзат Тыныбековна', role: 'Кыргыз Республикасынын илим, жогорку билим берүү жана инновациялар министри', photo: '/assets/speaker-isamatova.jpg', focus: '30% 20%' },
+      { name: 'Орунтаев Нурдан Кемелович', role: 'Кыргыз Республикасынын курулуш, архитектура жана турак жай-коммуналдык чарба министри', photo: '/assets/speaker-oruntaev.jpg', focus: 'center 18%' },
+      { name: 'Динара Русланкызы', role: 'CODIFY ИТ-компаниясынын негиздөөчүсү жана директору', photo: '/assets/speaker-dinara.jpg', focus: 'center 30%' }
+    ],
+    en: [
+      { name: 'Adylbek Aleshovich Kasymaliev', role: 'Chairman of the Cabinet of Ministers of the Kyrgyz Republic – Head of the Presidential Administration of the Kyrgyz Republic', photo: '/assets/speaker-kasymaliev.png', focus: 'center 15%' },
+      { name: 'Gulzat Tynybekovna Isamatova', role: 'Minister of Science, Higher Education and Innovation of the Kyrgyz Republic', photo: '/assets/speaker-isamatova.jpg', focus: '30% 20%' },
+      { name: 'Nurdan Kemelovich Oruntaev', role: 'Minister of Construction, Architecture and Housing and Communal Services of the Kyrgyz Republic', photo: '/assets/speaker-oruntaev.jpg', focus: 'center 18%' },
+      { name: 'Dinara Ruslankyzy', role: 'Founder and Director of the IT company CODIFY', photo: '/assets/speaker-dinara.jpg', focus: 'center 30%' }
+    ]
+  };
+  return people[lang];
+}
+
+function patchHomeSpeakers(html, people) {
+  HOME_SPEAKER_SLOTS.forEach((slot, i) => {
+    const person = people[i];
+    const marker = `data-framer-name="${slot.slot}"`;
+    let result = '';
+    let cursor = 0;
+    let from = 0;
+    while ((from = html.indexOf(marker, from)) !== -1) {
+      const next = ['Speaker 01', 'Speaker 02', 'Speaker 03', 'Speaker 04', 'Speaker 05', 'Speaker 06']
+        .filter(name => name !== slot.slot)
+        .map(name => html.indexOf(`data-framer-name="${name}"`, from + marker.length))
+        .filter(index => index !== -1);
+      const end = next.length ? Math.min(...next) : html.length;
+      let chunk = html.slice(from, end);
+      chunk = chunk.replaceAll(slot.name, person.name);
+      chunk = chunk.replaceAll(slot.role, person.role);
+      chunk = chunk.split(`https://framerusercontent.com/images/${slot.img}.png`).join(person.photo);
+      chunk = chunk.replace(/<img\b[^>]*\/assets\/speaker-[^>]*>/g, (tag) => (
+        tag
+          .replace(/\s(?:srcset|sizes)="[^"]*"/gi, '')
+          .replace(/(\ssrc="\/assets\/speaker-[^"?]+)\?[^"]*"/, '$1"')
+      ));
+      result += html.slice(cursor, from) + chunk;
+      cursor = end;
+      from = end;
+    }
+    html = result + html.slice(cursor);
+  });
+  return html;
+}
+
 for (const lang of ['ru', 'ky', 'en']) {
   let finalHtml = rawHtml;
 
@@ -775,13 +833,13 @@ for (const lang of ['ru', 'ky', 'en']) {
     ['Terms and Conditions', lang === 'ky' ? 'Оферта келишими' : lang === 'en' ? 'Terms of Service' : 'Договор оферты'],
     ['href="./terms-and-conditions"', 'href="#"'],
     ['>Social </p>', '></p>'],
-    ['https://www.facebook.com', 'javascript:void(0)'],
-    ['https://www.instagram.com/jitu.ux/', 'javascript:void(0)'],
-    ['https://www.linkedin.com/in/jitendra-raut/', 'javascript:void(0)'],
+    ['https://www.facebook.com', SOCIAL.facebook],
+    ['https://www.instagram.com/jitu.ux/', SOCIAL.instagram],
+    ['https://www.linkedin.com/in/jitendra-raut/', SOCIAL.threads],
     ['https://x.com/jituux', 'javascript:void(0)'],
     ['<div class="framer-1q9j6t2-container"><!--$--><div style="display:contents"></div><!--/$--></div>', '<div class="framer-1q9j6t2-container" style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></div>'],
     ['<div class="framer-meo1sm-container"><!--$--><div style="display:contents"></div><!--/$--></div>', '<div class="framer-meo1sm-container" style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></div>'],
-    ['<div class="framer-mwybfh-container"><!--$--><div style="display:contents"></div><!--/$--></div>', '<div class="framer-mwybfh-container" style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg></div>'],
+    ['<div class="framer-mwybfh-container"><!--$--><div style="display:contents"></div><!--/$--></div>', `<div class="framer-mwybfh-container" style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;">${threadsIconSvg}</div>`],
     ['<div class="framer-1p56u4x-container"><!--$--><div style="display:contents"></div><!--/$--></div>', '<div class="framer-1p56u4x-container" style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;"><svg width="18" height="18" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></div>'],
     ['Designed By Jitu Raut  @fremix.design', ''],
     ['mask:linear-gradient(353deg, rgba(0,0,0,0) 15%, rgba(0, 0, 0, 0.49) 32%, rgba(0,0,0,1) 75%) add;-webkit-mask:linear-gradient(353deg, rgba(0,0,0,0) 15%, rgba(0, 0, 0, 0.49) 32%, rgba(0,0,0,1) 75%) add', ''],
@@ -1027,6 +1085,9 @@ for (const lang of ['ru', 'ky', 'en']) {
       <img src="/assets/president.png" alt="${curAbout.pres.name}" class="muun-pres-photo" />
     </div>
   </div>
+  <section class="muun-regions" id="regions">
+    ${kgMapSvg}
+  </section>
 </div>
 `;
 
@@ -1048,6 +1109,8 @@ for (const lang of ['ru', 'ky', 'en']) {
         padding: 0 !important;
         background-color: #061524 !important;
       }
+      ${footerSocialCss}
+      ${programCss}
 
       #main, .framer-lR50G, .framer-128530 {
         margin: 0 !important;
@@ -1501,7 +1564,8 @@ for (const lang of ['ru', 'ky', 'en']) {
         flex: none !important;
       }
 
-      .framer-npy4b {
+      nav.framer-1s42b8a .framer-npy4b,
+      nav.framer-1a0e2lt .framer-npy4b, footer .framer-npy4b {
         cursor: pointer !important;
         position: relative !important;
         overflow: hidden !important;
@@ -1516,64 +1580,78 @@ for (const lang of ['ru', 'ky', 'en']) {
         text-decoration: none !important;
       }
 
-      .framer-npy4b .framer-295hd4 {
+      nav.framer-1s42b8a .framer-npy4b .framer-295hd4,
+      nav.framer-1a0e2lt .framer-npy4b .framer-295hd4,
+      footer .framer-npy4b .framer-295hd4 {
         position: absolute !important;
         inset: 0 !important;
         border-radius: 100px !important;
         pointer-events: none !important;
       }
 
-      .framer-npy4b .framer-1dl5625 {
+      nav.framer-1s42b8a .framer-npy4b .framer-1dl5625,
+      nav.framer-1a0e2lt .framer-npy4b .framer-1dl5625,
+      footer .framer-npy4b .framer-1dl5625 {
         user-select: none !important;
         white-space: pre !important;
         position: relative !important;
         z-index: 2 !important;
-        transform: translateY(0px) !important;
+        transform: translateY(0) !important;
         opacity: 1 !important;
-        transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s ease !important;
+        transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1) !important;
       }
 
-      .framer-npy4b .framer-mvpx8f {
+      nav.framer-1s42b8a .framer-npy4b .framer-mvpx8f,
+      nav.framer-1a0e2lt .framer-npy4b .framer-mvpx8f,
+      footer .framer-npy4b .framer-mvpx8f {
         position: absolute !important;
-        left: -1px !important;
-        right: -1px !important;
-        bottom: -45px !important;
-        height: 45px !important;
+        inset: 0 !important;
+        height: 100% !important;
         border-radius: 100px !important;
-        background-color: #29AAE1 !important;
+        background-color: #1c2bff !important;
         z-index: 1 !important;
-        transition: all 0.32s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        transform: translateY(101%) !important;
+        transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1) !important;
       }
 
-      .framer-npy4b .framer-shp3q0 {
+      nav.framer-1s42b8a .framer-npy4b .framer-shp3q0,
+      nav.framer-1a0e2lt .framer-npy4b .framer-shp3q0,
+      footer .framer-npy4b .framer-shp3q0 {
         user-select: none !important;
         white-space: pre !important;
         position: absolute !important;
-        bottom: -32px !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
+        inset: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
         z-index: 2 !important;
-        opacity: 0 !important;
-        transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s ease !important;
-      }
-
-      .framer-npy4b:hover .framer-1dl5625,
-      .framer-npy4b.hover .framer-1dl5625 {
-        transform: translateY(-34px) !important;
-        opacity: 0 !important;
-      }
-
-      .framer-npy4b:hover .framer-mvpx8f,
-      .framer-npy4b.hover .framer-mvpx8f {
-        bottom: 0px !important;
-        top: 0px !important;
-        height: 100% !important;
-      }
-
-      .framer-npy4b:hover .framer-shp3q0,
-      .framer-npy4b.hover .framer-shp3q0 {
-        transform: translate(-50%, -34px) !important;
         opacity: 1 !important;
+        transform: translateY(101%) !important;
+        transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1) !important;
+      }
+
+      nav.framer-1s42b8a .framer-npy4b:hover .framer-1dl5625,
+      nav.framer-1s42b8a .framer-npy4b.hover .framer-1dl5625,
+      nav.framer-1a0e2lt .framer-npy4b:hover .framer-1dl5625,
+      nav.framer-1a0e2lt .framer-npy4b.hover .framer-1dl5625,
+      footer .framer-npy4b:hover .framer-1dl5625,
+      footer .framer-npy4b.hover .framer-1dl5625 {
+        transform: translateY(-120%) !important;
+      }
+
+      nav.framer-1s42b8a .framer-npy4b:hover .framer-mvpx8f,
+      nav.framer-1s42b8a .framer-npy4b.hover .framer-mvpx8f,
+      nav.framer-1a0e2lt .framer-npy4b:hover .framer-mvpx8f,
+      nav.framer-1a0e2lt .framer-npy4b.hover .framer-mvpx8f,
+      footer .framer-npy4b:hover .framer-mvpx8f,
+      footer .framer-npy4b.hover .framer-mvpx8f,
+      nav.framer-1s42b8a .framer-npy4b:hover .framer-shp3q0,
+      nav.framer-1s42b8a .framer-npy4b.hover .framer-shp3q0,
+      nav.framer-1a0e2lt .framer-npy4b:hover .framer-shp3q0,
+      nav.framer-1a0e2lt .framer-npy4b.hover .framer-shp3q0,
+      footer .framer-npy4b:hover .framer-shp3q0,
+      footer .framer-npy4b.hover .framer-shp3q0 {
+        transform: translateY(0) !important;
       }
 
       /* ── 4b. SPEAKERS: ALWAYS FULL COLOR PHOTOS & SOCIAL ICONS HOVER HIGHLIGHT ── */
@@ -1650,6 +1728,58 @@ for (const lang of ['ru', 'ky', 'en']) {
       .framer-KUjhD .framer-1kw927m path {
         fill: #FFFFFF !important;
         color: #FFFFFF !important;
+      }
+
+      section[data-framer-name="Speakers"] li:has([data-framer-name="Speaker 05"]),
+      section[data-framer-name="Speakers"] li:has([data-framer-name="Speaker 06"]),
+      section[data-framer-name="Speakers"] [data-framer-name="Blue Blur"],
+      section[data-framer-name="Speakers"] [data-framer-name="Instagram"],
+      section[data-framer-name="Speakers"] [data-framer-name="Linkedin"] {
+        display: none !important;
+      }
+      section[data-framer-name="Speakers"] .framer--carousel {
+        align-items: flex-start !important;
+      }
+      section[data-framer-name="Speakers"] [data-framer-name="Speaker 01"],
+      section[data-framer-name="Speakers"] [data-framer-name="Speaker 02"],
+      section[data-framer-name="Speakers"] [data-framer-name="Speaker 03"],
+      section[data-framer-name="Speakers"] [data-framer-name="Speaker 04"] {
+        padding-top: 0 !important;
+        margin-top: 0 !important;
+      }
+      section[data-framer-name="Speakers"] [data-framer-name="Content"]:has(> [data-framer-name="Image"]) {
+        width: 100% !important;
+        height: auto !important;
+        aspect-ratio: 4 / 5 !important;
+        position: relative !important;
+        overflow: hidden !important;
+      }
+      /* The section wrapper is also named Content. Keep it only as tall as the cards. */
+      section[data-framer-name="Speakers"] [data-framer-name="Content"]:has(> [data-framer-name="Speakers Cards"]) {
+        aspect-ratio: auto !important;
+        height: auto !important;
+        min-height: 0 !important;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+        align-content: flex-start !important;
+      }
+      section[data-framer-name="Speakers"] [data-framer-name="Image"] {
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+      }
+      section[data-framer-name="Speakers"] [data-framer-name="Name"],
+      section[data-framer-name="Speakers"] [data-framer-name="Name"] h4,
+      section[data-framer-name="Speakers"] [data-framer-name="Designation"],
+      section[data-framer-name="Speakers"] [data-framer-name="Designation"] p {
+        height: auto !important;
+        max-height: none !important;
+        white-space: normal !important;
+      }
+      section[data-framer-name="Speakers"] [data-framer-name="Name"],
+      section[data-framer-name="Speakers"] [data-framer-name="Name"] h4 {
+        min-height: 2.8em !important;
       }
 
       /* Speakers Bottom Bar: Typography & Interaction */
@@ -2214,23 +2344,6 @@ for (const lang of ['ru', 'ky', 'en']) {
         }
       }
 
-      .muun-reg-badge {
-        display: inline-flex !important;
-        align-items: center !important;
-        gap: 6px !important;
-        padding: 5px 14px !important;
-        border-radius: 999px !important;
-        background: rgba(41, 170, 225, 0.12) !important;
-        border: 1px solid rgba(41, 170, 225, 0.3) !important;
-        color: #38bdf8 !important;
-        font-family: 'Inter', sans-serif !important;
-        font-size: 11px !important;
-        font-weight: 700 !important;
-        text-transform: uppercase !important;
-        letter-spacing: 0.06em !important;
-        margin-bottom: 14px !important;
-      }
-
       .muun-form-title {
         font-size: clamp(20px, 2.2vw, 24px) !important;
         text-align: left !important;
@@ -2600,6 +2713,7 @@ for (const lang of ['ru', 'ky', 'en']) {
       .muun-custom-about {
         width: 100% !important;
         max-width: 1280px !important;
+        overflow: visible !important;
         margin: 0 auto !important;
         display: flex !important;
         flex-direction: column !important;
@@ -2782,6 +2896,25 @@ for (const lang of ['ru', 'ky', 'en']) {
         display: block !important;
       }
 
+      .muun-regions {
+        width: min(1000px, 88vw) !important;
+        max-width: none !important;
+        margin: 28px 0 0 !important;
+        position: relative !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        background: none !important;
+        border: none !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+      }
+      .muun-regions #kyrgyzstan-vector-map {
+        width: 100% !important;
+        max-width: none !important;
+        height: auto !important;
+        display: block !important;
+      }
+
       @media (max-width: 960px) {
         .muun-pres-card {
           flex-direction: column !important;
@@ -2902,11 +3035,22 @@ for (const lang of ['ru', 'ky', 'en']) {
         display: none !important;
       }
 
-      /* 4. Bottom Footer Crystal Dome Logo (rising emblem matching screenshot 2) */
+      /* 4. Bottom footer emblem — keep it compact so the footer stays short */
+      footer.framer-RYOK6.framer-1el6i8r {
+        padding-top: 56px !important;
+        gap: 40px !important;
+      }
+      .framer-RYOK6 .framer-sdeuni,
+      .framer-RYOK6 .framer-1nrybkz {
+        gap: 32px !important;
+      }
+      .framer-RYOK6 .framer-3zho6a {
+        height: 280px !important;
+      }
       .framer-RYOK6 .framer-16fyxtb {
         aspect-ratio: auto !important;
         height: auto !important;
-        min-height: 180px !important;
+        min-height: 0 !important;
         max-height: none !important;
         width: 100% !important;
         display: flex !important;
@@ -2914,7 +3058,7 @@ for (const lang of ['ru', 'ky', 'en']) {
         align-items: flex-end !important;
         mask: none !important;
         -webkit-mask: none !important;
-        margin-top: 50px !important;
+        margin-top: 20px !important;
         margin-bottom: 0 !important;
         padding-bottom: 0 !important;
         position: relative !important;
@@ -2924,7 +3068,7 @@ for (const lang of ['ru', 'ky', 'en']) {
       .framer-RYOK6 .framer-16fyxtb > div[data-framer-background-image-wrapper] {
         position: relative !important;
         width: 100% !important;
-        max-width: 860px !important;
+        max-width: 720px !important;
         height: auto !important;
         display: flex !important;
         justify-content: center !important;
@@ -2933,17 +3077,17 @@ for (const lang of ['ru', 'ky', 'en']) {
       }
       .framer-RYOK6 .framer-16fyxtb img {
         width: 100% !important;
-        max-width: 860px !important;
+        max-width: 720px !important;
         height: auto !important;
         display: block !important;
         object-fit: contain !important;
         object-position: bottom center !important;
-        filter: drop-shadow(0 -10px 45px rgba(41, 170, 225, 0.45)) drop-shadow(0 -4px 15px rgba(255, 255, 255, 0.25)) !important;
+        filter: drop-shadow(0 -6px 24px rgba(41, 170, 225, 0.28)) !important;
       }
       @media (max-width: 810px) {
         .framer-RYOK6 .framer-16fyxtb > div[data-framer-background-image-wrapper],
         .framer-RYOK6 .framer-16fyxtb img {
-          max-width: 94vw !important;
+          max-width: 88vw !important;
         }
       }
     </style>
@@ -2956,6 +3100,16 @@ for (const lang of ['ru', 'ky', 'en']) {
     </template>
 
     <script>
+      window.selectKyrgyzRegion = function(regId, btn) {
+        document.querySelectorAll('.kg-region-path').forEach(function(p) { p.classList.remove('active'); });
+        document.querySelectorAll('.muun-reg-pill, .reg-pill').forEach(function(p) { p.classList.remove('is-active'); p.classList.remove('active'); });
+        if (btn) btn.classList.add(btn.classList.contains('muun-reg-pill') ? 'is-active' : 'active');
+        if (regId === 'all') return;
+        var pathId = regId === 'osh-city' ? 'osh-obl' : regId;
+        var activePath = document.querySelector('.kg-region-path[data-region="' + pathId + '"]');
+        if (activePath) activePath.classList.add('active');
+      };
+      ${programClientJs}
       (function() {
         const META_TITLE = ${JSON.stringify(metaTitle)};
         const LOC_TITLE = ${JSON.stringify(loc.title)};
@@ -3564,15 +3718,8 @@ for (const lang of ['ru', 'ky', 'en']) {
             }
           });
 
-          // 10. Agenda items translation
-          document.querySelectorAll('.framer-1gpbv7e h3, .framer-pfrlz6 h4, .framer-qtcajc h4').forEach(el => {
-            const t = el.textContent.trim();
-            if (TRANSLATIONS[t]) el.textContent = TRANSLATIONS[t];
-          });
-          const agendaOpeningDesc = Array.from(document.querySelectorAll('p')).find(p => p.textContent.includes('Welcome to the Alcron Tech Summit'));
-          if (agendaOpeningDesc) {
-            agendaOpeningDesc.textContent = "${lang === 'ky' ? 'MUUN 2026 жаштар көргөзмө-форумунун салтанаттуу ачылышы. Уюштуруучулардын куттуктоо сөздөрү жана негизги аянтчалардын бет ачары.' : lang === 'en' ? 'Grand Opening of the MUUN 2026 Youth Exhibition-Forum. Welcoming remarks and presentation of core zones.' : 'Торжественное открытие национальной молодежной выставки-форума MUUN 2026. Приветственные речи организаторов и презентация ключевых площадок.'}";
-          }
+          // 10. Program block (shared with /program)
+          ${programFixerJs(lang)}
 
           // 11. Inject Custom About Block (Counters + President)
           const aboutContainer = document.querySelector('.framer-iyfkd5');
@@ -3589,7 +3736,39 @@ for (const lang of ['ru', 'ky', 'en']) {
           // 12. Update Navigation
           updateNav();
 
-          // 13. Speakers Section: Bottom Bar & Permanent Color Photos
+          // 13. Speakers: four confirmed people, hide the last two template cards
+          const HOME_SPEAKERS = ${JSON.stringify(homeSpeakerPeople(lang))};
+          ['Speaker 01', 'Speaker 02', 'Speaker 03', 'Speaker 04'].forEach((slot, i) => {
+            const person = HOME_SPEAKERS[i];
+            document.querySelectorAll('section[data-framer-name="Speakers"] [data-framer-name="' + slot + '"]').forEach(root => {
+              root.querySelectorAll('[data-framer-name="Name"] h4').forEach(h => {
+                if (h.textContent !== person.name) h.textContent = person.name;
+              });
+              root.querySelectorAll('[data-framer-name="Designation"] p').forEach(p => {
+                if (p.textContent !== person.role) p.textContent = person.role;
+              });
+              root.querySelectorAll('[data-framer-name="Image"] img').forEach(img => {
+                if (img.closest('[data-framer-name="Blue Blur"]')) return;
+                if (!img.getAttribute('src') || img.getAttribute('src').indexOf(person.photo) === -1) {
+                  img.removeAttribute('srcset');
+                  img.removeAttribute('sizes');
+                  img.setAttribute('src', person.photo);
+                }
+                img.setAttribute('alt', person.name);
+                img.style.setProperty('object-fit', 'cover', 'important');
+                img.style.setProperty('object-position', person.focus || 'center 20%', 'important');
+              });
+            });
+          });
+          ['Speaker 05', 'Speaker 06'].forEach(slot => {
+            document.querySelectorAll('section[data-framer-name="Speakers"] [data-framer-name="' + slot + '"]').forEach(el => {
+              const li = el.closest('li');
+              if (li) li.style.setProperty('display', 'none', 'important');
+              el.style.setProperty('display', 'none', 'important');
+            });
+          });
+
+          // 13b. Speakers Section: Bottom Bar & Permanent Color Photos
           const speakerBarText = "${lang === 'ky' ? 'Спикерлер' : lang === 'en' ? 'Speakers' : 'Спикеры'}";
           const seeAllText = "${lang === 'ky' ? 'Баарын көрүү' : lang === 'en' ? 'See All' : 'Смотреть всех'}";
 
@@ -3612,9 +3791,23 @@ for (const lang of ['ru', 'ky', 'en']) {
             seeAllBarEl.textContent = seeAllText;
           }
 
-          const seeAllLink = document.querySelector('.framer-u6t1id a, .framer-1td7r8s-container a');
-          if (seeAllLink && seeAllLink.getAttribute('href') === './speakers') {
-            seeAllLink.setAttribute('href', '#speakers');
+          const speakersPage = "/${lang}/speakers";
+          const openSpeakersPage = function(e) {
+            if (e) {
+              e.preventDefault();
+              e.stopPropagation();
+            }
+            window.location.assign(speakersPage);
+            return false;
+          };
+          document.querySelectorAll('.framer-u84szu a').forEach((a) => {
+            a.setAttribute('href', speakersPage);
+            a.onclick = openSpeakersPage;
+          });
+          const seeAllBtn = document.querySelector('.framer-u84szu [data-framer-name="Button"]');
+          if (seeAllBtn) {
+            seeAllBtn.style.cursor = 'pointer';
+            seeAllBtn.onclick = openSpeakersPage;
           }
 
           document.querySelectorAll('.framer-1kwjq53, .framer-KUjhD figure[data-framer-name="Image"], .framer-KUjhD img').forEach(fig => {
@@ -3649,15 +3842,8 @@ for (const lang of ['ru', 'ky', 'en']) {
             socialLabel.style.setProperty('display', 'none', 'important');
           }
 
-          // 15b. Remove links from social icons
-          document.querySelectorAll('.framer-1dhn2g1 a').forEach(a => {
-            if (a.getAttribute('href') !== 'javascript:void(0)') {
-              a.setAttribute('href', 'javascript:void(0)');
-              a.removeAttribute('target');
-              a.removeAttribute('rel');
-              a.onclick = function(e) { e.preventDefault(); e.stopPropagation(); return false; };
-            }
-          });
+          // 15b. Footer social links: Instagram, Facebook, Threads
+          ${footerFixerJs}
 
           // 15c. Privacy Policy & Offer Agreement
           const privacyText = "${lang === 'ky' ? 'Купуялуулук саясаты' : lang === 'en' ? 'Privacy Policy' : 'Политика конфиденциальности'}";
@@ -3712,6 +3898,8 @@ for (const lang of ['ru', 'ky', 'en']) {
     </script>
   `;
 
+  finalHtml = patchHomeSpeakers(finalHtml, homeSpeakerPeople(lang));
+  finalHtml = injectProgramSsr(finalHtml, lang);
   finalHtml = finalHtml.replace('</head>', styleAndScripts + '\n</head>');
 
   // Floating language switcher

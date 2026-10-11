@@ -1,8 +1,82 @@
 import fs from 'fs';
 import path from 'path';
 import { renderParticipantModal } from './participant_modal.mjs';
+import { newsCss, renderNewsBlock, newsClientJs } from './news_block.mjs';
+import { pressCss, renderPressBlock, pressClientJs } from './press_block.mjs';
+import { programCss, programClientJs, programFixerJs, injectProgramSsr } from './program_block.mjs';
+import { applyFooterSocials, footerSocialCss, footerFixerJs, contactBlockHtml, contactCopy, contactSocialCss, contactFixerJs } from './muun_social.mjs';
 
 console.log('Building completely polished subpages with exact fixes...');
+
+const SPEAKER_ORIGINALS = [
+  { name: 'Dr. Emma Parker', role: 'Senior Software Engineer', img: 'eTTTIcVnwyKXnDY6kbVhA1AyzQ' },
+  { name: 'John Mitchell', role: 'Full Stack Developer', img: 'XhuDITv6DpWNuBYIj1HtJ4DvTQw' },
+  { name: 'Samantha Hayes', role: 'Backend Architect', img: '86VJMTqMd6VC2SOf3RhzPDR4emk' },
+  { name: 'James Turner', role: 'DevOps Specialist', img: 'TzozA0OcRZ36gzl3GAQAWwujo' },
+  { name: 'Michael Anderson', role: 'Mobile App Engineer', img: 'dlhgx3fMLQZlK7XF8F8pg5OGE' },
+  { name: 'Laura Chang', role: 'Cloud Solutions Expert', img: 'FVjwWr85ut7DBy7LiAzsJoNMlLM' },
+  { name: 'Dr. Maya Bennett', role: 'AI/ML Engineer', img: 'cFl24iPInxckRrL32eRgadp9ZJM' },
+  { name: 'Jonathan Reyes', role: 'Technical Lead – Web Platforms', img: 'UPhDD72urZKey0YOy5IaOSRCJj0' }
+];
+
+function speakerRoster(lang) {
+  const pending = lang === 'ky' ? 'Маалымат күтүлүүдө' : lang === 'en' ? 'Information coming soon' : 'Ожидается информация';
+  const placeholder = { name: pending, role: '', photo: '/assets/speaker-placeholder.png', placeholder: true, focus: 'center center' };
+  const people = {
+    ru: [
+      { name: 'Касымалиев Адылбек Алешович', role: 'Председатель Кабинета Министров Кыргызской Республики – Руководитель Администрации Президента Кыргызской Республики', photo: '/assets/speaker-kasymaliev.png', focus: 'center 15%' },
+      { name: 'Исаматова Гульзат Тыныбековна', role: 'Министр науки, высшего образования и инноваций Кыргызской Республики', photo: '/assets/speaker-isamatova.jpg', focus: '30% 20%' },
+      { name: 'Орунтаев Нурдан Кемелович', role: 'Министр строительства, архитектуры и жилищно-коммунального хозяйства Кыргызской Республики', photo: '/assets/speaker-oruntaev.jpg', focus: 'center 18%' },
+      { name: 'Динара Русланкызы', role: 'Основатель и директор ИТ-компании CODIFY', photo: '/assets/speaker-dinara.jpg', focus: 'center 30%' }
+    ],
+    ky: [
+      { name: 'Касымалиев Адылбек Алешович', role: 'Кыргыз Республикасынын Министрлер Кабинетинин Төрагасы – Кыргыз Республикасынын Президентинин Администрациясынын жетекчиси', photo: '/assets/speaker-kasymaliev.png', focus: 'center 15%' },
+      { name: 'Исаматова Гульзат Тыныбековна', role: 'Кыргыз Республикасынын илим, жогорку билим берүү жана инновациялар министри', photo: '/assets/speaker-isamatova.jpg', focus: '30% 20%' },
+      { name: 'Орунтаев Нурдан Кемелович', role: 'Кыргыз Республикасынын курулуш, архитектура жана турак жай-коммуналдык чарба министри', photo: '/assets/speaker-oruntaev.jpg', focus: 'center 18%' },
+      { name: 'Динара Русланкызы', role: 'CODIFY ИТ-компаниясынын негиздөөчүсү жана директору', photo: '/assets/speaker-dinara.jpg', focus: 'center 30%' }
+    ],
+    en: [
+      { name: 'Adylbek Aleshovich Kasymaliev', role: 'Chairman of the Cabinet of Ministers of the Kyrgyz Republic – Head of the Presidential Administration of the Kyrgyz Republic', photo: '/assets/speaker-kasymaliev.png', focus: 'center 15%' },
+      { name: 'Gulzat Tynybekovna Isamatova', role: 'Minister of Science, Higher Education and Innovation of the Kyrgyz Republic', photo: '/assets/speaker-isamatova.jpg', focus: '30% 20%' },
+      { name: 'Nurdan Kemelovich Oruntaev', role: 'Minister of Construction, Architecture and Housing and Communal Services of the Kyrgyz Republic', photo: '/assets/speaker-oruntaev.jpg', focus: 'center 18%' },
+      { name: 'Dinara Ruslankyzy', role: 'Founder and Director of the IT company CODIFY', photo: '/assets/speaker-dinara.jpg', focus: 'center 30%' }
+    ]
+  }[lang];
+  return [...people, placeholder, placeholder, placeholder, placeholder];
+}
+
+function findFramerMarker(html, name) {
+  const marker = `data-framer-name="${name}"`;
+  let from = 0;
+  while ((from = html.indexOf(marker, from)) !== -1) {
+    const prev = html[from - 1];
+    if (prev !== '[' && prev !== '"' && prev !== "'") return from;
+    from += marker.length;
+  }
+  return -1;
+}
+
+function applySpeakerRoster(pageHtml, roster) {
+  const start = findFramerMarker(pageHtml, 'Speakers 1');
+  const end = findFramerMarker(pageHtml, 'Speakers 2');
+  if (start === -1 || end === -1 || end < start) {
+    console.warn('Speaker sections not found for roster replacement', start, end);
+    return pageHtml;
+  }
+  let block = pageHtml.slice(start, end);
+  SPEAKER_ORIGINALS.forEach((orig, i) => {
+    const person = roster[i];
+    block = block.replaceAll(orig.name, person.name);
+    block = block.replaceAll(orig.role, person.role);
+    block = block.split(`https://framerusercontent.com/images/${orig.img}.png`).join(person.photo);
+  });
+  block = block.replace(/<img\b[^>]*\/assets\/speaker-[^>]*>/g, (tag) => (
+    tag
+      .replace(/\s(?:srcset|sizes)="[^"]*"/gi, '')
+      .replace(/(\ssrc="\/assets\/speaker-[^"?]+)\?[^"]*"/, '$1"')
+  ));
+  return pageHtml.slice(0, start) + block + pageHtml.slice(end);
+}
 
 const templates = {
   speakers: fs.readFileSync('templates/eventis_speakers.html', 'utf8'),
@@ -15,9 +89,9 @@ const pagesConfig = {
   speakers: {
     template: 'speakers',
     titles: {
-      ru: { h1: 'СПИКЕРЫ', kicker: 'Спикеры', sub: 'Познакомьтесь с ведущими спикерами и экспертами форума', meta: 'Спикеры' },
-      ky: { h1: 'СПИКЕРЛЕР', kicker: 'Спикерлер', sub: 'Форумдун алдыңкы спикерлери жана эксперттери менен таанышыңыз', meta: 'Спикерлер' },
-      en: { h1: 'SPEAKERS', kicker: 'Speakers', sub: 'Meet Our Esteemed Speakers and Technology Trailblazers', meta: 'Speakers' }
+      ru: { h1: 'СПИКЕРЫ', kicker: 'Спикеры', sub: 'Познакомьтесь с ведущими спикерами и экспертами', meta: 'Спикеры' },
+      ky: { h1: 'СПИКЕРЛЕР', kicker: 'Спикерлер', sub: 'Алдыңкы спикерлер жана эксперттер менен таанышыңыз', meta: 'Спикерлер' },
+      en: { h1: 'SPEAKERS', kicker: 'Speakers', sub: 'Meet the leading speakers and experts', meta: 'Speakers' }
     }
   },
   program: {
@@ -32,17 +106,17 @@ const pagesConfig = {
   venue: {
     template: 'venue',
     titles: {
-      ru: { h1: 'ПЛОЩАДКА', kicker: 'Площадка', sub: 'Конгресс-Холл «Ырыс Ордо», Бишкек — тематические зоны', meta: 'Площадка' },
-      ky: { h1: 'ӨТКӨРҮЛҮҮЧҮ ЖЕР', kicker: 'Аянтча', sub: '«Ырыс Ордо» конгресс-холлу, Бишкек — тематикалык зоналар', meta: 'Өткөрүлүүчү жер' },
-      en: { h1: 'VENUE', kicker: 'Venue', sub: 'Congress Hall "Yrys Ordo", Bishkek — thematic zones', meta: 'Venue' }
+      ru: { h1: 'ПЛОЩАДКА', kicker: 'Площадка', sub: 'Конгресс-Холл «Ырыс Ордо»', meta: 'Площадка' },
+      ky: { h1: 'ӨТКӨРҮЛҮҮЧҮ ЖЕР', kicker: 'Аянтча', sub: '«Ырыс Ордо» конгресс-холлу', meta: 'Өткөрүлүүчү жер' },
+      en: { h1: 'VENUE', kicker: 'Venue', sub: 'Congress Hall «Yrys Ordo»', meta: 'Venue' }
     }
   },
   news: {
     template: 'contact',
     titles: {
-      ru: { h1: 'НОВОСТИ', kicker: 'Новости', sub: 'Актуальные события и новости форума MUUN 2026', meta: 'Новости' },
-      ky: { h1: 'ЖАҢЫЛЫКТАР', kicker: 'Жаңылыктар', sub: 'MUUN 2026 форумунун актуалдуу окуялары жана жаңылыктары', meta: 'Жаңылыктар' },
-      en: { h1: 'NEWS', kicker: 'News', sub: 'Latest updates and news from MUUN 2026', meta: 'News' }
+      ru: { h1: 'НОВОСТИ', kicker: 'Новости', sub: 'Актуальные события и новости форума', meta: 'Новости' },
+      ky: { h1: 'ЖАҢЫЛЫКТАР', kicker: 'Жаңылыктар', sub: 'MUUN 2026 форумунун актуалдуу окуялары жана жаңылыктары', subHtml: 'MUUN 2026 форумунун актуалдуу окуялары<br>жана жаңылыктары', meta: 'Жаңылыктар' },
+      en: { h1: 'NEWS', kicker: 'News', sub: 'Latest updates and news from MUUN 2026', subHtml: 'Latest updates and news<br>from MUUN 2026', meta: 'News' }
     }
   },
   press: {
@@ -57,9 +131,9 @@ const pagesConfig = {
     template: 'contact',
     aliases: ['contact'],
     titles: {
-      ru: { h1: 'КОНТАКТЫ', kicker: 'Контакты', sub: 'Свяжитесь с оргкомитетом молодежного форума MUUN 2026', meta: 'Контакты' },
-      ky: { h1: 'БАЙЛАНЫШТАР', kicker: 'Байланыш', sub: 'MUUN 2026 жаштар форумунун уюштуруу комитети менен байланышуу', meta: 'Байланыштар' },
-      en: { h1: 'CONTACTS', kicker: 'Contacts', sub: 'Get in touch with the MUUN 2026 organizing team', meta: 'Contacts' }
+      ru: { h1: 'КОНТАКТЫ', kicker: 'Контакты', sub: 'Свяжитесь с оргкомитетом', meta: 'Контакты' },
+      ky: { h1: 'БАЙЛАНЫШТАР', kicker: 'Байланыш', sub: 'Уюштуруу комитети менен байланышыңыз', meta: 'Байланыштар' },
+      en: { h1: 'CONTACTS', kicker: 'Contacts', sub: 'Get in touch with the organizing committee', meta: 'Contacts' }
     }
   }
 };
@@ -214,6 +288,103 @@ for (const lang of languages) {
           -webkit-mask: none !important;
           object-fit: contain !important;
         }
+        ${footerSocialCss}
+        ${slug === 'contacts' ? contactSocialCss : ''}
+        ${slug === 'news' ? newsCss : ''}
+        ${slug === 'press' ? pressCss : ''}
+        ${slug === 'program' ? programCss : ''}
+        ${slug === 'venue' ? `
+        section[data-framer-name="Venue"] .framer-1h1gm54,
+        section[data-framer-name="Venue"] [data-framer-name="Venue Title"],
+        section[data-framer-name="Venue"] [data-framer-name="Tag"] {
+          display: none !important;
+        }
+        section[data-framer-name="Venue"] .framer-nl6gb7 {
+          display: none !important;
+        }
+        ` : ''}
+        ${slug === 'speakers' ? `
+        [data-framer-name="Speakers 1"] [data-framer-name="Tag"],
+        [data-framer-name="Speakers 2"] {
+          display: none !important;
+        }
+        [data-framer-name="Speakers 1"] [data-framer-name="Name"],
+        [data-framer-name="Speakers 1"] [data-framer-name="Name"] h4,
+        [data-framer-name="Speakers 1"] [data-framer-name="Designation"],
+        [data-framer-name="Speakers 1"] [data-framer-name="Designation"] p,
+        [data-framer-name="Speakers 1"] [data-framer-name="Profile"] {
+          height: auto !important;
+          max-height: none !important;
+          white-space: normal !important;
+          overflow: visible !important;
+        }
+        [data-framer-name="Speakers 1"] [data-framer-name="Image"] img {
+          object-fit: cover !important;
+        }
+        [data-framer-name="Speakers 1"] img[src*="speaker-kasymaliev"] { object-position: center 15% !important; }
+        [data-framer-name="Speakers 1"] img[src*="speaker-isamatova"] { object-position: 30% 20% !important; }
+        [data-framer-name="Speakers 1"] img[src*="speaker-oruntaev"] { object-position: center 18% !important; }
+        [data-framer-name="Speakers 1"] img[src*="speaker-dinara"] { object-position: center 28% !important; }
+        [data-framer-name="Speakers 1"] img[src*="speaker-placeholder"] { object-position: center center !important; }
+        [data-framer-name="Speakers 1"] [data-framer-name="Image"] { overflow: hidden !important; }
+        [data-framer-name="Speakers 1"] [data-framer-name="Layer 1"],
+        [data-framer-name="Speakers 1"] [data-framer-name="Layer 2"] {
+          align-items: flex-start !important;
+        }
+        [data-framer-name="Speakers 1"] [data-framer-name="White "],
+        [data-framer-name="Speakers 1"] [data-framer-name="Phone"] {
+          display: flex !important;
+          flex-direction: column !important;
+          height: auto !important;
+          align-items: stretch !important;
+        }
+        [data-framer-name="Speakers 1"] [data-framer-name="Content"]:has(> [data-framer-name="Image"]) {
+          width: 100% !important;
+          height: auto !important;
+          aspect-ratio: 4 / 5 !important;
+          flex: none !important;
+          overflow: hidden !important;
+          position: relative !important;
+        }
+        [data-framer-name="Speakers 1"] [data-framer-name="Content"]:has(> [data-framer-name="Layer 1"]) {
+          aspect-ratio: auto !important;
+          height: auto !important;
+          min-height: 0 !important;
+          justify-content: flex-start !important;
+          align-items: flex-start !important;
+          align-content: flex-start !important;
+        }
+        [data-framer-name="Speakers 1"] [data-framer-name="Image"] {
+          position: absolute !important;
+          inset: 0 !important;
+          width: 100% !important;
+          height: 100% !important;
+          aspect-ratio: auto !important;
+        }
+        [data-framer-name="Speakers 1"] [data-framer-name="Profile"] {
+          display: flex !important;
+          flex-direction: column !important;
+          align-items: stretch !important;
+          width: 100% !important;
+          height: auto !important;
+        }
+        [data-framer-name="Speakers 1"] [data-framer-name="Name"],
+        [data-framer-name="Speakers 1"] [data-framer-name="Name"] h4 {
+          min-height: 2.8em !important;
+          height: auto !important;
+        }
+        [data-framer-name="Speakers 1"] [data-framer-name="Blue Blur"],
+        [data-framer-name="Speakers 1"] [data-framer-name="Instagram"],
+        [data-framer-name="Speakers 1"] [data-framer-name="Linkedin"] {
+          display: none !important;
+        }
+        .framer-czfk01-container [data-framer-name="Blue Blur"],
+        .framer-1mohwrm-container [data-framer-name="Blue Blur"],
+        .framer-1iuexxu-container [data-framer-name="Blue Blur"],
+        .framer-2trhh7-container [data-framer-name="Blue Blur"] {
+          display: none !important;
+        }
+        ` : ''}
       </style>
     `;
     pageHtml = pageHtml.replace('</head>', `${customStylesHtml}\n${extraCss}\n</head>`);
@@ -258,6 +429,7 @@ for (const lang of languages) {
         if (h2Match) {
           pageHtml = pageHtml.replace(h2Match[0], `<h2 class="framer-text framer-styles-preset-y2rde0" data-styles-preset="ukkzEhTCI" style="font-family:'Inter',sans-serif;">${pageTitle.sub}</h2>`);
         }
+        pageHtml = applySpeakerRoster(pageHtml, speakerRoster(lang));
       }
       const spk2 = pageHtml.indexOf('data-framer-name="Speakers 2"');
       if (spk2 !== -1) {
@@ -278,6 +450,7 @@ for (const lang of languages) {
           pageHtml = pageHtml.replace(h2Match[0], `<h2 class="framer-text framer-styles-preset-y2rde0" data-styles-preset="ukkzEhTCI" style="font-family:'Inter',sans-serif;">${pageTitle.sub}</h2>`);
         }
       }
+      pageHtml = injectProgramSsr(pageHtml, lang);
     } else if (slug === 'venue') {
       const vSec = pageHtml.indexOf('data-framer-name="Venue"');
       if (vSec !== -1) {
@@ -290,6 +463,43 @@ for (const lang of languages) {
           pageHtml = pageHtml.replace(h2Match[0], `<h2 class="framer-text framer-styles-preset-y2rde0" data-styles-preset="ukkzEhTCI" style="font-family:'Inter',sans-serif;">${pageTitle.sub}</h2>`);
         }
       }
+
+      const venueCopy = {
+        ru: [
+          'Конгресс-холл «Ырыс Ордо» в комплексе «Бишкек Арена» — место проведения MUUN 2026, национальной молодежной выставки-форума профессий будущего. 17 и 18 ноября здесь встречаются школьники, студенты, университеты, работодатели и государственные организации.',
+          'На площадке работают главная сцена, панельные дискуссии и стойки регистрации. Гости проходят тематические зоны, слушают выступления и лично общаются с компаниями и учебными заведениями о карьере, обучении и проектах.'
+        ],
+        ky: [
+          '«Ырыс Ордо» конгресс-холлу «Бишкек Арена» комплексинде MUUN 2026 — келечектин кесиптеринин улуттук жаштар көргөзмө-форуму өтөт. 17–18-ноябрда бул жерде мектеп окуучулары, студенттер, университеттер, иш берүүчүлөр жана мамлекеттик уюмдар жолугат.',
+          'Аянтчада башкы сахна, панелдик талкуулар жана каттоо зонасы иштейт. Коноктор тематикалык зоналарды кыдырып, чыгып сүйлөөлөрдү угуп, компаниялар жана окуу жайлар менен карьера, билим жана долбоорлор тууралуу жеке сүйлөшөт.'
+        ],
+        en: [
+          'Congress Hall «Yrys Ordo» at the Bishkek Arena complex is the venue for MUUN 2026, the national youth exhibition-forum of the professions of the future. On 17–18 November, school students, university students, employers and public institutions meet here.',
+          'The hall brings together the main stage, panel discussions and registration desks. Guests walk through the thematic zones, listen to the sessions and talk directly with companies and education institutions about careers, study and projects.'
+        ]
+      }[lang];
+      const venueImages = [
+        ['jAO8hsj4cqFOU4eSd9NEn5faTuM', '/assets/venue-exterior.jpg'],
+        ['tb1C68dgSO0HtIQ3nl97tROxntI', '/assets/gallery-mainstage.jpg'],
+        ['eRjuxhjXm2C3YKMVMexMdMIkaA', '/assets/gallery-panel.jpg']
+      ];
+      pageHtml = pageHtml.replace(
+        'The AIcron Tech Summit is the ultimate gathering for tech enthusiasts, industry leaders, and innovators to delve into the world of AI, machine learning, and the future of emerging technologies. This summit offers a unique opportunity to hear from top experts, engage in insightful discussions, and explore groundbreaking AI innovations. Whether you\'re a startup founder, developer.',
+        venueCopy[0]
+      );
+      pageHtml = pageHtml.replace(
+        'You’ll have the chance to explore real-world use cases, witness cutting-edge demos, and connect with others who are driving change in the tech world. Be part of the conversation that’s shaping the future.',
+        venueCopy[1]
+      );
+      pageHtml = pageHtml.replaceAll('>Marin bay Conventional centre, Singapore</h3>', '></h3>');
+      pageHtml = pageHtml.replace(/<img\b[^>]*>/g, (tag) => {
+        const hit = venueImages.find(([id]) => tag.includes(id));
+        if (!hit) return tag;
+        return tag
+          .replace(/\s(?:srcset|sizes)="[^"]*"/g, '')
+          .replace(/\ssrc="[^"]*"/, ` src="${hit[1]}"`)
+          .replace(/\salt(?:=(?:"[^"]*"|'[^']*'|[^\s>]+))?/, ` alt="${pageTitle.sub}"`);
+      });
     } else if (conf.template === 'contact') {
       const cSec = pageHtml.indexOf('data-framer-name="Contact"');
       if (cSec !== -1) {
@@ -303,6 +513,22 @@ for (const lang of languages) {
         }
       }
     }
+
+    pageHtml = applyFooterSocials(pageHtml);
+    if (slug === 'contacts') {
+      const copy = contactCopy(lang);
+      pageHtml = pageHtml.replace(
+        '</div><form class="framer-vko7cj"',
+        `${contactBlockHtml(lang)}</div><form class="framer-vko7cj"`
+      );
+      pageHtml = pageHtml.replaceAll('>Email Us</h4>', `>${copy.emailTitle}</h4>`);
+      pageHtml = pageHtml.replaceAll('Reach out to our team for quick assistance.', copy.emailBody);
+      pageHtml = pageHtml.replaceAll('>Call Us</h4>', `>${copy.phoneTitle}</h4>`);
+      pageHtml = pageHtml.replace(/Drop us a message, and we.ll get back to you soon\./g, copy.phoneBody);
+    }
+    pageHtml = pageHtml.replaceAll('info@aicron.com', 'info@muun.kg');
+    pageHtml = pageHtml.replaceAll('+91 1234567890', '+996 990 122 341');
+    pageHtml = pageHtml.replaceAll('tel: +91 9730627087', 'tel:+996990122341');
 
     // Replace footer navigation in SSR HTML
     const fNavStart = pageHtml.indexOf('<nav class="framer-1a0e2lt"');
@@ -346,6 +572,28 @@ for (const lang of languages) {
       </div>
     `;
 
+    if (slug === 'news' || slug === 'press') {
+      const blockHtml = slug === 'news' ? renderNewsBlock(lang) : renderPressBlock(lang);
+      const marker = 'data-framer-name="Registration"';
+      let from = 0;
+      let regSection = -1;
+      while ((from = pageHtml.indexOf(marker, from)) !== -1) {
+        const sec = pageHtml.lastIndexOf('<section', from);
+        const between = sec === -1 ? '' : pageHtml.slice(sec, from);
+        if (sec !== -1 && between.length < 1200 && !between.includes('</section>')) {
+          regSection = sec;
+          break;
+        }
+        from += marker.length;
+      }
+      const contactEnd = regSection === -1 ? -1 : pageHtml.lastIndexOf('</section>', regSection);
+      if (contactEnd !== -1) {
+        pageHtml = pageHtml.slice(0, contactEnd) + blockHtml + pageHtml.slice(contactEnd);
+      } else {
+        console.warn(`${slug} block was not inserted: contact section end not found`);
+      }
+    }
+
     const participantModalHtml = renderParticipantModal(lang);
 
     // Append registration template, participant modal, language switcher, and continuous hydration fixer before </body>
@@ -354,6 +602,9 @@ for (const lang of languages) {
       ${participantModalHtml}
       ${langSwitcherHtml}
       <script>
+        ${slug === 'news' ? newsClientJs : ''}
+        ${slug === 'press' ? pressClientJs : ''}
+        ${slug === 'program' ? programClientJs : ''}
         (function() {
           const EXPECTED_TITLE = "${pageTitle.meta} — MUUN 2026";
           const EXPECTED_H1 = "${pageTitle.h1}";
@@ -495,6 +746,141 @@ for (const lang of languages) {
               subH2.textContent = EXPECTED_H2;
             }
 
+            ${slug === 'speakers' ? `
+            const SPEAKER_ROSTER = ${JSON.stringify(speakerRoster(lang))};
+            document.querySelectorAll('[data-framer-name="Speakers 1"] [data-framer-name="Tag"], [data-framer-name="Speakers 2"]').forEach(el => {
+              el.style.setProperty('display', 'none', 'important');
+            });
+            let speakerProfiles = [...document.querySelectorAll('[data-framer-name="Speakers 1"] [data-framer-name="Profile"]')];
+            const visibleProfiles = speakerProfiles.filter(p => p.getBoundingClientRect().height > 0);
+            if (visibleProfiles.length) speakerProfiles = visibleProfiles;
+            speakerProfiles.forEach((profile, i) => {
+              const person = SPEAKER_ROSTER[i];
+              if (!person) return;
+              const card = profile.parentElement;
+              profile.querySelectorAll('[data-framer-name="Name"] h4').forEach(h => {
+                if (h.textContent !== person.name) h.textContent = person.name;
+              });
+              profile.querySelectorAll('[data-framer-name="Designation"] p').forEach(p => {
+                if (p.textContent !== person.role) p.textContent = person.role;
+              });
+              profile.querySelectorAll('[data-framer-name="Designation"]').forEach(el => {
+                if (person.role) el.style.removeProperty('display');
+                else el.style.setProperty('display', 'none', 'important');
+              });
+              card.style.setProperty('height', 'auto', 'important');
+              card.style.setProperty('display', 'flex', 'important');
+              card.style.setProperty('flex-direction', 'column', 'important');
+              card.style.setProperty('align-items', 'stretch', 'important');
+              const photoBox = card.querySelector('[data-framer-name="Content"]');
+              if (photoBox) {
+                photoBox.style.setProperty('width', '100%', 'important');
+                photoBox.style.setProperty('height', 'auto', 'important');
+                photoBox.style.setProperty('aspect-ratio', '4 / 5', 'important');
+                photoBox.style.setProperty('flex', 'none', 'important');
+                photoBox.style.setProperty('position', 'relative', 'important');
+                photoBox.style.setProperty('overflow', 'hidden', 'important');
+              }
+              const photo = card.querySelector('[data-framer-name="Image"]');
+              if (photo) {
+                photo.style.setProperty('position', 'absolute', 'important');
+                photo.style.setProperty('inset', '0', 'important');
+                photo.style.setProperty('width', '100%', 'important');
+                photo.style.setProperty('height', '100%', 'important');
+              }
+              profile.querySelectorAll('[data-framer-name="Name"], [data-framer-name="Name"] h4').forEach(el => {
+                el.style.setProperty('min-height', '2.8em', 'important');
+                el.style.setProperty('height', 'auto', 'important');
+              });
+              card.querySelectorAll('[data-framer-name="Image"] img').forEach(img => {
+                if (img.closest('[data-framer-name="Blue Blur"]')) return;
+                if (!img.getAttribute('src') || !img.getAttribute('src').includes(person.photo)) {
+                  img.removeAttribute('srcset');
+                  img.removeAttribute('sizes');
+                  img.setAttribute('src', person.photo);
+                }
+                img.setAttribute('alt', person.name);
+                img.style.setProperty('object-fit', 'cover', 'important');
+                img.style.setProperty('object-position', person.focus || 'center 20%', 'important');
+              });
+              card.querySelectorAll('[data-framer-name="Blue Blur"], [data-framer-name="Instagram"], [data-framer-name="Linkedin"]').forEach(el => {
+                el.style.setProperty('display', 'none', 'important');
+              });
+            });
+            ` : ''}
+
+            ${slug === 'news' ? `
+            document.querySelectorAll('section[data-framer-name="Contact"] [data-framer-name="Contact Cards"], section[data-framer-name="Contact"] [data-framer-name="Contact Form"], section[data-framer-name="Contact"] [data-framer-name="Join Our Community"], section[data-framer-name="Contact"] form').forEach(el => {
+              el.style.setProperty('display', 'none', 'important');
+            });
+            const newsHost = document.querySelector('section[data-framer-name="Contact"]');
+            if (newsHost && !newsHost.querySelector('.muun-news')) {
+              newsHost.insertAdjacentHTML('beforeend', ${JSON.stringify(renderNewsBlock(lang))});
+            }
+            document.querySelectorAll('.muun-news').forEach(root => {
+              if (window.__muunBindNews) window.__muunBindNews(root);
+            });
+            ` : ''}
+
+            ${slug === 'press' ? `
+            document.querySelectorAll('section[data-framer-name="Contact"] [data-framer-name="Contact Cards"], section[data-framer-name="Contact"] [data-framer-name="Contact Form"], section[data-framer-name="Contact"] [data-framer-name="Join Our Community"], section[data-framer-name="Contact"] [data-framer-name="Tag"], section[data-framer-name="Contact"] form:not(.muun-press-form)').forEach(el => {
+              el.style.setProperty('display', 'none', 'important');
+            });
+            const pressHost = document.querySelector('section[data-framer-name="Contact"]');
+            if (pressHost && !pressHost.querySelector('.muun-press')) {
+              pressHost.insertAdjacentHTML('beforeend', ${JSON.stringify(renderPressBlock(lang))});
+            }
+            document.querySelectorAll('.muun-press').forEach(root => {
+              if (window.__muunBindPress) window.__muunBindPress(root);
+            });
+            ` : ''}
+
+            ${slug === 'program' ? programFixerJs(lang) : ''}
+
+            ${slug === 'venue' ? `
+            const venueSec = document.querySelector('section[data-framer-name="Venue"]');
+            if (venueSec) {
+              venueSec.querySelectorAll('.framer-1h1gm54, [data-framer-name="Venue Title"], [data-framer-name="Tag"]').forEach(el => {
+                el.style.setProperty('display', 'none', 'important');
+              });
+              const thirdShot = venueSec.querySelector('.framer-nl6gb7');
+              if (thirdShot) thirdShot.style.setProperty('display', 'none', 'important');
+              const venueParas = ${JSON.stringify({
+                ru: [
+                  'Конгресс-холл «Ырыс Ордо» в комплексе «Бишкек Арена» — место проведения MUUN 2026, национальной молодежной выставки-форума профессий будущего. 17 и 18 ноября здесь встречаются школьники, студенты, университеты, работодатели и государственные организации.',
+                  'На площадке работают главная сцена, панельные дискуссии и стойки регистрации. Гости проходят тематические зоны, слушают выступления и лично общаются с компаниями и учебными заведениями о карьере, обучении и проектах.'
+                ],
+                ky: [
+                  '«Ырыс Ордо» конгресс-холлу «Бишкек Арена» комплексинде MUUN 2026 — келечектин кесиптеринин улуттук жаштар көргөзмө-форуму өтөт. 17–18-ноябрда бул жерде мектеп окуучулары, студенттер, университеттер, иш берүүчүлөр жана мамлекеттик уюмдар жолугат.',
+                  'Аянтчада башкы сахна, панелдик талкуулар жана каттоо зонасы иштейт. Коноктор тематикалык зоналарды кыдырып, чыгып сүйлөөлөрдү угуп, компаниялар жана окуу жайлар менен карьера, билим жана долбоорлор тууралуу жеке сүйлөшөт.'
+                ],
+                en: [
+                  'Congress Hall «Yrys Ordo» at the Bishkek Arena complex is the venue for MUUN 2026, the national youth exhibition-forum of the professions of the future. On 17–18 November, school students, university students, employers and public institutions meet here.',
+                  'The hall brings together the main stage, panel discussions and registration desks. Guests walk through the thematic zones, listen to the sessions and talk directly with companies and education institutions about careers, study and projects.'
+                ]
+              }[lang])};
+              const textPs = venueSec.querySelectorAll('[data-framer-name="Text"] p');
+              textPs.forEach((p, i) => {
+                if (venueParas[i] && p.textContent.trim() !== venueParas[i]) p.textContent = venueParas[i];
+              });
+              const venueSwaps = [
+                ['jAO8hsj4cqFOU4eSd9NEn5faTuM', '/assets/venue-exterior.jpg'],
+                ['tb1C68dgSO0HtIQ3nl97tROxntI', '/assets/gallery-mainstage.jpg'],
+                ['eRjuxhjXm2C3YKMVMexMdMIkaA', '/assets/gallery-panel.jpg']
+              ];
+              venueSec.querySelectorAll('img').forEach(img => {
+                const raw = (img.getAttribute('src') || '') + ' ' + (img.getAttribute('srcset') || '') + ' ' + (img.src || '');
+                const hit = venueSwaps.find(([id]) => raw.includes(id));
+                if (!hit) return;
+                if (img.getAttribute('src') !== hit[1]) {
+                  img.removeAttribute('srcset');
+                  img.removeAttribute('sizes');
+                  img.src = hit[1];
+                }
+              });
+            }
+            ` : ''}
+
             // 6. Maintain Registration section & Ticket Video & Questionnaire Form
             const regSec = document.querySelector('section[data-framer-name="Registration"], #tickets');
             if (regSec) {
@@ -575,6 +961,8 @@ for (const lang of languages) {
             if (designedBy) designedBy.style.setProperty('display', 'none', 'important');
             const socialLabel = document.querySelector('.framer-17tcu0s');
             if (socialLabel) socialLabel.style.setProperty('display', 'none', 'important');
+            ${footerFixerJs}
+            ${slug === 'contacts' ? contactFixerJs(lang) : ''}
           }
 
           // Registration form multi-step logic
