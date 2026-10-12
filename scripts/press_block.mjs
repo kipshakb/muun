@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { PRESS_ENDPOINT } from './form_endpoints.mjs';
 
 const strings = JSON.parse(fs.readFileSync('src/i18n.json', 'utf8')).strings;
 
@@ -633,16 +634,48 @@ export const pressClientJs = `
         event.preventDefault();
         const btn = form.querySelector('[data-press-submit]');
         const success = form.querySelector('[data-press-success]');
+        const origText = btn ? btn.textContent : '';
         if (btn) {
           btn.disabled = true;
           btn.textContent = btn.getAttribute('data-sending') || '...';
         }
-        window.setTimeout(function () {
+        const formData = new FormData(form);
+        const formats = formData.getAll('format');
+        formData.delete('format');
+        if (formats.length) formData.append('format', formats.join(', '));
+        formData.set('form', 'press');
+        var lang = (location.pathname.split('/').filter(Boolean)[0] || 'ru');
+        if (lang !== 'ru' && lang !== 'ky' && lang !== 'en') lang = 'ru';
+        formData.set('lang', lang);
+        formData.set('submittedAt', new Date().toISOString());
+        var endpoint = '${PRESS_ENDPOINT}';
+        if (!endpoint) {
+          if (btn) {
+            btn.disabled = false;
+            btn.textContent = origText;
+          }
+          window.alert('Таблица аккредитации СМИ ещё не подключена.');
+          return;
+        }
+        fetch(endpoint, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(formData).toString()
+        })
+        .then(function () {
           form.querySelectorAll('.muun-press-form-body, [data-press-submit], [data-press-disclaimer]').forEach(function (el) {
             el.style.display = 'none';
           });
           if (success) success.hidden = false;
-        }, 600);
+        })
+        .catch(function () {
+          if (btn) {
+            btn.disabled = false;
+            btn.textContent = origText;
+          }
+          window.alert('Не удалось отправить заявку. Попробуйте ещё раз.');
+        });
       });
     }
     window.__muunBindPress = bindPress;

@@ -1,5 +1,6 @@
 import fs from 'fs';
 import { renderParticipantModal } from './participant_modal.mjs';
+import { REGISTRATION_ENDPOINT } from './form_endpoints.mjs';
 import { SOCIAL, threadsIconSvg, footerSocialCss, footerFixerJs, mobileNavCss, renderMobileNav } from './muun_social.mjs';
 import { programCss, programClientJs, programFixerJs, injectProgramSsr } from './program_block.mjs';
 
@@ -624,7 +625,7 @@ function renderRegForm(lang) {
 
             <!-- SGO Mandatory Consent -->
             <div class="consent-box">
-              <input type="checkbox" id="indiv-sgo-consent" required />
+              <input type="checkbox" id="indiv-sgo-consent" name="consent" value="yes" required />
               <label for="indiv-sgo-consent">
                 ${S['reg.sgo_consent']}
               </label>
@@ -708,7 +709,7 @@ function renderRegForm(lang) {
             </div>
 
             <div class="consent-box">
-              <input type="checkbox" id="group-sgo-consent" />
+              <input type="checkbox" id="group-sgo-consent" name="consent" value="yes" />
               <label for="group-sgo-consent">
                 ${S['reg.group_consent']}
               </label>
@@ -3610,22 +3611,42 @@ for (const lang of ['ru', 'ky', 'en']) {
             submitBtn.disabled = true;
           }
 
+          var indivBox = document.getElementById('stream-indiv-fields');
+          var groupBox = document.getElementById('stream-group-fields');
+          var inactiveBox = regType === 'group' ? indivBox : groupBox;
+          var turnedOff = [];
+          if (inactiveBox) {
+            inactiveBox.querySelectorAll('input, select, textarea').forEach(function (el) {
+              if (!el.disabled) {
+                el.disabled = true;
+                turnedOff.push(el);
+              }
+            });
+          }
+
           var formData = new FormData(form);
+          turnedOff.forEach(function (el) { el.disabled = false; });
+
           var interestsArray = formData.getAll('interests');
           if (interestsArray.length > 0) {
             formData.delete('interests');
             formData.append('interests', interestsArray.join(', '));
           }
 
+          var orgName = formData.get('organization') || formData.get('group_org') || '';
+          if (orgName && !formData.get('school_org')) formData.append('school_org', orgName);
+
           var randomNum = Math.floor(100000 + Math.random() * 900000);
           var regId = (regType === 'group' ? 'MUUN-GRP-' : 'MUUN-') + randomNum;
-          formData.append('regId', regId);
-          formData.append('regType', regType);
-          formData.append('submittedAt', new Date().toISOString());
+          formData.set('regId', regId);
+          formData.set('regType', regType);
+          formData.set('form', 'registration');
+          formData.set('lang', '${lang}');
+          formData.set('submittedAt', new Date().toISOString());
 
           var urlEncodedData = new URLSearchParams(formData).toString();
 
-          fetch('https://script.google.com/macros/s/AKfycbwWErGImzzLoBqAWDNyNOLvARpYNxNiHV-gKXIsrhWPEBmI1VyfFYxOiEm2Q-Nay6lm/exec', {
+          fetch('${REGISTRATION_ENDPOINT}', {
             method: 'POST',
             mode: 'no-cors',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },

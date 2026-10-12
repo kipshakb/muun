@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { PARTICIPANT_ENDPOINT } from './form_endpoints.mjs';
 
 const i18n = JSON.parse(fs.readFileSync('src/i18n.json', 'utf8'));
 
@@ -1042,9 +1043,16 @@ export function renderParticipantModal(lang) {
             formData.append('interests', combined.join(', '));
           }
         }
+        formData.delete('other_interest');
+        if (formData.get('request_sponsor_file') !== 'yes') {
+          formData.set('request_sponsor_file', 'no');
+        }
+        formData.set('form', 'participant');
+        formData.set('lang', '${lang}');
+        formData.set('submittedAt', new Date().toISOString());
         var urlEncodedData = new URLSearchParams(formData).toString();
 
-        fetch('https://script.google.com/macros/s/AKfycbyVnRhf4OSgB5H3GZ4wutFhdt2A8rIxkf010ailJrdeCBxJzv2HsX-oJfkkozxJI3YNYQ/exec', {
+        fetch('${PARTICIPANT_ENDPOINT}', {
           method: 'POST',
           mode: 'no-cors',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
