@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { renderParticipantModal } from './participant_modal.mjs';
-import { SOCIAL, threadsIconSvg, footerSocialCss, footerFixerJs } from './muun_social.mjs';
+import { SOCIAL, threadsIconSvg, footerSocialCss, footerFixerJs, mobileNavCss, renderMobileNav } from './muun_social.mjs';
 import { programCss, programClientJs, programFixerJs, injectProgramSsr } from './program_block.mjs';
 
 const rawHtml = fs.readFileSync('templates/eventis_raw.html', 'utf8');
@@ -8,7 +8,19 @@ const i18n = JSON.parse(fs.readFileSync('src/i18n.json', 'utf8'));
 const homeTemplate = fs.readFileSync('src/template.html', 'utf8');
 const kgMapStart = homeTemplate.indexOf('<svg id="kyrgyzstan-vector-map"');
 const kgMapEnd = homeTemplate.indexOf('</svg>', kgMapStart);
-const kgMapSvg = kgMapStart >= 0 ? homeTemplate.slice(kgMapStart, kgMapEnd + 6) : '';
+const kgMapSvgRaw = kgMapStart >= 0 ? homeTemplate.slice(kgMapStart, kgMapEnd + 6) : '';
+const kgMapLabels = {
+  ky: { 'Чуй': 'Чүй' },
+  en: {
+    'Бишкек': 'Bishkek', 'Баткен': 'Batken', 'Чуй': 'Chuy', 'Ысык-Көл': 'Issyk-Kul',
+    'Нарын': 'Naryn', 'Талас': 'Talas', 'Ош': 'Osh', 'Жалал-Абад': 'Jalal-Abad'
+  }
+};
+function kgMapSvgFor(lang) {
+  const labels = kgMapLabels[lang] || {};
+  return kgMapSvgRaw.replace(/(<(?:text|title)[^>]*>)([^<]*)(<\/(?:text|title)>)/g, (m, open, label, close) =>
+    open + (labels[label.trim()] || label) + close);
+}
 
 // Copy all key assets to dist and dist/assets
 fs.mkdirSync('dist/assets', { recursive: true });
@@ -36,13 +48,13 @@ const localizedContent = {
     title: 'ВЫБЕРИ СВОЕ<br>БУДУЩЕЕ',
     subtitle: 'Национальная молодежная выставка-форум<br>профессий будущего',
     date: '17–18 ноября 2026',
-    location: 'Конгресс-Холл «Ырыс Ордо», Бишкек',
+    location: 'Конгресс-холл «Ырыс Ордо», Бишкек',
     btnPrimary: 'Стать участником',
     btnSecondary: 'Бесплатная регистрация',
     ministry: 'При поддержке Министерства науки, высшего образования и инноваций Кыргызской Республики'
   },
   ky: {
-    title: 'КЕЛЕЧЕГИНДИ<br>ТАНДА',
+    title: 'КЕЛЕЧЕГИҢДИ<br>ТАНДА',
     subtitle: 'Кыргызстандын келечек кесиптеринин<br>улуттук жаштар көргөзмө-форуму',
     date: '17–18-ноябрь 2026',
     location: '«Ырыс Ордо» конгресс-холлу, Бишкек',
@@ -54,7 +66,7 @@ const localizedContent = {
     title: 'CHOOSE YOUR<br>FUTURE',
     subtitle: 'National Youth Exhibition-Forum<br>of Professions of the Future',
     date: '17–18 November 2026',
-    location: 'Congress Hall "Yrys Ordo", Bishkek',
+    location: 'Yrys Ordo Congress Hall, Bishkek',
     btnPrimary: 'Become a participant',
     btnSecondary: 'Free registration',
     ministry: 'Supported by the Ministry of Science, Higher Education and Innovation of the Kyrgyz Republic'
@@ -95,7 +107,7 @@ const aboutData = {
     }
   },
   en: {
-    kicker: 'About Forum',
+    kicker: 'About the Forum',
     stats: [
       { target: 100, suffix: '+', desc: 'companies and participating organizations' },
       { target: 10000, suffix: '+', desc: 'unique visitors over two days' },
@@ -126,10 +138,10 @@ const zonesData = {
       { num: '06', color: '#29AAE1', tag: 'AGROTECH', title: 'КОМНАТЫ ПЕРЕГОВОРОВ', desc: 'B2B-матчмейкинг и интервью' },
       { num: '07', color: '#FFB800', tag: 'FINTECH', title: 'ВТОРАЯ СЦЕНА + LED', desc: 'Амфитеатр, мастер-классы, MUUN Cup' },
       { num: '08', color: '#60A5FA', tag: 'GOVTECH', title: 'ГЛАВНЫЙ ВХОД', desc: 'Регистрация, навигация, фотозона' },
-      { num: '09', color: '#818CF8', tag: 'AEROSPACE', title: 'AEROSPACE', desc: 'Космос и авиация' },
-      { num: '10', color: '#FFFFFF', tag: 'EDTECH & CAREERS', title: 'EDTECH & CAREERS', desc: 'Образование будущего' },
-      { num: '11', color: '#FFB800', tag: 'TOURISM & BRAND', title: 'TOURISM & BRAND', desc: 'Брендинг страны' },
-      { num: '12', color: '#29AAE1', tag: 'WEB3 & CYBER', title: 'WEB3 & CYBER', desc: 'Киберспорт и блокчейн' }
+      { num: '09', color: '#818CF8', tag: 'AEROSPACE', title: 'АЭРОКОСМОС', desc: 'Космос и авиация' },
+      { num: '10', color: '#FFFFFF', tag: 'EDTECH & CAREERS', title: 'ОБРАЗОВАНИЕ И КАРЬЕРА', desc: 'Образование будущего' },
+      { num: '11', color: '#FFB800', tag: 'TOURISM & BRAND', title: 'ТУРИЗМ И БРЕНД', desc: 'Брендинг страны' },
+      { num: '12', color: '#29AAE1', tag: 'WEB3 & CYBER', title: 'WEB3 И КИБЕРСПОРТ', desc: 'Киберспорт и блокчейн' }
     ]
   },
   ky: {
@@ -137,17 +149,17 @@ const zonesData = {
     title: 'Тематикалык зоналар',
     zones: [
       { num: '01', color: '#29AAE1', tag: 'AI & DATA', title: 'БАШКЫ ЗАЛ', desc: 'Бардык панелдер, MUUN Talks, аземдер' },
-      { num: '02', color: '#29AAE1', tag: 'ROBOTICS', title: 'ДЕМӨӨРЧҮЛҮК РЕҢИ', desc: 'Залдын тегерегинде 19 позиция' },
+      { num: '02', color: '#29AAE1', tag: 'ROBOTICS', title: 'ДЕМӨӨРЧҮЛӨР АЛКАГЫ', desc: 'Залдын тегерегинде 19 позиция' },
       { num: '03', color: '#FFB800', tag: 'CLEANTECH', title: 'ТАРМАКТЫК ЗОНАЛАР', desc: 'Ар бири 36 м² болгон 12 зона' },
       { num: '04', color: '#8B5CF6', tag: 'CREATIVE & GAME', title: 'СТАРТАП АЛЛЕЯСЫ', desc: '10 стенд. Инвесторлор үчүн питчинг' },
       { num: '05', color: '#29AAE1', tag: 'MEDTECH & BIO', title: 'ВАКАНСИЯЛАР ЖАРМАНКЕСИ', desc: 'Чыныгы вакансиялар жана маектешүүлөр' },
       { num: '06', color: '#29AAE1', tag: 'AGROTECH', title: 'СҮЙЛӨШҮҮЛӨР БӨЛМӨЛӨРҮ', desc: 'B2B-матчмейкинг жана маектешүүлөр' },
       { num: '07', color: '#FFB800', tag: 'FINTECH', title: 'ЭКИНЧИ СЦЕНА + LED', desc: 'Амфитеатр, мастер-класстар, MUUN Cup' },
       { num: '08', color: '#60A5FA', tag: 'GOVTECH', title: 'БАШКЫ КИРЕ БЕРИШ', desc: 'Каттоо, навигация, фотозона' },
-      { num: '09', color: '#818CF8', tag: 'AEROSPACE', title: 'AEROSPACE', desc: 'Космос жана авиация' },
-      { num: '10', color: '#FFFFFF', tag: 'EDTECH & CAREERS', title: 'EDTECH & CAREERS', desc: 'Келечектин билими' },
-      { num: '11', color: '#FFB800', tag: 'TOURISM & BRAND', title: 'TOURISM & BRAND', desc: 'Өлкө бренди' },
-      { num: '12', color: '#29AAE1', tag: 'WEB3 & CYBER', title: 'WEB3 & CYBER', desc: 'Киберспорт жана блокчейн' }
+      { num: '09', color: '#818CF8', tag: 'AEROSPACE', title: 'АЭРОКОСМОС', desc: 'Космос жана авиация' },
+      { num: '10', color: '#FFFFFF', tag: 'EDTECH & CAREERS', title: 'БИЛИМ ЖАНА КАРЬЕРА', desc: 'Келечектин билими' },
+      { num: '11', color: '#FFB800', tag: 'TOURISM & BRAND', title: 'ТУРИЗМ ЖАНА БРЕНД', desc: 'Өлкө бренди' },
+      { num: '12', color: '#29AAE1', tag: 'WEB3 & CYBER', title: 'WEB3 ЖАНА КИБЕРСПОРТ', desc: 'Киберспорт жана блокчейн' }
     ]
   },
   en: {
@@ -162,10 +174,10 @@ const zonesData = {
       { num: '06', color: '#29AAE1', tag: 'AGROTECH', title: 'MEETING ROOMS', desc: 'B2B matchmaking and interviews' },
       { num: '07', color: '#FFB800', tag: 'FINTECH', title: 'SECOND STAGE + LED', desc: 'Amphitheater, master classes, MUUN Cup' },
       { num: '08', color: '#60A5FA', tag: 'GOVTECH', title: 'MAIN ENTRANCE', desc: 'Registration, navigation, photo zone' },
-      { num: '09', color: '#818CF8', tag: 'AEROSPACE', title: 'AEROSPACE', desc: 'Space & Aviation' },
-      { num: '10', color: '#FFFFFF', tag: 'EDTECH & CAREERS', title: 'EDTECH & CAREERS', desc: 'Future of Education' },
-      { num: '11', color: '#FFB800', tag: 'TOURISM & BRAND', title: 'TOURISM & BRAND', desc: 'Country Branding' },
-      { num: '12', color: '#29AAE1', tag: 'WEB3 & CYBER', title: 'WEB3 & CYBER', desc: 'Cybersport & Blockchain' }
+      { num: '09', color: '#818CF8', tag: 'AEROSPACE', title: 'AEROSPACE ZONE', desc: 'Space & Aviation' },
+      { num: '10', color: '#FFFFFF', tag: 'EDTECH & CAREERS', title: 'EDUCATION & CAREERS', desc: 'Future of Education' },
+      { num: '11', color: '#FFB800', tag: 'TOURISM & BRAND', title: 'TOURISM & NATION BRAND', desc: 'Country Branding' },
+      { num: '12', color: '#29AAE1', tag: 'WEB3 & CYBER', title: 'WEB3 & ESPORTS', desc: 'Esports & Blockchain' }
     ]
   }
 };
@@ -186,7 +198,7 @@ const faqData = {
       },
       {
         q: 'Где и в какое время будет проходить форум?',
-        a: 'Форум пройдет 17–18 ноября 2026 года в Бишкеке, в Конгресс-Холле «Ырыс Ордо» (Бишкек Арена) с 09:00 до 18:00.'
+        a: 'Форум пройдет 17–18 ноября 2026 года в Бишкеке, в Конгресс-холле «Ырыс Ордо» (Бишкек Арена) с 09:00 до 18:00.'
       },
       {
         q: 'Как компания или учебное заведение могут стать экспонентом?',
@@ -217,7 +229,7 @@ const faqData = {
       },
       {
         q: 'Иш-чара кайсы жерде жана кайсы убакта өтөт?',
-        a: 'Форум 2026-жылдын 17-18-ноябрында Бишкек шаарында, «Ырыс Ордо» Конгресс-Холлунда (Бишкек Арена) саат 09:00дөн 18:00гө чейин өтөт.'
+        a: 'Форум 2026-жылдын 17-18-ноябрында Бишкек шаарында, «Ырыс Ордо» конгресс-холлунда (Бишкек Арена) саат 09:00дөн 18:00гө чейин өтөт.'
       },
       {
         q: 'Компания же ЖОЖ катары кантип катышса болот?',
@@ -248,7 +260,7 @@ const faqData = {
       },
       {
         q: 'Where and when will the forum take place?',
-        a: 'The forum will be held on November 17–18, 2026, in Bishkek at the «Yrys Ordo» Congress Hall (Bishkek Arena) from 9:00 AM to 6:00 PM.'
+        a: 'The forum will be held on November 17–18, 2026, in Bishkek at the Yrys Ordo Congress Hall (Bishkek Arena) from 9:00 AM to 6:00 PM.'
       },
       {
         q: 'How can a company or university become an exhibitor?',
@@ -394,7 +406,7 @@ const SECTION_HEADINGS = {
   },
   en: {
     about: {
-      kicker: 'About Forum',
+      kicker: 'About the Forum',
       titleHtml: 'Kyrgyzstan\'s Largest Youth Event <span class="heading-muted">in Education</span>'
     },
     target: {
@@ -449,6 +461,12 @@ function renderRegForm(lang) {
     : lang === 'en'
       ? 'Submit another application'
       : 'Заполнить новую заявку';
+
+  const groupPh = {
+    ru: { leader: 'ФИО сопровождающего', role: 'Завуч, декан, куратор', size: 'Напр. 45' },
+    ky: { leader: 'Коштоочунун аты-жөнү', role: 'Окуу бөлүмүнүн башчысы, декан, куратор', size: 'Мис. 45' },
+    en: { leader: 'Group leader full name', role: 'Head teacher, dean, curator', size: 'E.g. 45' }
+  }[lang] || {};
 
   return `
     <div class="muun-reg-card">
@@ -642,11 +660,11 @@ function renderRegForm(lang) {
             <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
               <div>
                 <label class="field-label">${S['reg.group_leader_name']} *</label>
-                <input type="text" name="group_leader_name" class="form-input-dark" placeholder="ФИО сопровождающего" />
+                <input type="text" name="group_leader_name" class="form-input-dark" placeholder="${groupPh.leader}" />
               </div>
               <div>
                 <label class="field-label">${S['reg.group_leader_role']} *</label>
-                <input type="text" name="group_leader_role" class="form-input-dark" placeholder="Завуч, декан, куратор" />
+                <input type="text" name="group_leader_role" class="form-input-dark" placeholder="${groupPh.role}" />
               </div>
             </div>
 
@@ -664,7 +682,7 @@ function renderRegForm(lang) {
             <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;">
               <div>
                 <label class="field-label">${S['reg.group_size']} *</label>
-                <input type="number" name="group_size" min="5" max="500" class="form-input-dark" placeholder="Напр. 45" />
+                <input type="number" name="group_size" min="5" max="500" class="form-input-dark" placeholder="${groupPh.size}" />
               </div>
               <div>
                 <label class="field-label">${S['reg.day_label']} *</label>
@@ -1086,7 +1104,7 @@ for (const lang of ['ru', 'ky', 'en']) {
     </div>
   </div>
   <section class="muun-regions" id="regions">
-    ${kgMapSvg}
+    ${kgMapSvgFor(lang)}
   </section>
 </div>
 `;
@@ -1110,6 +1128,7 @@ for (const lang of ['ru', 'ky', 'en']) {
         background-color: #061524 !important;
       }
       ${footerSocialCss}
+      ${mobileNavCss}
       ${programCss}
 
       #main, .framer-lR50G, .framer-128530 {
@@ -2208,8 +2227,25 @@ for (const lang of ['ru', 'ky', 'en']) {
 
       @media (max-width: 640px) {
         .muun-zones-grid {
-          grid-template-columns: 1fr !important;
-          gap: 16px !important;
+          display: flex !important;
+          flex-wrap: nowrap !important;
+          grid-template-columns: none !important;
+          gap: 12px !important;
+          overflow-x: auto !important;
+          overflow-y: hidden !important;
+          scroll-snap-type: x mandatory;
+          scroll-padding-left: 2px;
+          -webkit-overflow-scrolling: touch;
+          overscroll-behavior-x: contain;
+          padding: 2px 18px 12px 2px !important;
+          scrollbar-width: none;
+        }
+        .muun-zones-grid::-webkit-scrollbar { display: none; }
+        .muun-zone-card {
+          flex: 0 0 78% !important;
+          width: 78% !important;
+          max-width: 280px !important;
+          scroll-snap-align: start;
         }
       }
 
@@ -2921,14 +2957,18 @@ for (const lang of ['ru', 'ky', 'en']) {
           padding: 32px 24px !important;
           gap: 32px !important;
         }
+        .muun-pres-quote-side {
+          min-width: 0 !important;
+          padding-right: 0 !important;
+        }
         .muun-pres-photo-side {
           max-width: 100% !important;
           width: 100% !important;
-          min-width: unset !important;
+          min-width: 0 !important;
         }
         .muun-pres-photo {
-          min-height: 320px !important;
-          max-height: 420px !important;
+          min-height: 240px !important;
+          max-height: 360px !important;
         }
       }
 
@@ -3089,6 +3129,294 @@ for (const lang of ['ru', 'ky', 'en']) {
         .framer-RYOK6 .framer-16fyxtb img {
           max-width: 88vw !important;
         }
+      }
+
+      /* ── GLOBAL MOBILE ADAPTATION ── */
+      html, body {
+        overflow-x: hidden !important;
+        max-width: 100% !important;
+      }
+      img, video {
+        max-width: 100% !important;
+      }
+
+      @media (max-width: 992px) {
+        .framer-10bvv2u,
+        .framer-10bvv2u h2,
+        .framer-1xmtadx,
+        .framer-1xmtadx h2,
+        .framer-17ylf30,
+        .framer-17ylf30 h2,
+        .framer-s11aph h2,
+        .framer-19oyny3 h2,
+        .framer-1q8loet h2,
+        .framer-1npbtm4 h2,
+        .muun-zones-title {
+          white-space: normal !important;
+          overflow-wrap: anywhere !important;
+          word-break: break-word !important;
+        }
+        section[data-framer-name="FAQs"],
+        .framer-xo1fg0,
+        section.framer-19yv87c,
+        .muun-thematic-zones-section,
+        section[data-framer-name="Registration"],
+        section[data-framer-name="About"],
+        section[data-framer-name="For Whom?"],
+        section[data-framer-name="Speakers"],
+        section[data-framer-name="Agenda"],
+        section[data-framer-name="Sponsors"] {
+          padding-left: 18px !important;
+          padding-right: 18px !important;
+        }
+      }
+
+      @media (max-width: 810px) {
+        header.framer-168cvbo {
+          height: auto !important;
+          min-height: 100svh !important;
+          padding: 96px 16px 36px !important;
+          justify-content: flex-start !important;
+          overflow: hidden !important;
+        }
+        .framer-1pvbk64,
+        .framer-kha8to {
+          flex-direction: column !important;
+          align-items: center !important;
+          justify-content: flex-start !important;
+          gap: 20px !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          padding: 0 !important;
+        }
+        figure.framer-f0om72 {
+          width: 58vw !important;
+          max-width: 220px !important;
+          transform: none !important;
+          order: -1 !important;
+        }
+        .framer-7sznpq {
+          position: relative !important;
+          left: auto !important;
+          top: auto !important;
+          transform: none !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          align-items: stretch !important;
+        }
+        .muun-hero-title {
+          min-width: 0 !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          font-size: clamp(30px, 9.2vw, 42px) !important;
+          line-height: 1.12 !important;
+        }
+        .muun-hero-subtitle {
+          max-width: 100% !important;
+          font-size: 15px !important;
+          margin-top: 12px !important;
+        }
+        .muun-hero-buttons {
+          flex-direction: column !important;
+          align-items: stretch !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          flex-wrap: wrap !important;
+          gap: 10px !important;
+          margin-top: 18px !important;
+        }
+        .muun-hero-buttons .muun-btn,
+        .muun-btn {
+          width: 100% !important;
+          text-align: center !important;
+          box-sizing: border-box !important;
+          padding: 14px 18px !important;
+          font-size: 13.5px !important;
+        }
+        .muun-hero-ministry {
+          max-width: 100% !important;
+          width: 100% !important;
+          align-items: flex-start !important;
+          gap: 12px !important;
+          margin-top: 16px !important;
+        }
+        .muun-ministry-text {
+          font-size: 12px !important;
+        }
+        .framer-poyw0 {
+          position: relative !important;
+          left: auto !important;
+          right: auto !important;
+          bottom: auto !important;
+          width: 100% !important;
+          padding: 20px 4px 8px !important;
+          flex-direction: column !important;
+          gap: 8px !important;
+          align-items: center !important;
+        }
+        .muun-bottom-line { display: none !important; }
+        .muun-bottom-date,
+        .muun-bottom-loc {
+          white-space: normal !important;
+          text-align: center !important;
+          font-size: 14px !important;
+          line-height: 1.4 !important;
+        }
+
+        .framer-s11aph h2,
+        .framer-19oyny3 h2,
+        .framer-1q8loet h2,
+        .framer-1npbtm4 h2,
+        .muun-zones-title {
+          font-size: clamp(26px, 7.4vw, 34px) !important;
+        }
+        .framer-10bvv2u h2,
+        .framer-1xmtadx h2,
+        .framer-17ylf30 h2,
+        .framer-ostf7s h2 {
+          font-size: clamp(22px, 6.6vw, 30px) !important;
+        }
+
+        .muun-custom-about { gap: 24px !important; }
+        .muun-stat-card { padding: 22px 18px !important; }
+        .muun-pres-card { padding: 22px 16px !important; gap: 20px !important; }
+        .muun-pres-photo { min-height: 220px !important; max-height: 280px !important; }
+        .muun-pres-quote { font-size: 15px !important; }
+        .muun-pres-name { font-size: 18px !important; }
+        .muun-regions {
+          width: 100vw !important;
+          max-width: 100vw !important;
+          margin-top: 12px !important;
+          padding: 8px 10px 4px !important;
+          box-sizing: border-box !important;
+          background: none !important;
+          border: none !important;
+          box-shadow: none !important;
+        }
+        .muun-regions #kyrgyzstan-vector-map {
+          filter: none !important;
+        }
+        .muun-thematic-zones-section,
+        section.framer-19yv87c {
+          padding-top: 56px !important;
+          padding-bottom: 36px !important;
+          overflow: visible !important;
+        }
+        .muun-thematic-zones-container { overflow: visible !important; gap: 18px !important; }
+
+        section[data-framer-name="For Whom?"] .framer-1mpnhrg,
+        section[data-framer-name="For Whom?"] .framer-1dxlm5u,
+        section[data-framer-name="For Whom?"] [data-framer-name="Text"] {
+          padding: 16px 16px !important;
+        }
+        section[data-framer-name="For Whom?"] p {
+          font-size: 14px !important;
+        }
+
+        [data-framer-name="Speakers"] [data-framer-name="Name"],
+        [data-framer-name="Speakers"] [data-framer-name="Name"] h4,
+        [data-framer-name="Speakers"] [data-framer-name="Designation"],
+        [data-framer-name="Speakers"] [data-framer-name="Designation"] p {
+          white-space: normal !important;
+          overflow: visible !important;
+          height: auto !important;
+          max-height: none !important;
+        }
+        [data-framer-name="Speakers"] img {
+          object-fit: cover !important;
+          width: 100% !important;
+          height: 100% !important;
+        }
+
+        .muun-partner-card {
+          height: auto !important;
+          min-height: 132px !important;
+          padding: 22px 18px !important;
+        }
+        .muun-faq-item { padding: 16px 16px !important; border-radius: 18px !important; }
+        .muun-faq-eagle-img { max-width: 220px !important; }
+        .muun-zone-card { min-height: 0 !important; padding: 20px 18px !important; }
+
+        .form-row {
+          grid-template-columns: 1fr !important;
+        }
+        .reg-tabs-wrap {
+          flex-direction: column !important;
+        }
+        .reg-tab-btn {
+          width: 100% !important;
+          font-size: 12.5px !important;
+          padding: 12px 10px !important;
+          white-space: normal !important;
+          line-height: 1.3 !important;
+        }
+        .interests-grid {
+          grid-template-columns: 1fr 1fr !important;
+        }
+        .consent-box {
+          align-items: flex-start !important;
+        }
+        .muun-reg-card {
+          padding: 20px 14px !important;
+          max-width: 100% !important;
+        }
+        section[data-framer-name="Registration"] .framer-n7lw51 {
+          max-width: 100% !important;
+        }
+        section[data-framer-name="Registration"] [data-framer-name="Content"],
+        section[data-framer-name="Registration"] [data-framer-name="Cards"],
+        section[data-framer-name="Registration"] .framer-n7lw51 {
+          width: 100% !important;
+          max-width: 100% !important;
+          flex: none !important;
+        }
+        section[data-framer-name="Registration"] [data-framer-name="Sticky"],
+        section[data-framer-name="Registration"] [data-framer-name="Graphic"],
+        section[data-framer-name="Registration"] .framer-xqjflg,
+        section[data-framer-name="Registration"] .framer-1v0ka20-container {
+          position: relative !important;
+          width: min(240px, 70vw) !important;
+          max-width: 70vw !important;
+          max-height: none !important;
+          height: auto !important;
+          overflow: visible !important;
+          margin: 8px auto 16px !important;
+          inset: auto !important;
+          align-self: center !important;
+        }
+        section[data-framer-name="Registration"] video {
+          width: 100% !important;
+          height: auto !important;
+          max-height: 220px !important;
+          object-fit: contain !important;
+        }
+
+        .framer-RYOK6 .framer-1a0e2lt,
+        footer nav {
+          justify-content: flex-start !important;
+          flex-wrap: wrap !important;
+          gap: 8px !important;
+        }
+        .framer-RYOK6 .framer-spf60w,
+        .framer-spf60w {
+          flex-direction: column !important;
+          align-items: flex-start !important;
+          gap: 12px !important;
+        }
+        .framer-1dhn2g1 { flex-wrap: wrap !important; }
+
+        .muun-lang-switcher {
+          bottom: 12px !important;
+          right: 12px !important;
+          padding: 8px 12px !important;
+          gap: 6px !important;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .interests-grid { grid-template-columns: 1fr !important; }
+        .interest-chip { width: 100% !important; }
+        header.framer-168cvbo { padding: 88px 14px 28px !important; }
       }
     </style>
 
@@ -3278,7 +3606,7 @@ for (const lang of ['ru', 'ky', 'en']) {
 
           var originalText = submitBtn ? submitBtn.innerHTML : '';
           if (submitBtn) {
-            submitBtn.innerHTML = '⏳ Отправка в СГО...';
+            submitBtn.innerHTML = ${JSON.stringify(lang === 'ky' ? '⏳ СГОго жөнөтүлүүдө...' : lang === 'en' ? '⏳ Sending to SGO...' : '⏳ Отправка в СГО...')};
             submitBtn.disabled = true;
           }
 
@@ -3496,11 +3824,17 @@ for (const lang of ['ru', 'ky', 'en']) {
             
             const a = img.closest('a');
             if (a) {
-              a.style.setProperty('width', '195px', 'important');
-              a.style.setProperty('max-width', 'none', 'important');
+              const scrollNav = !!(a.closest('nav') && a.closest('nav').getAttribute('data-framer-name') === 'Phone Scroll');
+              const narrow = window.innerWidth <= 810 && scrollNav;
+              a.style.setProperty('width', narrow ? '150px' : '195px', 'important');
+              a.style.setProperty('height', narrow ? '45px' : '51px', 'important');
+              a.style.setProperty('max-width', narrow ? '42vw' : 'none', 'important');
+              a.style.setProperty('flex', '0 0 auto', 'important');
               a.style.setProperty('display', 'flex', 'important');
               a.style.setProperty('align-items', 'center', 'important');
               a.style.setProperty('justify-content', 'flex-start', 'important');
+              a.style.setProperty('position', 'relative', 'important');
+              if (narrow) img.style.setProperty('height', '45px', 'important');
               a.setAttribute('href', "/${lang}/");
               a.onclick = function(e) {
                 e.preventDefault();
@@ -3509,9 +3843,16 @@ for (const lang of ['ru', 'ky', 'en']) {
                 return false;
               };
               if (a.parentElement) {
-                a.parentElement.style.setProperty('width', 'auto', 'important');
-                a.parentElement.style.setProperty('min-width', '195px', 'important');
                 a.parentElement.style.setProperty('overflow', 'visible', 'important');
+                if (window.innerWidth <= 810) {
+                  a.parentElement.style.setProperty('width', '100%', 'important');
+                  a.parentElement.style.setProperty('min-width', '0', 'important');
+                  a.parentElement.style.setProperty('justify-content', 'space-between', 'important');
+                  a.parentElement.style.setProperty('align-items', 'center', 'important');
+                } else {
+                  a.parentElement.style.setProperty('width', 'auto', 'important');
+                  a.parentElement.style.setProperty('min-width', '195px', 'important');
+                }
               }
             }
           });
@@ -3904,16 +4245,17 @@ for (const lang of ['ru', 'ky', 'en']) {
 
   // Floating language switcher
   const langSwitcherHtml = `
-    <div style="position:fixed; bottom:20px; right:20px; z-index:99999; display:flex; gap:8px; background:rgba(6,21,36,0.85); padding:10px 18px; border-radius:30px; backdrop-filter:blur(12px); border:1px solid rgba(41,170,225,0.3); box-shadow:0 4px 20px rgba(0,0,0,0.5);">
-      <a href="../ru/" style="color: ${lang === 'ru' ? '#29AAE1' : 'rgba(255,255,255,0.6)'}; text-decoration:none; font-family:sans-serif; font-size:14px; font-weight:bold; transition: 0.3s;">RU</a>
+    <div class="muun-lang-switcher" style="position:fixed; bottom:20px; right:20px; z-index:99999; display:flex; gap:8px; background:rgba(6,21,36,0.85); padding:10px 18px; border-radius:30px; backdrop-filter:blur(12px); border:1px solid rgba(41,170,225,0.3); box-shadow:0 4px 20px rgba(0,0,0,0.5);">
+      <a href="/ru/" style="color: ${lang === 'ru' ? '#29AAE1' : 'rgba(255,255,255,0.6)'}; text-decoration:none; font-family:sans-serif; font-size:14px; font-weight:bold; transition: 0.3s;">RU</a>
       <span style="color:rgba(255,255,255,0.2);">|</span>
-      <a href="../ky/" style="color: ${lang === 'ky' ? '#29AAE1' : 'rgba(255,255,255,0.6)'}; text-decoration:none; font-family:sans-serif; font-size:14px; font-weight:bold; transition: 0.3s;">KY</a>
+      <a href="/ky/" style="color: ${lang === 'ky' ? '#29AAE1' : 'rgba(255,255,255,0.6)'}; text-decoration:none; font-family:sans-serif; font-size:14px; font-weight:bold; transition: 0.3s;">KY</a>
       <span style="color:rgba(255,255,255,0.2);">|</span>
-      <a href="../en/" style="color: ${lang === 'en' ? '#29AAE1' : 'rgba(255,255,255,0.6)'}; text-decoration:none; font-family:sans-serif; font-size:14px; font-weight:bold; transition: 0.3s;">EN</a>
+      <a href="/en/" style="color: ${lang === 'en' ? '#29AAE1' : 'rgba(255,255,255,0.6)'}; text-decoration:none; font-family:sans-serif; font-size:14px; font-weight:bold; transition: 0.3s;">EN</a>
     </div>
   `;
   const participantModalHtml = renderParticipantModal(lang);
-  finalHtml = finalHtml.replace('</body>', participantModalHtml + '\n' + langSwitcherHtml + '\n</body>');
+  const mobileNavHtml = renderMobileNav(lang);
+  finalHtml = finalHtml.replace('</body>', participantModalHtml + '\n' + langSwitcherHtml + '\n' + mobileNavHtml + '\n</body>');
 
   fs.mkdirSync(`dist/${lang}`, { recursive: true });
   fs.writeFileSync(`dist/${lang}/index.html`, finalHtml);

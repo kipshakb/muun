@@ -194,6 +194,21 @@ export const newsCss = `
   @media (max-width: 980px) {
     .muun-news-grid { grid-template-columns: 1fr 1fr; }
   }
+  @media (max-width: 810px) {
+    section[data-framer-name="Contact"] [data-framer-name="Title"],
+    section[data-framer-name="Contact"] [data-framer-name="Title"] > div {
+      width: 100% !important;
+      max-width: 100% !important;
+      overflow: visible !important;
+    }
+    section[data-framer-name="Contact"] [data-framer-name="Title"] h2 {
+      white-space: normal !important;
+      overflow: visible !important;
+      overflow-wrap: break-word !important;
+      font-size: clamp(26px, 7.2vw, 36px) !important;
+      line-height: 1.15 !important;
+    }
+  }
   @media (max-width: 680px) {
     section[data-framer-name="Contact"] { padding: 72px 16px 0 !important; }
     .muun-news-grid { grid-template-columns: 1fr; }

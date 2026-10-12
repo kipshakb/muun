@@ -2,9 +2,30 @@ import fs from 'fs';
 
 const i18n = JSON.parse(fs.readFileSync('src/i18n.json', 'utf8'));
 
+const SECTOR_OPTIONS = {
+  IT: { ru: 'IT и технологии', ky: 'IT жана технологиялар', en: 'IT & Technology' },
+  Education: { ru: 'Образование и наука', ky: 'Билим берүү жана илим', en: 'Education & Science' },
+  Finance: { ru: 'Банки и финансы', ky: 'Банктар жана финансы', en: 'Banking & Finance' },
+  Production: { ru: 'Производство и промышленность', ky: 'Өндүрүш жана өнөр жай', en: 'Manufacturing & Industry' },
+  Gov: { ru: 'Государственный сектор', ky: 'Мамлекеттик сектор', en: 'Public Sector' },
+  International: { ru: 'Международная организация', ky: 'Эл аралык уюм', en: 'International Organization' },
+  Creative: { ru: 'Креативная экономика', ky: 'Креативдүү экономика', en: 'Creative Economy' },
+  Other: { ru: 'Другое', ky: 'Башка', en: 'Other' }
+};
+
+const COUNTRY_OPTIONS = {
+  Kyrgyzstan: { ru: 'Кыргызстан', ky: 'Кыргызстан', en: 'Kyrgyzstan' },
+  Kazakhstan: { ru: 'Казахстан', ky: 'Казакстан', en: 'Kazakhstan' },
+  Uzbekistan: { ru: 'Узбекистан', ky: 'Өзбекстан', en: 'Uzbekistan' },
+  Other: { ru: 'Другая страна', ky: 'Башка өлкө', en: 'Other country' }
+};
+
 export function renderParticipantModal(lang) {
   const d = i18n.strings[lang] || i18n.strings.ru;
   const t = (k) => d[k] || '';
+  const opts = (list) => Object.entries(list)
+    .map(([value, labels]) => `<option value="${value}">${labels[lang] || labels.ru}</option>`)
+    .join('\n                    ');
 
   return `
   <!-- ==================== PARTICIPANT MODAL (СТАТЬ УЧАСТНИКОМ) ==================== -->
@@ -132,14 +153,7 @@ export function renderParticipantModal(lang) {
                   <label class="muun-part-lbl">${t('p_sector')}</label>
                   <select required name="sector" class="muun-part-input muun-part-select">
                     <option value="" disabled selected>${t('p_sector_ph')}</option>
-                    <option value="IT">IT & Технологии</option>
-                    <option value="Education">Образование и наука</option>
-                    <option value="Finance">Банки и финансы</option>
-                    <option value="Production">Производство и промышленность</option>
-                    <option value="Gov">Государственный сектор</option>
-                    <option value="International">Международная организация</option>
-                    <option value="Creative">Креативная экономика</option>
-                    <option value="Other">Другое</option>
+                    ${opts(SECTOR_OPTIONS)}
                   </select>
                 </div>
                 <div class="muun-part-field">
@@ -152,10 +166,7 @@ export function renderParticipantModal(lang) {
                   <label class="muun-part-lbl">${t('p_country')}</label>
                   <select required name="country" class="muun-part-input muun-part-select">
                     <option value="" disabled selected>${t('p_country_ph')}</option>
-                    <option value="Kyrgyzstan">Кыргызстан</option>
-                    <option value="Kazakhstan">Казахстан</option>
-                    <option value="Uzbekistan">Узбекистан</option>
-                    <option value="Other">Другая страна</option>
+                    ${opts(COUNTRY_OPTIONS)}
                   </select>
                 </div>
                 <div class="muun-part-field">
@@ -834,8 +845,45 @@ export function renderParticipantModal(lang) {
     }
     /* RESPONSIVE */
     @media (max-width: 900px) {
+      .muun-part-modal-overlay {
+        padding: 0;
+        align-items: stretch;
+      }
+      .muun-part-modal-dialog {
+        max-width: 100%;
+        width: 100%;
+        height: 100dvh;
+        max-height: 100dvh;
+        border-radius: 0;
+        flex-direction: column;
+        overflow: hidden;
+      }
       .muun-part-sidebar {
-        display: none !important;
+        width: 100%;
+        min-width: 0;
+        padding: 18px 16px 14px;
+        border-right: none;
+        border-bottom: 1px solid rgba(41, 170, 225, 0.18);
+      }
+      .muun-part-features,
+      .muun-part-sidebar-bottom,
+      .muun-part-sidebar-logo {
+        display: none;
+      }
+      .muun-part-sidebar-title {
+        font-size: 20px;
+        margin: 0 0 8px;
+      }
+      .muun-part-badges {
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin-bottom: 8px;
+      }
+      .muun-part-main {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
       }
       .muun-part-row {
         grid-template-columns: 1fr;
@@ -847,10 +895,22 @@ export function renderParticipantModal(lang) {
         grid-column: span 1;
       }
       .muun-part-screen {
-        padding: 24px 20px 28px;
+        padding: 18px 16px 28px;
       }
       .muun-part-stepper {
-        padding: 16px 20px 12px;
+        padding: 12px 16px 10px;
+      }
+      .muun-part-step-lbl {
+        white-space: normal;
+        text-align: center;
+        font-size: 10px;
+      }
+      .muun-part-screen-title {
+        font-size: 18px;
+      }
+      .muun-part-modal-close {
+        top: 10px;
+        right: 10px;
       }
     }
   </style>

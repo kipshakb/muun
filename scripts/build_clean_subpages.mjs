@@ -4,7 +4,7 @@ import { renderParticipantModal } from './participant_modal.mjs';
 import { newsCss, renderNewsBlock, newsClientJs } from './news_block.mjs';
 import { pressCss, renderPressBlock, pressClientJs } from './press_block.mjs';
 import { programCss, programClientJs, programFixerJs, injectProgramSsr } from './program_block.mjs';
-import { applyFooterSocials, footerSocialCss, footerFixerJs, contactBlockHtml, contactCopy, contactSocialCss, contactFixerJs } from './muun_social.mjs';
+import { applyFooterSocials, footerSocialCss, footerFixerJs, contactBlockHtml, contactCopy, contactSocialCss, contactFixerJs, mobileNavCss, renderMobileNav } from './muun_social.mjs';
 
 console.log('Building completely polished subpages with exact fixes...');
 
@@ -106,9 +106,9 @@ const pagesConfig = {
   venue: {
     template: 'venue',
     titles: {
-      ru: { h1: 'ПЛОЩАДКА', kicker: 'Площадка', sub: 'Конгресс-Холл «Ырыс Ордо»', meta: 'Площадка' },
-      ky: { h1: 'ӨТКӨРҮЛҮҮЧҮ ЖЕР', kicker: 'Аянтча', sub: '«Ырыс Ордо» конгресс-холлу', meta: 'Өткөрүлүүчү жер' },
-      en: { h1: 'VENUE', kicker: 'Venue', sub: 'Congress Hall «Yrys Ordo»', meta: 'Venue' }
+      ru: { h1: 'ПЛОЩАДКА', kicker: 'Площадка', sub: 'Конгресс-холл «Ырыс Ордо»', meta: 'Площадка' },
+      ky: { h1: 'АЯНТЧА', kicker: 'Аянтча', sub: '«Ырыс Ордо» конгресс-холлу', meta: 'Аянтча' },
+      en: { h1: 'VENUE', kicker: 'Venue', sub: 'Yrys Ordo Congress Hall', meta: 'Venue' }
     }
   },
   news: {
@@ -242,6 +242,48 @@ for (const lang of languages) {
           opacity: 1 !important;
           display: block !important;
         }
+        @media (max-width: 810px) {
+          html, body { overflow-x: hidden !important; max-width: 100% !important; }
+          img, video { max-width: 100% !important; }
+          .framer-hero-big-title {
+            white-space: normal !important;
+            font-size: clamp(2rem, 11vw, 3.4rem) !important;
+            line-height: 1.05 !important;
+            padding: 0 12px !important;
+            max-width: 100% !important;
+          }
+          .framer-hero-big-title.muun-hero-one-line {
+            white-space: nowrap !important;
+            font-size: clamp(1.45rem, 7.6vw, 2.7rem) !important;
+            letter-spacing: -0.045em !important;
+            padding: 0 8px !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+          }
+          .form-row { grid-template-columns: 1fr !important; }
+          .reg-tabs-wrap { flex-direction: column !important; }
+          .reg-tab-btn { width: 100% !important; white-space: normal !important; }
+          .muun-reg-card { padding: 20px 14px !important; max-width: 100% !important; }
+          [data-framer-name="Speakers 1"] [data-framer-name="Name"],
+          [data-framer-name="Speakers 1"] [data-framer-name="Name"] h4,
+          [data-framer-name="Speakers 1"] [data-framer-name="Designation"] p {
+            white-space: normal !important;
+            height: auto !important;
+            max-height: none !important;
+          }
+          section[data-framer-name="Venue"] img,
+          section[data-framer-name="Venue"] video {
+            width: 100% !important;
+            height: auto !important;
+            object-fit: cover !important;
+          }
+          footer nav,
+          .framer-RYOK6 .framer-1a0e2lt {
+            flex-wrap: wrap !important;
+            justify-content: flex-start !important;
+            gap: 8px !important;
+          }
+        }
         /* Hide all Framer old pricing pass cards */
         [data-framer-name="Cards"] [data-framer-name="Ticket 01"],
         [data-framer-name="Cards"] [data-framer-name="Pricing "],
@@ -289,6 +331,7 @@ for (const lang of languages) {
           object-fit: contain !important;
         }
         ${footerSocialCss}
+        ${mobileNavCss}
         ${slug === 'contacts' ? contactSocialCss : ''}
         ${slug === 'news' ? newsCss : ''}
         ${slug === 'press' ? pressCss : ''}
@@ -402,7 +445,8 @@ for (const lang of languages) {
     pageHtml = pageHtml.replaceAll('href="/"', `href="/${lang}/"`);
 
     // Replace Big H1 Title
-    pageHtml = pageHtml.replace(/<h1[^>]*>[\s\S]*?<\/h1>/i, `<h1 class="framer-hero-big-title">${pageTitle.h1}</h1>`);
+    const heroTitleClass = slug === 'press' ? 'framer-hero-big-title muun-hero-one-line' : 'framer-hero-big-title';
+    pageHtml = pageHtml.replace(/<h1[^>]*>[\s\S]*?<\/h1>/i, `<h1 class="${heroTitleClass}">${pageTitle.h1}</h1>`);
 
     // Replace Header Navigation in SSR HTML
     const navStart = pageHtml.indexOf('<nav class="framer-1s42b8a"');
@@ -474,7 +518,7 @@ for (const lang of languages) {
           'Аянтчада башкы сахна, панелдик талкуулар жана каттоо зонасы иштейт. Коноктор тематикалык зоналарды кыдырып, чыгып сүйлөөлөрдү угуп, компаниялар жана окуу жайлар менен карьера, билим жана долбоорлор тууралуу жеке сүйлөшөт.'
         ],
         en: [
-          'Congress Hall «Yrys Ordo» at the Bishkek Arena complex is the venue for MUUN 2026, the national youth exhibition-forum of the professions of the future. On 17–18 November, school students, university students, employers and public institutions meet here.',
+          'The Yrys Ordo Congress Hall at the Bishkek Arena complex is the venue for MUUN 2026, the national youth exhibition-forum of the professions of the future. On 17–18 November, school students, university students, employers and public institutions meet here.',
           'The hall brings together the main stage, panel discussions and registration desks. Guests walk through the thematic zones, listen to the sessions and talk directly with companies and education institutions about careers, study and projects.'
         ]
       }[lang];
@@ -563,14 +607,14 @@ for (const lang of languages) {
 
     // Floating language switcher
     const langSwitcherHtml = `
-      <div style="position:fixed; bottom:20px; right:20px; z-index:99999; display:flex; gap:8px; background:rgba(6,21,36,0.85); padding:10px 18px; border-radius:30px; backdrop-filter:blur(12px); border:1px solid rgba(41,170,225,0.3); box-shadow:0 4px 20px rgba(0,0,0,0.5);">
+      <div class="muun-lang-switcher" style="position:fixed; bottom:20px; right:20px; z-index:99999; display:flex; gap:8px; background:rgba(6,21,36,0.85); padding:10px 18px; border-radius:30px; backdrop-filter:blur(12px); border:1px solid rgba(41,170,225,0.3); box-shadow:0 4px 20px rgba(0,0,0,0.5);">
         <a href="/ru/${slug}" style="color: ${lang === 'ru' ? '#29AAE1' : 'rgba(255,255,255,0.6)'}; text-decoration:none; font-family:sans-serif; font-size:14px; font-weight:bold; transition: 0.3s;">RU</a>
         <span style="color:rgba(255,255,255,0.2);">|</span>
         <a href="/ky/${slug}" style="color: ${lang === 'ky' ? '#29AAE1' : 'rgba(255,255,255,0.6)'}; text-decoration:none; font-family:sans-serif; font-size:14px; font-weight:bold; transition: 0.3s;">KY</a>
         <span style="color:rgba(255,255,255,0.2);">|</span>
         <a href="/en/${slug}" style="color: ${lang === 'en' ? '#29AAE1' : 'rgba(255,255,255,0.6)'}; text-decoration:none; font-family:sans-serif; font-size:14px; font-weight:bold; transition: 0.3s;">EN</a>
       </div>
-    `;
+    ` + renderMobileNav(lang, slug);
 
     if (slug === 'news' || slug === 'press') {
       const blockHtml = slug === 'news' ? renderNewsBlock(lang) : renderPressBlock(lang);
@@ -718,7 +762,7 @@ for (const lang of languages) {
             // 4. Maintain Big H1 Title
             const h1 = document.querySelector('h1');
             if (h1 && h1.textContent.trim() !== EXPECTED_H1) {
-              h1.className = 'framer-hero-big-title';
+              h1.className = '${slug === 'press' ? 'framer-hero-big-title muun-hero-one-line' : 'framer-hero-big-title'}';
               h1.textContent = EXPECTED_H1;
               h1.style.setProperty('opacity', '1', 'important');
               h1.style.setProperty('visibility', 'visible', 'important');
@@ -855,7 +899,7 @@ for (const lang of languages) {
                   'Аянтчада башкы сахна, панелдик талкуулар жана каттоо зонасы иштейт. Коноктор тематикалык зоналарды кыдырып, чыгып сүйлөөлөрдү угуп, компаниялар жана окуу жайлар менен карьера, билим жана долбоорлор тууралуу жеке сүйлөшөт.'
                 ],
                 en: [
-                  'Congress Hall «Yrys Ordo» at the Bishkek Arena complex is the venue for MUUN 2026, the national youth exhibition-forum of the professions of the future. On 17–18 November, school students, university students, employers and public institutions meet here.',
+                  'The Yrys Ordo Congress Hall at the Bishkek Arena complex is the venue for MUUN 2026, the national youth exhibition-forum of the professions of the future. On 17–18 November, school students, university students, employers and public institutions meet here.',
                   'The hall brings together the main stage, panel discussions and registration desks. Guests walk through the thematic zones, listen to the sessions and talk directly with companies and education institutions about careers, study and projects.'
                 ]
               }[lang])};

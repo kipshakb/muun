@@ -122,7 +122,7 @@ const COPY = {
     emailTitle: 'Email Us',
     emailBody: 'Reach out to our team for quick assistance.',
     phoneTitle: 'Call Us',
-    phoneBody: 'Drop us a message, and we will get back to you soon.',
+    phoneBody: 'Give us a call and we will be happy to help.',
     participant: 'Become a Participant',
     register: 'Registration'
   }
@@ -330,4 +330,296 @@ export function contactFixerJs(lang) {
               contactContent.insertAdjacentHTML('beforeend', ${JSON.stringify(contactBlockHtml(lang))});
             }
 `;
+}
+
+export function langHomeHref(code) {
+  return `/${code}/`;
+}
+
+export function langPageHref(code, slug) {
+  return slug ? `/${code}/${slug}` : `/${code}/`;
+}
+
+export const mobileNavCss = `
+  .muun-burger {
+    display: none;
+    position: fixed;
+    top: 14px;
+    right: 14px;
+    z-index: 100002;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 12px;
+    background: rgba(6,21,36,0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+  }
+  .muun-burger span {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: #fff;
+    border-radius: 2px;
+    transition: transform .25s ease, opacity .2s ease;
+  }
+  .muun-burger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .muun-burger.is-open span:nth-child(2) { opacity: 0; }
+  .muun-burger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  @media (max-width: 810px) {
+    .framer-1s33hp6-container {
+      z-index: 100000 !important;
+      background: transparent !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      box-shadow: none !important;
+      transition: opacity .22s ease !important;
+    }
+    html.muun-settled:not(.muun-at-top) .framer-1s33hp6-container {
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+    html.muun-scrolling:not(.muun-at-top) .muun-burger:not(.is-open) {
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+    .muun-burger { transition: opacity .22s ease; }
+    nav.framer-Luar2[data-framer-name="Phone Scroll"] {
+      align-items: center !important;
+      min-height: 72px !important;
+      box-sizing: border-box !important;
+    }
+    nav.framer-Luar2[data-framer-name="Phone Scroll"] .framer-fzdypl,
+    nav.framer-Luar2[data-framer-name="Phone Scroll"] .framer-b7ke7f {
+      width: 100% !important;
+      min-width: 0 !important;
+      max-width: 100% !important;
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      gap: 10px !important;
+      box-sizing: border-box !important;
+    }
+    nav.framer-Luar2[data-framer-name="Phone Scroll"] .framer-b7ke7f {
+      padding-right: 0 !important;
+    }
+    nav.framer-Luar2[data-framer-name="Phone Scroll"] a.framer-f5khec {
+      width: 150px !important;
+      height: 45px !important;
+      max-width: 42vw !important;
+      min-width: 120px !important;
+      flex: 0 0 auto !important;
+      position: relative !important;
+    }
+    nav.framer-Luar2[data-framer-name="Phone Scroll"] a.framer-f5khec img {
+      height: 45px !important;
+      width: auto !important;
+      max-width: 100% !important;
+      max-height: 45px !important;
+    }
+    nav.framer-Luar2[data-framer-name="Phone Scroll"] [data-framer-name="Other"],
+    nav.framer-Luar2[data-framer-name="Phone Scroll"] .framer-bxnwrn,
+    nav.framer-Luar2[data-framer-name="Phone Scroll"] [data-framer-name="Primary Button"],
+    nav.framer-Luar2[data-framer-name="Phone Scroll"] [data-framer-name="Get Ticket"] {
+      display: flex !important;
+      width: auto !important;
+      max-width: none !important;
+      flex: 0 0 auto !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+    nav.framer-Luar2[data-framer-name="Phone Scroll"] [data-framer-name="Primary Button"] {
+      height: 40px !important;
+      min-height: 40px !important;
+      padding: 0 14px !important;
+      box-sizing: border-box !important;
+    }
+    nav.framer-Luar2[data-framer-name="Phone Scroll"] [data-framer-name="Get Ticket"] p {
+      font-size: 13px !important;
+      line-height: 1 !important;
+      white-space: nowrap !important;
+    }
+    nav.framer-Luar2[data-framer-name="Phone Scroll"] [data-framer-name="Right Arrow"] {
+      display: none !important;
+    }
+  }
+  .muun-mnav {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 100001;
+    background: rgba(6, 21, 36, 0.97);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    flex-direction: column;
+    padding: 84px 22px 40px;
+    box-sizing: border-box;
+    overflow-y: auto;
+  }
+  .muun-mnav.is-open { display: flex !important; }
+  .muun-mnav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .muun-mnav-links a {
+    display: block;
+    color: #fff !important;
+    text-decoration: none !important;
+    font-family: Inter, sans-serif;
+    font-size: 20px;
+    font-weight: 650;
+    letter-spacing: -0.02em;
+    padding: 14px 16px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .muun-mnav-cta {
+    margin-top: 16px;
+    display: block;
+    text-align: center;
+    color: #fff !important;
+    text-decoration: none !important;
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 15px 18px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #29AAE1, #0A3251);
+  }
+  .muun-mnav-langs {
+    margin-top: auto;
+    padding-top: 28px;
+    display: flex;
+    gap: 8px;
+  }
+  .muun-mnav-langs a {
+    flex: 1;
+    text-align: center;
+    text-decoration: none !important;
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    padding: 12px 8px;
+    border-radius: 999px;
+    color: rgba(255,255,255,0.7) !important;
+    border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(255,255,255,0.05);
+  }
+  .muun-mnav-langs a.is-active {
+    color: #061524 !important;
+    background: #29AAE1;
+    border-color: #29AAE1;
+  }
+  @media (max-width: 810px) {
+    .muun-burger { display: flex !important; }
+    .muun-lang-switcher { display: none !important; }
+    .framer-Luar2 nav.framer-1s42b8a,
+    .framer-Luar2 .framer-18kiu0w,
+    .framer-Luar2 [data-framer-name="Open"],
+    .framer-Luar2 [data-framer-name="Menu"],
+    .framer-Luar2 .framer-uPH7v,
+    .framer-Luar2[data-framer-name="Phone Close"] [data-framer-name="Other"],
+    .framer-Luar2[data-framer-name="Phone Close"] .framer-bxnwrn {
+      display: none !important;
+    }
+  }
+  @media (min-width: 811px) {
+    .muun-burger, .muun-mnav { display: none !important; }
+  }
+`;
+
+export function renderMobileNav(lang, slug = '') {
+  const labels = {
+    speakers: lang === 'ky' ? 'Спикерлер' : lang === 'en' ? 'Speakers' : 'Спикеры',
+    program: lang === 'ky' ? 'Программа' : lang === 'en' ? 'Program' : 'Программа',
+    venue: lang === 'ky' ? 'Аянтча' : lang === 'en' ? 'Venue' : 'Площадка',
+    news: lang === 'ky' ? 'Жаңылыктар' : lang === 'en' ? 'News' : 'Новости',
+    press: lang === 'ky' ? 'Пресс-борбор' : lang === 'en' ? 'Press Center' : 'Пресс-центр',
+    contacts: lang === 'ky' ? 'Байланыш' : lang === 'en' ? 'Contacts' : 'Контакты',
+    register: lang === 'ky' ? 'Каттоо' : lang === 'en' ? 'Registration' : 'Регистрация'
+  };
+  const items = [
+    ['speakers', labels.speakers],
+    ['program', labels.program],
+    ['venue', labels.venue],
+    ['news', labels.news],
+    ['press', labels.press],
+    ['contacts', labels.contacts]
+  ];
+  const home = `/${lang}/`;
+  const href = (code) => slug ? `/${code}/${slug}` : `/${code}/`;
+  return `
+    <button type="button" class="muun-burger" id="muun-burger" aria-label="Menu" aria-expanded="false" onclick="window.toggleMuunMenu()">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="muun-mnav" id="muun-mnav">
+      <nav class="muun-mnav-links">
+        ${items.map(([id, label]) => `<a href="/${lang}/${id}" onclick="window.closeMuunMenu()">${label}</a>`).join('')}
+      </nav>
+      <a class="muun-mnav-cta" href="#tickets" onclick="window.closeMuunMenu();var t=document.getElementById('tickets')||document.querySelector('section[data-framer-name=&quot;Registration&quot;]');if(t)t.scrollIntoView({behavior:'smooth'});return false;">${labels.register}</a>
+      <div class="muun-mnav-langs">
+        <a href="${href('ru')}" class="${lang === 'ru' ? 'is-active' : ''}">RU</a>
+        <a href="${href('ky')}" class="${lang === 'ky' ? 'is-active' : ''}">KY</a>
+        <a href="${href('en')}" class="${lang === 'en' ? 'is-active' : ''}">EN</a>
+      </div>
+    </div>
+    <script>
+      window.closeMuunMenu = function() {
+        var b = document.getElementById('muun-burger');
+        var m = document.getElementById('muun-mnav');
+        if (b) { b.classList.remove('is-open'); b.setAttribute('aria-expanded', 'false'); }
+        if (m) m.classList.remove('is-open');
+        document.body.style.overflow = '';
+      };
+      window.toggleMuunMenu = function() {
+        var b = document.getElementById('muun-burger');
+        var m = document.getElementById('muun-mnav');
+        var open = m && !m.classList.contains('is-open');
+        if (open) {
+          if (b) { b.classList.add('is-open'); b.setAttribute('aria-expanded', 'true'); }
+          if (m) m.classList.add('is-open');
+          document.body.style.overflow = 'hidden';
+        } else {
+          window.closeMuunMenu();
+        }
+      };
+      (function() {
+        var root = document.documentElement;
+        var idle;
+        function fixRegLinks() {
+          document.querySelectorAll('nav.framer-Luar2 a[href*="#tickets"]').forEach(function(a) {
+            if (a.getAttribute('href') !== '#tickets') a.setAttribute('href', '#tickets');
+          });
+        }
+        function syncTop() {
+          root.classList.toggle('muun-at-top', (window.scrollY || 0) < 40);
+        }
+        function onScroll() {
+          syncTop();
+          fixRegLinks();
+          root.classList.add('muun-scrolling');
+          root.classList.remove('muun-settled');
+          clearTimeout(idle);
+          idle = setTimeout(function() {
+            root.classList.remove('muun-scrolling');
+            root.classList.add('muun-settled');
+            fixRegLinks();
+          }, 240);
+        }
+        root.classList.add('muun-settled');
+        syncTop();
+        fixRegLinks();
+        window.addEventListener('scroll', onScroll, { passive: true });
+      })();
+    </script>
+  `;
 }
