@@ -209,7 +209,9 @@ for (const lang of languages) {
 
   // 5. Build each subpage
   for (const [slug, conf] of Object.entries(pagesConfig)) {
-    let pageHtml = templates[conf.template];
+    let pageHtml = templates[conf.template]
+      .split('https://framerusercontent.com/images/AxQMXkb9SNyxDMp63XvKlzyGFo.png')
+      .join('/favicon.png?v=7');
     const pageTitle = conf.titles[lang];
 
     // Replace <title>

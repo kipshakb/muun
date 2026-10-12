@@ -33,7 +33,7 @@ const downloadEagle = 'C:/Users/Beibars/Downloads/орел2.png';
 if (fs.existsSync(downloadEagle)) {
   fs.copyFileSync(downloadEagle, 'assets/eagle2.png');
 }
-for (const f of ['favicon.ico', 'favicon.png', 'logo-new.png', 'logo-crystal.png', 'logo-header.png', 'president.png', 'ministry-logo.jpeg', 'ministry-logo-white.png', 'kumtor.png', 'kyrgyzaltyn.png', 'aeroporty kyrgyzstana.png', 'eagle2.png', 'logo-footer.png']) {
+for (const f of ['favicon.ico', 'favicon.png', 'logo-new.png', 'logo-crystal.png', 'logo-header.png', 'president.png', 'ministry-logo.jpeg', 'ministry-logo-white.png', 'kumtor.png', 'kyrgyzaltyn.png', 'aeroporty kyrgyzstana.png', 'eagle2.png', 'logo-footer.png', 'og-image.jpg']) {
   if (fs.existsSync(`assets/${f}`)) {
     fs.copyFileSync(`assets/${f}`, `dist/${f}`);
     fs.copyFileSync(`assets/${f}`, `dist/assets/${f}`);
@@ -844,7 +844,7 @@ for (const lang of ['ru', 'ky', 'en']) {
     ['Eventis - Free Event and Conference Template', metaTitle],
     ['Join Eventis, the premier technology and IT summit, bringing together developers, designers, entrepreneurs, and investors to explore the latest in software development, AI innovations, and startup growth.', m.description || loc.subtitle.replace('<br>', ' ')],
     ['https://eventis.framer.website/', 'https://muun.kg/'],
-    ['https://framerusercontent.com/images/AxQMXkb9SNyxDMp63XvKlzyGFo.png', '/favicon.png'],
+    ['https://framerusercontent.com/images/AxQMXkb9SNyxDMp63XvKlzyGFo.png', '/favicon.png?v=7'],
     ['About Aicron', curAbout.kicker],
     ['Innovation . Networking . Marketing . Learning . ', hd.ticker],
     ['https://framerusercontent.com/images/1BHox7UUEVMJHfAPN4qPh5r4o.svg', '/assets/logo-footer.png'],
