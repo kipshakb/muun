@@ -3,6 +3,7 @@ import { renderParticipantModal } from './participant_modal.mjs';
 import { REGISTRATION_ENDPOINT } from './form_endpoints.mjs';
 import { SOCIAL, threadsIconSvg, footerSocialCss, footerFixerJs, mobileNavCss, renderMobileNav } from './muun_social.mjs';
 import { programCss, programClientJs, programFixerJs, injectProgramSsr } from './program_block.mjs';
+import { lockHeroMark, heroMarkCss, heroMarkScript } from './hero_mark.mjs';
 
 const rawHtml = fs.readFileSync('templates/eventis_raw.html', 'utf8');
 const i18n = JSON.parse(fs.readFileSync('src/i18n.json', 'utf8'));
@@ -1112,6 +1113,7 @@ for (const lang of ['ru', 'ky', 'en']) {
 
   // 3. Styling & Client Hydration Script
   const styleAndScripts = `
+    ${heroMarkScript}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -1128,6 +1130,7 @@ for (const lang of ['ru', 'ky', 'en']) {
         padding: 0 !important;
         background-color: #061524 !important;
       }
+      ${heroMarkCss}
       ${footerSocialCss}
       ${mobileNavCss}
       ${programCss}
@@ -1223,6 +1226,7 @@ for (const lang of ['ru', 'ky', 'en']) {
       }
 
       figure.framer-f0om72 {
+        opacity: 1 !important;
         position: static !important;
         transform: translate(6vw, -8px) !important;
         width: 45% !important;
@@ -4260,6 +4264,7 @@ for (const lang of ['ru', 'ky', 'en']) {
     </script>
   `;
 
+  finalHtml = lockHeroMark(finalHtml);
   finalHtml = patchHomeSpeakers(finalHtml, homeSpeakerPeople(lang));
   finalHtml = injectProgramSsr(finalHtml, lang);
   finalHtml = finalHtml.replace('</head>', styleAndScripts + '\n</head>');

@@ -5,6 +5,7 @@ import { newsCss, renderNewsBlock, newsClientJs } from './news_block.mjs';
 import { pressCss, renderPressBlock, pressClientJs } from './press_block.mjs';
 import { programCss, programClientJs, programFixerJs, injectProgramSsr } from './program_block.mjs';
 import { applyFooterSocials, footerSocialCss, footerFixerJs, contactBlockHtml, contactCopy, contactSocialCss, contactFixerJs, mobileNavCss, renderMobileNav } from './muun_social.mjs';
+import { lockHeroMark, heroMarkCss, heroMarkScript } from './hero_mark.mjs';
 
 console.log('Building completely polished subpages with exact fixes...');
 
@@ -209,9 +210,9 @@ for (const lang of languages) {
 
   // 5. Build each subpage
   for (const [slug, conf] of Object.entries(pagesConfig)) {
-    let pageHtml = templates[conf.template]
+    let pageHtml = lockHeroMark(templates[conf.template]
       .split('https://framerusercontent.com/images/AxQMXkb9SNyxDMp63XvKlzyGFo.png')
-      .join('/favicon.png?v=7');
+      .join('/favicon.png?v=7'));
     const pageTitle = conf.titles[lang];
 
     // Replace <title>
@@ -432,7 +433,7 @@ for (const lang of languages) {
         ` : ''}
       </style>
     `;
-    pageHtml = pageHtml.replace('</head>', `${customStylesHtml}\n${extraCss}\n</head>`);
+    pageHtml = pageHtml.replace('</head>', `${heroMarkScript}\n<style>${heroMarkCss}</style>\n${customStylesHtml}\n${extraCss}\n</head>`);
 
     // REPLACE HEADER LOGO: replace all occurrences of old eventis logo SVGs in src and srcset
     pageHtml = pageHtml.replaceAll('https://framerusercontent.com/images/tJ1jqpEOBL9Nna5facx9Yh1rSA.svg?scale-down-to=512&amp;width=520&amp;height=149 512w,https://framerusercontent.com/images/tJ1jqpEOBL9Nna5facx9Yh1rSA.svg?width=520&amp;height=149 520w', '/assets/logo-header.png');
