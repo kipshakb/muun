@@ -10,8 +10,14 @@
  * Версия: Новая версия → Развернуть.
  *
  * Два листа в этой же таблице:
- *   «Индивидуально» — только поля человека;
- *   «Группы» — организация, сопровождающий, размер, день и список.
+ *   «Индивидуально» — гражданство, ФИО, ПИН или паспорт, дата рождения,
+ *   телефон, email, категория и учебное заведение или компания;
+ *   «Группы» — учебное заведение, сопровождающий, телефон и рабочий email.
+ * Дата пишется как дд.мм.гггг чч:мм по времени Бишкека.
+ * Номер заявки в таблицу не записывается.
+ * Резюме посетителя сохраняется в папку «MUUN 2026 — резюме» на Диске
+ * аккаунта, которому принадлежит скрипт. В таблице лежит ссылка на файл.
+ * При публикации Google попросит доступ к Диску — его нужно разрешить.
  * Листы создаются при первой заявке такого типа. Новая заявка
  * встаёт в первую пустую строку своего листа.
  * Старый общий лист (Sheet1) скрипт больше не заполняет — его можно удалить.
@@ -21,15 +27,13 @@ var INDIVIDUAL_SHEET = 'Индивидуально';
 var GROUP_SHEET = 'Группы';
 
 var INDIVIDUAL_HEADERS = [
-  'Дата', 'Номер заявки', 'Фамилия', 'Имя', 'Отчество', 'ПИН', 'Дата рождения',
-  'Телефон', 'Email', 'Категория', 'Регион', 'Организация', 'День', 'Слот',
-  'Интересы', 'Язык', 'Согласие СГО'
+  'Дата', 'Гражданство', 'Страна', 'Фамилия', 'Имя', 'Отчество',
+  'ПИН', 'Номер паспорта', 'Дата рождения', 'Телефон', 'Email',
+  'Категория', 'Организация', 'Язык', 'Резюме'
 ];
 
 var GROUP_HEADERS = [
-  'Дата', 'Номер заявки', 'Организация', 'Город', 'Сопровождающий', 'Должность',
-  'Телефон', 'Email', 'Размер группы', 'День', 'Слот', 'Список группы',
-  'Язык', 'Согласие СГО'
+  'Дата', 'Организация', 'Сопровождающий', 'Телефон', 'Email', 'Язык'
 ];
 
 var CATEGORIES = {
@@ -49,96 +53,160 @@ var CATEGORIES = {
   other: 'Другое'
 };
 
-var REGIONS = {
-  Bishkek: 'г. Бишкек',
-  Chuy: 'Чуйская область',
-  Osh_city: 'г. Ош',
-  OshCity: 'г. Ош',
-  Osh: 'Ошская область',
-  OshReg: 'Ошская область',
-  JalalAbad: 'Джалал-Абадская область',
-  IssykKul: 'Иссык-Кульская область',
-  Naryn: 'Нарынская область',
-  Talas: 'Таласская область',
-  Batken: 'Баткенская область'
+var CITIZENSHIP = {
+  kg: 'Гражданин КР',
+  foreign: 'Иностранный гражданин'
 };
 
-var DAYS = {
-  Nov17: '17 ноября',
-  Nov18: '18 ноября',
-  Both: 'Оба дня',
-  BothDays: 'Оба дня'
+var RESUME_MIME = {
+  pdf: 'application/pdf',
+  doc: 'application/msword',
+  docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  jpg: 'image/jpeg',
+  jpeg: 'image/jpeg',
+  png: 'image/png'
 };
 
-var SLOTS = {
-  Slot1: '09:30–12:30',
-  Slot2: '13:00–15:30',
-  Slot3: '16:00–18:30'
-};
-
-var INTERESTS = {
-  it: 'IT и ИИ',
-  energy: 'Энергетика',
-  engineering: 'Инженерия',
-  creative: 'Креативные индустрии',
-  medicine: 'Медицина',
-  agriculture: 'Сельское хозяйство',
-  industry: 'Промышленность',
-  transport: 'Транспорт и логистика',
-  finance: 'Финансы и банки',
-  gov: 'Госуправление',
-  abroad: 'Образование за рубежом',
-  startup: 'Предпринимательство'
-};
+var RESUME_FOLDER = 'MUUN 2026 — резюме';
 
 function doPost(e) {
-  var p = (e && e.parameter) || {};
+  var p = postParams(e);
   var lock = LockService.getScriptLock();
   lock.waitLock(15000);
   try {
     var isGroup = p.regType === 'group';
     var ss = SpreadsheetApp.getActiveSpreadsheet();
     var sheet = sheetFor(ss, isGroup ? GROUP_SHEET : INDIVIDUAL_SHEET, isGroup ? GROUP_HEADERS : INDIVIDUAL_HEADERS);
-    var organization = p.organization || p.school_org || p.group_org || '';
+    var foreign = p.citizenship === 'foreign';
     var data = isGroup ? {
       'Дата': sheetDate(p.submittedAt),
-      'Номер заявки': p.regId || '',
-      'Организация': p.group_org || organization,
-      'Город': p.group_city || '',
+      'Организация': p.group_org || '',
       'Сопровождающий': p.group_leader_name || '',
-      'Должность': p.group_leader_role || '',
       'Телефон': p.group_leader_phone || '',
       'Email': p.group_leader_email || '',
-      'Размер группы': p.group_size || '',
-      'День': labelOf(DAYS, p.group_day),
-      'Слот': labelOf(SLOTS, p.group_slot),
-      'Список группы': p.group_list_link || '',
-      'Язык': p.lang || '',
-      'Согласие СГО': p.consent === 'yes' ? 'Да' : ''
+      'Язык': p.lang || ''
     } : {
       'Дата': sheetDate(p.submittedAt),
-      'Номер заявки': p.regId || '',
+      'Гражданство': CITIZENSHIP[p.citizenship] || p.citizenship || '',
+      'Страна': foreign ? (p.country || '') : '',
       'Фамилия': p.lastName || '',
       'Имя': p.firstName || '',
-      'Отчество': p.middleName || '',
-      'ПИН': p.pin || '',
-      'Дата рождения': p.birthDate || '',
+      'Отчество': foreign ? '' : (p.middleName || ''),
+      'ПИН': foreign ? '' : (p.pin || ''),
+      'Номер паспорта': foreign ? (p.passport || '') : '',
+      'Дата рождения': sheetBirthDate(p.birthDate),
       'Телефон': p.phone || '',
       'Email': p.email || '',
-      'Категория': labelOf(CATEGORIES, p.category),
-      'Регион': labelOf(REGIONS, p.region) || p.city || '',
-      'Организация': organization,
-      'День': labelOf(DAYS, p.preferredDay || p.day),
-      'Слот': labelOf(SLOTS, p.timeSlot || p.slot),
-      'Интересы': translateList(p.interests, INTERESTS),
+      'Категория': CATEGORIES[p.category] || p.category || '',
+      'Организация': p.organization || p.school_org || '',
       'Язык': p.lang || '',
-      'Согласие СГО': p.consent === 'yes' ? 'Да' : ''
+      'Резюме': resumeLink(p)
     };
     appendMapped(sheet, data);
   } finally {
     lock.releaseLock();
   }
   return ContentService.createTextOutput('ok');
+}
+
+function postParams(e) {
+  var params = {};
+  var source = (e && e.parameter) || {};
+  for (var key in source) params[key] = source[key];
+  var raw = e && e.postData && e.postData.contents;
+  if (!raw || raw.indexOf('resumeData=') === -1) return params;
+  var extra = parseFormBody(raw);
+  if ((extra.resumeData || '').length >= (params.resumeData || '').length) {
+    params.resumeData = extra.resumeData || '';
+    if (extra.resumeName) params.resumeName = extra.resumeName;
+    if (extra.resumeMime) params.resumeMime = extra.resumeMime;
+  }
+  return params;
+}
+
+function parseFormBody(raw) {
+  var out = {};
+  String(raw).split('&').forEach(function (part) {
+    if (!part) return;
+    var eq = part.indexOf('=');
+    var key = decodeURIComponent(String(eq >= 0 ? part.slice(0, eq) : part).replace(/\+/g, ' '));
+    var val = decodeURIComponent(String(eq >= 0 ? part.slice(eq + 1) : '').replace(/\+/g, ' '));
+    out[key] = val;
+  });
+  return out;
+}
+
+function authorizeResume() {
+  var folder = resumeFolder();
+  Logger.log(folder.getUrl());
+}
+
+function resumeLink(p) {
+  if (!normalizeBase64(p.resumeData)) return '';
+  try {
+    return saveResume(p);
+  } catch (err) {
+    var message = String(err && err.message || err || '');
+    if (/permission|autoriz|authoriz|доступ|insufficient/i.test(message)) {
+      return 'нет доступа к Диску: в редакторе запустите authorizeResume и разрешите доступ';
+    }
+    return ('файл не сохранился: ' + message).slice(0, 180);
+  }
+}
+
+function normalizeBase64(value) {
+  return String(value || '')
+    .replace(/ /g, '+')
+    .replace(/[\r\n\t]/g, '')
+    .replace(/-/g, '+')
+    .replace(/_/g, '/');
+}
+
+function saveResume(p) {
+  var data = normalizeBase64(p.resumeData);
+  if (!data) return '';
+  var ext = fileExt(p.resumeName);
+  if (!RESUME_MIME[ext]) return 'непринятый формат';
+  var bytes;
+  try {
+    bytes = Utilities.base64Decode(data);
+  } catch (err) {
+    return 'файл повреждён';
+  }
+  if (!bytes || !bytes.length) return 'файл повреждён';
+  if (bytes.length > 10 * 1024 * 1024) return 'файл больше 10 МБ';
+  var file = resumeFolder().createFile(Utilities.newBlob(bytes, RESUME_MIME[ext], resumeTitle(p, ext)));
+  try {
+    file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+  } catch (err) {}
+  return file.getUrl();
+}
+
+function resumeFolder() {
+  var found = DriveApp.getFoldersByName(RESUME_FOLDER);
+  if (found.hasNext()) return found.next();
+  return DriveApp.createFolder(RESUME_FOLDER);
+}
+
+function resumeTitle(p, ext) {
+  var stamp = Utilities.formatDate(new Date(), 'Asia/Bishkek', 'yyyy-MM-dd HH-mm');
+  var who = [p.lastName, p.firstName].join(' ').replace(/\s+/g, ' ').trim();
+  var base = safeFilePart(p.resumeName).replace(new RegExp('\\.' + ext + '$', 'i'), '');
+  var title = stamp + (who ? ' ' + who : '') + (base ? ' ' + base : '');
+  return title.slice(0, 120) + '.' + ext;
+}
+
+function fileExt(name) {
+  var clean = String(name || '').toLowerCase();
+  var dot = clean.lastIndexOf('.');
+  return dot >= 0 ? clean.slice(dot + 1) : '';
+}
+
+function safeFilePart(name) {
+  return String(name || '')
+    .replace(/[\\/:*?"<>|]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 function sheetFor(ss, name, headers) {
@@ -150,7 +218,8 @@ function sheetFor(ss, name, headers) {
 
 function ensureHeader(sheet, headers) {
   var marker = headers[0];
-  if (sheet.getLastRow() === 0) {
+  if (sheet.getLastRow() <= 1) {
+    sheet.clear();
     writeHeader(sheet, headers);
     return;
   }
@@ -187,7 +256,9 @@ function appendMapped(sheet, data) {
     return sheetValue(data[key] != null ? data[key] : '');
   });
   var target = firstEmptyRow(sheet, width);
-  sheet.getRange(target, 1, 1, row.length).setValues([row]);
+  var range = sheet.getRange(target, 1, 1, row.length);
+  range.setNumberFormat('@');
+  range.setValues([row]);
 }
 
 function firstEmptyRow(sheet, width) {
@@ -210,21 +281,14 @@ function sheetValue(value) {
   return s;
 }
 
-function translateList(raw, map) {
-  if (!raw) return '';
-  return String(raw).split(',').map(function (part) {
-    var key = part.trim();
-    return map[key] || key;
-  }).filter(Boolean).join(', ');
-}
-
-function labelOf(map, key) {
-  if (!key) return '';
-  return map[key] || key;
+function sheetBirthDate(value) {
+  var match = String(value || '').trim().match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!match) return value || '';
+  return match[3] + '.' + match[2] + '.' + match[1];
 }
 
 function sheetDate(iso) {
   var date = iso ? new Date(iso) : new Date();
   if (isNaN(date.getTime())) date = new Date();
-  return date;
+  return Utilities.formatDate(date, 'Asia/Bishkek', 'dd.MM.yyyy HH:mm');
 }

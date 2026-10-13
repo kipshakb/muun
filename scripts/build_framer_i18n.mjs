@@ -34,7 +34,7 @@ const downloadEagle = 'C:/Users/Beibars/Downloads/орел2.png';
 if (fs.existsSync(downloadEagle)) {
   fs.copyFileSync(downloadEagle, 'assets/eagle2.png');
 }
-for (const f of ['favicon.ico', 'favicon.png', 'logo-new.png', 'logo-crystal.png', 'logo-header.png', 'president.png', 'ministry-logo.jpeg', 'ministry-logo-white.png', 'kumtor.png', 'kyrgyzaltyn.png', 'aeroporty kyrgyzstana.png', 'eagle2.png', 'logo-footer.png', 'og-image.jpg']) {
+for (const f of ['favicon.ico', 'favicon.png', 'logo-new.png', 'logo-crystal.png', 'logo-header.png', 'president.png', 'ministry-logo.jpeg', 'ministry-logo-white.png', 'kumtor.png', 'kyrgyzaltyn.png', 'aeroporty kyrgyzstana.png', 'eagle2.png', 'logo-footer.png', 'og-image.jpg', 'partner-cebc.png', 'partner-codify.png', 'partner-prokg.png', 'partner-htp.png', 'partner-mdk-ru.png', 'partner-mdk-ky.png']) {
   if (fs.existsSync(`assets/${f}`)) {
     fs.copyFileSync(`assets/${f}`, `dist/${f}`);
     fs.copyFileSync(`assets/${f}`, `dist/assets/${f}`);
@@ -200,7 +200,7 @@ const faqData = {
       },
       {
         q: 'Где и в какое время будет проходить форум?',
-        a: 'Форум пройдет 17–18 ноября 2026 года в Бишкеке, в Конгресс-холле «Ырыс Ордо» (Бишкек Арена) с 09:00 до 18:00.'
+        a: 'Форум пройдет 17–18 ноября 2026 года в Бишкеке, в Конгресс-холле «Ырыс Ордо» (Бишкек Арена) 17 ноября с 14:00 до 18:00, 18 ноября с 09:00 до 18:00.'
       },
       {
         q: 'Как компания или учебное заведение могут стать экспонентом?',
@@ -231,7 +231,7 @@ const faqData = {
       },
       {
         q: 'Иш-чара кайсы жерде жана кайсы убакта өтөт?',
-        a: 'Форум 2026-жылдын 17-18-ноябрында Бишкек шаарында, «Ырыс Ордо» конгресс-холлунда (Бишкек Арена) саат 09:00дөн 18:00гө чейин өтөт.'
+        a: 'Форум 2026-жылдын 17-18-ноябрында Бишкек шаарында, «Ырыс Ордо» конгресс-холлунда (Бишкек Арена) өтөт: 17-ноябрь саат 14:00дөн 18:00гө чейин, 18-ноябрь саат 09:00дөн 18:00гө чейин.'
       },
       {
         q: 'Компания же ЖОЖ катары кантип катышса болот?',
@@ -262,7 +262,7 @@ const faqData = {
       },
       {
         q: 'Where and when will the forum take place?',
-        a: 'The forum will be held on November 17–18, 2026, in Bishkek at the Yrys Ordo Congress Hall (Bishkek Arena) from 9:00 AM to 6:00 PM.'
+        a: 'The forum will be held on November 17–18, 2026, in Bishkek at the Yrys Ordo Congress Hall (Bishkek Arena): November 17 from 14:00 to 18:00, and November 18 from 09:00 to 18:00.'
       },
       {
         q: 'How can a company or university become an exhibitor?',
@@ -347,7 +347,8 @@ const SECTION_HEADINGS = {
     partners: {
       kicker: 'Партнеры',
       titleHtml: 'Генеральные партнеры <span class="heading-muted">форума</span>',
-      titleText: 'Генеральные партнеры форума'
+      titleText: 'Генеральные партнеры форума',
+      ecoTitleHtml: 'ECO-SYSTEM <span class="heading-muted">партнеры</span>'
     },
     registration: {
       kicker: 'Регистрация',
@@ -388,7 +389,8 @@ const SECTION_HEADINGS = {
     partners: {
       kicker: 'Өнөктөштөр',
       titleHtml: 'Форумдун башкы <span class="heading-muted">өнөктөштөрү</span>',
-      titleText: 'Форумдун башкы өнөктөштөрү'
+      titleText: 'Форумдун башкы өнөктөштөрү',
+      ecoTitleHtml: 'ECO-SYSTEM <span class="heading-muted">өнөктөштөр</span>'
     },
     registration: {
       kicker: 'Каттоо',
@@ -429,7 +431,8 @@ const SECTION_HEADINGS = {
     partners: {
       kicker: 'Partners',
       titleHtml: 'General Partners <span class="heading-muted">of the Forum</span>',
-      titleText: 'General Partners of the Forum'
+      titleText: 'General Partners of the Forum',
+      ecoTitleHtml: 'ECO-SYSTEM <span class="heading-muted">partners</span>'
     },
     registration: {
       kicker: 'Registration',
@@ -449,26 +452,41 @@ const SECTION_HEADINGS = {
   }
 };
 
+const COUNTRY_CODES = 'AD AE AF AG AI AL AM AO AR AS AT AU AW AX AZ BA BB BD BE BF BG BH BI BJ BL BM BN BO BQ BR BS BT BW BY BZ CA CC CD CF CG CH CI CK CL CM CN CO CR CU CV CW CX CY CZ DE DJ DK DM DO DZ EC EE EG EH ER ES ET FI FJ FK FM FO FR GA GB GD GE GF GG GH GI GL GM GN GP GQ GR GT GU GW GY HK HN HR HT HU ID IE IL IM IN IO IQ IR IS IT JE JM JO JP KE KH KI KM KN KP KR KW KY KZ LA LB LC LI LK LR LS LT LU LV LY MA MC MD ME MF MG MH MK ML MM MN MO MP MQ MR MS MT MU MV MW MX MY MZ NA NC NE NF NG NI NL NO NP NR NU NZ OM PA PE PF PG PH PK PL PM PN PR PS PT PW PY QA RE RO RU RS RW SA SB SC SD SE SG SH SI SJ SK SL SM SN SO SR SS ST SV SX SY SZ TC TD TG TH TJ TK TL TM TN TO TR TT TV TW TZ UA UG US UY UZ VA VC VE VG VI VN VU WF WS XK YE YT ZA ZM ZW'.split(' ');
+
+function escHtml(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;');
+}
+
+function countryChoices(lang) {
+  const locale = lang === 'en' ? 'en' : lang === 'ky' ? 'ky' : 'ru';
+  const ruNames = new Intl.DisplayNames(['ru'], { type: 'region' });
+  const localNames = new Intl.DisplayNames([locale], { type: 'region' });
+  const items = COUNTRY_CODES.map((code) => {
+    const value = ruNames.of(code);
+    const label = localNames.of(code);
+    if (!value || value === code || !label || label === code) return null;
+    return { value, label };
+  }).filter(Boolean);
+  const collator = new Intl.Collator(locale === 'ky' ? 'ky' : locale);
+  items.sort((a, b) => collator.compare(a.label, b.label));
+  return items;
+}
+
 function renderRegForm(lang) {
   const S = i18n.strings[lang];
-
-  const protectMemo = lang === 'ky'
-    ? 'Сиздин маалыматтарыңыз корголгон жана КР СГОго гана берилет'
-    : lang === 'en'
-      ? 'Your data is secured and transferred strictly to SGO KR'
-      : 'Ваши данные защищены и передаются только в СГО КР';
+  const countryOptions = countryChoices(lang).map((c) =>
+    `<option value="${escHtml(c.value)}">${escHtml(c.label)}</option>`
+  ).join('');
 
   const resetLabel = lang === 'ky'
     ? 'Жаңы өтүнмө толтуруу'
     : lang === 'en'
       ? 'Submit another application'
       : 'Заполнить новую заявку';
-
-  const groupPh = {
-    ru: { leader: 'ФИО сопровождающего', role: 'Завуч, декан, куратор', size: 'Напр. 45' },
-    ky: { leader: 'Коштоочунун аты-жөнү', role: 'Окуу бөлүмүнүн башчысы, декан, куратор', size: 'Мис. 45' },
-    en: { leader: 'Group leader full name', role: 'Head teacher, dean, curator', size: 'E.g. 45' }
-  }[lang] || {};
 
   return `
     <div class="muun-reg-card">
@@ -478,16 +496,11 @@ function renderRegForm(lang) {
         <h3 class="muun-form-title">
           ${S['reg.title']}
         </h3>
-        <p class="muun-form-subtitle">
-          ${S['reg.subtitle']}
-        </p>
-
-        <!-- SGO Security Warning Notice -->
-        <div class="muun-sgo-warning-box">
-          <span class="icon">🏛️</span>
-          <p>
-            ${S['reg.sgo_notice']}
-          </p>
+        <div class="muun-form-lead">
+          <p>${S['reg.lead']}</p>
+          <p>${S['reg.access']}</p>
+          <p class="lead-strong">${S['reg.deadline_line']}</p>
+          <p class="lead-strong">${S['reg.hours']}</p>
         </div>
 
         <!-- Tabs Switcher (Individual vs Group) -->
@@ -506,53 +519,84 @@ function renderRegForm(lang) {
 
           <!-- STREAM A: Individual Visitor Form -->
           <div id="stream-indiv-fields" style="display:flex; flex-direction:column; gap:18px;">
-            <!-- FIO (3 separate fields) -->
             <div>
-              <label class="field-label">${S['reg.fio_label']}</label>
-              <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
-                <div>
-                  <input type="text" name="lastName" required class="form-input-dark" placeholder="${S['reg.last_name']} *" />
-                </div>
-                <div>
-                  <input type="text" name="firstName" required class="form-input-dark" placeholder="${S['reg.first_name']} *" />
-                </div>
-                <div>
-                  <input type="text" name="middleName" class="form-input-dark" placeholder="${S['reg.middle_name']}" />
-                </div>
-              </div>
-              <span class="field-note">${S['reg.fio_note']}</span>
+              <label class="field-label" for="citizenship-select">${S['reg.citizenship']} *</label>
+              <select name="citizenship" id="citizenship-select" required class="form-input-dark" onchange="window.switchCitizenship(this.value)">
+                <option value="kg" selected>${S['reg.citizen_kg']}</option>
+                <option value="foreign">${S['reg.citizen_foreign']}</option>
+              </select>
             </div>
 
-            <!-- PIN / INN & Date of Birth -->
-            <div class="form-row" style="display:grid; grid-template-columns:1.2fr 1fr; gap:12px;">
+            <div id="citizen-kg" data-citizen-panel="kg" style="display:flex; flex-direction:column; gap:18px;">
+              <div>
+                <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
+                  <div>
+                    <label class="field-label">${S['reg.last_name']} *</label>
+                    <input type="text" name="lastName" required class="form-input-dark" autocomplete="family-name" placeholder="${S['reg.last_name']}" />
+                  </div>
+                  <div>
+                    <label class="field-label">${S['reg.first_name']} *</label>
+                    <input type="text" name="firstName" required class="form-input-dark" autocomplete="given-name" placeholder="${S['reg.first_name']}" />
+                  </div>
+                  <div>
+                    <label class="field-label">${S['reg.middle_name']}</label>
+                    <input type="text" name="middleName" class="form-input-dark" autocomplete="additional-name" placeholder="${S['reg.middle_name']}" />
+                  </div>
+                </div>
+                <span class="field-note">${S['reg.name_cyr_note']}</span>
+              </div>
               <div>
                 <label class="field-label">${S['reg.pin']} *</label>
                 <input type="text" name="pin" required pattern="[0-9]{14}" maxlength="14" minlength="14" inputmode="numeric" class="form-input-dark" placeholder="${S['reg.pin_ph']}" />
                 <span class="field-note">${S['reg.pin_note']}</span>
               </div>
+            </div>
+
+            <div id="citizen-foreign" data-citizen-panel="foreign" style="display:none; flex-direction:column; gap:18px;">
               <div>
-                <label class="field-label">${S['reg.dob']} *</label>
-                <input type="date" name="birthDate" required class="form-input-dark" min="1940-01-01" max="2020-01-01" />
-                <span class="field-note">${S['reg.dob_note']}</span>
+                <label class="field-label">${S['reg.country']} *</label>
+                <select name="country" class="form-input-dark" disabled>
+                  <option value="" disabled selected>${S['reg.country_ph']}</option>
+                  ${countryOptions}
+                </select>
+              </div>
+              <div>
+                <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                  <div>
+                    <label class="field-label">${S['reg.last_name']} *</label>
+                    <input type="text" name="lastName" class="form-input-dark" autocomplete="family-name" placeholder="${S['reg.last_name']}" disabled />
+                  </div>
+                  <div>
+                    <label class="field-label">${S['reg.first_name']} *</label>
+                    <input type="text" name="firstName" class="form-input-dark" autocomplete="given-name" placeholder="${S['reg.first_name']}" disabled />
+                  </div>
+                </div>
+                <span class="field-note">${S['reg.name_lat_note']}</span>
+              </div>
+              <div>
+                <label class="field-label">${S['reg.passport']} *</label>
+                <input type="text" name="passport" class="form-input-dark" autocomplete="off" placeholder="AB1234567" disabled />
               </div>
             </div>
 
-            <!-- Phone & Email -->
             <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
               <div>
-                <label class="field-label">${S['reg.phone']} *</label>
-                <input type="tel" name="phone" required class="form-input-dark" placeholder="+996 700 123 456" />
-                <span class="field-note">${S['reg.phone_note']}</span>
+                <label class="field-label">${S['reg.dob']} *</label>
+                <input type="date" name="birthDate" required class="form-input-dark" min="1920-01-01" max="2026-10-13" />
+                <span class="field-note">${S['reg.dob_note']}</span>
               </div>
               <div>
                 <label class="field-label">${S['reg.email']} *</label>
-                <input type="email" name="email" required class="form-input-dark" placeholder="example@gmail.com" />
+                <input type="email" name="email" required class="form-input-dark" autocomplete="email" placeholder="example@gmail.com" />
                 <span class="field-note">${S['reg.email_note']}</span>
               </div>
             </div>
 
-            <!-- Category & Region -->
             <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+              <div>
+                <label class="field-label">${S['reg.phone']} *</label>
+                <input type="tel" name="phone" required class="form-input-dark" autocomplete="tel" placeholder="+996 700 123 456" />
+              </div>
               <div>
                 <label class="field-label">${S['reg.category_label']} *</label>
                 <select name="category" required class="form-input-dark">
@@ -568,76 +612,25 @@ function renderRegForm(lang) {
                   <option value="other">${S['reg.cat_other']}</option>
                 </select>
               </div>
-              <div>
-                <label class="field-label">${S['reg.region_label']} *</label>
-                <select name="region" required class="form-input-dark">
-                  <option value="" disabled selected>${S['reg.region_label']}</option>
-                  <option value="Bishkek">${S['reg.reg_bishkek']}</option>
-                  <option value="Chuy">${S['reg.reg_chuy']}</option>
-                  <option value="Osh_city">${S['reg.reg_osh_city']}</option>
-                  <option value="Osh">${S['reg.reg_osh_reg']}</option>
-                  <option value="JalalAbad">${S['reg.reg_jalal']}</option>
-                  <option value="IssykKul">${S['reg.reg_issyk']}</option>
-                  <option value="Naryn">${S['reg.reg_naryn']}</option>
-                  <option value="Talas">${S['reg.reg_talas']}</option>
-                  <option value="Batken">${S['reg.reg_batken']}</option>
-                </select>
-              </div>
             </div>
 
-            <!-- Organization / School / University -->
             <div>
-              <label class="field-label">${S['reg.school_org_label']} *</label>
-              <input type="text" name="organization" required class="form-input-dark" placeholder="${S['reg.school_org_ph']}" />
+              <label class="field-label" for="reg-organization">${S['reg.school_org_label']} <span id="reg-org-star">*</span></label>
+              <input type="text" id="reg-organization" name="organization" required class="form-input-dark" placeholder="${S['reg.school_org_ph']}" />
             </div>
 
-            <!-- Day & Time Slot -->
-            <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-              <div>
-                <label class="field-label">${S['reg.day_label']} *</label>
-                <select name="preferredDay" required class="form-input-dark">
-                  <option value="Nov17" selected>${S['reg.day1']}</option>
-                  <option value="Nov18">${S['reg.day2']}</option>
-                  <option value="Both">${S['reg.day_both']}</option>
-                </select>
-              </div>
-              <div>
-                <label class="field-label">${S['reg.slot_label']} *</label>
-                <select name="timeSlot" required class="form-input-dark">
-                  <option value="Slot1" selected>${S['reg.slot1']}</option>
-                  <option value="Slot2">${S['reg.slot2']}</option>
-                  <option value="Slot3">${S['reg.slot3']}</option>
-                </select>
-              </div>
-            </div>
-
-            <!-- Topic of Interest Checkboxes -->
             <div>
-              <label class="field-label">${S['reg.interests'] || 'Сферы интереса'}</label>
-              <div class="interests-grid">
-                <label class="interest-chip"><input type="checkbox" name="interests" value="it" /> <span>💻</span> <span>${S['reg.int_it']}</span></label>
-                <label class="interest-chip"><input type="checkbox" name="interests" value="energy" /> <span>⚡</span> <span>${S['reg.int_energy']}</span></label>
-                <label class="interest-chip"><input type="checkbox" name="interests" value="engineering" /> <span>⚙️</span> <span>${S['reg.int_engineering']}</span></label>
-                <label class="interest-chip"><input type="checkbox" name="interests" value="creative" /> <span>🎨</span> <span>${S['reg.int_creative']}</span></label>
-                <label class="interest-chip"><input type="checkbox" name="interests" value="medicine" /> <span>❤️</span> <span>${S['reg.int_medicine']}</span></label>
-                <label class="interest-chip"><input type="checkbox" name="interests" value="agriculture" /> <span>🌱</span> <span>${S['reg.int_agriculture']}</span></label>
-              </div>
-            </div>
-
-            <!-- SGO Mandatory Consent -->
-            <div class="consent-box">
-              <input type="checkbox" id="indiv-sgo-consent" name="consent" value="yes" required />
-              <label for="indiv-sgo-consent">
-                ${S['reg.sgo_consent']}
-              </label>
+              <label class="field-label" for="reg-resume">${S['reg.resume']}</label>
+              <input type="file" id="reg-resume" name="resume" class="form-input-dark" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/jpeg,image/png" />
+              <span class="field-note">${S['reg.resume_note']}</span>
             </div>
 
             <button type="submit" id="reg-submit-btn-indiv" class="submit-btn">
-              ${S['reg.btn_submit_indiv']}
+              ${S['reg.btn_submit']}
             </button>
 
             <div class="security-memo">
-              🔒 ${protectMemo}
+              🔒 ${S['reg.protect']}
             </div>
           </div>
 
@@ -648,80 +641,29 @@ function renderRegForm(lang) {
               <p>${S['reg.group_subtitle']}</p>
             </div>
 
-            <div class="form-row" style="display:grid; grid-template-columns:1.5fr 1fr; gap:12px;">
-              <div>
-                <label class="field-label">${S['reg.group_org']} *</label>
-                <input type="text" name="group_org" class="form-input-dark" placeholder="${S['reg.group_org_ph']}" />
-              </div>
-              <div>
-                <label class="field-label">${S['reg.group_city']} *</label>
-                <input type="text" name="group_city" class="form-input-dark" placeholder="${S['reg.group_city_ph']}" />
-              </div>
-            </div>
-
-            <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-              <div>
-                <label class="field-label">${S['reg.group_leader_name']} *</label>
-                <input type="text" name="group_leader_name" class="form-input-dark" placeholder="${groupPh.leader}" />
-              </div>
-              <div>
-                <label class="field-label">${S['reg.group_leader_role']} *</label>
-                <input type="text" name="group_leader_role" class="form-input-dark" placeholder="${groupPh.role}" />
-              </div>
-            </div>
-
-            <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-              <div>
-                <label class="field-label">${S['reg.group_leader_phone']} *</label>
-                <input type="tel" name="group_leader_phone" class="form-input-dark" placeholder="+996 700 123 456" />
-              </div>
-              <div>
-                <label class="field-label">${S['reg.group_leader_email']} *</label>
-                <input type="email" name="group_leader_email" class="form-input-dark" placeholder="school@edu.gov.kg" />
-              </div>
-            </div>
-
-            <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;">
-              <div>
-                <label class="field-label">${S['reg.group_size']} *</label>
-                <input type="number" name="group_size" min="5" max="500" class="form-input-dark" placeholder="${groupPh.size}" />
-              </div>
-              <div>
-                <label class="field-label">${S['reg.day_label']} *</label>
-                <select name="group_day" class="form-input-dark">
-                  <option value="Nov17" selected>${S['reg.day1']}</option>
-                  <option value="Nov18">${S['reg.day2']}</option>
-                </select>
-              </div>
-              <div>
-                <label class="field-label">${S['reg.slot_label']} *</label>
-                <select name="group_slot" class="form-input-dark">
-                  <option value="Slot1" selected>09:30 – 12:30</option>
-                  <option value="Slot2">13:00 – 15:30</option>
-                  <option value="Slot3">16:00 – 18:30</option>
-                </select>
-              </div>
-            </div>
-
             <div>
-              <label class="field-label">${S['reg.group_list_label']} *</label>
-              <input type="url" name="group_list_link" class="form-input-dark" placeholder="${S['reg.group_list_ph']}" />
-              <span class="field-note">${S['reg.group_list_note']}</span>
+              <label class="field-label">${S['reg.group_org']} *</label>
+              <input type="text" name="group_org" class="form-input-dark" placeholder="${S['reg.group_org_ph']}" disabled />
             </div>
-
-            <div class="consent-box">
-              <input type="checkbox" id="group-sgo-consent" name="consent" value="yes" />
-              <label for="group-sgo-consent">
-                ${S['reg.group_consent']}
-              </label>
+            <div>
+              <label class="field-label">${S['reg.group_leader_name']} *</label>
+              <input type="text" name="group_leader_name" class="form-input-dark" autocomplete="name" disabled />
+            </div>
+            <div>
+              <label class="field-label">${S['reg.group_leader_phone']} *</label>
+              <input type="tel" name="group_leader_phone" class="form-input-dark" autocomplete="tel" placeholder="+996 700 123 456" disabled />
+            </div>
+            <div>
+              <label class="field-label">${S['reg.group_leader_email']} *</label>
+              <input type="email" name="group_leader_email" class="form-input-dark" autocomplete="email" placeholder="school@edu.gov.kg" disabled />
             </div>
 
             <button type="submit" id="reg-submit-btn-group" class="submit-btn">
-              ${S['reg.btn_submit_group']}
+              ${S['reg.btn_submit']}
             </button>
 
             <div class="security-memo">
-              🔒 ${protectMemo}
+              🔒 ${S['reg.protect']}
             </div>
           </div>
         </form>
@@ -730,7 +672,7 @@ function renderRegForm(lang) {
       <!-- STEP 2: Pending Approval / Verification Screen -->
       <div id="reg-step-pending" style="display:none; text-align:center; padding:30px 10px;">
         <div class="pending-icon-wrap">
-          ⏳
+          ✓
         </div>
         <h3 class="pending-title">
           ${S['reg.pending_title']}
@@ -744,7 +686,7 @@ function renderRegForm(lang) {
         </div>
 
         <div class="pending-memo-box">
-          <h4>⚠️ ${S['reg.memo_title']}</h4>
+          <h4>${S['reg.memo_title']}</h4>
           <ul>
             <li>${S['reg.memo_doc']}</li>
             <li>${S['reg.memo_prohibited']}</li>
@@ -767,8 +709,39 @@ const HOME_SPEAKER_SLOTS = [
   { slot: 'Speaker 01', name: 'Dr. Emma Parker', role: 'Chief AI Scientist', img: 'eTTTIcVnwyKXnDY6kbVhA1AyzQ' },
   { slot: 'Speaker 02', name: 'John Mitchell', role: 'CEO, AI Solutions Corp', img: 'XhuDITv6DpWNuBYIj1HtJ4DvTQw' },
   { slot: 'Speaker 03', name: 'Samantha Hayes', role: 'Senior Data Scientist', img: '86VJMTqMd6VC2SOf3RhzPDR4emk' },
-  { slot: 'Speaker 04', name: 'James Turner', role: 'Senior Data Scientist', img: 'TzozA0OcRZ36gzl3GAQAWwujo' }
+  { slot: 'Speaker 04', name: 'James Turner', role: 'Senior Data Scientist', img: 'TzozA0OcRZ36gzl3GAQAWwujo' },
+  { slot: 'Speaker 05', name: 'Laura Chang', role: 'Director of AI Strategy', img: 'FVjwWr85ut7DBy7LiAzsJoNMlLM' },
+  { slot: 'Speaker 06', name: 'Michael Anderson', role: 'Chief Technologist', img: 'dlhgx3fMLQZlK7XF8F8pg5OGE' }
 ];
+
+function renderEcoPartners(titleHtml, lang) {
+  const mdkSrc = lang === 'ky' ? '/assets/partner-mdk-ky.png' : '/assets/partner-mdk-ru.png';
+  const mdkAlt = lang === 'ky'
+    ? 'Кыргызстан жаштар кыймылы'
+    : lang === 'en'
+      ? 'Youth Movement of Kyrgyzstan'
+      : 'Молодежное движение Кыргызстана';
+  return `<div class="muun-eco-partners">
+    <h2 class="muun-eco-partners-title">${titleHtml}</h2>
+    <div class="muun-eco-grid">
+      <div class="muun-partner-card" title="CEBC">
+        <img src="/assets/partner-cebc.png" alt="China-Eurasian Business Council" class="muun-partner-logo eco-cebc" />
+      </div>
+      <div class="muun-partner-card" title="Codify">
+        <img src="/assets/partner-codify.png" alt="Codify" class="muun-partner-logo eco-codify" />
+      </div>
+      <div class="muun-partner-card" title="ProKG">
+        <img src="/assets/partner-prokg.png" alt="ProKG" class="muun-partner-logo eco-prokg" />
+      </div>
+      <div class="muun-partner-card" title="High Technology Park">
+        <img src="/assets/partner-htp.png" alt="High Technology Park of the Kyrgyz Republic" class="muun-partner-logo eco-htp" />
+      </div>
+      <div class="muun-partner-card" title="${mdkAlt}">
+        <img src="${mdkSrc}" alt="${mdkAlt}" class="muun-partner-logo eco-mdk" />
+      </div>
+    </div>
+  </div>`;
+}
 
 function homeSpeakerPeople(lang) {
   const people = {
@@ -776,19 +749,25 @@ function homeSpeakerPeople(lang) {
       { name: 'Касымалиев Адылбек Алешович', role: 'Председатель Кабинета Министров Кыргызской Республики – Руководитель Администрации Президента Кыргызской Республики', photo: '/assets/speaker-kasymaliev.png', focus: 'center 15%' },
       { name: 'Исаматова Гульзат Тыныбековна', role: 'Министр науки, высшего образования и инноваций Кыргызской Республики', photo: '/assets/speaker-isamatova.jpg', focus: '30% 20%' },
       { name: 'Орунтаев Нурдан Кемелович', role: 'Министр строительства, архитектуры и жилищно-коммунального хозяйства Кыргызской Республики', photo: '/assets/speaker-oruntaev.jpg', focus: 'center 18%' },
-      { name: 'Динара Русланкызы', role: 'Основатель и директор ИТ-компании CODIFY', photo: '/assets/speaker-dinara.jpg', focus: 'center 30%' }
+      { name: 'Динара Русланкызы', role: 'Основатель и директор ИТ-компании CODIFY', photo: '/assets/speaker-dinara.jpg', focus: 'center 30%' },
+      { name: 'Айжан Алишерова', role: 'Основатель фонда поддержки стартапов «We Fund»', photo: '/assets/speaker-alisherova.jpg', focus: 'center 16%' },
+      { name: 'Бекназаров Жакшылык Бекназарович', role: 'Председатель молодежного движения Кыргызстана, Отличник молодежной политики Кыргызской Республики', photo: '/assets/speaker-beknazarov.jpg', focus: 'center 28%' }
     ],
     ky: [
       { name: 'Касымалиев Адылбек Алешович', role: 'Кыргыз Республикасынын Министрлер Кабинетинин Төрагасы – Кыргыз Республикасынын Президентинин Администрациясынын жетекчиси', photo: '/assets/speaker-kasymaliev.png', focus: 'center 15%' },
       { name: 'Исаматова Гульзат Тыныбековна', role: 'Кыргыз Республикасынын илим, жогорку билим берүү жана инновациялар министри', photo: '/assets/speaker-isamatova.jpg', focus: '30% 20%' },
       { name: 'Орунтаев Нурдан Кемелович', role: 'Кыргыз Республикасынын курулуш, архитектура жана турак жай-коммуналдык чарба министри', photo: '/assets/speaker-oruntaev.jpg', focus: 'center 18%' },
-      { name: 'Динара Русланкызы', role: 'CODIFY ИТ-компаниясынын негиздөөчүсү жана директору', photo: '/assets/speaker-dinara.jpg', focus: 'center 30%' }
+      { name: 'Динара Русланкызы', role: 'CODIFY ИТ-компаниясынын негиздөөчүсү жана директору', photo: '/assets/speaker-dinara.jpg', focus: 'center 30%' },
+      { name: 'Айжан Алишерова', role: '«We Fund» стартаптарды колдоо фондунун негиздөөчүсү', photo: '/assets/speaker-alisherova.jpg', focus: 'center 16%' },
+      { name: 'Бекназаров Жакшылык Бекназарович', role: 'Кыргызстандын жаштар кыймылынын төрагасы, Кыргыз Республикасынын жаштар саясатынын отличниги', photo: '/assets/speaker-beknazarov.jpg', focus: 'center 28%' }
     ],
     en: [
       { name: 'Adylbek Aleshovich Kasymaliev', role: 'Chairman of the Cabinet of Ministers of the Kyrgyz Republic – Head of the Presidential Administration of the Kyrgyz Republic', photo: '/assets/speaker-kasymaliev.png', focus: 'center 15%' },
       { name: 'Gulzat Tynybekovna Isamatova', role: 'Minister of Science, Higher Education and Innovation of the Kyrgyz Republic', photo: '/assets/speaker-isamatova.jpg', focus: '30% 20%' },
       { name: 'Nurdan Kemelovich Oruntaev', role: 'Minister of Construction, Architecture and Housing and Communal Services of the Kyrgyz Republic', photo: '/assets/speaker-oruntaev.jpg', focus: 'center 18%' },
-      { name: 'Dinara Ruslankyzy', role: 'Founder and Director of the IT company CODIFY', photo: '/assets/speaker-dinara.jpg', focus: 'center 30%' }
+      { name: 'Dinara Ruslankyzy', role: 'Founder and Director of the IT company CODIFY', photo: '/assets/speaker-dinara.jpg', focus: 'center 30%' },
+      { name: 'Aizhan Alisherova', role: 'Founder of the startup support fund We Fund', photo: '/assets/speaker-alisherova.jpg', focus: 'center 16%' },
+      { name: 'Zhakshylyk Beknazarovich Beknazarov', role: 'Chairman of the Youth Movement of Kyrgyzstan, Excellence in Youth Policy of the Kyrgyz Republic', photo: '/assets/speaker-beknazarov.jpg', focus: 'center 28%' }
     ]
   };
   return people[lang];
@@ -922,8 +901,9 @@ for (const lang of ['ru', 'ky', 'en']) {
     }
   }
 
-  // Pre-render Partners section with 3 prominent general partner cards
-  const partnersGridHtml = `<div class="framer-ff8lq4" data-framer-name="Partners">
+  // Pre-render Partners section: general partners, then ECO-SYSTEM partners
+  const ecoPartnersHtml = renderEcoPartners(hd.partners.ecoTitleHtml, lang);
+  const partnersGridInnerHtml = `<div class="muun-general-grid">
     <div class="muun-partner-card" title="Kumtor Gold Company">
       <img src="/assets/kumtor.png" alt="Кумтөр Голд Компани" class="muun-partner-logo kumtor-logo" />
     </div>
@@ -933,7 +913,8 @@ for (const lang of ['ru', 'ky', 'en']) {
     <div class="muun-partner-card" title="Аэропорты Кыргызстана">
       <img src="/assets/aeroporty-kyrgyzstana.png" alt="ОАО Аэропорты Кыргызстана" class="muun-partner-logo aeroporty-logo" />
     </div>
-  </div>`;
+  </div>${ecoPartnersHtml}`;
+  const partnersGridHtml = `<div class="framer-ff8lq4" data-framer-name="Partners">${partnersGridInnerHtml}</div>`;
 
   const spGridStart = finalHtml.indexOf('<div class="framer-ff8lq4"');
   if (spGridStart !== -1) {
@@ -1445,6 +1426,7 @@ for (const lang of ['ru', 'ky', 'en']) {
       .framer-17ylf30 h2,
       .framer-19oyny3 h2,
       .framer-ostf7s h2,
+      .muun-eco-partners-title,
       .framer-1q8loet h2,
       .framer-1npbtm4 h2 {
         font-family: "Inter Display", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
@@ -1463,7 +1445,8 @@ for (const lang of ['ru', 'ky', 'en']) {
       .framer-17ylf30,
       .framer-17ylf30 h2,
       .framer-ostf7s,
-      .framer-ostf7s h2 {
+      .framer-ostf7s h2,
+      .muun-eco-partners-title {
         white-space: nowrap !important;
         word-break: normal !important;
         word-wrap: normal !important;
@@ -1474,7 +1457,8 @@ for (const lang of ['ru', 'ky', 'en']) {
 
       @media (max-width: 992px) {
         .framer-ostf7s,
-        .framer-ostf7s h2 {
+        .framer-ostf7s h2,
+        .muun-eco-partners-title {
           white-space: normal !important;
         }
       }
@@ -1493,6 +1477,7 @@ for (const lang of ['ru', 'ky', 'en']) {
       .framer-17ylf30 h2 span,
       .framer-19oyny3 h2 span,
       .framer-ostf7s h2 span,
+      .muun-eco-partners-title span,
       .framer-1q8loet h2 span,
       .framer-1npbtm4 h2 span {
         font-family: inherit !important;
@@ -1754,8 +1739,6 @@ for (const lang of ['ru', 'ky', 'en']) {
         color: #FFFFFF !important;
       }
 
-      section[data-framer-name="Speakers"] li:has([data-framer-name="Speaker 05"]),
-      section[data-framer-name="Speakers"] li:has([data-framer-name="Speaker 06"]),
       section[data-framer-name="Speakers"] [data-framer-name="Blue Blur"],
       section[data-framer-name="Speakers"] [data-framer-name="Instagram"],
       section[data-framer-name="Speakers"] [data-framer-name="Linkedin"] {
@@ -1767,7 +1750,9 @@ for (const lang of ['ru', 'ky', 'en']) {
       section[data-framer-name="Speakers"] [data-framer-name="Speaker 01"],
       section[data-framer-name="Speakers"] [data-framer-name="Speaker 02"],
       section[data-framer-name="Speakers"] [data-framer-name="Speaker 03"],
-      section[data-framer-name="Speakers"] [data-framer-name="Speaker 04"] {
+      section[data-framer-name="Speakers"] [data-framer-name="Speaker 04"],
+      section[data-framer-name="Speakers"] [data-framer-name="Speaker 05"],
+      section[data-framer-name="Speakers"] [data-framer-name="Speaker 06"] {
         padding-top: 0 !important;
         margin-top: 0 !important;
       }
@@ -1845,30 +1830,38 @@ for (const lang of ['ru', 'ky', 'en']) {
       }
 
       .framer-ff8lq4 {
-        display: grid !important;
-        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-        grid-template-rows: auto !important;
-        grid-auto-rows: auto !important;
-        gap: 32px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 64px !important;
         width: 100% !important;
         max-width: 1320px !important;
         margin: 0 auto !important;
-        justify-content: center !important;
-        align-items: stretch !important;
+        box-sizing: border-box !important;
+      }
+
+      .muun-general-grid {
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 32px !important;
+        width: 100% !important;
         box-sizing: border-box !important;
       }
 
       @media (max-width: 992px) {
-        .framer-ff8lq4 {
+        .muun-general-grid {
           grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
           gap: 24px !important;
         }
       }
 
       @media (max-width: 640px) {
-        .framer-ff8lq4 {
+        .muun-general-grid {
           grid-template-columns: 1fr !important;
           gap: 16px !important;
+        }
+        .framer-ff8lq4 {
+          gap: 40px !important;
         }
       }
 
@@ -1923,6 +1916,78 @@ for (const lang of ['ru', 'ky', 'en']) {
       .muun-partner-card .aeroporty-logo {
         max-height: 75px !important;
         max-width: 330px !important;
+      }
+
+      .muun-eco-partners {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 32px !important;
+        width: 100% !important;
+        max-width: 1320px !important;
+        margin: 0 auto !important;
+        box-sizing: border-box !important;
+      }
+
+      .muun-eco-partners-title {
+        margin: 0 !important;
+        text-align: left !important;
+      }
+
+      .muun-eco-grid {
+        display: grid !important;
+        grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+        gap: 20px !important;
+        width: 100% !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+      }
+
+      .muun-eco-grid .muun-partner-card {
+        height: 150px !important;
+        min-height: 140px !important;
+        padding: 22px 18px !important;
+      }
+
+      .muun-eco-grid .muun-partner-logo {
+        max-height: 92px !important;
+        max-width: 100% !important;
+      }
+
+      .muun-eco-grid .eco-codify {
+        max-height: 58px !important;
+      }
+
+      .muun-eco-grid .eco-htp {
+        max-height: 52px !important;
+      }
+
+      .muun-eco-grid .eco-mdk {
+        max-height: 104px !important;
+        max-width: 100% !important;
+      }
+
+      @media (max-width: 1200px) {
+        .muun-eco-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        }
+      }
+
+      @media (max-width: 992px) {
+        .muun-eco-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .muun-eco-grid {
+          grid-template-columns: 1fr !important;
+          gap: 16px !important;
+        }
+        .muun-eco-grid .muun-partner-card {
+          height: auto !important;
+          min-height: 120px !important;
+        }
       }
 
       
@@ -2396,13 +2461,26 @@ for (const lang of ['ru', 'ky', 'en']) {
         letter-spacing: 0.02em !important;
       }
 
-      .muun-form-subtitle {
+      .muun-form-subtitle,
+      .muun-form-lead p {
         text-align: left !important;
-        color: rgba(224, 242, 254, 0.65) !important;
-        margin: 0 0 20px 0 !important;
+        color: rgba(224, 242, 254, 0.78) !important;
+        margin: 0 !important;
         font-size: 13.5px !important;
-        line-height: 1.5 !important;
+        line-height: 1.55 !important;
         font-family: 'Inter', sans-serif !important;
+      }
+
+      .muun-form-lead {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+        margin: 0 0 22px 0 !important;
+      }
+
+      .muun-form-lead .lead-strong {
+        color: #ffffff !important;
+        font-weight: 600 !important;
       }
 
       .muun-sgo-warning-box {
@@ -2511,6 +2589,19 @@ for (const lang of ['ru', 'ky', 'en']) {
 
       .form-input-dark::placeholder {
         color: rgba(255, 255, 255, 0.35) !important;
+      }
+
+      input[type="file"].form-input-dark::file-selector-button {
+        margin-right: 12px !important;
+        border: 0 !important;
+        border-radius: 8px !important;
+        padding: 8px 12px !important;
+        background: rgba(56, 189, 248, 0.18) !important;
+        color: #ffffff !important;
+        font-family: 'Inter', sans-serif !important;
+        font-size: 12.5px !important;
+        font-weight: 600 !important;
+        cursor: pointer !important;
       }
 
       .form-input-dark:focus {
@@ -3278,7 +3369,8 @@ for (const lang of ['ru', 'ky', 'en']) {
         .framer-10bvv2u h2,
         .framer-1xmtadx h2,
         .framer-17ylf30 h2,
-        .framer-ostf7s h2 {
+        .framer-ostf7s h2,
+        .muun-eco-partners-title {
           font-size: clamp(22px, 6.6vw, 30px) !important;
         }
 
@@ -3560,58 +3652,185 @@ for (const lang of ['ru', 'ky', 'en']) {
         }
 
         // Registration Tab Switcher & Submission Logic
+        var REG_MSG = ${JSON.stringify({
+          cyr: t['reg.err_cyr'],
+          lat: t['reg.err_lat'],
+          pin: t['reg.err_pin'],
+          passport: t['reg.err_passport'],
+          resumeType: t['reg.err_resume_type'],
+          resumeSize: t['reg.err_resume_size'],
+          sending: t['reg.sending']
+        })};
+
+        function isFullCyrillicName(value) {
+          var v = String(value || '').trim().replace(/\\s+/g, ' ');
+          if (!v || v.indexOf('.') !== -1) return false;
+          var parts = v.split(/[\\s-]+/);
+          if (!parts.length) return false;
+          for (var i = 0; i < parts.length; i++) {
+            if (parts[i].length < 2 || !/^[А-ЯЁа-яёҢңӨөҮү]+$/.test(parts[i])) return false;
+          }
+          return true;
+        }
+
+        function isLatinPassportName(value) {
+          var v = String(value || '').trim().replace(/\\s+/g, ' ');
+          if (!v) return false;
+          var words = v.split(' ');
+          for (var i = 0; i < words.length; i++) {
+            if (words[i].length < 2 || !/^[A-Za-z]+(?:['-][A-Za-z]+)*$/.test(words[i])) return false;
+          }
+          return true;
+        }
+
+        function markRegInvalid(input, message) {
+          if (!input) return;
+          input.setCustomValidity(message || '');
+          input.reportValidity();
+        }
+
+        function setPanelState(panel, active) {
+          if (!panel) return;
+          panel.style.display = active ? 'flex' : 'none';
+          panel.querySelectorAll('input, select, textarea').forEach(function (inp) {
+            inp.disabled = !active;
+            if (inp.name === 'middleName') {
+              inp.removeAttribute('required');
+              return;
+            }
+            if (active) inp.setAttribute('required', '');
+            else inp.removeAttribute('required');
+          });
+        }
+
+        function setStreamEnabled(container, enabled) {
+          if (!container) return;
+          container.querySelectorAll('input, select, textarea').forEach(function (inp) {
+            if (inp.closest && inp.closest('[data-citizen-panel]')) return;
+            inp.disabled = !enabled;
+            if (inp.name === 'middleName' || inp.name === 'resume') {
+              inp.removeAttribute('required');
+              return;
+            }
+            if (enabled) inp.setAttribute('required', '');
+            else inp.removeAttribute('required');
+          });
+        }
+
+        function setOrganizationRequired(required) {
+          var input = document.getElementById('reg-organization');
+          var star = document.getElementById('reg-org-star');
+          if (input) {
+            if (required) input.setAttribute('required', '');
+            else input.removeAttribute('required');
+          }
+          if (star) star.hidden = !required;
+        }
+
+        window.switchCitizenship = function (kind) {
+          var isKg = kind !== 'foreign';
+          setPanelState(document.getElementById('citizen-kg'), isKg);
+          setPanelState(document.getElementById('citizen-foreign'), !isKg);
+          setOrganizationRequired(isKg);
+        };
+
         window.switchRegTab = function(tab) {
           var btnIndiv = document.getElementById('tab-btn-indiv');
           var btnGroup = document.getElementById('tab-btn-group');
           var streamIndiv = document.getElementById('stream-indiv-fields');
           var streamGroup = document.getElementById('stream-group-fields');
           var typeInput = document.getElementById('regTypeInput');
+          var indiv = tab !== 'group';
 
-          if (tab === 'indiv') {
-            if (btnIndiv) btnIndiv.classList.add('active');
-            if (btnGroup) btnGroup.classList.remove('active');
-            if (streamIndiv) streamIndiv.style.display = 'flex';
-            if (streamGroup) streamGroup.style.display = 'none';
-            if (typeInput) typeInput.value = 'individual';
+          if (btnIndiv) btnIndiv.classList.toggle('active', indiv);
+          if (btnGroup) btnGroup.classList.toggle('active', !indiv);
+          if (streamIndiv) streamIndiv.style.display = indiv ? 'flex' : 'none';
+          if (streamGroup) streamGroup.style.display = indiv ? 'none' : 'flex';
+          if (typeInput) typeInput.value = indiv ? 'individual' : 'group';
 
-            setRegFieldsRequired(streamIndiv, true);
-            setRegFieldsRequired(streamGroup, false);
+          if (indiv) {
+            setStreamEnabled(streamGroup, false);
+            setStreamEnabled(streamIndiv, true);
+            var sel = document.getElementById('citizenship-select');
+            window.switchCitizenship(sel ? sel.value : 'kg');
           } else {
-            if (btnGroup) btnGroup.classList.add('active');
-            if (btnIndiv) btnIndiv.classList.remove('active');
-            if (streamIndiv) streamIndiv.style.display = 'none';
-            if (streamGroup) streamGroup.style.display = 'flex';
-            if (typeInput) typeInput.value = 'group';
-
-            setRegFieldsRequired(streamIndiv, false);
-            setRegFieldsRequired(streamGroup, true);
+            setStreamEnabled(streamIndiv, false);
+            setPanelState(document.getElementById('citizen-kg'), false);
+            setPanelState(document.getElementById('citizen-foreign'), false);
+            setStreamEnabled(streamGroup, true);
           }
         };
 
-        function setRegFieldsRequired(container, isReq) {
-          if (!container) return;
-          var inputs = container.querySelectorAll('input:not([type="checkbox"]):not([type="hidden"]), select');
-          inputs.forEach(function(inp) {
-            if (inp.name === 'middleName' || inp.name === 'other_interest' || inp.name === 'interests') return;
-            if (isReq) inp.setAttribute('required', '');
-            else inp.removeAttribute('required');
-          });
-          var chk = container.querySelector('input[type="checkbox"][id$="sgo-consent"]');
-          if (chk) {
-            if (isReq) chk.setAttribute('required', '');
-            else chk.removeAttribute('required');
-          }
+        function resumeProblem(input) {
+          if (!input || !input.files || !input.files.length) return '';
+          var file = input.files[0];
+          var name = String(file.name || '').toLowerCase();
+          var dot = name.lastIndexOf('.');
+          var ext = dot >= 0 ? name.slice(dot + 1) : '';
+          var allowed = { pdf: 1, doc: 1, docx: 1, jpg: 1, jpeg: 1, png: 1 };
+          if (!allowed[ext]) return REG_MSG.resumeType;
+          if (file.size > 10 * 1024 * 1024) return REG_MSG.resumeSize;
+          return '';
         }
+
+        function validateVisitorNames(form, regType) {
+          if (regType === 'group') return true;
+          var resume = document.querySelector('#reg-resume');
+          var resumeError = resumeProblem(resume);
+          if (resumeError) { markRegInvalid(resume, resumeError); return false; }
+          var kindInput = document.getElementById('citizenship-select');
+          var kind = kindInput ? kindInput.value : 'kg';
+          if (kind === 'foreign') {
+            var box = document.getElementById('citizen-foreign');
+            var last = box.querySelector('[name="lastName"]');
+            var first = box.querySelector('[name="firstName"]');
+            var passport = box.querySelector('[name="passport"]');
+            if (!isLatinPassportName(last.value)) { markRegInvalid(last, REG_MSG.lat); return false; }
+            if (!isLatinPassportName(first.value)) { markRegInvalid(first, REG_MSG.lat); return false; }
+            if (!/^[A-Za-z0-9]+$/.test(String(passport.value || '').trim())) { markRegInvalid(passport, REG_MSG.passport); return false; }
+            return true;
+          }
+          var kg = document.getElementById('citizen-kg');
+          var lastK = kg.querySelector('[name="lastName"]');
+          var firstK = kg.querySelector('[name="firstName"]');
+          var middle = kg.querySelector('[name="middleName"]');
+          var pin = kg.querySelector('[name="pin"]');
+          if (!isFullCyrillicName(lastK.value)) { markRegInvalid(lastK, REG_MSG.cyr); return false; }
+          if (!isFullCyrillicName(firstK.value)) { markRegInvalid(firstK, REG_MSG.cyr); return false; }
+          if (middle && String(middle.value || '').trim() && !isFullCyrillicName(middle.value)) { markRegInvalid(middle, REG_MSG.cyr); return false; }
+          if (!/^\\d{14}$/.test(String(pin.value || '').trim())) { markRegInvalid(pin, REG_MSG.pin); return false; }
+          return true;
+        }
+
+        document.addEventListener('change', function (e) {
+          var el = e.target;
+          if (!el || el.id !== 'reg-resume') return;
+          var problem = resumeProblem(el);
+          el.setCustomValidity(problem || '');
+          if (problem) el.reportValidity();
+        });
+
+        (function bindRegInput() {
+          var form = document.getElementById('visitor-reg-form');
+          if (!form) return;
+          form.addEventListener('input', function (e) {
+            var el = e.target;
+            if (!el || !el.setCustomValidity) return;
+            if (el.name === 'pin') el.value = String(el.value || '').replace(/\\D/g, '').slice(0, 14);
+            el.setCustomValidity('');
+          });
+        })();
 
         window.submitVisitorForm = function(event, form) {
           event.preventDefault();
           var regType = document.getElementById('regTypeInput') ? document.getElementById('regTypeInput').value : 'individual';
+          if (!validateVisitorNames(form, regType)) return;
           var submitBtn = (regType === 'group') ? document.getElementById('reg-submit-btn-group') : document.getElementById('reg-submit-btn-indiv');
           if (!submitBtn) submitBtn = form.querySelector('button[type="submit"]');
 
           var originalText = submitBtn ? submitBtn.innerHTML : '';
           if (submitBtn) {
-            submitBtn.innerHTML = ${JSON.stringify(lang === 'ky' ? '⏳ СГОго жөнөтүлүүдө...' : lang === 'en' ? '⏳ Sending to SGO...' : '⏳ Отправка в СГО...')};
+            submitBtn.innerHTML = REG_MSG.sending;
             submitBtn.disabled = true;
           }
 
@@ -3628,7 +3847,11 @@ for (const lang of ['ru', 'ky', 'en']) {
             });
           }
 
+          var resumeInput = document.getElementById('reg-resume');
+          var resumeFile = (regType !== 'group' && resumeInput && resumeInput.files && resumeInput.files[0]) ? resumeInput.files[0] : null;
+
           var formData = new FormData(form);
+          formData.delete('resume');
           turnedOff.forEach(function (el) { el.disabled = false; });
 
           var interestsArray = formData.getAll('interests');
@@ -3648,27 +3871,51 @@ for (const lang of ['ru', 'ky', 'en']) {
           formData.set('lang', '${lang}');
           formData.set('submittedAt', new Date().toISOString());
 
-          var urlEncodedData = new URLSearchParams(formData).toString();
+          function postRegistration() {
+            var urlEncodedData = new URLSearchParams(formData).toString();
+            fetch('${REGISTRATION_ENDPOINT}', {
+              method: 'POST',
+              mode: 'no-cors',
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+              body: urlEncodedData
+            })
+            .then(function() {
+              window.showPendingScreen(regId);
+            })
+            .catch(function(err) {
+              console.error(err);
+              window.showPendingScreen(regId);
+            })
+            .finally(function() {
+              if (submitBtn) {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+              }
+            });
+          }
 
-          fetch('${REGISTRATION_ENDPOINT}', {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: urlEncodedData
-          })
-          .then(function() {
-            window.showPendingScreen(regId);
-          })
-          .catch(function(err) {
-            console.error(err);
-            window.showPendingScreen(regId);
-          })
-          .finally(function() {
+          if (!resumeFile) {
+            postRegistration();
+            return;
+          }
+
+          var reader = new FileReader();
+          reader.onload = function() {
+            var result = String(reader.result || '');
+            var comma = result.indexOf(',');
+            formData.set('resumeName', resumeFile.name || 'resume');
+            formData.set('resumeMime', resumeFile.type || '');
+            formData.set('resumeData', comma >= 0 ? result.slice(comma + 1) : result);
+            postRegistration();
+          };
+          reader.onerror = function() {
             if (submitBtn) {
               submitBtn.innerHTML = originalText;
               submitBtn.disabled = false;
             }
-          });
+            markRegInvalid(resumeInput, REG_MSG.resumeType);
+          };
+          reader.readAsDataURL(resumeFile);
         };
 
         window.showPendingScreen = function(regId) {
@@ -4102,9 +4349,9 @@ for (const lang of ['ru', 'ky', 'en']) {
           // 12. Update Navigation
           updateNav();
 
-          // 13. Speakers: four confirmed people, hide the last two template cards
+          // 13. Speakers on the home carousel (six cards)
           const HOME_SPEAKERS = ${JSON.stringify(homeSpeakerPeople(lang))};
-          ['Speaker 01', 'Speaker 02', 'Speaker 03', 'Speaker 04'].forEach((slot, i) => {
+          ${JSON.stringify(HOME_SPEAKER_SLOTS.map((slot) => slot.slot))}.forEach((slot, i) => {
             const person = HOME_SPEAKERS[i];
             document.querySelectorAll('section[data-framer-name="Speakers"] [data-framer-name="' + slot + '"]').forEach(root => {
               root.querySelectorAll('[data-framer-name="Name"] h4').forEach(h => {
@@ -4126,14 +4373,6 @@ for (const lang of ['ru', 'ky', 'en']) {
               });
             });
           });
-          ['Speaker 05', 'Speaker 06'].forEach(slot => {
-            document.querySelectorAll('section[data-framer-name="Speakers"] [data-framer-name="' + slot + '"]').forEach(el => {
-              const li = el.closest('li');
-              if (li) li.style.setProperty('display', 'none', 'important');
-              el.style.setProperty('display', 'none', 'important');
-            });
-          });
-
           // 13b. Speakers Section: Bottom Bar & Permanent Color Photos
           const speakerBarText = "${lang === 'ky' ? 'Спикерлер' : lang === 'en' ? 'Speakers' : 'Спикеры'}";
           const seeAllText = "${lang === 'ky' ? 'Баарын көрүү' : lang === 'en' ? 'See All' : 'Смотреть всех'}";
@@ -4183,22 +4422,10 @@ for (const lang of ['ru', 'ky', 'en']) {
             }
           });
 
-          // 14. Partners Grid (3 prominent general partner cards)
+          // 14. Partners Grid: general partners, then ECO-SYSTEM partners
           const partnersGrid = document.querySelector('.framer-ff8lq4');
-          if (partnersGrid) {
-            const partnerCards = partnersGrid.querySelectorAll('.muun-partner-card');
-            if (partnerCards.length !== 3 || partnersGrid.children.length !== 3) {
-              partnersGrid.innerHTML = 
-                '<div class="muun-partner-card" title="Kumtor Gold Company">' +
-                  '<img src="/assets/kumtor.png" alt="Кумтөр Голд Компани" class="muun-partner-logo kumtor-logo" />' +
-                '</div>' +
-                '<div class="muun-partner-card" title="Кыргызалтын">' +
-                  '<img src="/assets/kyrgyzaltyn.png" alt="ОАО Кыргызалтын" class="muun-partner-logo kyrgyzaltyn-logo" />' +
-                '</div>' +
-                '<div class="muun-partner-card" title="Аэропорты Кыргызстана">' +
-                  '<img src="/assets/aeroporty-kyrgyzstana.png" alt="ОАО Аэропорты Кыргызстана" class="muun-partner-logo aeroporty-logo" />' +
-                '</div>';
-            }
+          if (partnersGrid && !partnersGrid.querySelector('.muun-eco-partners')) {
+            partnersGrid.innerHTML = ${JSON.stringify(partnersGridInnerHtml)};
           }
 
           // 15. Footer Customizations (User requests 1, 2, 3, 4)
