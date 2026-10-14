@@ -4,6 +4,7 @@ import { REGISTRATION_ENDPOINT } from './form_endpoints.mjs';
 import { SOCIAL, threadsIconSvg, footerSocialCss, footerFixerJs, mobileNavCss, renderMobileNav } from './muun_social.mjs';
 import { programCss, programClientJs, programFixerJs, injectProgramSsr } from './program_block.mjs';
 import { lockHeroMark, heroMarkCss, heroMarkScript } from './hero_mark.mjs';
+import { stripFramerRuntime } from './strip_framer_runtime.mjs';
 
 const rawHtml = fs.readFileSync('templates/eventis_raw.html', 'utf8');
 const i18n = JSON.parse(fs.readFileSync('src/i18n.json', 'utf8'));
@@ -801,7 +802,46 @@ function patchHomeSpeakers(html, people) {
     }
     html = result + html.slice(cursor);
   });
-  return html;
+  return patchGuestCards(html, people);
+}
+
+function patchGuestCards(html, people) {
+  if (!people?.length) return html;
+  const marker = 'data-framer-name="Guest Card"';
+  let result = '';
+  let cursor = 0;
+  let from = 0;
+  let personIndex = 0;
+  let lastOriginal = null;
+  while ((from = html.indexOf(marker, from)) !== -1) {
+    const next = html.indexOf(marker, from + marker.length);
+    const end = next === -1 ? html.length : next;
+    let chunk = html.slice(from, end);
+    const original = (chunk.match(/<h4\b[^>]*>([^<]*)<\/h4>/) || [])[1] || '';
+    if (lastOriginal !== null && original !== lastOriginal) personIndex += 1;
+    lastOriginal = original;
+    const person = people[personIndex % people.length];
+    chunk = chunk.replace(/(<h4\b[^>]*>)[^<]*(<\/h4>)/, `$1${person.name}$2`);
+    chunk = chunk.replace(/(<p\b[^>]*>)[^<]*(<\/p>)/, `$1${person.role}$2`);
+    chunk = chunk.replace(/<img\b[^>]*>/i, (tag) => (
+      tag
+        .replace(/\s(?:srcset|sizes)="[^"]*"/gi, '')
+        .replace(/\ssrc="[^"]*"/i, ` src="${person.photo}"`)
+        .replace(/\salt="[^"]*"/i, ` alt="${person.name.replace(/"/g, '')}"`)
+    ));
+    result += html.slice(cursor, from) + chunk;
+    cursor = end;
+    from = end;
+  }
+  return result + html.slice(cursor);
+}
+
+function replaceMarkedHeadings(html, pairs) {
+  return html.replace(/<h2\b[^>]*>[\s\S]*?<\/h2>/gi, (h2) => {
+    const hit = pairs.find((pair) => h2.includes(pair.marker));
+    if (!hit) return h2;
+    return h2.replace(/>([\s\S]*)<\/h2>$/, `>${hit.html}</h2>`);
+  });
 }
 
 for (const lang of ['ru', 'ky', 'en']) {
@@ -820,10 +860,12 @@ for (const lang of ['ru', 'ky', 'en']) {
   const saTxt = lang === 'ky' ? 'Баарын көрүү' : lang === 'en' ? 'See All' : 'Смотреть всех';
 
   const replacements = [
+    ['<html lang="en-IN">', `<html lang="${lang === 'en' ? 'en' : lang === 'ky' ? 'ky' : 'ru'}">`],
     ['<title>Eventis - Free Event and Conference Template</title>', `<title>${metaTitle}</title>`],
     ['Eventis - Free Event and Conference Template', metaTitle],
     ['Join Eventis, the premier technology and IT summit, bringing together developers, designers, entrepreneurs, and investors to explore the latest in software development, AI innovations, and startup growth.', m.description || loc.subtitle.replace('<br>', ' ')],
     ['https://eventis.framer.website/', 'https://muun.kg/'],
+    ['Marina Bay, Singapore', loc.location],
     ['https://framerusercontent.com/images/AxQMXkb9SNyxDMp63XvKlzyGFo.png', '/favicon.png?v=7'],
     ['About Aicron', curAbout.kicker],
     ['Innovation . Networking . Marketing . Learning . ', hd.ticker],
@@ -4040,11 +4082,16 @@ for (const lang of ['ru', 'ky', 'en']) {
 
           // 3. Hero Bottom Bar
           const bottomBar = document.querySelector('.framer-poyw0');
-          if (bottomBar) {
+          if (bottomBar && !bottomBar.querySelector('.muun-bottom-date')) {
             bottomBar.innerHTML = 
               '<div class="muun-bottom-date">' + LOC_DATE + '</div>' +
               '<div class="muun-bottom-line"></div>' +
               '<div class="muun-bottom-loc">' + LOC_LOCATION + '</div>';
+          } else if (bottomBar) {
+            const dateEl = bottomBar.querySelector('.muun-bottom-date');
+            const locEl = bottomBar.querySelector('.muun-bottom-loc');
+            if (dateEl && dateEl.textContent !== LOC_DATE) dateEl.textContent = LOC_DATE;
+            if (locEl && locEl.textContent !== LOC_LOCATION) locEl.textContent = LOC_LOCATION;
           }
           
           // 4. Hero Title, Subtitle, Buttons, and Ministry Endorsement
@@ -4173,7 +4220,14 @@ for (const lang of ['ru', 'ky', 'en']) {
             }
           });
 
-          // 7d. Speakers section
+          // 7d. Speakers section — every breakpoint copy
+          document.querySelectorAll('h2').forEach(h2 => {
+            const t = h2.textContent;
+            if (t.includes('Absolutely')) h2.innerHTML = HEADINGS.about.titleHtml;
+            else if (t.includes('Definitely')) h2.innerHTML = HEADINGS.target.titleHtml;
+            else if (t.includes('Esteemed') || t.includes('Thought Leaders')) h2.innerHTML = HEADINGS.speakers.titleHtml;
+            else if (t.includes('Discover the Full') || t.includes('Event Agenda')) h2.innerHTML = HEADINGS.agenda.titleHtml;
+          });
           const speakersTitleH2 = document.querySelector('.framer-1xmtadx h2');
           if (speakersTitleH2 && speakersTitleH2.innerHTML !== HEADINGS.speakers.titleHtml) {
             speakersTitleH2.innerHTML = HEADINGS.speakers.titleHtml;
@@ -4486,7 +4540,31 @@ for (const lang of ['ru', 'ky', 'en']) {
           }
         }
 
-        setInterval(fixHydration, 20);
+        (function watchFramer(fix) {
+          var obs = new MutationObserver(function () { schedule(); });
+          var queued = false;
+          var started = false;
+          function schedule() {
+            if (queued) return;
+            queued = true;
+            requestAnimationFrame(function () {
+              queued = false;
+              try { fix(); }
+              catch (err) { console.error('[muun]', err); }
+            });
+          }
+          function start() {
+            if (started || !document.body) return;
+            started = true;
+            obs.observe(document.body, { childList: true, subtree: true });
+            schedule();
+          }
+          if (document.body) start();
+          else document.addEventListener('DOMContentLoaded', start);
+          window.addEventListener('pageshow', function (event) {
+            if (event.persisted) schedule();
+          });
+        })(fixHydration);
       })();
     </script>
   `;
@@ -4494,6 +4572,13 @@ for (const lang of ['ru', 'ky', 'en']) {
   finalHtml = lockHeroMark(finalHtml);
   finalHtml = patchHomeSpeakers(finalHtml, homeSpeakerPeople(lang));
   finalHtml = injectProgramSsr(finalHtml, lang);
+  finalHtml = replaceMarkedHeadings(finalHtml, [
+    { marker: 'Absolutely', html: hd.about.titleHtml },
+    { marker: 'Definitely', html: hd.target.titleHtml },
+    { marker: 'Esteemed', html: hd.speakers.titleHtml },
+    { marker: '>Discover<', html: hd.agenda.titleHtml }
+  ]);
+  finalHtml = finalHtml.replaceAll('>Event agenda</h4>', `>${hd.agenda.kicker}</h4>`);
   finalHtml = finalHtml.replace('</head>', styleAndScripts + '\n</head>');
 
   // Floating language switcher
@@ -4511,6 +4596,7 @@ for (const lang of ['ru', 'ky', 'en']) {
   finalHtml = finalHtml.replace('</body>', participantModalHtml + '\n' + langSwitcherHtml + '\n' + mobileNavHtml + '\n</body>');
 
   fs.mkdirSync(`dist/${lang}`, { recursive: true });
+  finalHtml = stripFramerRuntime(finalHtml);
   fs.writeFileSync(`dist/${lang}/index.html`, finalHtml);
 
   if (lang === 'ru') {

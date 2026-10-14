@@ -6,6 +6,7 @@ import { pressCss, renderPressBlock, pressClientJs } from './press_block.mjs';
 import { programCss, programClientJs, programFixerJs, injectProgramSsr } from './program_block.mjs';
 import { applyFooterSocials, footerSocialCss, footerFixerJs, contactBlockHtml, contactCopy, contactSocialCss, contactFixerJs, mobileNavCss, renderMobileNav } from './muun_social.mjs';
 import { lockHeroMark, heroMarkCss, heroMarkScript } from './hero_mark.mjs';
+import { stripFramerRuntime } from './strip_framer_runtime.mjs';
 
 console.log('Building completely polished subpages with exact fixes...');
 
@@ -230,8 +231,17 @@ for (const lang of languages) {
       .join('/favicon.png?v=7'));
     const pageTitle = conf.titles[lang];
 
-    // Replace <title>
+    const htmlLang = lang === 'en' ? 'en' : lang === 'ky' ? 'ky' : 'ru';
+    const metaDesc = lang === 'ky'
+      ? 'MUUN 2026 — Кыргызстандын келечек кесиптеринин улуттук жаштар көргөзмө-форуму. 17–18-ноябрь, Бишкек, Ырыс Ордо.'
+      : lang === 'en'
+      ? 'MUUN 2026 — national youth exhibition-forum of the professions of the future. November 17–18, Bishkek, Yrys Ordo.'
+      : 'MUUN 2026 — национальная молодежная выставка-форум профессий будущего. 17–18 ноября, Бишкек, Ырыс Ордо.';
+    pageHtml = pageHtml.replace(/<html lang="[^"]*">/i, `<html lang="${htmlLang}">`);
     pageHtml = pageHtml.replace(/<title>[\s\S]*?<\/title>/i, `<title>${pageTitle.meta} — MUUN 2026</title>`);
+    pageHtml = pageHtml.replaceAll('Eventis - Free Event and Conference Template', `${pageTitle.meta} — MUUN 2026`);
+    pageHtml = pageHtml.replaceAll('Join Eventis, the premier technology and IT summit, bringing together developers, designers, entrepreneurs, and investors to explore the latest in software development, AI innovations, and startup growth.', metaDesc);
+    pageHtml = pageHtml.replaceAll('https://eventis.framer.website/', `https://muun.kg/${lang}/`);
 
     // Injected CSS
     const extraCss = `
@@ -468,7 +478,7 @@ for (const lang of languages) {
 
     // Replace Big H1 Title
     const heroTitleClass = slug === 'press' ? 'framer-hero-big-title muun-hero-one-line' : 'framer-hero-big-title';
-    pageHtml = pageHtml.replace(/<h1[^>]*>[\s\S]*?<\/h1>/i, `<h1 class="${heroTitleClass}">${pageTitle.h1}</h1>`);
+    pageHtml = pageHtml.replace(/<h1[^>]*>[\s\S]*?<\/h1>/gi, `<h1 class="${heroTitleClass}">${pageTitle.h1}</h1>`);
 
     // Replace Header Navigation in SSR HTML
     const navStart = pageHtml.indexOf('<nav class="framer-1s42b8a"');
@@ -1065,12 +1075,35 @@ for (const lang of languages) {
             }, 600);
           };
 
-          fixSubpage();
-          setInterval(fixSubpage, 50);
+          (function watchFramer(fix) {
+            var obs = new MutationObserver(function () { schedule(); });
+            var queued = false;
+            var started = false;
+            function schedule() {
+              if (queued) return;
+              queued = true;
+              requestAnimationFrame(function () {
+                queued = false;
+                try { fix(); }
+                catch (err) { console.error('[muun]', err); }
+              });
+            }
+            function start() {
+              if (started || !document.body) return;
+              started = true;
+              obs.observe(document.body, { childList: true, subtree: true });
+              schedule();
+            }
+            if (document.body) start();
+            else document.addEventListener('DOMContentLoaded', start);
+            window.addEventListener('pageshow', function (event) {
+              if (event.persisted) schedule();
+            });
+          })(fixSubpage);
         })();
       </script>
     `;
-    pageHtml = pageHtml.replace('</body>', `${clientScript}\n</body>`);
+    pageHtml = stripFramerRuntime(pageHtml.replace('</body>', `${clientScript}\n</body>`));
 
     // Write output files
     const targets = [
