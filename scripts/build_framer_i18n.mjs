@@ -35,7 +35,7 @@ const downloadEagle = 'C:/Users/Beibars/Downloads/орел2.png';
 if (fs.existsSync(downloadEagle)) {
   fs.copyFileSync(downloadEagle, 'assets/eagle2.png');
 }
-for (const f of ['favicon.ico', 'favicon.png', 'logo-new.png', 'logo-crystal.png', 'logo-header.png', 'president.png', 'ministry-logo.jpeg', 'ministry-logo-white.png', 'kumtor.png', 'kyrgyzaltyn.png', 'aeroporty kyrgyzstana.png', 'eagle2.png', 'logo-footer.png', 'og-image.jpg', 'partner-cebc.png', 'partner-codify.png', 'partner-prokg.png', 'partner-htp.png', 'partner-mdk-ru.png', 'partner-mdk-ky.png']) {
+for (const f of ['favicon.ico', 'favicon.png', 'logo-new.png', 'logo-crystal.png', 'logo-header.png', 'president.png', 'ministry-logo.jpeg', 'ministry-logo-white.png', 'kumtor.png', 'kyrgyzaltyn.png', 'aeroporty kyrgyzstana.png', 'eagle2.png', 'logo-footer.png', 'og-image.jpg', 'partner-cebc.png', 'partner-codify.png', 'partner-prokg.png', 'partner-htp.png', 'partner-mdk-ru.png', 'partner-mdk-ky.png', 'partner-contest.png']) {
   if (fs.existsSync(`assets/${f}`)) {
     fs.copyFileSync(`assets/${f}`, `dist/${f}`);
     fs.copyFileSync(`assets/${f}`, `dist/assets/${f}`);
@@ -739,6 +739,9 @@ function renderEcoPartners(titleHtml, lang) {
       </div>
       <div class="muun-partner-card" title="${mdkAlt}">
         <img src="${mdkSrc}" alt="${mdkAlt}" class="muun-partner-logo eco-mdk" />
+      </div>
+      <div class="muun-partner-card" title="Contest">
+        <img src="/assets/partner-contest.png" alt="Contest" class="muun-partner-logo eco-contest" />
       </div>
     </div>
   </div>`;
@@ -1978,7 +1981,7 @@ for (const lang of ['ru', 'ky', 'en']) {
 
       .muun-eco-grid {
         display: grid !important;
-        grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+        grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
         gap: 20px !important;
         width: 100% !important;
         margin: 0 !important;
@@ -2007,6 +2010,11 @@ for (const lang of ['ru', 'ky', 'en']) {
       .muun-eco-grid .eco-mdk {
         max-height: 104px !important;
         max-width: 100% !important;
+      }
+
+      .muun-eco-grid .eco-contest {
+        max-height: 52px !important;
+        max-width: 92% !important;
       }
 
       @media (max-width: 1200px) {

@@ -22,9 +22,39 @@ const SPEAKER_ORIGINALS = [
 ];
 
 function speakerRoster(lang) {
-  const pending = lang === 'ky' ? 'Маалымат күтүлүүдө' : lang === 'en' ? 'Information coming soon' : 'Ожидается информация';
-  const placeholder = { name: pending, role: '', photo: '/assets/speaker-placeholder.png', placeholder: true, focus: 'center center' };
   const jumabaevRole = 'Founder & CEO, LUWO · Ex-Google · Ex-JetBrains · Ex-Deutsche Bank · Founder, Growthhungry · TEDx Speaker';
+  const extra = {
+    ru: [
+      { name: 'Азис Абакиров', role: 'Директор Парка высоких технологий Кыргызской Республики', photo: '/assets/speaker-abakirov.jpg', focus: 'center 28%' },
+      { name: 'Атеев Руслан Маратович', role: 'Президент Федерации компьютерного спорта Кыргызстана', photo: '/assets/speaker-ateev.jpg', focus: '72% center' },
+      { name: 'Котляревский Виктор Сергеевич', role: 'Исполнительный директор турнирного оператора Contest.kg', photo: '/assets/speaker-kotlyarevsky.jpg', focus: 'center 8%' },
+      { name: 'Илияс Джеентаев', role: 'Основатель и CEO ArtSkin (искусственная кожа для протезов)', photo: '/assets/speaker-djeentaev.jpg', focus: 'center 20%' },
+      { name: 'Оман Абышев', role: 'Основатель Water Watch AI', photo: '/assets/speaker-abyshev.jpg', focus: '34% 8%' },
+      { name: 'Алмаз Чаначев', role: 'Руководитель офиса EPAM в Кыргызстане', photo: '/assets/speaker-chanachev.jpg', focus: 'center 22%' },
+      { name: 'Эмиль Билгазиев', role: 'Основатель American Institute of Technology (AIT); экс-технический директор одного из подразделений Facebook (Meta)', photo: '/assets/speaker-bilgaziev.jpg', focus: 'center center' },
+      { name: 'Аденов Абдыкерим Болотович', role: 'Преподаватель ML в Международном колледже IT и бизнеса Salymbekov University, основатель бишкекского клуба по робототехнике RoboComm', photo: '/assets/speaker-adenov.jpg', focus: 'center 42%' }
+    ],
+    ky: [
+      { name: 'Азис Абакиров', role: 'Кыргыз Республикасынын Жогорку технологиялар паркынын директору', photo: '/assets/speaker-abakirov.jpg', focus: 'center 28%' },
+      { name: 'Атеев Руслан Маратович', role: 'Кыргызстандын компьютердик спорт федерациясынын президенти', photo: '/assets/speaker-ateev.jpg', focus: '72% center' },
+      { name: 'Котляревский Виктор Сергеевич', role: 'Contest.kg турнир операторунун аткаруучу директору', photo: '/assets/speaker-kotlyarevsky.jpg', focus: 'center 8%' },
+      { name: 'Илияс Джеентаев', role: 'ArtSkin негиздөөчүсү жана башкы директору (протездер үчүн жасалма тери)', photo: '/assets/speaker-djeentaev.jpg', focus: 'center 20%' },
+      { name: 'Оман Абышев', role: 'Water Watch AI негиздөөчүсү', photo: '/assets/speaker-abyshev.jpg', focus: '34% 8%' },
+      { name: 'Алмаз Чаначев', role: 'EPAM компаниясынын Кыргызстандагы офисинин жетекчиси', photo: '/assets/speaker-chanachev.jpg', focus: 'center 22%' },
+      { name: 'Эмиль Билгазиев', role: 'American Institute of Technology (AIT) негиздөөчүсү; Facebook (Meta) бөлүмдөрүнүн биринин мурдагы техникалык директору', photo: '/assets/speaker-bilgaziev.jpg', focus: 'center center' },
+      { name: 'Аденов Абдыкерим Болотович', role: 'Salymbekov University Эл аралык IT жана бизнес колледжинин ML окутуучусу, Бишкектеги RoboComm робототехника клубунун негиздөөчүсү', photo: '/assets/speaker-adenov.jpg', focus: 'center 42%' }
+    ],
+    en: [
+      { name: 'Azis Abakirov', role: 'Director of the High Technology Park of the Kyrgyz Republic', photo: '/assets/speaker-abakirov.jpg', focus: 'center 28%' },
+      { name: 'Ruslan Maratovich Ateev', role: 'President of the Esports Federation of Kyrgyzstan', photo: '/assets/speaker-ateev.jpg', focus: '72% center' },
+      { name: 'Viktor Sergeevich Kotlyarevsky', role: 'Executive Director of the tournament operator Contest.kg', photo: '/assets/speaker-kotlyarevsky.jpg', focus: 'center 8%' },
+      { name: 'Iliyas Dzheentaev', role: 'Founder and CEO of ArtSkin (artificial skin for prosthetics)', photo: '/assets/speaker-djeentaev.jpg', focus: 'center 20%' },
+      { name: 'Oman Abyshev', role: 'Founder of Water Watch AI', photo: '/assets/speaker-abyshev.jpg', focus: '34% 8%' },
+      { name: 'Almaz Chanachev', role: 'Head of the EPAM office in Kyrgyzstan', photo: '/assets/speaker-chanachev.jpg', focus: 'center 22%' },
+      { name: 'Emil Bilgaziev', role: 'Founder of the American Institute of Technology (AIT); former technical director of a Facebook (Meta) division', photo: '/assets/speaker-bilgaziev.jpg', focus: 'center center' },
+      { name: 'Abdykerim Bolotovich Adenov', role: 'ML instructor at the International College of IT and Business, Salymbekov University; founder of the Bishkek robotics club RoboComm', photo: '/assets/speaker-adenov.jpg', focus: 'center 42%' }
+    ]
+  };
   const people = {
     ru: [
       { name: 'Касымалиев Адылбек Алешович', role: 'Председатель Кабинета Министров Кыргызской Республики – Руководитель Администрации Президента Кыргызской Республики', photo: '/assets/speaker-kasymaliev.png', focus: 'center 15%' },
@@ -34,7 +64,8 @@ function speakerRoster(lang) {
       { name: 'Айжан Алишерова', role: 'Основатель фонда поддержки стартапов «We Fund»', photo: '/assets/speaker-alisherova.jpg', focus: 'center 16%' },
       { name: 'Бекназаров Жакшылык Бекназарович', role: 'Председатель молодежного движения Кыргызстана, Отличник молодежной политики Кыргызской Республики', photo: '/assets/speaker-beknazarov.jpg', focus: 'center 28%' },
       { name: 'Эрхан Адаев', role: 'Co-founder & CEO, AI Academy', photo: '/assets/speaker-adaev.jpg', focus: 'center 32%' },
-      { name: 'Таалай Джумабаев', role: jumabaevRole, photo: '/assets/speaker-jumabaev.jpg', focus: 'center 18%' }
+      { name: 'Таалай Джумабаев', role: jumabaevRole, photo: '/assets/speaker-jumabaev.jpg', focus: 'center 18%' },
+      ...extra.ru
     ],
     ky: [
       { name: 'Касымалиев Адылбек Алешович', role: 'Кыргыз Республикасынын Министрлер Кабинетинин Төрагасы – Кыргыз Республикасынын Президентинин Администрациясынын жетекчиси', photo: '/assets/speaker-kasymaliev.png', focus: 'center 15%' },
@@ -44,7 +75,8 @@ function speakerRoster(lang) {
       { name: 'Айжан Алишерова', role: '«We Fund» стартаптарды колдоо фондунун негиздөөчүсү', photo: '/assets/speaker-alisherova.jpg', focus: 'center 16%' },
       { name: 'Бекназаров Жакшылык Бекназарович', role: 'Кыргызстандын жаштар кыймылынын төрагасы, Кыргыз Республикасынын жаштар саясатынын отличниги', photo: '/assets/speaker-beknazarov.jpg', focus: 'center 28%' },
       { name: 'Эрхан Адаев', role: 'AI Academy негиздөөчүсү жана башкы директору', photo: '/assets/speaker-adaev.jpg', focus: 'center 32%' },
-      { name: 'Таалай Джумабаев', role: jumabaevRole, photo: '/assets/speaker-jumabaev.jpg', focus: 'center 18%' }
+      { name: 'Таалай Джумабаев', role: jumabaevRole, photo: '/assets/speaker-jumabaev.jpg', focus: 'center 18%' },
+      ...extra.ky
     ],
     en: [
       { name: 'Adylbek Aleshovich Kasymaliev', role: 'Chairman of the Cabinet of Ministers of the Kyrgyz Republic – Head of the Presidential Administration of the Kyrgyz Republic', photo: '/assets/speaker-kasymaliev.png', focus: 'center 15%' },
@@ -54,12 +86,11 @@ function speakerRoster(lang) {
       { name: 'Aizhan Alisherova', role: 'Founder of the startup support fund We Fund', photo: '/assets/speaker-alisherova.jpg', focus: 'center 16%' },
       { name: 'Zhakshylyk Beknazarovich Beknazarov', role: 'Chairman of the Youth Movement of Kyrgyzstan, Excellence in Youth Policy of the Kyrgyz Republic', photo: '/assets/speaker-beknazarov.jpg', focus: 'center 28%' },
       { name: 'Erkhan Adaev', role: 'Co-founder & CEO, AI Academy', photo: '/assets/speaker-adaev.jpg', focus: 'center 32%' },
-      { name: 'Taalay Dzhumabaev', role: jumabaevRole, photo: '/assets/speaker-jumabaev.jpg', focus: 'center 18%' }
+      { name: 'Taalay Dzhumabaev', role: jumabaevRole, photo: '/assets/speaker-jumabaev.jpg', focus: 'center 18%' },
+      ...extra.en
     ]
   }[lang];
-  const filled = people.slice(0, SPEAKER_ORIGINALS.length);
-  while (filled.length < SPEAKER_ORIGINALS.length) filled.push({ ...placeholder });
-  return filled;
+  return people;
 }
 
 function findFramerMarker(html, name) {
@@ -92,7 +123,29 @@ function applySpeakerRoster(pageHtml, roster) {
       .replace(/\s(?:srcset|sizes)="[^"]*"/gi, '')
       .replace(/(\ssrc="\/assets\/speaker-[^"?]+)\?[^"]*"/, '$1"')
   ));
+  const extra = renderExtraSpeakers(roster);
+  const close = block.lastIndexOf('</section>');
+  if (extra && close !== -1) block = block.slice(0, close) + extra + block.slice(close);
   return pageHtml.slice(0, start) + block + pageHtml.slice(end);
+}
+
+function escHtml(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function renderExtraSpeakers(roster) {
+  const extras = roster.slice(SPEAKER_ORIGINALS.length);
+  if (!extras.length) return '';
+  const cards = extras.map((person) => `<article class="muun-extra-card">
+      <div class="muun-extra-photo"><img src="${escHtml(person.photo)}" alt="${escHtml(person.name)}" style="object-position:${escHtml(person.focus || 'center 20%')}"></div>
+      <h4>${escHtml(person.name)}</h4>
+      <p>${escHtml(person.role)}</p>
+    </article>`).join('');
+  return `<div class="muun-extra-speakers">${cards}</div>`;
 }
 
 const templates = {
@@ -400,7 +453,86 @@ for (const lang of languages) {
         [data-framer-name="Speakers 1"] img[src*="speaker-beknazarov"] { object-position: center 28% !important; }
         [data-framer-name="Speakers 1"] img[src*="speaker-adaev"] { object-position: center 32% !important; }
         [data-framer-name="Speakers 1"] img[src*="speaker-jumabaev"] { object-position: center 18% !important; }
+        [data-framer-name="Speakers 1"] img[src*="speaker-abakirov"] { object-position: center 28% !important; }
+        [data-framer-name="Speakers 1"] img[src*="speaker-ateev"] { object-position: 72% center !important; }
+        [data-framer-name="Speakers 1"] img[src*="speaker-kotlyarevsky"] { object-position: center 8% !important; }
+        [data-framer-name="Speakers 1"] img[src*="speaker-djeentaev"] { object-position: center 20% !important; }
+        [data-framer-name="Speakers 1"] img[src*="speaker-abyshev"] { object-position: 34% 8% !important; }
+        [data-framer-name="Speakers 1"] img[src*="speaker-chanachev"] { object-position: center 22% !important; }
+        [data-framer-name="Speakers 1"] img[src*="speaker-bilgaziev"] { object-position: center center !important; }
+        [data-framer-name="Speakers 1"] img[src*="speaker-adenov"] { object-position: center 42% !important; }
         [data-framer-name="Speakers 1"] img[src*="speaker-placeholder"] { object-position: center center !important; }
+        [data-framer-name="Speakers 1"] {
+          flex-direction: column !important;
+          flex-wrap: nowrap !important;
+          align-items: stretch !important;
+          height: auto !important;
+        }
+        [data-framer-name="Speakers 1"] > * {
+          width: 100% !important;
+          max-width: 100% !important;
+          flex: none !important;
+        }
+        .muun-extra-speakers {
+          display: grid !important;
+          grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+          gap: 56px 24px !important;
+          width: 100% !important;
+          max-width: 1320px !important;
+          margin: 56px auto 0 !important;
+          padding: 0 !important;
+          box-sizing: border-box !important;
+          position: relative !important;
+          z-index: 3 !important;
+        }
+        .muun-extra-card {
+          display: flex !important;
+          flex-direction: column !important;
+          align-items: stretch !important;
+          gap: 14px !important;
+          min-width: 0 !important;
+        }
+        .muun-extra-photo {
+          width: 100% !important;
+          aspect-ratio: 4 / 5 !important;
+          border-radius: 24px !important;
+          overflow: hidden !important;
+          background: #111 !important;
+        }
+        .muun-extra-photo img {
+          width: 100% !important;
+          height: 100% !important;
+          object-fit: cover !important;
+          display: block !important;
+          filter: none !important;
+          -webkit-filter: none !important;
+        }
+        .muun-extra-photo img[src*="speaker-adenov"] {
+          transform: scale(1.75) !important;
+          transform-origin: center 40% !important;
+        }
+        .muun-extra-card h4 {
+          margin: 0 !important;
+          min-height: 2.6em !important;
+          color: #fff !important;
+          font-family: 'Inter', sans-serif !important;
+          font-size: 22px !important;
+          font-weight: 600 !important;
+          line-height: 1.25 !important;
+        }
+        .muun-extra-card p {
+          margin: 0 !important;
+          color: rgb(138, 138, 138) !important;
+          font-family: 'Inter', sans-serif !important;
+          font-size: 15px !important;
+          line-height: 1.45 !important;
+        }
+        @media (max-width: 1199.98px) {
+          .muun-extra-speakers { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+        }
+        @media (max-width: 809.98px) {
+          .muun-extra-speakers { grid-template-columns: 1fr !important; margin-top: 40px !important; }
+        }
         [data-framer-name="Speakers 1"] [data-framer-name="Image"] { overflow: hidden !important; }
         [data-framer-name="Speakers 1"] [data-framer-name="Layer 1"],
         [data-framer-name="Speakers 1"] [data-framer-name="Layer 2"] {
@@ -824,13 +956,19 @@ for (const lang of languages) {
 
             ${slug === 'speakers' ? `
             const SPEAKER_ROSTER = ${JSON.stringify(speakerRoster(lang))};
+            const EXTRA_SPEAKERS_HTML = ${JSON.stringify(renderExtraSpeakers(speakerRoster(lang)))};
             document.querySelectorAll('[data-framer-name="Speakers 1"] [data-framer-name="Tag"], [data-framer-name="Speakers 2"]').forEach(el => {
               el.style.setProperty('display', 'none', 'important');
             });
+            const speakerSection = document.querySelector('[data-framer-name="Speakers 1"]');
+            if (speakerSection && EXTRA_SPEAKERS_HTML && !document.querySelector('.muun-extra-speakers')) {
+              speakerSection.insertAdjacentHTML('beforeend', EXTRA_SPEAKERS_HTML);
+            }
             let speakerProfiles = [...document.querySelectorAll('[data-framer-name="Speakers 1"] [data-framer-name="Profile"]')];
             const visibleProfiles = speakerProfiles.filter(p => p.getBoundingClientRect().height > 0);
             if (visibleProfiles.length) speakerProfiles = visibleProfiles;
             speakerProfiles.forEach((profile, i) => {
+              if (i >= 8) return;
               const person = SPEAKER_ROSTER[i];
               if (!person) return;
               const card = profile.parentElement;
