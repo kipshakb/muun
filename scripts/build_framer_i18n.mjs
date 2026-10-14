@@ -682,10 +682,6 @@ function renderRegForm(lang) {
           ${S['reg.pending_desc']}
         </p>
 
-        <div class="pending-id-pill" id="pending-reg-id">
-          ID: MUUN-PENDING
-        </div>
-
         <div class="pending-memo-box">
           <h4>${S['reg.memo_title']}</h4>
           <ul>
@@ -2836,20 +2832,6 @@ for (const lang of ['ru', 'ky', 'en']) {
         font-family: 'Inter', sans-serif !important;
       }
 
-      .pending-id-pill {
-        display: inline-block !important;
-        padding: 8px 20px !important;
-        background: rgba(56, 189, 248, 0.12) !important;
-        border: 1px dashed rgba(56, 189, 248, 0.4) !important;
-        border-radius: 10px !important;
-        color: #38bdf8 !important;
-        font-weight: 800 !important;
-        font-size: 15px !important;
-        letter-spacing: 0.05em !important;
-        margin-bottom: 24px !important;
-        font-family: monospace !important;
-      }
-
       .pending-memo-box {
         background: rgba(255, 255, 255, 0.03) !important;
         border: 1px solid rgba(255, 255, 255, 0.08) !important;
@@ -3712,13 +3694,17 @@ for (const lang of ['ru', 'ky', 'en']) {
           sending: t['reg.sending']
         })};
 
-        function isFullCyrillicName(value) {
+        function isFullPersonName(value) {
           var v = String(value || '').trim().replace(/\\s+/g, ' ');
           if (!v || v.indexOf('.') !== -1) return false;
           var parts = v.split(/[\\s-]+/);
           if (!parts.length) return false;
           for (var i = 0; i < parts.length; i++) {
-            if (parts[i].length < 2 || !/^[А-ЯЁа-яёҢңӨөҮү]+$/.test(parts[i])) return false;
+            var part = parts[i];
+            if (part.length < 2) return false;
+            var cyr = /^[А-ЯЁа-яёҢңӨөҮү]+$/.test(part);
+            var lat = /^[A-Za-z]+(?:['’][A-Za-z]+)*$/.test(part);
+            if (!cyr && !lat) return false;
           }
           return true;
         }
@@ -3845,9 +3831,9 @@ for (const lang of ['ru', 'ky', 'en']) {
           var firstK = kg.querySelector('[name="firstName"]');
           var middle = kg.querySelector('[name="middleName"]');
           var pin = kg.querySelector('[name="pin"]');
-          if (!isFullCyrillicName(lastK.value)) { markRegInvalid(lastK, REG_MSG.cyr); return false; }
-          if (!isFullCyrillicName(firstK.value)) { markRegInvalid(firstK, REG_MSG.cyr); return false; }
-          if (middle && String(middle.value || '').trim() && !isFullCyrillicName(middle.value)) { markRegInvalid(middle, REG_MSG.cyr); return false; }
+          if (!isFullPersonName(lastK.value)) { markRegInvalid(lastK, REG_MSG.cyr); return false; }
+          if (!isFullPersonName(firstK.value)) { markRegInvalid(firstK, REG_MSG.cyr); return false; }
+          if (middle && String(middle.value || '').trim() && !isFullPersonName(middle.value)) { markRegInvalid(middle, REG_MSG.cyr); return false; }
           if (!/^\\d{14}$/.test(String(pin.value || '').trim())) { markRegInvalid(pin, REG_MSG.pin); return false; }
           return true;
         }
@@ -3860,16 +3846,12 @@ for (const lang of ['ru', 'ky', 'en']) {
           if (problem) el.reportValidity();
         });
 
-        (function bindRegInput() {
-          var form = document.getElementById('visitor-reg-form');
-          if (!form) return;
-          form.addEventListener('input', function (e) {
-            var el = e.target;
-            if (!el || !el.setCustomValidity) return;
-            if (el.name === 'pin') el.value = String(el.value || '').replace(/\\D/g, '').slice(0, 14);
-            el.setCustomValidity('');
-          });
-        })();
+        document.addEventListener('input', function (e) {
+          var el = e.target;
+          if (!el || !el.closest || !el.closest('#visitor-reg-form') || !el.setCustomValidity) return;
+          if (el.name === 'pin') el.value = String(el.value || '').replace(/\\D/g, '').slice(0, 14);
+          el.setCustomValidity('');
+        });
 
         window.submitVisitorForm = function(event, form) {
           event.preventDefault();
@@ -3971,8 +3953,6 @@ for (const lang of ['ru', 'ky', 'en']) {
         window.showPendingScreen = function(regId) {
           var formStep = document.getElementById('reg-step-form');
           var pendingStep = document.getElementById('reg-step-pending');
-          var idEl = document.getElementById('pending-reg-id');
-          if (idEl) idEl.textContent = 'ID: ' + regId;
           if (formStep) formStep.style.display = 'none';
           if (pendingStep) pendingStep.style.display = 'block';
 
