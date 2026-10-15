@@ -35,7 +35,7 @@ const downloadEagle = 'C:/Users/Beibars/Downloads/орел2.png';
 if (fs.existsSync(downloadEagle)) {
   fs.copyFileSync(downloadEagle, 'assets/eagle2.png');
 }
-for (const f of ['favicon.ico', 'favicon.png', 'logo-new.png', 'logo-crystal.png', 'logo-header.png', 'president.png', 'ministry-logo.jpeg', 'ministry-logo-white.png', 'kumtor.png', 'kyrgyzaltyn.png', 'aeroporty kyrgyzstana.png', 'eagle2.png', 'logo-footer.png', 'og-image.jpg', 'partner-cebc.png', 'partner-codify.png', 'partner-prokg.png', 'partner-htp.png', 'partner-mdk-ru.png', 'partner-mdk-ky.png', 'partner-contest.png']) {
+for (const f of ['favicon.ico', 'favicon.png', 'logo-new.png', 'logo-crystal.png', 'logo-header.png', 'president.png', 'ministry-logo.jpeg', 'ministry-logo-white.png', 'kumtor.png', 'kyrgyzaltyn.png', 'aeroporty kyrgyzstana.png', 'eagle2.png', 'logo-footer.png', 'og-image.jpg', 'partner-cebc.png', 'partner-codify.png', 'partner-prokg.png', 'partner-htp.png', 'partner-mdk-ru.png', 'partner-mdk-ky.png', 'partner-contest.png', 'qr-instagram.svg', 'qr-facebook.svg', 'qr-threads.svg', 'qr-whatsapp.svg', 'speaker-abakirov.jpg']) {
   if (fs.existsSync(`assets/${f}`)) {
     fs.copyFileSync(`assets/${f}`, `dist/${f}`);
     fs.copyFileSync(`assets/${f}`, `dist/assets/${f}`);
@@ -50,7 +50,7 @@ const localizedContent = {
   ru: {
     title: 'ВЫБЕРИ СВОЕ<br>БУДУЩЕЕ',
     subtitle: 'Национальная молодежная выставка-форум<br>профессий будущего',
-    date: '17–18 ноября 2026',
+    date: '17 ноября 2026',
     location: 'Конгресс-холл «Ырыс Ордо», Бишкек',
     btnPrimary: 'Стать участником',
     btnSecondary: 'Бесплатная регистрация',
@@ -59,7 +59,7 @@ const localizedContent = {
   ky: {
     title: 'КЕЛЕЧЕГИҢДИ<br>ТАНДА',
     subtitle: 'Кыргызстандын келечек кесиптеринин<br>улуттук жаштар көргөзмө-форуму',
-    date: '17–18-ноябрь 2026',
+    date: '17-ноябрь 2026',
     location: '«Ырыс Ордо» конгресс-холлу, Бишкек',
     btnPrimary: 'Катышуучу болуу',
     btnSecondary: 'Акысыз каттоо',
@@ -68,7 +68,7 @@ const localizedContent = {
   en: {
     title: 'CHOOSE YOUR<br>FUTURE',
     subtitle: 'National Youth Exhibition-Forum<br>of Professions of the Future',
-    date: '17–18 November 2026',
+    date: '17 November 2026',
     location: 'Yrys Ordo Congress Hall, Bishkek',
     btnPrimary: 'Become a participant',
     btnSecondary: 'Free registration',
@@ -81,7 +81,7 @@ const aboutData = {
     kicker: 'О форуме',
     stats: [
       { target: 100, suffix: '+', desc: 'компаний и организаций-участников' },
-      { target: 10000, suffix: '+', desc: 'уникальных посетителей за два дня' },
+      { target: 10000, suffix: '+', desc: 'уникальных посетителей за день' },
       { target: 10, suffix: '+', desc: 'стран-участниц' },
       { target: 10000, suffix: ' м²', desc: 'общая площадь' },
       { target: 20, suffix: '+', desc: 'мероприятий деловой программы' },
@@ -97,7 +97,7 @@ const aboutData = {
     kicker: 'Форум жөнүндө',
     stats: [
       { target: 100, suffix: '+', desc: 'компаниялар жана уюмдар' },
-      { target: 10000, suffix: '+', desc: 'эки күндө уникалдуу келүүчүлөр' },
+      { target: 10000, suffix: '+', desc: 'бир күндө уникалдуу келүүчүлөр' },
       { target: 10, suffix: '+', desc: 'катышуучу өлкөлөр' },
       { target: 10000, suffix: ' м²', desc: 'жалпы аянты' },
       { target: 20, suffix: '+', desc: 'ишкердик программасындагы иш-чаралар' },
@@ -113,7 +113,7 @@ const aboutData = {
     kicker: 'About the Forum',
     stats: [
       { target: 100, suffix: '+', desc: 'companies and participating organizations' },
-      { target: 10000, suffix: '+', desc: 'unique visitors over two days' },
+      { target: 10000, suffix: '+', desc: 'unique visitors on the day' },
       { target: 10, suffix: '+', desc: 'participating countries' },
       { target: 10000, suffix: ' m²', desc: 'total venue area' },
       { target: 20, suffix: '+', desc: 'business program events' },
@@ -201,7 +201,7 @@ const faqData = {
       },
       {
         q: 'Где и в какое время будет проходить форум?',
-        a: 'Форум пройдет 17–18 ноября 2026 года в Бишкеке, в Конгресс-холле «Ырыс Ордо» (Бишкек Арена) 17 ноября с 14:00 до 18:00, 18 ноября с 09:00 до 18:00.'
+        a: 'Форум пройдет 17 ноября 2026 года в Бишкеке, в Конгресс-холле «Ырыс Ордо» (Бишкек Арена), с 14:00 до 19:00.'
       },
       {
         q: 'Как компания или учебное заведение могут стать экспонентом?',
@@ -232,7 +232,7 @@ const faqData = {
       },
       {
         q: 'Иш-чара кайсы жерде жана кайсы убакта өтөт?',
-        a: 'Форум 2026-жылдын 17-18-ноябрында Бишкек шаарында, «Ырыс Ордо» конгресс-холлунда (Бишкек Арена) өтөт: 17-ноябрь саат 14:00дөн 18:00гө чейин, 18-ноябрь саат 09:00дөн 18:00гө чейин.'
+        a: 'Форум 2026-жылдын 17-ноябрында Бишкек шаарында, «Ырыс Ордо» конгресс-холлунда (Бишкек Арена) саат 14:00дөн 19:00гө чейин өтөт.'
       },
       {
         q: 'Компания же ЖОЖ катары кантип катышса болот?',
@@ -263,7 +263,7 @@ const faqData = {
       },
       {
         q: 'Where and when will the forum take place?',
-        a: 'The forum will be held on November 17–18, 2026, in Bishkek at the Yrys Ordo Congress Hall (Bishkek Arena): November 17 from 14:00 to 18:00, and November 18 from 09:00 to 18:00.'
+        a: 'The forum will be held on 17 November 2026 in Bishkek at the Yrys Ordo Congress Hall (Bishkek Arena), from 14:00 to 19:00.'
       },
       {
         q: 'How can a company or university become an exhibitor?',
@@ -341,14 +341,14 @@ const SECTION_HEADINGS = {
     },
     agenda: {
       kicker: 'Программа',
-      titleHtml: 'Что вас ждет <span class="heading-muted">в эти два дня</span>'
+      titleHtml: 'Что вас ждет <span class="heading-muted">в этот день</span>'
     },
     zones: zonesData.ru,
     faq: faqData.ru,
     partners: {
       kicker: 'Партнеры',
-      titleHtml: 'Генеральные партнеры <span class="heading-muted">форума</span>',
-      titleText: 'Генеральные партнеры форума',
+      titleHtml: 'Генеральные партнеры',
+      titleText: 'Генеральные партнеры',
       ecoTitleHtml: 'ECO-SYSTEM <span class="heading-muted">партнеры</span>'
     },
     registration: {
@@ -383,14 +383,14 @@ const SECTION_HEADINGS = {
     },
     agenda: {
       kicker: 'Программа',
-      titleHtml: 'Бул эки күндө <span class="heading-muted">сизди эмне күтөт</span>'
+      titleHtml: 'Бул күнү <span class="heading-muted">сизди эмне күтөт</span>'
     },
     zones: zonesData.ky,
     faq: faqData.ky,
     partners: {
       kicker: 'Өнөктөштөр',
-      titleHtml: 'Форумдун башкы <span class="heading-muted">өнөктөштөрү</span>',
-      titleText: 'Форумдун башкы өнөктөштөрү',
+      titleHtml: 'Башкы өнөктөштөр',
+      titleText: 'Башкы өнөктөштөр',
       ecoTitleHtml: 'ECO-SYSTEM <span class="heading-muted">өнөктөштөр</span>'
     },
     registration: {
@@ -425,14 +425,14 @@ const SECTION_HEADINGS = {
     },
     agenda: {
       kicker: 'Program',
-      titleHtml: 'What Awaits You <span class="heading-muted">Over These Two Days</span>'
+      titleHtml: 'What Awaits You <span class="heading-muted">on This Day</span>'
     },
     zones: zonesData.en,
     faq: faqData.en,
     partners: {
       kicker: 'Partners',
-      titleHtml: 'General Partners <span class="heading-muted">of the Forum</span>',
-      titleText: 'General Partners of the Forum',
+      titleHtml: 'General Partners',
+      titleText: 'General Partners',
       ecoTitleHtml: 'ECO-SYSTEM <span class="heading-muted">partners</span>'
     },
     registration: {
@@ -751,7 +751,7 @@ function homeSpeakerPeople(lang) {
       { name: 'Орунтаев Нурдан Кемелович', role: 'Министр строительства, архитектуры и жилищно-коммунального хозяйства Кыргызской Республики', photo: '/assets/speaker-oruntaev.jpg', focus: 'center 18%' },
       { name: 'Динара Русланкызы', role: 'Основатель и директор ИТ-компании CODIFY', photo: '/assets/speaker-dinara.jpg', focus: 'center 30%' },
       { name: 'Айжан Алишерова', role: 'Основатель фонда поддержки стартапов «We Fund»', photo: '/assets/speaker-alisherova.jpg', focus: 'center 16%' },
-      { name: 'Бекназаров Жакшылык Бекназарович', role: 'Председатель молодежного движения Кыргызстана, Отличник молодежной политики Кыргызской Республики', photo: '/assets/speaker-beknazarov.jpg', focus: 'center 28%' }
+      { name: 'Бекназаров Жакшылык Бекназарович', role: 'Председатель молодежного движения Кыргызстана, Отличник молодежной политики Кыргызской Республики', photo: '/assets/speaker-beknazarov.jpg', focus: 'center 30%' }
     ],
     ky: [
       { name: 'Касымалиев Адылбек Алешович', role: 'Кыргыз Республикасынын Министрлер Кабинетинин Төрагасы – Кыргыз Республикасынын Президентинин Администрациясынын жетекчиси', photo: '/assets/speaker-kasymaliev.png', focus: 'center 15%' },
@@ -759,7 +759,7 @@ function homeSpeakerPeople(lang) {
       { name: 'Орунтаев Нурдан Кемелович', role: 'Кыргыз Республикасынын курулуш, архитектура жана турак жай-коммуналдык чарба министри', photo: '/assets/speaker-oruntaev.jpg', focus: 'center 18%' },
       { name: 'Динара Русланкызы', role: 'CODIFY ИТ-компаниясынын негиздөөчүсү жана директору', photo: '/assets/speaker-dinara.jpg', focus: 'center 30%' },
       { name: 'Айжан Алишерова', role: '«We Fund» стартаптарды колдоо фондунун негиздөөчүсү', photo: '/assets/speaker-alisherova.jpg', focus: 'center 16%' },
-      { name: 'Бекназаров Жакшылык Бекназарович', role: 'Кыргызстандын жаштар кыймылынын төрагасы, Кыргыз Республикасынын жаштар саясатынын отличниги', photo: '/assets/speaker-beknazarov.jpg', focus: 'center 28%' }
+      { name: 'Бекназаров Жакшылык Бекназарович', role: 'Кыргызстандын жаштар кыймылынын төрагасы, Кыргыз Республикасынын жаштар саясатынын отличниги', photo: '/assets/speaker-beknazarov.jpg', focus: 'center 30%' }
     ],
     en: [
       { name: 'Adylbek Aleshovich Kasymaliev', role: 'Chairman of the Cabinet of Ministers of the Kyrgyz Republic – Head of the Presidential Administration of the Kyrgyz Republic', photo: '/assets/speaker-kasymaliev.png', focus: 'center 15%' },
@@ -767,7 +767,7 @@ function homeSpeakerPeople(lang) {
       { name: 'Nurdan Kemelovich Oruntaev', role: 'Minister of Construction, Architecture and Housing and Communal Services of the Kyrgyz Republic', photo: '/assets/speaker-oruntaev.jpg', focus: 'center 18%' },
       { name: 'Dinara Ruslankyzy', role: 'Founder and Director of the IT company CODIFY', photo: '/assets/speaker-dinara.jpg', focus: 'center 30%' },
       { name: 'Aizhan Alisherova', role: 'Founder of the startup support fund We Fund', photo: '/assets/speaker-alisherova.jpg', focus: 'center 16%' },
-      { name: 'Zhakshylyk Beknazarovich Beknazarov', role: 'Chairman of the Youth Movement of Kyrgyzstan, Excellence in Youth Policy of the Kyrgyz Republic', photo: '/assets/speaker-beknazarov.jpg', focus: 'center 28%' }
+      { name: 'Zhakshylyk Beknazarovich Beknazarov', role: 'Chairman of the Youth Movement of Kyrgyzstan, Excellence in Youth Policy of the Kyrgyz Republic', photo: '/assets/speaker-beknazarov.jpg', focus: 'center 30%' }
     ]
   };
   return people[lang];
@@ -1818,6 +1818,10 @@ for (const lang of ['ru', 'ky', 'en']) {
         inset: 0 !important;
         width: 100% !important;
         height: 100% !important;
+      }
+      section[data-framer-name="Speakers"] [data-framer-name="Image"] img[src*="speaker-beknazarov"] {
+        transform: scale(1.72) !important;
+        transform-origin: center 34% !important;
       }
       section[data-framer-name="Speakers"] [data-framer-name="Name"],
       section[data-framer-name="Speakers"] [data-framer-name="Name"] h4,
@@ -3113,7 +3117,9 @@ for (const lang of ['ru', 'ky', 'en']) {
       /* 1b. Social Icons Links neutralized & styled */
       .framer-1dhn2g1 {
         display: flex !important;
+        flex-flow: row nowrap !important;
         align-items: center !important;
+        width: max-content !important;
         gap: 12px !important;
       }
       .framer-1dhn2g1 a,
@@ -3532,7 +3538,11 @@ for (const lang of ['ru', 'ky', 'en']) {
           align-items: flex-start !important;
           gap: 12px !important;
         }
-        .framer-1dhn2g1 { flex-wrap: wrap !important; }
+        .framer-1dhn2g1 {
+          flex-flow: row nowrap !important;
+          width: max-content !important;
+          max-width: 100% !important;
+        }
 
         .muun-lang-switcher {
           bottom: 12px !important;

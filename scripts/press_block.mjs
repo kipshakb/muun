@@ -520,9 +520,7 @@ export function renderPressBlock(lang) {
     `<label class="muun-press-pill"><input type="radio" name="team_size" value="${value}"${i === 0 ? ' checked' : ''} /> <span>${value}</span></label>`
   ).join('');
   const datePills = [
-    ['nov17', 'press.f_date_nov17', false],
-    ['nov18', 'press.f_date_nov18', false],
-    ['both', 'press.f_date_both', true]
+    ['nov17', 'press.f_date_nov17', true]
   ].map(([value, key, checked]) =>
     `<label class="muun-press-pill"><input type="radio" name="dates" value="${value}"${checked ? ' checked' : ''} /> <span>${esc(t(lang, key))}</span></label>`
   ).join('');

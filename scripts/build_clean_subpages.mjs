@@ -25,34 +25,34 @@ function speakerRoster(lang) {
   const jumabaevRole = 'Founder & CEO, LUWO · Ex-Google · Ex-JetBrains · Ex-Deutsche Bank · Founder, Growthhungry · TEDx Speaker';
   const extra = {
     ru: [
-      { name: 'Азис Абакиров', role: 'Директор Парка высоких технологий Кыргызской Республики', photo: '/assets/speaker-abakirov.jpg', focus: 'center 28%' },
+      { name: 'Азис Абакиров', role: 'Директор Парка высоких технологий Кыргызской Республики', photo: '/assets/speaker-abakirov.jpg', focus: 'center center' },
       { name: 'Атеев Руслан Маратович', role: 'Президент Федерации компьютерного спорта Кыргызстана', photo: '/assets/speaker-ateev.jpg', focus: '72% center' },
       { name: 'Котляревский Виктор Сергеевич', role: 'Исполнительный директор турнирного оператора Contest.kg', photo: '/assets/speaker-kotlyarevsky.jpg', focus: 'center 8%' },
       { name: 'Илияс Джеентаев', role: 'Основатель и CEO ArtSkin (искусственная кожа для протезов)', photo: '/assets/speaker-djeentaev.jpg', focus: 'center 20%' },
       { name: 'Оман Абышев', role: 'Основатель Water Watch AI', photo: '/assets/speaker-abyshev.jpg', focus: '34% 8%' },
       { name: 'Алмаз Чаначев', role: 'Руководитель офиса EPAM в Кыргызстане', photo: '/assets/speaker-chanachev.jpg', focus: 'center 22%' },
       { name: 'Эмиль Билгазиев', role: 'Основатель American Institute of Technology (AIT); экс-технический директор одного из подразделений Facebook (Meta)', photo: '/assets/speaker-bilgaziev.jpg', focus: 'center center' },
-      { name: 'Аденов Абдыкерим Болотович', role: 'Преподаватель ML в Международном колледже IT и бизнеса Salymbekov University, основатель бишкекского клуба по робототехнике RoboComm', photo: '/assets/speaker-adenov.jpg', focus: 'center 42%' }
+      { name: 'Аденов Абдыкерим Болотович', role: 'Преподаватель ML в Международном колледже IT и бизнеса Salymbekov University, основатель бишкекского клуба по робототехнике RoboComm', photo: '/assets/speaker-adenov.jpg', focus: 'center 18%' }
     ],
     ky: [
-      { name: 'Азис Абакиров', role: 'Кыргыз Республикасынын Жогорку технологиялар паркынын директору', photo: '/assets/speaker-abakirov.jpg', focus: 'center 28%' },
+      { name: 'Азис Абакиров', role: 'Кыргыз Республикасынын Жогорку технологиялар паркынын директору', photo: '/assets/speaker-abakirov.jpg', focus: 'center center' },
       { name: 'Атеев Руслан Маратович', role: 'Кыргызстандын компьютердик спорт федерациясынын президенти', photo: '/assets/speaker-ateev.jpg', focus: '72% center' },
       { name: 'Котляревский Виктор Сергеевич', role: 'Contest.kg турнир операторунун аткаруучу директору', photo: '/assets/speaker-kotlyarevsky.jpg', focus: 'center 8%' },
       { name: 'Илияс Джеентаев', role: 'ArtSkin негиздөөчүсү жана башкы директору (протездер үчүн жасалма тери)', photo: '/assets/speaker-djeentaev.jpg', focus: 'center 20%' },
       { name: 'Оман Абышев', role: 'Water Watch AI негиздөөчүсү', photo: '/assets/speaker-abyshev.jpg', focus: '34% 8%' },
       { name: 'Алмаз Чаначев', role: 'EPAM компаниясынын Кыргызстандагы офисинин жетекчиси', photo: '/assets/speaker-chanachev.jpg', focus: 'center 22%' },
       { name: 'Эмиль Билгазиев', role: 'American Institute of Technology (AIT) негиздөөчүсү; Facebook (Meta) бөлүмдөрүнүн биринин мурдагы техникалык директору', photo: '/assets/speaker-bilgaziev.jpg', focus: 'center center' },
-      { name: 'Аденов Абдыкерим Болотович', role: 'Salymbekov University Эл аралык IT жана бизнес колледжинин ML окутуучусу, Бишкектеги RoboComm робототехника клубунун негиздөөчүсү', photo: '/assets/speaker-adenov.jpg', focus: 'center 42%' }
+      { name: 'Аденов Абдыкерим Болотович', role: 'Salymbekov University Эл аралык IT жана бизнес колледжинин ML окутуучусу, Бишкектеги RoboComm робототехника клубунун негиздөөчүсү', photo: '/assets/speaker-adenov.jpg', focus: 'center 18%' }
     ],
     en: [
-      { name: 'Azis Abakirov', role: 'Director of the High Technology Park of the Kyrgyz Republic', photo: '/assets/speaker-abakirov.jpg', focus: 'center 28%' },
+      { name: 'Azis Abakirov', role: 'Director of the High Technology Park of the Kyrgyz Republic', photo: '/assets/speaker-abakirov.jpg', focus: 'center center' },
       { name: 'Ruslan Maratovich Ateev', role: 'President of the Esports Federation of Kyrgyzstan', photo: '/assets/speaker-ateev.jpg', focus: '72% center' },
       { name: 'Viktor Sergeevich Kotlyarevsky', role: 'Executive Director of the tournament operator Contest.kg', photo: '/assets/speaker-kotlyarevsky.jpg', focus: 'center 8%' },
       { name: 'Iliyas Dzheentaev', role: 'Founder and CEO of ArtSkin (artificial skin for prosthetics)', photo: '/assets/speaker-djeentaev.jpg', focus: 'center 20%' },
       { name: 'Oman Abyshev', role: 'Founder of Water Watch AI', photo: '/assets/speaker-abyshev.jpg', focus: '34% 8%' },
       { name: 'Almaz Chanachev', role: 'Head of the EPAM office in Kyrgyzstan', photo: '/assets/speaker-chanachev.jpg', focus: 'center 22%' },
       { name: 'Emil Bilgaziev', role: 'Founder of the American Institute of Technology (AIT); former technical director of a Facebook (Meta) division', photo: '/assets/speaker-bilgaziev.jpg', focus: 'center center' },
-      { name: 'Abdykerim Bolotovich Adenov', role: 'ML instructor at the International College of IT and Business, Salymbekov University; founder of the Bishkek robotics club RoboComm', photo: '/assets/speaker-adenov.jpg', focus: 'center 42%' }
+      { name: 'Abdykerim Bolotovich Adenov', role: 'ML instructor at the International College of IT and Business, Salymbekov University; founder of the Bishkek robotics club RoboComm', photo: '/assets/speaker-adenov.jpg', focus: 'center 18%' }
     ]
   };
   const people = {
@@ -62,7 +62,7 @@ function speakerRoster(lang) {
       { name: 'Орунтаев Нурдан Кемелович', role: 'Министр строительства, архитектуры и жилищно-коммунального хозяйства Кыргызской Республики', photo: '/assets/speaker-oruntaev.jpg', focus: 'center 18%' },
       { name: 'Динара Русланкызы', role: 'Основатель и директор ИТ-компании CODIFY', photo: '/assets/speaker-dinara.jpg', focus: 'center 30%' },
       { name: 'Айжан Алишерова', role: 'Основатель фонда поддержки стартапов «We Fund»', photo: '/assets/speaker-alisherova.jpg', focus: 'center 16%' },
-      { name: 'Бекназаров Жакшылык Бекназарович', role: 'Председатель молодежного движения Кыргызстана, Отличник молодежной политики Кыргызской Республики', photo: '/assets/speaker-beknazarov.jpg', focus: 'center 28%' },
+      { name: 'Бекназаров Жакшылык Бекназарович', role: 'Председатель молодежного движения Кыргызстана, Отличник молодежной политики Кыргызской Республики', photo: '/assets/speaker-beknazarov.jpg', focus: 'center 30%' },
       { name: 'Эрхан Адаев', role: 'Co-founder & CEO, AI Academy', photo: '/assets/speaker-adaev.jpg', focus: 'center 32%' },
       { name: 'Таалай Джумабаев', role: jumabaevRole, photo: '/assets/speaker-jumabaev.jpg', focus: 'center 18%' },
       ...extra.ru
@@ -73,7 +73,7 @@ function speakerRoster(lang) {
       { name: 'Орунтаев Нурдан Кемелович', role: 'Кыргыз Республикасынын курулуш, архитектура жана турак жай-коммуналдык чарба министри', photo: '/assets/speaker-oruntaev.jpg', focus: 'center 18%' },
       { name: 'Динара Русланкызы', role: 'CODIFY ИТ-компаниясынын негиздөөчүсү жана директору', photo: '/assets/speaker-dinara.jpg', focus: 'center 30%' },
       { name: 'Айжан Алишерова', role: '«We Fund» стартаптарды колдоо фондунун негиздөөчүсү', photo: '/assets/speaker-alisherova.jpg', focus: 'center 16%' },
-      { name: 'Бекназаров Жакшылык Бекназарович', role: 'Кыргызстандын жаштар кыймылынын төрагасы, Кыргыз Республикасынын жаштар саясатынын отличниги', photo: '/assets/speaker-beknazarov.jpg', focus: 'center 28%' },
+      { name: 'Бекназаров Жакшылык Бекназарович', role: 'Кыргызстандын жаштар кыймылынын төрагасы, Кыргыз Республикасынын жаштар саясатынын отличниги', photo: '/assets/speaker-beknazarov.jpg', focus: 'center 30%' },
       { name: 'Эрхан Адаев', role: 'AI Academy негиздөөчүсү жана башкы директору', photo: '/assets/speaker-adaev.jpg', focus: 'center 32%' },
       { name: 'Таалай Джумабаев', role: jumabaevRole, photo: '/assets/speaker-jumabaev.jpg', focus: 'center 18%' },
       ...extra.ky
@@ -84,7 +84,7 @@ function speakerRoster(lang) {
       { name: 'Nurdan Kemelovich Oruntaev', role: 'Minister of Construction, Architecture and Housing and Communal Services of the Kyrgyz Republic', photo: '/assets/speaker-oruntaev.jpg', focus: 'center 18%' },
       { name: 'Dinara Ruslankyzy', role: 'Founder and Director of the IT company CODIFY', photo: '/assets/speaker-dinara.jpg', focus: 'center 30%' },
       { name: 'Aizhan Alisherova', role: 'Founder of the startup support fund We Fund', photo: '/assets/speaker-alisherova.jpg', focus: 'center 16%' },
-      { name: 'Zhakshylyk Beknazarovich Beknazarov', role: 'Chairman of the Youth Movement of Kyrgyzstan, Excellence in Youth Policy of the Kyrgyz Republic', photo: '/assets/speaker-beknazarov.jpg', focus: 'center 28%' },
+      { name: 'Zhakshylyk Beknazarovich Beknazarov', role: 'Chairman of the Youth Movement of Kyrgyzstan, Excellence in Youth Policy of the Kyrgyz Republic', photo: '/assets/speaker-beknazarov.jpg', focus: 'center 30%' },
       { name: 'Erkhan Adaev', role: 'Co-founder & CEO, AI Academy', photo: '/assets/speaker-adaev.jpg', focus: 'center 32%' },
       { name: 'Taalay Dzhumabaev', role: jumabaevRole, photo: '/assets/speaker-jumabaev.jpg', focus: 'center 18%' },
       ...extra.en
@@ -286,10 +286,10 @@ for (const lang of languages) {
 
     const htmlLang = lang === 'en' ? 'en' : lang === 'ky' ? 'ky' : 'ru';
     const metaDesc = lang === 'ky'
-      ? 'MUUN 2026 — Кыргызстандын келечек кесиптеринин улуттук жаштар көргөзмө-форуму. 17–18-ноябрь, Бишкек, Ырыс Ордо.'
+      ? 'MUUN 2026 — Кыргызстандын келечек кесиптеринин улуттук жаштар көргөзмө-форуму. 17-ноябрь, Бишкек, Ырыс Ордо.'
       : lang === 'en'
-      ? 'MUUN 2026 — national youth exhibition-forum of the professions of the future. November 17–18, Bishkek, Yrys Ordo.'
-      : 'MUUN 2026 — национальная молодежная выставка-форум профессий будущего. 17–18 ноября, Бишкек, Ырыс Ордо.';
+      ? 'MUUN 2026 — national youth exhibition-forum of the professions of the future. 17 November, Bishkek, Yrys Ordo.'
+      : 'MUUN 2026 — национальная молодежная выставка-форум профессий будущего. 17 ноября, Бишкек, Ырыс Ордо.';
     pageHtml = pageHtml.replace(/<html lang="[^"]*">/i, `<html lang="${htmlLang}">`);
     pageHtml = pageHtml.replace(/<title>[\s\S]*?<\/title>/i, `<title>${pageTitle.meta} — MUUN 2026</title>`);
     pageHtml = pageHtml.replaceAll('Eventis - Free Event and Conference Template', `${pageTitle.meta} — MUUN 2026`);
@@ -450,17 +450,17 @@ for (const lang of languages) {
         [data-framer-name="Speakers 1"] img[src*="speaker-oruntaev"] { object-position: center 18% !important; }
         [data-framer-name="Speakers 1"] img[src*="speaker-dinara"] { object-position: center 28% !important; }
         [data-framer-name="Speakers 1"] img[src*="speaker-alisherova"] { object-position: center 16% !important; }
-        [data-framer-name="Speakers 1"] img[src*="speaker-beknazarov"] { object-position: center 28% !important; }
+        [data-framer-name="Speakers 1"] img[src*="speaker-beknazarov"] { object-position: center 30% !important; transform: scale(1.72) !important; transform-origin: center 34% !important; }
         [data-framer-name="Speakers 1"] img[src*="speaker-adaev"] { object-position: center 32% !important; }
         [data-framer-name="Speakers 1"] img[src*="speaker-jumabaev"] { object-position: center 18% !important; }
-        [data-framer-name="Speakers 1"] img[src*="speaker-abakirov"] { object-position: center 28% !important; }
+        [data-framer-name="Speakers 1"] img[src*="speaker-abakirov"] { object-position: center center !important; }
         [data-framer-name="Speakers 1"] img[src*="speaker-ateev"] { object-position: 72% center !important; }
         [data-framer-name="Speakers 1"] img[src*="speaker-kotlyarevsky"] { object-position: center 8% !important; }
         [data-framer-name="Speakers 1"] img[src*="speaker-djeentaev"] { object-position: center 20% !important; }
-        [data-framer-name="Speakers 1"] img[src*="speaker-abyshev"] { object-position: 34% 8% !important; }
+        [data-framer-name="Speakers 1"] img[src*="speaker-abyshev"] { object-position: 34% 8% !important; transform: scale(1.7) !important; transform-origin: 42% 18% !important; }
         [data-framer-name="Speakers 1"] img[src*="speaker-chanachev"] { object-position: center 22% !important; }
         [data-framer-name="Speakers 1"] img[src*="speaker-bilgaziev"] { object-position: center center !important; }
-        [data-framer-name="Speakers 1"] img[src*="speaker-adenov"] { object-position: center 42% !important; }
+        [data-framer-name="Speakers 1"] img[src*="speaker-adenov"] { object-position: center 18% !important; }
         [data-framer-name="Speakers 1"] img[src*="speaker-placeholder"] { object-position: center center !important; }
         [data-framer-name="Speakers 1"] {
           flex-direction: column !important;
@@ -506,10 +506,6 @@ for (const lang of languages) {
           display: block !important;
           filter: none !important;
           -webkit-filter: none !important;
-        }
-        .muun-extra-photo img[src*="speaker-adenov"] {
-          transform: scale(1.75) !important;
-          transform-origin: center 40% !important;
         }
         .muun-extra-card h4 {
           margin: 0 !important;
@@ -674,15 +670,15 @@ for (const lang of languages) {
 
       const venueCopy = {
         ru: [
-          'Конгресс-холл «Ырыс Ордо» в комплексе «Бишкек Арена» — место проведения MUUN 2026, национальной молодежной выставки-форума профессий будущего. 17 и 18 ноября здесь встречаются школьники, студенты, университеты, работодатели и государственные организации.',
+          'Конгресс-холл «Ырыс Ордо» в комплексе «Бишкек Арена» — место проведения MUUN 2026, национальной молодежной выставки-форума профессий будущего. 17 ноября здесь встречаются школьники, студенты, университеты, работодатели и государственные организации.',
           'На площадке работают главная сцена, панельные дискуссии и стойки регистрации. Гости проходят тематические зоны, слушают выступления и лично общаются с компаниями и учебными заведениями о карьере, обучении и проектах.'
         ],
         ky: [
-          '«Ырыс Ордо» конгресс-холлу «Бишкек Арена» комплексинде MUUN 2026 — келечектин кесиптеринин улуттук жаштар көргөзмө-форуму өтөт. 17–18-ноябрда бул жерде мектеп окуучулары, студенттер, университеттер, иш берүүчүлөр жана мамлекеттик уюмдар жолугат.',
+          '«Ырыс Ордо» конгресс-холлу «Бишкек Арена» комплексинде MUUN 2026 — келечектин кесиптеринин улуттук жаштар көргөзмө-форуму өтөт. 17-ноябрда бул жерде мектеп окуучулары, студенттер, университеттер, иш берүүчүлөр жана мамлекеттик уюмдар жолугат.',
           'Аянтчада башкы сахна, панелдик талкуулар жана каттоо зонасы иштейт. Коноктор тематикалык зоналарды кыдырып, чыгып сүйлөөлөрдү угуп, компаниялар жана окуу жайлар менен карьера, билим жана долбоорлор тууралуу жеке сүйлөшөт.'
         ],
         en: [
-          'The Yrys Ordo Congress Hall at the Bishkek Arena complex is the venue for MUUN 2026, the national youth exhibition-forum of the professions of the future. On 17–18 November, school students, university students, employers and public institutions meet here.',
+          'The Yrys Ordo Congress Hall at the Bishkek Arena complex is the venue for MUUN 2026, the national youth exhibition-forum of the professions of the future. On 17 November, school students, university students, employers and public institutions meet here.',
           'The hall brings together the main stage, panel discussions and registration desks. Guests walk through the thematic zones, listen to the sessions and talk directly with companies and education institutions about careers, study and projects.'
         ]
       }[lang];
@@ -1061,15 +1057,15 @@ for (const lang of languages) {
               if (thirdShot) thirdShot.style.setProperty('display', 'none', 'important');
               const venueParas = ${JSON.stringify({
                 ru: [
-                  'Конгресс-холл «Ырыс Ордо» в комплексе «Бишкек Арена» — место проведения MUUN 2026, национальной молодежной выставки-форума профессий будущего. 17 и 18 ноября здесь встречаются школьники, студенты, университеты, работодатели и государственные организации.',
+                  'Конгресс-холл «Ырыс Ордо» в комплексе «Бишкек Арена» — место проведения MUUN 2026, национальной молодежной выставки-форума профессий будущего. 17 ноября здесь встречаются школьники, студенты, университеты, работодатели и государственные организации.',
                   'На площадке работают главная сцена, панельные дискуссии и стойки регистрации. Гости проходят тематические зоны, слушают выступления и лично общаются с компаниями и учебными заведениями о карьере, обучении и проектах.'
                 ],
                 ky: [
-                  '«Ырыс Ордо» конгресс-холлу «Бишкек Арена» комплексинде MUUN 2026 — келечектин кесиптеринин улуттук жаштар көргөзмө-форуму өтөт. 17–18-ноябрда бул жерде мектеп окуучулары, студенттер, университеттер, иш берүүчүлөр жана мамлекеттик уюмдар жолугат.',
+                  '«Ырыс Ордо» конгресс-холлу «Бишкек Арена» комплексинде MUUN 2026 — келечектин кесиптеринин улуттук жаштар көргөзмө-форуму өтөт. 17-ноябрда бул жерде мектеп окуучулары, студенттер, университеттер, иш берүүчүлөр жана мамлекеттик уюмдар жолугат.',
                   'Аянтчада башкы сахна, панелдик талкуулар жана каттоо зонасы иштейт. Коноктор тематикалык зоналарды кыдырып, чыгып сүйлөөлөрдү угуп, компаниялар жана окуу жайлар менен карьера, билим жана долбоорлор тууралуу жеке сүйлөшөт.'
                 ],
                 en: [
-                  'The Yrys Ordo Congress Hall at the Bishkek Arena complex is the venue for MUUN 2026, the national youth exhibition-forum of the professions of the future. On 17–18 November, school students, university students, employers and public institutions meet here.',
+                  'The Yrys Ordo Congress Hall at the Bishkek Arena complex is the venue for MUUN 2026, the national youth exhibition-forum of the professions of the future. On 17 November, school students, university students, employers and public institutions meet here.',
                   'The hall brings together the main stage, panel discussions and registration desks. Guests walk through the thematic zones, listen to the sessions and talk directly with companies and education institutions about careers, study and projects.'
                 ]
               }[lang])};
