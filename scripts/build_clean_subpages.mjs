@@ -32,7 +32,9 @@ function speakerRoster(lang) {
       { name: 'Оман Абышев', role: 'Основатель Water Watch AI', photo: '/assets/speaker-abyshev.jpg', focus: '34% 8%' },
       { name: 'Алмаз Чаначев', role: 'Руководитель офиса EPAM в Кыргызстане', photo: '/assets/speaker-chanachev.jpg', focus: 'center 22%' },
       { name: 'Эмиль Билгазиев', role: 'Основатель American Institute of Technology (AIT); экс-технический директор одного из подразделений Facebook (Meta)', photo: '/assets/speaker-bilgaziev.jpg', focus: 'center center' },
-      { name: 'Аденов Абдыкерим Болотович', role: 'Преподаватель ML в Международном колледже IT и бизнеса Salymbekov University, основатель бишкекского клуба по робототехнике RoboComm', photo: '/assets/speaker-adenov.jpg', focus: 'center 18%' }
+      { name: 'Аденов Абдыкерим Болотович', role: 'Преподаватель ML в Международном колледже IT и бизнеса Salymbekov University, основатель бишкекского клуба по робототехнике RoboComm', photo: '/assets/speaker-adenov.jpg', focus: 'center 18%' },
+      { name: 'Аманат Молдокеева', role: 'Председатель Наблюдательного совета ProKG; председатель Евразийского сберегательного банка', photo: '/assets/speaker-moldokeeva.jpg', focus: 'center 20%' },
+      { name: 'Элдос Амантур', role: 'Коммерческий директор Технопарка', photo: '/assets/speaker-amantur.jpg', focus: 'center 18%' }
     ],
     ky: [
       { name: 'Азис Абакиров', role: 'Кыргыз Республикасынын Жогорку технологиялар паркынын директору', photo: '/assets/speaker-abakirov.jpg', focus: 'center center' },
@@ -42,7 +44,9 @@ function speakerRoster(lang) {
       { name: 'Оман Абышев', role: 'Water Watch AI негиздөөчүсү', photo: '/assets/speaker-abyshev.jpg', focus: '34% 8%' },
       { name: 'Алмаз Чаначев', role: 'EPAM компаниясынын Кыргызстандагы офисинин жетекчиси', photo: '/assets/speaker-chanachev.jpg', focus: 'center 22%' },
       { name: 'Эмиль Билгазиев', role: 'American Institute of Technology (AIT) негиздөөчүсү; Facebook (Meta) бөлүмдөрүнүн биринин мурдагы техникалык директору', photo: '/assets/speaker-bilgaziev.jpg', focus: 'center center' },
-      { name: 'Аденов Абдыкерим Болотович', role: 'Salymbekov University Эл аралык IT жана бизнес колледжинин ML окутуучусу, Бишкектеги RoboComm робототехника клубунун негиздөөчүсү', photo: '/assets/speaker-adenov.jpg', focus: 'center 18%' }
+      { name: 'Аденов Абдыкерим Болотович', role: 'Salymbekov University Эл аралык IT жана бизнес колледжинин ML окутуучусу, Бишкектеги RoboComm робототехника клубунун негиздөөчүсү', photo: '/assets/speaker-adenov.jpg', focus: 'center 18%' },
+      { name: 'Аманат Молдокеева', role: 'ProKG Байкоочу кеңешинин төрайымы; Евразиялык сактык банкынын төрайымы', photo: '/assets/speaker-moldokeeva.jpg', focus: 'center 20%' },
+      { name: 'Элдос Амантур', role: 'Технопарктын коммерциялык директору', photo: '/assets/speaker-amantur.jpg', focus: 'center 18%' }
     ],
     en: [
       { name: 'Azis Abakirov', role: 'Director of the High Technology Park of the Kyrgyz Republic', photo: '/assets/speaker-abakirov.jpg', focus: 'center center' },
@@ -52,7 +56,9 @@ function speakerRoster(lang) {
       { name: 'Oman Abyshev', role: 'Founder of Water Watch AI', photo: '/assets/speaker-abyshev.jpg', focus: '34% 8%' },
       { name: 'Almaz Chanachev', role: 'Head of the EPAM office in Kyrgyzstan', photo: '/assets/speaker-chanachev.jpg', focus: 'center 22%' },
       { name: 'Emil Bilgaziev', role: 'Founder of the American Institute of Technology (AIT); former technical director of a Facebook (Meta) division', photo: '/assets/speaker-bilgaziev.jpg', focus: 'center center' },
-      { name: 'Abdykerim Bolotovich Adenov', role: 'ML instructor at the International College of IT and Business, Salymbekov University; founder of the Bishkek robotics club RoboComm', photo: '/assets/speaker-adenov.jpg', focus: 'center 18%' }
+      { name: 'Abdykerim Bolotovich Adenov', role: 'ML instructor at the International College of IT and Business, Salymbekov University; founder of the Bishkek robotics club RoboComm', photo: '/assets/speaker-adenov.jpg', focus: 'center 18%' },
+      { name: 'Amanat Moldokeeva', role: 'Chair of the Supervisory Board of ProKG; Chair of the Eurasian Savings Bank', photo: '/assets/speaker-moldokeeva.jpg', focus: 'center 20%' },
+      { name: 'Eldos Amantur', role: 'Commercial Director of the Technopark', photo: '/assets/speaker-amantur.jpg', focus: 'center 18%' }
     ]
   };
   const people = {
@@ -461,6 +467,10 @@ for (const lang of languages) {
         [data-framer-name="Speakers 1"] img[src*="speaker-chanachev"] { object-position: center 22% !important; }
         [data-framer-name="Speakers 1"] img[src*="speaker-bilgaziev"] { object-position: center center !important; }
         [data-framer-name="Speakers 1"] img[src*="speaker-adenov"] { object-position: center 18% !important; }
+        [data-framer-name="Speakers 1"] img[src*="speaker-moldokeeva"],
+        .muun-extra-photo img[src*="speaker-moldokeeva"] { object-position: center 20% !important; }
+        [data-framer-name="Speakers 1"] img[src*="speaker-amantur"],
+        .muun-extra-photo img[src*="speaker-amantur"] { object-position: center 18% !important; }
         [data-framer-name="Speakers 1"] img[src*="speaker-placeholder"] { object-position: center center !important; }
         [data-framer-name="Speakers 1"] {
           flex-direction: column !important;

@@ -37,7 +37,7 @@ const downloadEagle = 'C:/Users/Beibars/Downloads/орел2.png';
 if (fs.existsSync(downloadEagle)) {
   fs.copyFileSync(downloadEagle, 'assets/eagle2.png');
 }
-for (const f of ['favicon.ico', 'favicon.png', 'logo-new.png', 'logo-crystal.png', 'logo-header.png', 'president.png', 'ministry-logo.jpeg', 'ministry-logo-white.png', 'kumtor.png', 'kyrgyzaltyn.png', 'aeroporty kyrgyzstana.png', 'eagle2.png', 'logo-footer.png', 'og-image.jpg', 'partner-cebc.png', 'partner-codify.png', 'partner-prokg.png', 'partner-htp.png', 'partner-mdk-ru.png', 'partner-mdk-ky.png', 'partner-contest.png', 'qr-instagram.svg', 'qr-facebook.svg', 'qr-threads.svg', 'qr-whatsapp.svg', 'speaker-abakirov.jpg']) {
+for (const f of ['favicon.ico', 'favicon.png', 'logo-new.png', 'logo-crystal.png', 'logo-header.png', 'president.png', 'ministry-logo.jpeg', 'ministry-logo-white.png', 'kumtor.png', 'kyrgyzaltyn.png', 'aeroporty kyrgyzstana.png', 'eagle2.png', 'logo-footer.png', 'og-image.jpg', 'partner-cebc.png', 'partner-codify.png', 'partner-prokg.png', 'partner-htp.png', 'partner-mdk-ru.png', 'partner-mdk-ky.png', 'partner-contest.png', 'qr-instagram.svg', 'qr-facebook.svg', 'qr-threads.svg', 'qr-whatsapp.svg', 'speaker-abakirov.jpg', 'speaker-moldokeeva.jpg', 'speaker-amantur.jpg']) {
   if (fs.existsSync(`assets/${f}`)) {
     fs.copyFileSync(`assets/${f}`, `dist/${f}`);
     fs.copyFileSync(`assets/${f}`, `dist/assets/${f}`);
