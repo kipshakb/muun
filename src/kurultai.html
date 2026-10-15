@@ -1,0 +1,1692 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <title>Зал Курултай — Интерактивная схема рассадки | MUUN 2026</title>
+  <meta name="description" content="Интерактивная схема рассадки зала «Курултай» — MUUN 2026">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="theme-color" content="#05070e">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-void: #05070e;
+      --panel: rgba(12, 17, 31, 0.94);
+      --panel-hover: rgba(28, 38, 62, 0.97);
+      --panel-border: rgba(255, 255, 255, 0.09);
+      --text-main: #f8fafc;
+      --text-muted: rgba(248, 250, 252, 0.68);
+      --text-dim: rgba(248, 250, 252, 0.42);
+      --accent: #29aae1;
+      --sheet-h: 0px;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      overscroll-behavior: none;
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Static ambient background (painted once, never repainted during pan/zoom) */
+    body {
+      background:
+        radial-gradient(circle 850px at 50% 92%, rgba(1, 30, 255, 0.16), transparent 70%),
+        radial-gradient(circle 500px at 50% 12%, rgba(168, 85, 247, 0.08), transparent 60%),
+        linear-gradient(180deg, #05070e 0%, #080c18 50%, #03050a 100%);
+      background-color: var(--bg-void);
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-size: 40px 40px;
+      background-image:
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    }
+
+    /* Canvas viewport */
+    #viewport {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      touch-action: none;
+      cursor: grab;
+    }
+
+    #viewport.is-hover { cursor: pointer; }
+    #viewport.is-grabbing { cursor: grabbing; }
+
+    #hall-canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    /* ───────── Header ───────── */
+    .top-bar {
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      right: 14px;
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      pointer-events: none;
+    }
+
+    .top-bar > * { pointer-events: auto; }
+
+    .header-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 8px 8px 14px;
+    }
+
+    .brand {
+      grid-area: brand;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-logo {
+      height: 26px;
+      width: auto;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    .brand-title {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .brand-title small {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-left: 6px;
+    }
+
+    .pickers {
+      grid-area: pickers;
+      display: flex;
+      gap: 8px;
+      margin-left: auto;
+    }
+
+    .select-wrap {
+      position: relative;
+      width: 172px;
+      min-width: 0;
+    }
+
+    .select-wrap::after {
+      content: '';
+      position: absolute;
+      right: 13px;
+      top: 50%;
+      width: 6px;
+      height: 6px;
+      border-right: 2px solid var(--text-dim);
+      border-bottom: 2px solid var(--text-dim);
+      transform: translateY(-70%) rotate(45deg);
+      pointer-events: none;
+    }
+
+    .custom-select {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 100%;
+      height: 36px;
+      padding: 0 30px 0 12px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--panel-border);
+      color: #fff;
+      font: 600 13px/1 var(--font-sans);
+      cursor: pointer;
+      outline: none;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .custom-select:hover { background: rgba(255, 255, 255, 0.1); }
+
+    .custom-select:focus-visible {
+      border-color: rgba(41, 170, 225, 0.7);
+      box-shadow: 0 0 0 3px rgba(41, 170, 225, 0.18);
+    }
+
+    .custom-select:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .custom-select option {
+      background: #0d1322;
+      color: #fff;
+    }
+
+    .lang-switcher {
+      grid-area: lang;
+      display: flex;
+      gap: 2px;
+      padding: 3px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--panel-border);
+      border-radius: 10px;
+      flex-shrink: 0;
+      justify-self: end;
+    }
+
+    .lang-btn {
+      height: 28px;
+      min-width: 34px;
+      padding: 0 8px;
+      border: 0;
+      border-radius: 7px;
+      background: transparent;
+      color: var(--text-muted);
+      font: 700 11px var(--font-sans);
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .lang-btn:hover { color: #fff; }
+
+    .lang-btn.active {
+      background: rgba(255, 255, 255, 0.16);
+      color: #fff;
+    }
+
+    /* ───────── Filter chips ───────── */
+    .chips {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 2px;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-x;
+      align-self: flex-start;
+      max-width: 100%;
+    }
+
+    .chips::-webkit-scrollbar { display: none; }
+
+    .chip {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      color: var(--text-muted);
+      font: 600 12.5px var(--font-sans);
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .chip:hover { color: #fff; background: var(--panel-hover); }
+
+    .chip.is-active {
+      color: #fff;
+      background: var(--panel-hover);
+      border-color: rgba(255, 255, 255, 0.38);
+    }
+
+    .chip-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .chip-count {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-dim);
+      background: rgba(255, 255, 255, 0.07);
+      padding: 2px 7px;
+      border-radius: 999px;
+    }
+
+    /* ───────── Zoom dock ───────── */
+    .dock {
+      position: fixed;
+      right: 18px;
+      bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .dock-btn {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .dock-btn:hover {
+      background: var(--panel-hover);
+      border-color: rgba(41, 170, 225, 0.45);
+    }
+
+    /* ───────── Tooltip (desktop hover) ───────── */
+    #seat-tooltip {
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 11px;
+      background: rgba(10, 15, 28, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 10px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.55);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.1s ease;
+      will-change: transform;
+    }
+
+    #seat-tooltip.is-visible { opacity: 1; }
+
+    .tip-title {
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    /* ───────── Selected seat card ───────── */
+    #selected-card {
+      position: fixed;
+      left: 20px;
+      bottom: 20px;
+      z-index: 30;
+      width: 300px;
+      padding: 16px;
+      border-radius: 16px;
+      background: var(--panel);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(16px);
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, visibility 0s linear 0.28s;
+    }
+
+    #selected-card.is-open {
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      transition-delay: 0s;
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+    }
+
+    .card-badge {
+      font-size: 12px;
+      padding: 3px 9px;
+      border-radius: 8px;
+    }
+
+    .card-close-btn {
+      width: 30px;
+      height: 30px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+      font-size: 18px;
+      line-height: 1;
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .card-close-btn:hover {
+      background: rgba(255, 255, 255, 0.16);
+      color: #fff;
+    }
+
+    .card-btn {
+      width: 100%;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.07);
+      color: #fff;
+      font: 600 13px var(--font-sans);
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .card-btn:hover {
+      background: rgba(255, 255, 255, 0.14);
+      border-color: rgba(41, 170, 225, 0.45);
+    }
+
+    .card-btn.is-done {
+      border-color: rgba(16, 185, 129, 0.55);
+      background: rgba(16, 185, 129, 0.14);
+    }
+
+    /* ───────── Mobile ───────── */
+    @media (max-width: 860px) {
+      .top-bar {
+        top: calc(8px + env(safe-area-inset-top, 0px));
+        left: 8px;
+        right: 8px;
+        gap: 8px;
+      }
+
+      .header-card {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-areas:
+          "brand lang"
+          "pickers pickers";
+        gap: 8px;
+        padding: 8px;
+        border-radius: 14px;
+      }
+
+      .brand { gap: 9px; padding-left: 4px; }
+      .brand-logo { height: 22px; }
+      .brand-title { font-size: 13.5px; }
+      .brand-title small { display: none; }
+
+      .pickers {
+        margin-left: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+
+      .select-wrap { width: auto; }
+
+      .custom-select {
+        height: 42px;
+        font-size: 16px; /* prevents iOS auto-zoom on focus */
+        font-weight: 600;
+        padding: 0 30px 0 12px;
+      }
+
+      .lang-btn { height: 28px; min-width: 32px; padding: 0 7px; }
+
+      .chips {
+        margin: 0 -8px;
+        padding: 0 8px;
+        max-width: none;
+        align-self: stretch;
+        -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 8px, #000 calc(100% - 28px), transparent 100%);
+        mask-image: linear-gradient(90deg, transparent 0, #000 8px, #000 calc(100% - 28px), transparent 100%);
+      }
+
+      .chip { height: 32px; padding: 0 11px; font-size: 12px; gap: 7px; }
+
+      .dock {
+        right: 10px;
+        bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+        gap: 6px;
+      }
+
+      body.sheet-open .dock {
+        transform: translateY(calc(-1 * var(--sheet-h)));
+      }
+
+      .dock-btn { width: 42px; height: 42px; }
+
+      #selected-card {
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: auto;
+        padding: 20px 16px calc(16px + env(safe-area-inset-bottom, 0px));
+        border-radius: 20px 20px 0 0;
+        border-bottom: 0;
+        box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.6);
+        opacity: 1;
+        transform: translateY(105%);
+      }
+
+      #selected-card::before {
+        content: '';
+        position: absolute;
+        top: 8px;
+        left: 50%;
+        width: 36px;
+        height: 4px;
+        margin-left: -18px;
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.18);
+      }
+
+      #selected-card.is-open { transform: none; }
+
+      .card-btn { height: 46px; font-size: 14px; }
+
+      #seat-tooltip { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Схема рассадки зала «Курултай» — MUUN 2026</h1>
+
+  <!-- Hall canvas (single GPU layer, all 1 190 seats drawn in batches) -->
+  <div id="viewport">
+    <canvas id="hall-canvas" aria-label="Схема зала Курултай"></canvas>
+  </div>
+
+  <!-- Header -->
+  <header class="top-bar" id="top-bar">
+    <div class="panel header-card">
+      <div class="brand">
+        <img src="/logo-header.png" onerror="this.onerror=null;this.src='/assets/logo-header.png'" alt="MUUN 2026" class="brand-logo">
+        <div class="brand-title"><span id="header-hall-title">Зал «Курултай»</span><small id="header-hall-seats">(1 190 мест)</small></div>
+      </div>
+
+      <div class="pickers">
+        <div class="select-wrap">
+          <select id="select-row" class="custom-select" aria-label="Ряд">
+            <option value="">Выберите ряд</option>
+          </select>
+        </div>
+        <div class="select-wrap">
+          <select id="select-seat" class="custom-select" aria-label="Место" disabled>
+            <option value="">Сначала ряд</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="lang-switcher" role="group" aria-label="Language">
+        <button class="lang-btn active" id="lang-ru" data-lang="ru">RU</button>
+        <button class="lang-btn" id="lang-ky" data-lang="ky">KG</button>
+        <button class="lang-btn" id="lang-en" data-lang="en">EN</button>
+      </div>
+    </div>
+
+    <nav class="chips" id="filter-chips-container"></nav>
+  </header>
+
+  <!-- Zoom dock -->
+  <div class="dock" id="dock">
+    <button class="dock-btn" id="btn-zoom-in" title="Приблизить (+)" aria-label="Zoom in">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    </button>
+    <button class="dock-btn" id="btn-zoom-out" title="Отдалить (-)" aria-label="Zoom out">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    </button>
+    <button class="dock-btn" id="btn-reset" title="По размеру экрана" aria-label="Fit">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+    </button>
+  </div>
+
+  <!-- Hover tooltip (desktop) -->
+  <div id="seat-tooltip">
+    <span class="tip-title" id="tip-title"></span>
+    <span class="badge" id="tip-badge"></span>
+  </div>
+
+  <!-- Selected seat card (bottom-left on desktop, bottom sheet on mobile) -->
+  <div id="selected-card" role="dialog" aria-live="polite">
+    <div class="card-top">
+      <div>
+        <div class="card-title" id="card-title"></div>
+        <span class="badge card-badge" id="card-cat-badge"></span>
+      </div>
+      <button class="card-close-btn" id="card-close-btn" aria-label="Close">&times;</button>
+    </div>
+    <button class="card-btn" id="card-copy-btn">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+      <span id="card-copy-text">Скопировать номер места</span>
+    </button>
+  </div>
+
+  <script>
+  (function () {
+    'use strict';
+
+    // ─────────────────────────────────────────────────────────────
+    // 1. MULTILINGUAL DICTIONARY (RU / KY / EN)
+    // ─────────────────────────────────────────────────────────────
+    const I18N = {
+      ru: {
+        hallTitle: 'Зал «Курултай»',
+        hallSeats: '(1 190 мест)',
+        stage: 'Сцена',
+        selectRow: 'Выберите ряд',
+        selectSeat: 'Выберите место',
+        chooseRowFirst: 'Сначала ряд',
+        allHall: 'Весь зал',
+        rowPrefix: 'Ряд',
+        seatPrefix: 'Место',
+        vipRow: 'VIP-ряд',
+        vipSeatPrefix: 'VIP-место',
+        copyBtn: 'Скопировать номер места',
+        copied: 'Скопировано!',
+        zoomIn: 'Приблизить (+)',
+        zoomOut: 'Отдалить (-)',
+        reset: 'По размеру экрана',
+        categories: {
+          vip: 'VIP',
+          guests: 'Гости',
+          speakers: 'Спикеры',
+          media: 'Медиа',
+          students: 'Студенты',
+          pupils: 'Школьники',
+          attendees: 'Участники'
+        }
+      },
+      ky: {
+        hallTitle: '«Курултай» залы',
+        hallSeats: '(1 190 орун)',
+        stage: 'Сахна',
+        selectRow: 'Катарды тандаңыз',
+        selectSeat: 'Орунду тандаңыз',
+        chooseRowFirst: 'Адегенде катар',
+        allHall: 'Бардык зал',
+        rowPrefix: 'Катар',
+        seatPrefix: 'Орун',
+        vipRow: 'VIP-катар',
+        vipSeatPrefix: 'VIP-орун',
+        copyBtn: 'Орун номерин көчүрүү',
+        copied: 'Көчүрүлдү!',
+        zoomIn: 'Жакындатуу (+)',
+        zoomOut: 'Алыстатуу (-)',
+        reset: 'Экранга тууралоо',
+        categories: {
+          vip: 'VIP',
+          guests: 'Меймандар',
+          speakers: 'Спикерлер',
+          media: 'Медиа',
+          students: 'Студенттер',
+          pupils: 'Окуучулар',
+          attendees: 'Катышуучулар'
+        }
+      },
+      en: {
+        hallTitle: '"Kurultai" Hall',
+        hallSeats: '(1,190 seats)',
+        stage: 'Stage',
+        selectRow: 'Select row',
+        selectSeat: 'Select seat',
+        chooseRowFirst: 'Select row first',
+        allHall: 'All hall',
+        rowPrefix: 'Row',
+        seatPrefix: 'Seat',
+        vipRow: 'VIP row',
+        vipSeatPrefix: 'VIP seat',
+        copyBtn: 'Copy seat number',
+        copied: 'Copied!',
+        zoomIn: 'Zoom in (+)',
+        zoomOut: 'Zoom out (-)',
+        reset: 'Fit to screen',
+        categories: {
+          vip: 'VIP',
+          guests: 'Guests',
+          speakers: 'Speakers',
+          media: 'Media',
+          students: 'Students',
+          pupils: 'Pupils',
+          attendees: 'Attendees'
+        }
+      }
+    };
+
+    let currentLang = localStorage.getItem('muun_scheme_lang') || 'ru';
+    if (!I18N[currentLang]) currentLang = 'ru';
+
+    // Category Styling Definitions
+    const CATEGORIES = {
+      vip:       { color: '#ffd012', rgb: '255,208,18' },
+      guests:    { color: '#ef4444', rgb: '239,68,68' },
+      speakers:  { color: '#3b82f6', rgb: '59,130,246' },
+      media:     { color: '#10b981', rgb: '16,185,129' },
+      students:  { color: '#a855f7', rgb: '168,85,247' },
+      pupils:    { color: '#f97316', rgb: '249,115,22' },
+      attendees: { color: '#06b6d4', rgb: '6,182,212' }
+    };
+
+    // ─────────────────────────────────────────────────────────────
+    // 2. DATA DEFINITIONS & SEATS
+    // ─────────────────────────────────────────────────────────────
+    const SECTORS = [
+      { n: 1, block: 'L', rows: [[3, 1, 26], [2, 1, 25], [1, 1, 24]] },
+      { n: 2, block: 'L', rows: [[11, 1, 24], [10, 1, 25], [9, 1, 26], [8, 1, 26], [7, 1, 27], [6, 1, 27], [5, 1, 27], [4, 1, 27]] },
+      { n: 3, block: 'L', rows: [[17, 1, 13], [16, 1, 14], [15, 1, 16], [14, 1, 18], [13, 1, 20], [12, 1, 22]] },
+      { n: 4, block: 'C', rows: [[3, 27, 40], [2, 26, 38], [1, 25, 36]] },
+      { n: 5, block: 'C', rows: [[11, 25, 49], [10, 26, 49], [9, 27, 49], [8, 27, 48], [7, 28, 48], [6, 28, 47], [5, 28, 46]] },
+      { n: 6, block: 'C', rows: [[18, 1, 33], [17, 14, 45], [16, 15, 45], [15, 17, 46], [14, 19, 47], [13, 21, 48], [12, 23, 49]] },
+      { n: 7, block: 'R', rows: [[3, 41, 66], [2, 39, 63], [1, 37, 60]] },
+      { n: 8, block: 'R', rows: [[11, 50, 73], [10, 50, 74], [9, 50, 75], [8, 49, 74], [7, 49, 75], [6, 48, 74], [5, 47, 73], [4, 28, 54]] },
+      { n: 9, block: 'R', rows: [[17, 46, 58], [16, 46, 59], [15, 47, 62], [14, 48, 65], [13, 49, 68], [12, 50, 71]] }
+    ];
+
+    function getSeatCategory(s) {
+      if (s.vip) return 'vip';
+      if (s.sec === 4) return 'guests';
+      if (s.sec === 5 && [5, 6, 7].includes(s.row)) return 'speakers';
+      if (s.sec === 1 || s.sec === 7) return 'media';
+      if (s.sec === 6) return 'students';
+      if (s.sec === 3 || s.sec === 9) return 'pupils';
+      return 'attendees';
+    }
+
+    const seats = [];
+    SECTORS.forEach(sec => {
+      sec.rows.forEach(r => {
+        for (let m = r[1]; m <= r[2]; m++) {
+          const st = { id: `R${r[0]}-S${m}`, sec: sec.n, block: sec.block, row: r[0], seat: m, vip: false };
+          st.cat = getSeatCategory(st);
+          seats.push(st);
+        }
+      });
+    });
+
+    // 13 VIP seats in the center gap of Row 4
+    for (let i = 1; i <= 13; i++) {
+      seats.push({ id: `VIP-${i}`, sec: 5, block: 'C', row: 4, seat: i, vip: true, cat: 'vip' });
+    }
+
+    const seatById = new Map(seats.map(s => [s.id, s]));
+
+    function getSeatLabel(s) {
+      const t = I18N[currentLang];
+      if (s.vip) return `${t.vipSeatPrefix} ${s.seat}`;
+      return `${t.rowPrefix} ${s.row}, ${t.seatPrefix} ${s.seat}`;
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // 3. RADIAL GEOMETRY (world units)
+    // ─────────────────────────────────────────────────────────────
+    const CX = 560, CY = 612, R0 = 168, DR = 17.4, TIER_GAP = 15;
+    const A_LO = 4, A_HI = 176, AISLE = 5.0, MAXROW = 75;
+    const PITCH = ((A_HI - A_LO) - 2 * AISLE) / MAXROW;
+    const D2R = Math.PI / 180;
+    const TAU = Math.PI * 2;
+
+    function radius(row) {
+      let r = R0 + (row - 1) * DR;
+      if (row >= 4) r += TIER_GAP;
+      if (row >= 12) r += TIER_GAP;
+      return r;
+    }
+
+    const byRow = {};
+    seats.forEach(s => { (byRow[s.row] = byRow[s.row] || []).push(s); });
+    const ORDER = { L: 0, C: 1, R: 2 };
+
+    Object.keys(byRow).forEach(k => {
+      const groups = [[], [], []];
+      byRow[k].forEach(s => { groups[ORDER[s.block]].push(s); });
+      groups.forEach(g => g.sort((a, b) => a.seat - b.seat));
+      const present = groups.filter(g => g.length);
+      const total = present.reduce((a, g) => a + g.length, 0);
+      const span = total * PITCH + (present.length - 1) * AISLE;
+      let th = (A_LO + A_HI) / 2 + span / 2;
+      const r = radius(Number(k));
+
+      present.forEach((g, gi) => {
+        g.forEach(s => {
+          th -= PITCH;
+          const a = (th + PITCH / 2) * D2R;
+          s.a = a;
+          s.x = CX + r * Math.cos(a);
+          s.y = CY - r * Math.sin(a);
+          const base = Math.max(3.0, Math.min(5.2, r * (PITCH * D2R) * 0.38));
+          s.r = s.vip ? base * 1.3 : base;
+        });
+        if (gi < present.length - 1) th -= AISLE;
+      });
+    });
+
+    // Row end markers (row numbers shown at both ends of each row when zoomed in)
+    const rowEnds = Object.keys(byRow).map(k => {
+      const row = Number(k);
+      const r = radius(row);
+      let minA = Infinity, maxA = -Infinity;
+      byRow[k].forEach(s => { if (s.a < minA) minA = s.a; if (s.a > maxA) maxA = s.a; });
+      const d = PITCH * 1.6 * D2R;
+      return {
+        row,
+        x1: CX + r * Math.cos(maxA + d), y1: CY - r * Math.sin(maxA + d),
+        x2: CX + r * Math.cos(minA - d), y2: CY - r * Math.sin(minA - d)
+      };
+    });
+
+    // Seats grouped by category for batched drawing
+    const seatsByCat = {};
+    Object.keys(CATEGORIES).forEach(k => { seatsByCat[k] = []; });
+    seats.forEach(s => seatsByCat[s.cat].push(s));
+
+    // Content bounding box (seats + stage)
+    const BBOX = (() => {
+      let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+      seats.forEach(s => {
+        x0 = Math.min(x0, s.x - s.r); x1 = Math.max(x1, s.x + s.r);
+        y0 = Math.min(y0, s.y - s.r); y1 = Math.max(y1, s.y + s.r);
+      });
+      y1 = Math.max(y1, 680);
+      return { x0: x0 - 6, y0: y0 - 6, x1: x1 + 6, y1: y1 + 4 };
+    })();
+
+    // ─────────────────────────────────────────────────────────────
+    // 4. DOM REFERENCES
+    // ─────────────────────────────────────────────────────────────
+    const $ = id => document.getElementById(id);
+    const viewport = $('viewport');
+    const canvas = $('hall-canvas');
+    const ctx = canvas.getContext('2d', { alpha: true });
+    const topBar = $('top-bar');
+    const tip = $('seat-tooltip');
+    const tipTitle = $('tip-title');
+    const tipBadge = $('tip-badge');
+    const card = $('selected-card');
+    const cardTitle = $('card-title');
+    const cardBadge = $('card-cat-badge');
+    const cardCopyBtn = $('card-copy-btn');
+    const cardCopyText = $('card-copy-text');
+    const cardCloseBtn = $('card-close-btn');
+    const selectRow = $('select-row');
+    const selectSeatEl = $('select-seat');
+    const chipsContainer = $('filter-chips-container');
+
+    let activeFilter = 'all';
+    let selectedSeat = null;
+    let hoverSeat = null;
+
+    // ─────────────────────────────────────────────────────────────
+    // 5. CAMERA (screen = world * s + offset)
+    // ─────────────────────────────────────────────────────────────
+    let W = 0, H = 0, DPR = 1;
+    const cam = { s: 1, x: 0, y: 0 };
+    const tgt = { s: 1, x: 0, y: 0 };
+    let minS = 0.2, maxS = 9;
+    let atFit = true;
+    let animating = false;
+    let inertia = null;
+    let dirty = true;
+    let rafId = 0;
+    let lastT = 0;
+
+    const isMobile = () => W <= 860;
+
+    function resizeCanvas() {
+      DPR = Math.min(window.devicePixelRatio || 1, 2);
+      W = viewport.clientWidth;
+      H = viewport.clientHeight;
+      canvas.width = Math.round(W * DPR);
+      canvas.height = Math.round(H * DPR);
+    }
+
+    function visibleArea(withSheet) {
+      const top = topBar.getBoundingClientRect().bottom + 10;
+      let bottom = H - 14;
+      if (withSheet && isMobile() && card.classList.contains('is-open')) {
+        bottom = H - card.offsetHeight - 10;
+      }
+      const sidePad = isMobile() ? 10 : 24;
+      return { left: sidePad, right: W - sidePad, top, bottom: Math.max(top + 120, bottom) };
+    }
+
+    function computeFit() {
+      const va = visibleArea(false);
+      const bw = BBOX.x1 - BBOX.x0, bh = BBOX.y1 - BBOX.y0;
+      const s = Math.min((va.right - va.left) / bw, (va.bottom - va.top) / bh);
+      return {
+        s,
+        x: (va.left + va.right) / 2 - (BBOX.x0 + bw / 2) * s,
+        y: (va.top + va.bottom) / 2 - (BBOX.y0 + bh / 2) * s
+      };
+    }
+
+    function updateLimits() {
+      const f = computeFit();
+      minS = f.s * 0.8;
+      maxS = Math.max(9, f.s * 4);
+    }
+
+    const clampS = s => Math.min(maxS, Math.max(minS, s));
+
+    function clampCam(c) {
+      c.s = clampS(c.s);
+      const m = 70;
+      const l = BBOX.x0 * c.s + c.x, r = BBOX.x1 * c.s + c.x;
+      const t = BBOX.y0 * c.s + c.y, b = BBOX.y1 * c.s + c.y;
+      if (r < m) c.x += m - r;
+      if (l > W - m) c.x -= l - (W - m);
+      if (b < m) c.y += m - b;
+      if (t > H - m) c.y -= t - (H - m);
+      return c;
+    }
+
+    function setCam(s, x, y) {
+      const c = clampCam({ s, x, y });
+      cam.s = tgt.s = c.s;
+      cam.x = tgt.x = c.x;
+      cam.y = tgt.y = c.y;
+      animating = false;
+      atFit = false;
+      invalidate();
+    }
+
+    function animateTo(s, x, y) {
+      const c = clampCam({ s, x, y });
+      tgt.s = c.s; tgt.x = c.x; tgt.y = c.y;
+      animating = true;
+      inertia = null;
+      atFit = false;
+      invalidate();
+    }
+
+    function fit(animated) {
+      const f = computeFit();
+      if (animated) animateTo(f.s, f.x, f.y); else setCam(f.s, f.x, f.y);
+      atFit = true;
+    }
+
+    function zoomAt(factor, sx, sy) {
+      const base = animating ? tgt : cam;
+      const ns = clampS(base.s * factor);
+      const wx = (sx - base.x) / base.s;
+      const wy = (sy - base.y) / base.s;
+      animateTo(ns, sx - wx * ns, sy - wy * ns);
+    }
+
+    function zoomCenter(factor) {
+      const va = visibleArea(true);
+      zoomAt(factor, (va.left + va.right) / 2, (va.top + va.bottom) / 2);
+    }
+
+    function flyToSeat(st) {
+      const va = visibleArea(true);
+      const ns = clampS(Math.max(cam.s, 15 / st.r));
+      animateTo(ns, (va.left + va.right) / 2 - st.x * ns, (va.top + va.bottom) / 2 - st.y * ns);
+    }
+
+    function flyToRow(list) {
+      if (!list.length) return;
+      let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+      list.forEach(s => {
+        x0 = Math.min(x0, s.x); x1 = Math.max(x1, s.x);
+        y0 = Math.min(y0, s.y); y1 = Math.max(y1, s.y);
+      });
+      const va = visibleArea(false);
+      const pad = 36;
+      const bw = Math.max(40, x1 - x0), bh = Math.max(40, y1 - y0);
+      const ns = clampS(Math.min((va.right - va.left - pad * 2) / bw, (va.bottom - va.top - pad * 2) / bh, 4));
+      animateTo(ns, (va.left + va.right) / 2 - (x0 + bw / 2) * ns, (va.top + va.bottom) / 2 - (y0 + bh / 2) * ns);
+    }
+
+    function ensureVisible(st) {
+      const va = visibleArea(true);
+      const m = 36;
+      const sx = st.x * cam.s + cam.x, sy = st.y * cam.s + cam.y;
+      let dx = 0, dy = 0;
+      if (sx < va.left + m) dx = va.left + m - sx;
+      if (sx > va.right - m) dx = va.right - m - sx;
+      if (sy < va.top + m) dy = va.top + m - sy;
+      if (sy > va.bottom - m) dy = va.bottom - m - sy;
+      if (dx || dy) animateTo(cam.s, cam.x + dx, cam.y + dy);
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // 6. RENDER LOOP (only runs while something changes)
+    // ─────────────────────────────────────────────────────────────
+    function invalidate() {
+      dirty = true;
+      if (!rafId) rafId = requestAnimationFrame(frame);
+    }
+
+    function frame(t) {
+      rafId = 0;
+      const dt = lastT ? Math.min(48, t - lastT) : 16.7;
+      lastT = t;
+
+      if (animating) {
+        const k = 1 - Math.pow(1 - 0.2, dt / 16.7);
+        cam.s += (tgt.s - cam.s) * k;
+        cam.x += (tgt.x - cam.x) * k;
+        cam.y += (tgt.y - cam.y) * k;
+        if (Math.abs(tgt.s - cam.s) < tgt.s * 0.0008 && Math.abs(tgt.x - cam.x) < 0.3 && Math.abs(tgt.y - cam.y) < 0.3) {
+          cam.s = tgt.s; cam.x = tgt.x; cam.y = tgt.y;
+          animating = false;
+        }
+        dirty = true;
+      }
+
+      if (inertia) {
+        cam.x += inertia.vx * dt;
+        cam.y += inertia.vy * dt;
+        const decay = Math.pow(0.93, dt / 16.7);
+        inertia.vx *= decay;
+        inertia.vy *= decay;
+        const c = clampCam({ s: cam.s, x: cam.x, y: cam.y });
+        if (c.x !== cam.x) { cam.x = c.x; inertia.vx = 0; }
+        if (c.y !== cam.y) { cam.y = c.y; inertia.vy = 0; }
+        tgt.s = cam.s; tgt.x = cam.x; tgt.y = cam.y;
+        if (Math.abs(inertia.vx) + Math.abs(inertia.vy) < 0.015) inertia = null;
+        dirty = true;
+      }
+
+      if (dirty || selectedSeat) {
+        draw(t);
+        dirty = false;
+      }
+
+      if (animating || inertia || selectedSeat) {
+        rafId = requestAnimationFrame(frame);
+      } else {
+        lastT = 0;
+      }
+    }
+
+    // Static gradients (defined in world space, reused every frame)
+    const spotGrad = ctx.createRadialGradient(560, 618, 0, 560, 618, 560);
+    spotGrad.addColorStop(0, 'rgba(41,170,225,0.26)');
+    spotGrad.addColorStop(0.5, 'rgba(1,30,255,0.09)');
+    spotGrad.addColorStop(1, 'rgba(1,30,255,0)');
+
+    const stageGrad = ctx.createLinearGradient(0, 618, 0, 674);
+    stageGrad.addColorStop(0, '#1b294d');
+    stageGrad.addColorStop(0.5, '#0e172e');
+    stageGrad.addColorStop(1, '#070c18');
+
+    const ARC_RADII = [3, 11, 18].map(r => radius(r) + 9);
+
+    function draw(t) {
+      const s = cam.s;
+      const t0 = I18N[currentLang];
+
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // ── World space ──
+      ctx.setTransform(DPR * s, 0, 0, DPR * s, DPR * cam.x, DPR * cam.y);
+
+      // Stage spotlight
+      ctx.fillStyle = spotGrad;
+      ctx.beginPath();
+      ctx.moveTo(384, 618); ctx.lineTo(150, 150); ctx.lineTo(970, 150); ctx.lineTo(736, 618);
+      ctx.closePath();
+      ctx.fill();
+
+      // Tier guide arcs
+      ctx.strokeStyle = 'rgba(56,189,248,0.2)';
+      ctx.lineWidth = 1 / s;
+      ctx.setLineDash([4 / s, 6 / s]);
+      ctx.beginPath();
+      const aS = -(A_HI + 1) * D2R, aE = -(A_LO - 1) * D2R;
+      ARC_RADII.forEach(r => {
+        ctx.moveTo(CX + r * Math.cos(aS), CY + r * Math.sin(aS));
+        ctx.arc(CX, CY, r, aS, aE);
+      });
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Stage
+      ctx.beginPath();
+      ctx.ellipse(560, 618, 176, 56, 0, 0, Math.PI);
+      ctx.closePath();
+      ctx.fillStyle = stageGrad;
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(41,170,225,0.45)';
+      ctx.lineWidth = 1.2 / s;
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.ellipse(560, 618, 176, 56, 0, 0, Math.PI);
+      ctx.strokeStyle = '#67d3ff';
+      ctx.lineWidth = 2 / s;
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(560, 626, 3, 0, TAU);
+      ctx.fillStyle = '#00f0ff';
+      ctx.fill();
+
+      // Visible world rect for culling
+      const vx0 = -cam.x / s - 8, vy0 = -cam.y / s - 8;
+      const vx1 = (W - cam.x) / s + 8, vy1 = (H - cam.y) / s + 8;
+      const minR = 1.7 / s;
+
+      // Seats — one path + one fill per category
+      Object.keys(seatsByCat).forEach(cat => {
+        const dim = activeFilter !== 'all' && activeFilter !== cat;
+        ctx.globalAlpha = dim ? 0.1 : 1;
+        ctx.fillStyle = CATEGORIES[cat].color;
+        ctx.beginPath();
+        const list = seatsByCat[cat];
+        for (let i = 0; i < list.length; i++) {
+          const st = list[i];
+          if (st.x < vx0 || st.x > vx1 || st.y < vy0 || st.y > vy1) continue;
+          const r = st.r > minR ? st.r : minR;
+          ctx.moveTo(st.x + r, st.y);
+          ctx.arc(st.x, st.y, r, 0, TAU);
+        }
+        ctx.fill();
+        if (cat === 'vip' && !dim) {
+          ctx.strokeStyle = '#ffffff';
+          ctx.lineWidth = Math.min(1, 1.1 / s);
+          ctx.stroke();
+        }
+      });
+      ctx.globalAlpha = 1;
+
+      // Highlighted row (row chosen in dropdown, no seat yet)
+      const hlRow = !selectedSeat && selectRow.value ? selectRow.value : null;
+      if (hlRow) {
+        const list = hlRow === 'VIP' ? seatsByCat.vip : byRow[hlRow].filter(x => !x.vip);
+        ctx.beginPath();
+        list.forEach(st => {
+          const r = Math.max(st.r, minR) + 2.2 / s;
+          ctx.moveTo(st.x + r, st.y);
+          ctx.arc(st.x, st.y, r, 0, TAU);
+        });
+        ctx.strokeStyle = 'rgba(255,255,255,0.95)';
+        ctx.lineWidth = 1.6 / s;
+        ctx.stroke();
+      }
+
+      // Hovered seat
+      if (hoverSeat && hoverSeat !== selectedSeat) {
+        const r = Math.max(hoverSeat.r, minR) * 1.5;
+        ctx.beginPath();
+        ctx.arc(hoverSeat.x, hoverSeat.y, r, 0, TAU);
+        ctx.fillStyle = CATEGORIES[hoverSeat.cat].color;
+        ctx.fill();
+        ctx.strokeStyle = '#fff';
+        ctx.lineWidth = 1.5 / s;
+        ctx.stroke();
+      }
+
+      // Selected seat (pulsing halo)
+      if (selectedSeat) {
+        const st = selectedSeat;
+        const cat = CATEGORIES[st.cat];
+        const p = (Math.sin(t / 260) + 1) / 2;
+        const r = Math.max(st.r, minR);
+        const haloR = r * 1.6 + (14 + 6 * p) / s;
+        const g = ctx.createRadialGradient(st.x, st.y, r, st.x, st.y, haloR);
+        g.addColorStop(0, `rgba(${cat.rgb},0.55)`);
+        g.addColorStop(1, `rgba(${cat.rgb},0)`);
+        ctx.beginPath();
+        ctx.arc(st.x, st.y, haloR, 0, TAU);
+        ctx.fillStyle = g;
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(st.x, st.y, r * 1.6 + (4 + 3 * p) / s, 0, TAU);
+        ctx.strokeStyle = 'rgba(255,255,255,0.9)';
+        ctx.lineWidth = 2 / s;
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(st.x, st.y, r * 1.6, 0, TAU);
+        ctx.fillStyle = cat.color;
+        ctx.fill();
+        ctx.strokeStyle = '#fff';
+        ctx.lineWidth = 1.5 / s;
+        ctx.stroke();
+      }
+
+      // ── Screen space (crisp text) ──
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      // Stage label
+      const stageFs = Math.max(10, Math.min(22, 14 * s));
+      ctx.font = `700 ${stageFs.toFixed(1)}px Inter, sans-serif`;
+      ctx.fillStyle = 'rgba(255,255,255,0.95)';
+      ctx.fillText(t0.stage, 560 * s + cam.x, 650 * s + cam.y);
+
+      // Flank row labels (mid zoom, enough room)
+      if (s >= 0.55 && s < 1.45) {
+        ctx.font = '700 10.5px Inter, sans-serif';
+        ctx.fillStyle = 'rgba(255,255,255,0.4)';
+        [1, 4, 8, 12, 16, 18].forEach(row => {
+          const r = radius(row);
+          const al = (A_HI + 3) * D2R, ar = (A_LO - 3) * D2R;
+          ctx.textAlign = 'right';
+          ctx.fillText(`${t0.rowPrefix} ${row}`, (CX + r * Math.cos(al)) * s + cam.x, (CY - r * Math.sin(al)) * s + cam.y);
+          ctx.textAlign = 'left';
+          ctx.fillText(`${t0.rowPrefix} ${row}`, (CX + r * Math.cos(ar)) * s + cam.x, (CY - r * Math.sin(ar)) * s + cam.y);
+        });
+        ctx.textAlign = 'center';
+      }
+
+      // Row numbers at the ends of every row (zoomed in)
+      if (s >= 1.45) {
+        const fs = Math.min(13, 6 + s * 1.6);
+        ctx.font = `700 ${fs.toFixed(1)}px Inter, sans-serif`;
+        ctx.fillStyle = 'rgba(255,255,255,0.55)';
+        rowEnds.forEach(re => {
+          const ax = re.x1 * s + cam.x, ay = re.y1 * s + cam.y;
+          const bx = re.x2 * s + cam.x, by = re.y2 * s + cam.y;
+          if (ax > -30 && ax < W + 30 && ay > -30 && ay < H + 30) ctx.fillText(re.row, ax, ay);
+          if (bx > -30 && bx < W + 30 && by > -30 && by < H + 30) ctx.fillText(re.row, bx, by);
+        });
+      }
+
+      // Seat numbers inside circles (deep zoom only, visible seats only)
+      if (s * 3.0 >= 6.5) {
+        ctx.fillStyle = 'rgba(0,0,0,0.82)';
+        let lastFs = 0;
+        for (let i = 0; i < seats.length; i++) {
+          const st = seats[i];
+          if (st.x < vx0 || st.x > vx1 || st.y < vy0 || st.y > vy1) continue;
+          if (activeFilter !== 'all' && st.cat !== activeFilter) continue;
+          const scale = st === selectedSeat ? 1.6 : (st === hoverSeat ? 1.5 : 1);
+          const fs = Math.round(st.r * s * 0.95 * scale);
+          if (fs !== lastFs) { ctx.font = `700 ${fs}px Inter, sans-serif`; lastFs = fs; }
+          ctx.fillText(st.seat, st.x * s + cam.x, st.y * s + cam.y + 0.5);
+        }
+      }
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // 7. HIT TESTING
+    // ─────────────────────────────────────────────────────────────
+    function hitTest(sx, sy, tolPx) {
+      const wx = (sx - cam.x) / cam.s, wy = (sy - cam.y) / cam.s;
+      const tol = tolPx / cam.s;
+      let best = null, bd = Infinity;
+      for (let i = 0; i < seats.length; i++) {
+        const st = seats[i];
+        if (activeFilter !== 'all' && st.cat !== activeFilter) continue;
+        const dx = st.x - wx, dy = st.y - wy;
+        const d = dx * dx + dy * dy;
+        const lim = Math.max(st.r * 1.25, tol);
+        if (d < lim * lim && d < bd) { bd = d; best = st; }
+      }
+      return best;
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // 8. INPUT: POINTER EVENTS (mouse + touch + pen, unified)
+    // ─────────────────────────────────────────────────────────────
+    const pointers = new Map();
+    let gesture = null;
+    let moved = false;
+    let velSamples = [];
+
+    function startPan(x, y) {
+      gesture = { type: 'pan', sx: x, sy: y, cx: cam.x, cy: cam.y };
+      velSamples = [{ x, y, t: performance.now() }];
+    }
+
+    function startPinch() {
+      const [a, b] = [...pointers.values()];
+      const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
+      gesture = {
+        type: 'pinch',
+        d0: Math.hypot(a.x - b.x, a.y - b.y) || 1,
+        s0: cam.s,
+        wx: (mx - cam.x) / cam.s,
+        wy: (my - cam.y) / cam.s
+      };
+    }
+
+    viewport.addEventListener('pointerdown', e => {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      try { viewport.setPointerCapture(e.pointerId); } catch (_) {}
+      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      animating = false;
+      inertia = null;
+      tgt.s = cam.s; tgt.x = cam.x; tgt.y = cam.y;
+      hideTooltip();
+
+      if (pointers.size === 1) {
+        moved = false;
+        startPan(e.clientX, e.clientY);
+      } else if (pointers.size === 2) {
+        moved = true;
+        startPinch();
+      }
+    });
+
+    viewport.addEventListener('pointermove', e => {
+      if (!pointers.has(e.pointerId)) {
+        if (e.pointerType === 'mouse') handleHover(e);
+        return;
+      }
+      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (!gesture) return;
+
+      if (gesture.type === 'pan' && pointers.size === 1) {
+        const dx = e.clientX - gesture.sx, dy = e.clientY - gesture.sy;
+        if (!moved && Math.hypot(dx, dy) > (e.pointerType === 'mouse' ? 4 : 8)) {
+          moved = true;
+          viewport.classList.add('is-grabbing');
+          if (hoverSeat) { hoverSeat = null; viewport.classList.remove('is-hover'); }
+        }
+        if (moved) {
+          setCam(cam.s, gesture.cx + dx, gesture.cy + dy);
+          const now = performance.now();
+          velSamples.push({ x: e.clientX, y: e.clientY, t: now });
+          while (velSamples.length > 2 && now - velSamples[0].t > 90) velSamples.shift();
+        }
+      } else if (gesture.type === 'pinch' && pointers.size >= 2) {
+        const [a, b] = [...pointers.values()];
+        const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
+        const d = Math.hypot(a.x - b.x, a.y - b.y);
+        const ns = clampS(gesture.s0 * d / gesture.d0);
+        setCam(ns, mx - gesture.wx * ns, my - gesture.wy * ns);
+      }
+    });
+
+    function endPointer(e) {
+      if (!pointers.has(e.pointerId)) return;
+      pointers.delete(e.pointerId);
+
+      if (pointers.size === 1) {
+        const p = [...pointers.values()][0];
+        startPan(p.x, p.y);
+        return;
+      }
+      if (pointers.size > 0) return;
+
+      viewport.classList.remove('is-grabbing');
+
+      if (!moved && e.type === 'pointerup') {
+        const hit = hitTest(e.clientX, e.clientY, e.pointerType === 'mouse' ? 6 : 16);
+        if (hit) {
+          selectSeat(hit, false);
+        } else if (selectedSeat || selectRow.value) {
+          selectRow.value = '';
+          populateSeatOptions('');
+          selectSeat(null);
+        }
+      } else if (gesture && gesture.type === 'pan' && velSamples.length >= 2) {
+        const a = velSamples[0], b = velSamples[velSamples.length - 1];
+        const dt = b.t - a.t;
+        if (dt > 0 && performance.now() - b.t < 60) {
+          const vx = (b.x - a.x) / dt, vy = (b.y - a.y) / dt;
+          if (Math.hypot(vx, vy) > 0.25) {
+            inertia = { vx: Math.max(-4, Math.min(4, vx)), vy: Math.max(-4, Math.min(4, vy)) };
+            invalidate();
+          }
+        }
+      }
+      gesture = null;
+    }
+
+    viewport.addEventListener('pointerup', endPointer);
+    viewport.addEventListener('pointercancel', endPointer);
+
+    viewport.addEventListener('pointerleave', e => {
+      if (e.pointerType === 'mouse' && !pointers.size) {
+        if (hoverSeat) { hoverSeat = null; invalidate(); }
+        viewport.classList.remove('is-hover');
+        hideTooltip();
+      }
+    });
+
+    function handleHover(e) {
+      const hit = hitTest(e.clientX, e.clientY, 6);
+      if (hit !== hoverSeat) {
+        hoverSeat = hit;
+        viewport.classList.toggle('is-hover', !!hit);
+        invalidate();
+      }
+      if (hit) showTooltip(hit, e.clientX, e.clientY);
+      else hideTooltip();
+    }
+
+    // Wheel / trackpad zoom anchored at cursor
+    viewport.addEventListener('wheel', e => {
+      e.preventDefault();
+      let dy = e.deltaY;
+      if (e.deltaMode === 1) dy *= 16;
+      const k = e.ctrlKey ? 0.012 : 0.0022;
+      const factor = Math.min(1.8, Math.max(0.55, Math.exp(-dy * k)));
+      zoomAt(factor, e.clientX, e.clientY);
+      hideTooltip();
+    }, { passive: false });
+
+    viewport.addEventListener('dblclick', e => {
+      zoomAt(1.8, e.clientX, e.clientY);
+    });
+
+    // Prevent Safari page gestures
+    ['gesturestart', 'gesturechange'].forEach(ev => document.addEventListener(ev, e => e.preventDefault()));
+
+    // Keyboard
+    window.addEventListener('keydown', e => {
+      if (e.target && e.target.tagName === 'SELECT') return;
+      if (e.key === '+' || e.key === '=') zoomCenter(1.4);
+      else if (e.key === '-' || e.key === '_') zoomCenter(1 / 1.4);
+      else if (e.key === '0') fit(true);
+      else if (e.key === 'Escape') selectSeat(null);
+    });
+
+    // Dock buttons
+    $('btn-zoom-in').addEventListener('click', () => zoomCenter(1.5));
+    $('btn-zoom-out').addEventListener('click', () => zoomCenter(1 / 1.5));
+    $('btn-reset').addEventListener('click', () => fit(true));
+
+    // ─────────────────────────────────────────────────────────────
+    // 9. TOOLTIP & SEAT CARD
+    // ─────────────────────────────────────────────────────────────
+    function applyBadge(el, cat) {
+      const c = CATEGORIES[cat];
+      el.textContent = I18N[currentLang].categories[cat];
+      el.style.color = c.color;
+      el.style.background = `rgba(${c.rgb},0.18)`;
+    }
+
+    function showTooltip(st, x, y) {
+      tipTitle.textContent = getSeatLabel(st);
+      applyBadge(tipBadge, st.cat);
+      tip.style.transform = `translate(${x}px, ${y}px) translate(-50%, calc(-100% - 14px))`;
+      tip.classList.add('is-visible');
+    }
+
+    function hideTooltip() {
+      tip.classList.remove('is-visible');
+    }
+
+    function updateSheetHeight() {
+      const h = card.classList.contains('is-open') ? card.offsetHeight : 0;
+      document.documentElement.style.setProperty('--sheet-h', `${h}px`);
+    }
+
+    function selectSeat(st, fly) {
+      selectedSeat = st || null;
+
+      if (!st) {
+        card.classList.remove('is-open');
+        document.body.classList.remove('sheet-open');
+        if (selectSeatEl.value) selectSeatEl.value = '';
+        updateSheetHeight();
+        invalidate();
+        return;
+      }
+
+      cardTitle.textContent = getSeatLabel(st);
+      applyBadge(cardBadge, st.cat);
+      cardCopyText.textContent = I18N[currentLang].copyBtn;
+      cardCopyBtn.classList.remove('is-done');
+      card.classList.add('is-open');
+      document.body.classList.add('sheet-open');
+      updateSheetHeight();
+
+      // Keep dropdowns in sync with the selection
+      const rowVal = st.vip ? 'VIP' : String(st.row);
+      if (selectRow.value !== rowVal) {
+        selectRow.value = rowVal;
+        populateSeatOptions(rowVal);
+      }
+      selectSeatEl.value = st.id;
+
+      if (fly) flyToSeat(st); else ensureVisible(st);
+      invalidate();
+    }
+
+    cardCloseBtn.addEventListener('click', () => selectSeat(null));
+
+    function copyText(txt) {
+      if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(txt);
+      return new Promise((resolve, reject) => {
+        const ta = document.createElement('textarea');
+        ta.value = txt;
+        ta.setAttribute('readonly', '');
+        ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); resolve(); } catch (err) { reject(err); }
+        ta.remove();
+      });
+    }
+
+    let copyTimer = null;
+    cardCopyBtn.addEventListener('click', () => {
+      if (!selectedSeat) return;
+      copyText(getSeatLabel(selectedSeat)).then(() => {
+        cardCopyText.textContent = I18N[currentLang].copied;
+        cardCopyBtn.classList.add('is-done');
+        clearTimeout(copyTimer);
+        copyTimer = setTimeout(() => {
+          cardCopyText.textContent = I18N[currentLang].copyBtn;
+          cardCopyBtn.classList.remove('is-done');
+        }, 1600);
+      }).catch(() => {});
+    });
+
+    // ─────────────────────────────────────────────────────────────
+    // 10. SEAT FINDER DROPDOWNS
+    // ─────────────────────────────────────────────────────────────
+    function rowSeats(rowVal) {
+      if (!rowVal) return [];
+      if (rowVal === 'VIP') return seatsByCat.vip.slice().sort((a, b) => a.seat - b.seat);
+      return (byRow[rowVal] || []).filter(s => !s.vip).sort((a, b) => a.seat - b.seat);
+    }
+
+    function populateRowOptions() {
+      const t = I18N[currentLang];
+      const prev = selectRow.value;
+      let html = `<option value="">${t.selectRow}</option><option value="VIP">${t.vipRow}</option>`;
+      for (let r = 1; r <= 18; r++) html += `<option value="${r}">${t.rowPrefix} ${r}</option>`;
+      selectRow.innerHTML = html;
+      selectRow.value = prev;
+    }
+
+    function populateSeatOptions(rowVal) {
+      const t = I18N[currentLang];
+      const prev = selectSeatEl.value;
+      if (!rowVal) {
+        selectSeatEl.disabled = true;
+        selectSeatEl.innerHTML = `<option value="">${t.chooseRowFirst}</option>`;
+        return;
+      }
+      selectSeatEl.disabled = false;
+      let html = `<option value="">${t.selectSeat}</option>`;
+      rowSeats(rowVal).forEach(s => {
+        html += `<option value="${s.id}">${s.vip ? t.vipSeatPrefix : t.seatPrefix} ${s.seat}</option>`;
+      });
+      selectSeatEl.innerHTML = html;
+      if (prev && seatById.has(prev) && rowSeats(rowVal).includes(seatById.get(prev))) selectSeatEl.value = prev;
+    }
+
+    selectRow.addEventListener('change', () => {
+      const rowVal = selectRow.value;
+      selectSeatEl.value = '';
+      populateSeatOptions(rowVal);
+      selectSeat(null);
+      if (rowVal) flyToRow(rowSeats(rowVal));
+      else fit(true);
+    });
+
+    selectSeatEl.addEventListener('change', () => {
+      const st = seatById.get(selectSeatEl.value);
+      if (st) selectSeat(st, true);
+      else selectSeat(null);
+    });
+
+    // ─────────────────────────────────────────────────────────────
+    // 11. FILTER CHIPS
+    // ─────────────────────────────────────────────────────────────
+    function renderFilterChips() {
+      const t = I18N[currentLang];
+      let html = `<button class="chip${activeFilter === 'all' ? ' is-active' : ''}" id="chip-all" data-cat="all">
+          <span class="chip-dot" style="background:#fff"></span><span>${t.allHall}</span><span class="chip-count">${seats.length}</span></button>`;
+      Object.keys(CATEGORIES).forEach(cat => {
+        const c = CATEGORIES[cat];
+        html += `<button class="chip${activeFilter === cat ? ' is-active' : ''}" id="chip-${cat}" data-cat="${cat}">
+          <span class="chip-dot" style="background:${c.color};box-shadow:0 0 8px ${c.color}"></span>
+          <span>${t.categories[cat]}</span><span class="chip-count">${seatsByCat[cat].length}</span></button>`;
+      });
+      chipsContainer.innerHTML = html;
+    }
+
+    chipsContainer.addEventListener('click', e => {
+      const chip = e.target.closest('.chip');
+      if (!chip) return;
+      activeFilter = chip.dataset.cat;
+      chipsContainer.querySelectorAll('.chip').forEach(c => c.classList.toggle('is-active', c === chip));
+      if (hoverSeat) hoverSeat = null;
+      invalidate();
+    });
+
+    // ─────────────────────────────────────────────────────────────
+    // 12. LANGUAGE SWITCHER
+    // ─────────────────────────────────────────────────────────────
+    function updateLanguage(lang) {
+      currentLang = lang;
+      try { localStorage.setItem('muun_scheme_lang', lang); } catch (_) {}
+      const t = I18N[lang];
+      document.documentElement.lang = lang;
+
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+      $('header-hall-title').textContent = t.hallTitle;
+      $('header-hall-seats').textContent = t.hallSeats;
+      $('btn-zoom-in').title = t.zoomIn;
+      $('btn-zoom-out').title = t.zoomOut;
+      $('btn-reset').title = t.reset;
+
+      renderFilterChips();
+      populateRowOptions();
+      populateSeatOptions(selectRow.value);
+      if (selectedSeat) selectSeatEl.value = selectedSeat.id;
+
+      cardCopyText.textContent = t.copyBtn;
+      if (selectedSeat) {
+        cardTitle.textContent = getSeatLabel(selectedSeat);
+        applyBadge(cardBadge, selectedSeat.cat);
+      }
+      invalidate();
+    }
+
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => updateLanguage(btn.dataset.lang));
+    });
+
+    // ─────────────────────────────────────────────────────────────
+    // 13. INIT & RESIZE
+    // ─────────────────────────────────────────────────────────────
+    function handleResize() {
+      const cxW = (W / 2 - cam.x) / cam.s;
+      const cyW = (H / 2 - cam.y) / cam.s;
+      const wasFit = atFit;
+      resizeCanvas();
+      updateLimits();
+      updateSheetHeight();
+      if (wasFit) {
+        fit(false);
+      } else {
+        setCam(cam.s, W / 2 - cxW * cam.s, H / 2 - cyW * cam.s);
+      }
+      invalidate();
+    }
+
+    let resizeRaf = 0;
+    const scheduleResize = () => {
+      if (resizeRaf) return;
+      resizeRaf = requestAnimationFrame(() => { resizeRaf = 0; handleResize(); });
+    };
+    window.addEventListener('resize', scheduleResize);
+    if (window.ResizeObserver) new ResizeObserver(scheduleResize).observe(topBar);
+
+    updateLanguage(currentLang);
+    resizeCanvas();
+    updateLimits();
+    fit(false);
+
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => {
+        if (atFit) { updateLimits(); fit(false); }
+        invalidate();
+      });
+    }
+  })();
+  </script>
+</body>
+</html>

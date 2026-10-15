@@ -112,16 +112,21 @@ const pages = [
   }
 }
 
-// 3.1) Копируем служебную страницу проверки билетов
-const scannerHtml = await readFile("src/scanner.html", "utf8");
-await writeFile(path.join(OUT, "scanner.html"), scannerHtml, "utf8");
-for (const code of codes) {
-  const L = locales[code];
-  if (L.path) {
-    await writeFile(path.join(OUT, L.path, "scanner.html"), scannerHtml, "utf8");
-  }
+// 3.1) Закрытая интерактивная карта-схема зала (без публичных ссылок на сайте)
+const schemeFile = fs.existsSync("src/scheme.html") ? "src/scheme.html" : "src/kurultai.html";
+if (fs.existsSync(schemeFile)) {
+  const schemeHtml = await readFile(schemeFile, "utf8");
+  await writeFile(path.join(OUT, "scheme.html"), schemeHtml, "utf8");
+  await mkdir(path.join(OUT, "scheme"), { recursive: true });
+  await writeFile(path.join(OUT, "scheme", "index.html"), schemeHtml, "utf8");
+
+  // Алиас для kurultai
+  await writeFile(path.join(OUT, "kurultai.html"), schemeHtml, "utf8");
+  await mkdir(path.join(OUT, "kurultai"), { recursive: true });
+  await writeFile(path.join(OUT, "kurultai", "index.html"), schemeHtml, "utf8");
+
+  console.log("✓ dist/scheme/index.html & dist/scheme.html (закрытая интерактивная схема)");
 }
-console.log("✓ dist/scanner.html (сканер билетов)");
 
 // 4) .htaccess для Plesk/Apache: gzip + долгий кэш ассетов, html без кэша
 const htaccess = `# gzip
