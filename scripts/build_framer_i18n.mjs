@@ -5,8 +5,10 @@ import { SOCIAL, threadsIconSvg, footerSocialCss, footerFixerJs, mobileNavCss, r
 import { programCss, programClientJs, programFixerJs, injectProgramSsr } from './program_block.mjs';
 import { lockHeroMark, heroMarkCss, heroMarkScript } from './hero_mark.mjs';
 import { stripFramerRuntime } from './strip_framer_runtime.mjs';
+import { vendorFramerEngine } from './vendor_framer_engine.mjs';
 
 const rawHtml = fs.readFileSync('templates/eventis_raw.html', 'utf8');
+try { fs.unlinkSync('dist/.framer-pairs.json'); } catch { /* fresh build */ }
 const i18n = JSON.parse(fs.readFileSync('src/i18n.json', 'utf8'));
 const homeTemplate = fs.readFileSync('src/template.html', 'utf8');
 const kgMapStart = homeTemplate.indexOf('<svg id="kyrgyzstan-vector-map"');
@@ -4594,7 +4596,16 @@ for (const lang of ['ru', 'ky', 'en']) {
   finalHtml = finalHtml.replace('</body>', participantModalHtml + '\n' + langSwitcherHtml + '\n' + mobileNavHtml + '\n</body>');
 
   fs.mkdirSync(`dist/${lang}`, { recursive: true });
-  finalHtml = stripFramerRuntime(finalHtml);
+  finalHtml = stripFramerRuntime(finalHtml, {
+    lang,
+    pairs: [
+      ...replacements,
+      ...homeSpeakerPeople(lang).flatMap((person, index) => {
+        const slot = HOME_SPEAKER_SLOTS[index];
+        return slot ? [[slot.name, person.name], [slot.role, person.role]] : [];
+      })
+    ]
+  });
   fs.writeFileSync(`dist/${lang}/index.html`, finalHtml);
 
   if (lang === 'ru') {
@@ -4606,3 +4617,4 @@ console.log('Successfully generated dist/ru, dist/ky, dist/en, and dist/index.ht
 
 import { execSync } from 'child_process';
 execSync('node scripts/build_clean_subpages.mjs', { stdio: 'inherit' });
+await vendorFramerEngine();

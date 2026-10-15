@@ -1237,7 +1237,26 @@ for (const lang of languages) {
         })();
       </script>
     `;
-    pageHtml = stripFramerRuntime(pageHtml.replace('</body>', `${clientScript}\n</body>`));
+    const enginePairs = [
+      ['Eventis - Free Event and Conference Template', `${pageTitle.meta} — MUUN 2026`],
+      ['Join Eventis, the premier technology and IT summit, bringing together developers, designers, entrepreneurs, and investors to explore the latest in software development, AI innovations, and startup growth.', metaDesc],
+      ['Get Ticket', regCtaText],
+      ['Get Tickets', regCtaText],
+      ['info@aicron.com', 'info@muun.kg'],
+      ['+91 1234567890', '+996 990 122 341'],
+      ['Designed By Jitu Raut  @fremix.design', ''],
+      ['Terms and Conditions', lang === 'ky' ? 'Оферта келишими' : lang === 'en' ? 'Terms of Service' : 'Договор оферты'],
+      ['Email Us', contactCopy(lang).emailTitle],
+      ['Call Us', contactCopy(lang).phoneTitle],
+      ['Reach out to our team for quick assistance.', contactCopy(lang).emailBody],
+      ['Drop us a message and we will get back to you shortly.', contactCopy(lang).phoneBody]
+    ];
+    speakerRoster(lang).forEach((person, index) => {
+      const orig = SPEAKER_ORIGINALS[index];
+      if (!orig) return;
+      enginePairs.push([orig.name, person.name], [orig.role, person.role]);
+    });
+    pageHtml = stripFramerRuntime(pageHtml.replace('</body>', `${clientScript}\n</body>`), { lang, pairs: enginePairs });
 
     // Write output files
     const targets = [
