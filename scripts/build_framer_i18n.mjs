@@ -37,7 +37,7 @@ const downloadEagle = 'C:/Users/Beibars/Downloads/орел2.png';
 if (fs.existsSync(downloadEagle)) {
   fs.copyFileSync(downloadEagle, 'assets/eagle2.png');
 }
-for (const f of ['favicon.ico', 'favicon.png', 'logo-new.png', 'logo-crystal.png', 'logo-header.png', 'president.png', 'ministry-logo.jpeg', 'ministry-logo-white.png', 'kumtor.png', 'kyrgyzaltyn.png', 'aeroporty kyrgyzstana.png', 'eagle2.png', 'logo-footer.png', 'og-image.jpg', 'partner-cebc.png', 'partner-codify.png', 'partner-prokg.png', 'partner-htp.png', 'partner-mdk-ru.png', 'partner-mdk-ky.png', 'partner-contest.png', 'qr-instagram.svg', 'qr-facebook.svg', 'qr-threads.svg', 'qr-whatsapp.svg', 'speaker-abakirov.jpg', 'speaker-moldokeeva.jpg', 'speaker-amantur.jpg']) {
+for (const f of ['favicon.ico', 'favicon.png', 'logo-new.png', 'logo-crystal.png', 'logo-header.png', 'president.png', 'ministry-logo.jpeg', 'ministry-logo-white.png', 'kumtor.png', 'kyrgyzaltyn.png', 'aeroporty kyrgyzstana.png', 'eagle2.png', 'logo-footer.png', 'og-image.jpg', 'partner-cebc.png', 'partner-codify.png', 'partner-prokg.png', 'partner-htp.png', 'partner-mdk-ru.png', 'partner-mdk-ky.png', 'partner-contest.png', 'qr-instagram.svg', 'qr-facebook.svg', 'qr-threads.svg', 'qr-whatsapp.svg', 'speaker-abakirov.jpg', 'speaker-moldokeeva.jpg', 'speaker-amantur.jpg', 'speaker-otorbaeva.jpg', 'speaker-zhakypova.png']) {
   if (fs.existsSync(`assets/${f}`)) {
     fs.copyFileSync(`assets/${f}`, `dist/${f}`);
     fs.copyFileSync(`assets/${f}`, `dist/assets/${f}`);
@@ -82,12 +82,12 @@ const aboutData = {
   ru: {
     kicker: 'О форуме',
     stats: [
-      { target: 100, suffix: '+', desc: 'компаний и организаций-участников' },
-      { target: 10000, suffix: '+', desc: 'уникальных посетителей за день' },
-      { target: 10, suffix: '+', desc: 'стран-участниц' },
-      { target: 10000, suffix: ' м²', desc: 'общая площадь' },
-      { target: 20, suffix: '+', desc: 'мероприятий деловой программы' },
-      { target: 50, suffix: '+', desc: 'топ-менеджеров и руководителей' }
+      { target: 30, suffix: '+', desc: 'компаний и организаций' },
+      { target: 2000, suffix: '+', desc: 'посетителей' },
+      { target: 5, suffix: '+', desc: 'стран участниц' },
+      { target: 7000, suffix: ' м²', desc: 'площадь' },
+      { target: 10, suffix: '+', desc: 'мероприятий программы' },
+      { target: 50, suffix: '+', desc: 'топ-менеджеров и спикеров' }
     ],
     pres: {
       kicker: 'Президент Кыргызской Республики',
@@ -98,12 +98,12 @@ const aboutData = {
   ky: {
     kicker: 'Форум жөнүндө',
     stats: [
-      { target: 100, suffix: '+', desc: 'компаниялар жана уюмдар' },
-      { target: 10000, suffix: '+', desc: 'бир күндө уникалдуу келүүчүлөр' },
-      { target: 10, suffix: '+', desc: 'катышуучу өлкөлөр' },
-      { target: 10000, suffix: ' м²', desc: 'жалпы аянты' },
-      { target: 20, suffix: '+', desc: 'ишкердик программасындагы иш-чаралар' },
-      { target: 50, suffix: '+', desc: 'топ-менеджерлер жана жетекчилер' }
+      { target: 30, suffix: '+', desc: 'компаниялар жана уюмдар' },
+      { target: 2000, suffix: '+', desc: 'келүүчүлөр' },
+      { target: 5, suffix: '+', desc: 'катышуучу өлкөлөр' },
+      { target: 7000, suffix: ' м²', desc: 'аянт' },
+      { target: 10, suffix: '+', desc: 'программадагы иш-чаралар' },
+      { target: 50, suffix: '+', desc: 'топ-менеджерлер жана спикерлер' }
     ],
     pres: {
       kicker: 'Кыргыз Республикасынын Президенти',
@@ -114,12 +114,12 @@ const aboutData = {
   en: {
     kicker: 'About the Forum',
     stats: [
-      { target: 100, suffix: '+', desc: 'companies and participating organizations' },
-      { target: 10000, suffix: '+', desc: 'unique visitors on the day' },
-      { target: 10, suffix: '+', desc: 'participating countries' },
-      { target: 10000, suffix: ' m²', desc: 'total venue area' },
-      { target: 20, suffix: '+', desc: 'business program events' },
-      { target: 50, suffix: '+', desc: 'top executives and industry leaders' }
+      { target: 30, suffix: '+', desc: 'companies and organizations' },
+      { target: 2000, suffix: '+', desc: 'visitors' },
+      { target: 5, suffix: '+', desc: 'participating countries' },
+      { target: 7000, suffix: ' m²', desc: 'venue area' },
+      { target: 10, suffix: '+', desc: 'program events' },
+      { target: 50, suffix: '+', desc: 'top executives and speakers' }
     ],
     pres: {
       kicker: 'President of the Kyrgyz Republic',
@@ -366,7 +366,11 @@ const SECTION_HEADINGS = {
       t3: 'Предприниматели',
       d3: 'Откройте новые стратегические партнерства, инвестиционные возможности и масштабируйте свой бизнес на национальном и международном уровнях. Привлекайте в свои команды самых талантливых, амбициозных молодых специалистов и выпускников ведущих вузов. Внедряйте передовые инновации, технологические тренды и делитесь экспертным опытом с новым поколением лидеров.',
       t4: 'Родители',
-      d4: 'Узнайте о реальных тенденциях и долгосрочных перспективах глобального и национального рынка труда на ближайшие десятилетия. Разберитесь в актуальных направлениях высшего и профессионального образования, востребованных специальностях и доступных программах грантов. Получите экспертные рекомендации специалистов и помогите своим детям сделать уверенный, взвешенный и осознанный выбор будущей профессии.'
+      d4: 'Узнайте о реальных тенденциях и долгосрочных перспективах глобального и национального рынка труда на ближайшие десятилетия. Разберитесь в актуальных направлениях высшего и профессионального образования, востребованных специальностях и доступных программах грантов. Получите экспертные рекомендации специалистов и помогите своим детям сделать уверенный, взвешенный и осознанный выбор будущей профессии.',
+      t5: 'Госорганы',
+      d5: 'Представьте государственные инициативы, молодежные программы и ключевые векторы национального развития широкой аудитории. Налаживайте прямой и открытый диалог с молодым поколением, образовательными учреждениями и лидерами инновационного бизнеса. Формируйте кадровый резерв нового формата и привлекайте перспективных специалистов для решения масштабных государственных задач.',
+      t6: 'Международные организации',
+      d6: 'Демонстрируйте международные образовательные гранты, глобальные программы развития и межкультурные молодежные инициативы. Укрепляйте институциональное партнерство с государственными структурами, университетами и гражданским обществом Кыргызстана. Содействуйте обмену передовым опытом, внедрению мировых стандартов и устойчивому развитию человеческого капитала в регионе.'
     }
   },
   ky: {
@@ -408,7 +412,11 @@ const SECTION_HEADINGS = {
       t3: 'Ишкерлер',
       d3: 'Жаңы стратегиялык өнөктөштүктөрдү түзүңүз, инвестиция тартыңыз жана бизнесиңизди жаңы деңгээлге чыгарыңыз. Командаңызга эң таланттуу, максаттуу жаш адистерди жана бүтүрүүчүлөрдү тартыңыз. Алдыңкы инновацияларды киргизип, жаңы муун менен тажрыйба бөлүшүңүз.',
       t4: 'Ата-энелер',
-      d4: 'Эмгек рыногунун келечектеги багыттары жана негизги тенденциялары менен тереңирээк таанышыңыз. Заманбап билим берүү багыттарын, суроо-талапка ээ кесиптерди жана стипендиялык программаларды изилдеңиз. Балдарыңызга кесип тандоодо туура жана негизделген чечим чыгарууга көмөктөшүңүз.'
+      d4: 'Эмгек рыногунун келечектеги багыттары жана негизги тенденциялары менен тереңирээк таанышыңыз. Заманбап билим берүү багыттарын, суроо-талапка ээ кесиптерди жана стипендиялык программаларды изилдеңиз. Балдарыңызга кесип тандоодо туура жана негизделген чечим чыгарууга көмөктөшүңүз.',
+      t5: 'Мамлекеттик органдар',
+      d5: 'Мамлекеттик демилгелерди, жаштар программаларын жана өлкөнүн өнүгүү багыттарын кеңири аудиторияга сунуштаңыз. Жаш муун, билим берүү мекемелери жана инновациялык бизнес лидерлери менен түз жана ачык диалог түзүңүз. Мамлекеттик деңгээлдеги маанилүү милдеттерди чечүү үчүн келечектүү адистерди тартып, жаңы форматтагы кадрдык резервди түзүңүз.',
+      t6: 'Эл аралык уюмдар',
+      d6: 'Эл аралык билим берүү гранттарын, глобалдык өнүктүрүү программаларын жана маданияттар аралык жаштар демилгелерин тааныштырыңыз. Кыргызстандын мамлекеттик түзүмдөрү, университеттери жана жарандык коому менен институционалдык өнөктөштүктү бекемдеңиз. Алдыңкы эл аралык тажрыйба алмашууга, дүйнөлүк стандарттарды жайылтууга жана аймактагы адамдык капиталды туруктуу өнүктүрүүгө салым кошуңуз.'
     }
   },
   en: {
@@ -450,7 +458,11 @@ const SECTION_HEADINGS = {
       t3: 'Entrepreneurs',
       d3: 'Unlock strategic partnerships, new investment opportunities, and scale your business to regional and global heights. Recruit ambitious, high-potential young talent and graduates directly into your expanding team. Implement cutting-edge innovations and share your entrepreneurial expertise with the next generation.',
       t4: 'Parents',
-      d4: 'Understand the evolving dynamics and long-term perspectives of the global and local labor markets. Explore accredited university degrees, high-demand career pathways, and available educational scholarship options. Empower your children to make confident, balanced, and well-informed professional choices.'
+      d4: 'Understand the evolving dynamics and long-term perspectives of the global and local labor markets. Explore accredited university degrees, high-demand career pathways, and available educational scholarship options. Empower your children to make confident, balanced, and well-informed professional choices.',
+      t5: 'Government Agencies',
+      d5: 'Present national initiatives, youth development programs, and public sector opportunities directly to an engaged, forward-looking audience. Foster an open dialogue with the next generation of professionals, academic leaders, and innovative business pioneers. Build a forward-thinking talent reserve and attract high-caliber youth to drive impactful public-sector progress.',
+      t6: 'International Organizations',
+      d6: 'Showcase global educational grants, sustainable development programs, and international youth empowerment initiatives. Strengthen strategic partnerships with national institutions, academic communities, and civil society across Kyrgyzstan. Foster knowledge exchange, promote international standards, and support the long-term growth of human capital throughout the region.'
     }
   }
 };
@@ -845,6 +857,97 @@ function replaceMarkedHeadings(html, pairs) {
   });
 }
 
+const targetIcons = {
+  school: `<svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+    <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"></path>
+    <line x1="2" y1="12" x2="22" y2="12"></line>
+  </svg>`,
+  students: `<svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 7l-10-4-10 4 10 4 10-4z"></path>
+    <path d="M6 9.5v3"></path>
+    <circle cx="12" cy="13" r="3"></circle>
+    <path d="M6 21v-1a6 6 0 0 1 12 0v1"></path>
+  </svg>`,
+  entrepreneurs: `<svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+    <rect width="20" height="12" x="2" y="6" rx="2"></rect>
+    <circle cx="12" cy="12" r="2.5"></circle>
+    <path d="M6 12h.01M18 12h.01"></path>
+  </svg>`,
+  parents: `<svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+    <circle cx="9" cy="7" r="4"></circle>
+    <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+  </svg>`,
+  government: `<svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 21h18"/>
+    <path d="M4 18h16"/>
+    <path d="M2 10h20"/>
+    <path d="M12 3 2 10h20z"/>
+    <path d="M6 10v8"/>
+    <path d="M12 10v8"/>
+    <path d="M18 10v8"/>
+  </svg>`,
+  international: `<svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="9.5"/>
+    <ellipse cx="12" cy="12" rx="4.5" ry="9.5"/>
+    <path d="M2.5 12h19"/>
+    <path d="M4.5 7h15"/>
+    <path d="M4.5 17h15"/>
+  </svg>`
+};
+
+function getTargetAudienceData(lang) {
+  const tabs = SECTION_HEADINGS[lang].targetTabs;
+  return [
+    { id: 'school', title: tabs.t1, desc: tabs.d1 },
+    { id: 'students', title: tabs.t2, desc: tabs.d2 },
+    { id: 'entrepreneurs', title: tabs.t3, desc: tabs.d3 },
+    { id: 'parents', title: tabs.t4, desc: tabs.d4 },
+    { id: 'government', title: tabs.t5, desc: tabs.d5 },
+    { id: 'international', title: tabs.t6, desc: tabs.d6 }
+  ];
+}
+
+function renderTargetTabsHtml(items) {
+  const cardsHtml = items.map((item, idx) => {
+    const isActive = idx === 0;
+    const variantClass = isActive ? 'framer-v-1wn31oz is-active' : 'framer-v-6klljf';
+    const variantName = isActive ? 'Clicked' : 'Square';
+    const iconSvg = targetIcons[item.id] || '';
+    const cubeDisplay = isActive ? '' : 'style="display:none;"';
+
+    return `<div class="framer-NWfWD framer-VxbzB framer-6klljf ${variantClass} muun-framer-card" data-target-index="${idx}" data-border="true" data-framer-name="${variantName}" data-highlight="true" tabindex="0" role="button" aria-pressed="${isActive ? 'true' : 'false'}">
+      <div class="framer-vdq0vg" data-framer-name="Cube" ${cubeDisplay}>
+        <div style="position:absolute;border-radius:inherit;top:0;right:0;bottom:0;left:0" data-framer-background-image-wrapper="true">
+          <img decoding="async" width="855" height="855" src="https://framerusercontent.com/images/wX62SMRMN1v1X6SFoJaoNdwo.webp?width=855&amp;height=855" alt="" style="display:block;width:100%;height:100%;border-radius:inherit;object-position:center;object-fit:cover" />
+        </div>
+      </div>
+      <div class="framer-dr18ap"></div>
+      <div class="framer-12hi9of-container">
+        ${iconSvg}
+      </div>
+      <div class="framer-31nozc" data-framer-name="${escHtml(item.title)}" data-framer-component-type="RichTextContainer">
+        <h4 class="framer-text framer-styles-preset-flhrrz" data-styles-preset="dgjyWRW1V">${escHtml(item.title)}</h4>
+      </div>
+    </div>`;
+  }).join('');
+
+  const first = items[0] || {};
+  return `<div class="framer-G6Ndb framer-mxN0T framer-1mpnhrg framer-v-1mpnhrg muun-for-whom-container" data-framer-name="Desktop 1" style="width:100%">
+    <div class="framer-1crz8ec muun-cards-track" data-framer-name="Images">
+      ${cardsHtml}
+    </div>
+
+    <div class="framer-296zja muun-desc-outer" data-framer-name="Content">
+      <div class="muun-desc-card" data-framer-name="Text">
+        <p class="framer-text framer-styles-preset-dsr0r muun-desc-text" data-styles-preset="Erxl6HnxD" style="--framer-text-color:rgb(237, 237, 237);">${escHtml(first.desc || '')}</p>
+      </div>
+    </div>
+  </div>`;
+}
+
 for (const lang of ['ru', 'ky', 'en']) {
   let finalHtml = rawHtml;
 
@@ -853,6 +956,8 @@ for (const lang of ['ru', 'ky', 'en']) {
   const loc = localizedContent[lang];
   const curAbout = aboutData[lang];
   const hd = SECTION_HEADINGS[lang];
+  const targetAudienceItems = getTargetAudienceData(lang);
+  const targetTabsHtml = renderTargetTabsHtml(targetAudienceItems);
 
   const metaTitle = m.title || (lang === 'ky' ? 'MUUN 2026 - Кыргызстандын келечек кесиптеринин улуттук жаштар көргөзмө-форуму' : lang === 'en' ? 'MUUN 2026 - National Youth Exhibition-Forum of Professions of the Future' : 'MUUN 2026 - Национальная молодежная выставка-форум профессий будущего');
 
@@ -1062,6 +1167,22 @@ for (const lang of ['ru', 'ky', 'en']) {
           regFormHtml +
           '</div></div></div></section>' +
           finalHtml.slice(regSecEnd + 10);
+      }
+    }
+  }
+
+  // Pre-render "For Whom?" 6 category cards and description box
+  const targetSecStart = finalHtml.indexOf('data-framer-name="For Whom?"');
+  if (targetSecStart !== -1) {
+    const targetContentStart = finalHtml.indexOf('<div class="framer-mu05uw"', targetSecStart);
+    if (targetContentStart !== -1) {
+      const targetTickerStart = finalHtml.indexOf('<div class="framer-4y5hkw"', targetContentStart);
+      if (targetTickerStart !== -1) {
+        finalHtml = finalHtml.slice(0, targetContentStart) +
+          '<div class="framer-mu05uw" data-framer-name="Content">' +
+          targetTabsHtml +
+          '</div></div></div>' +
+          finalHtml.slice(targetTickerStart);
       }
     }
   }
@@ -1553,50 +1674,289 @@ for (const lang of ['ru', 'ky', 'en']) {
         width: max-content !important;
       }
 
-      /* ── 3. FOR WHOM SECTION: LEFT-ALIGNED 3-SENTENCE DESCRIPTION ACROSS RECTANGLE ── */
-      section[data-framer-name="For Whom?"] .framer-12hi9of-container,
-      .framer-mu05uw .framer-12hi9of-container {
-        width: 60px !important;
-        height: 60px !important;
+      /* ── 3. FOR WHOM SECTION: EXACT FRAMER SQUIRCLE/CIRCLE CARDS IN 1 ROW ── */
+      .framer-mu05uw .framer-9wjni4-container {
+        display: none !important;
+      }
+
+      .muun-for-whom-container {
+        width: 100% !important;
+        max-width: 1200px !important;
+        margin: 0 auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        position: relative !important;
+        box-sizing: border-box !important;
+      }
+
+      /* 6 cards in 1 row: CSS Grid guarantees exact 1:1 square/circle aspect ratio without stretching */
+      .muun-cards-track {
+        display: grid !important;
+        grid-template-columns: repeat(6, 1fr) !important;
+        gap: 16px !important;
+        width: 100% !important;
+        max-width: 1200px !important;
+        margin: 0 auto !important;
+        padding: 14px 0 !important;
+        box-sizing: border-box !important;
+      }
+
+      .muun-framer-card {
+        width: 100% !important;
+        height: auto !important;
+        aspect-ratio: 1 / 1 !important;
+        min-width: 0 !important;
+        min-height: 0 !important;
+        padding: 16px 8px !important;
+        cursor: pointer !important;
+        user-select: none !important;
+        box-sizing: border-box !important;
+        position: relative !important;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 10px !important;
+        transition: border-radius 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                    border-color 0.25s ease,
+                    box-shadow 0.35s ease,
+                    transform 0.25s ease !important;
+        background-color: #000000 !important;
+        outline: none !important;
+      }
+
+      /* Active Card: Circular with glowing cube and vibrant blue border */
+      .muun-framer-card.is-active,
+      .muun-framer-card.framer-v-1wn31oz {
+        border-radius: 9999px !important;
+        border: 2.5px solid #0055FF !important;
+        box-shadow: 0 0 35px rgba(0, 85, 255, 0.55), inset 0 0 20px rgba(0, 85, 255, 0.25) !important;
+        transform: scale(1.02) !important;
+      }
+
+      .muun-framer-card.is-active .framer-vdq0vg,
+      .muun-framer-card.framer-v-1wn31oz .framer-vdq0vg {
+        display: block !important;
+        opacity: 1 !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        z-index: 0 !important;
+        border-radius: inherit !important;
+      }
+
+      .muun-framer-card.is-active .framer-dr18ap,
+      .muun-framer-card.framer-v-1wn31oz .framer-dr18ap {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        z-index: 1 !important;
+        border-radius: inherit !important;
+        background-color: rgba(0, 0, 0, 0.45) !important;
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+      }
+
+      .muun-framer-card.is-active h4,
+      .muun-framer-card.framer-v-1wn31oz h4 {
+        color: #FFFFFF !important;
+      }
+
+      .muun-framer-card.is-active svg,
+      .muun-framer-card.framer-v-1wn31oz svg {
+        stroke: #FFFFFF !important;
+      }
+
+      /* Inactive Card: Squircle with subtle border */
+      .muun-framer-card:not(.is-active) {
+        border-radius: 48px !important;
+        border: 2px solid rgb(38, 38, 38) !important;
+      }
+
+      .muun-framer-card:not(.is-active) .framer-vdq0vg {
+        display: none !important;
+        opacity: 0 !important;
+      }
+
+      .muun-framer-card:not(.is-active) .framer-dr18ap {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        z-index: 1 !important;
+        border-radius: inherit !important;
+        background-color: rgba(0, 0, 0, 0.72) !important;
+        backdrop-filter: blur(5px) !important;
+        -webkit-backdrop-filter: blur(5px) !important;
+      }
+
+      .muun-framer-card:not(.is-active) h4 {
+        color: rgb(138, 138, 138) !important;
+      }
+
+      .muun-framer-card:not(.is-active) svg {
+        stroke: rgb(160, 160, 160) !important;
+      }
+
+      /* Inactive Hover */
+      .muun-framer-card:not(.is-active):hover {
+        border-color: rgba(255, 255, 255, 0.3) !important;
+        transform: translateY(-4px) !important;
+      }
+
+      .muun-framer-card:not(.is-active):hover h4 {
+        color: #FFFFFF !important;
+      }
+
+      .muun-framer-card:not(.is-active):hover svg {
+        stroke: #FFFFFF !important;
+      }
+
+      /* Card Internal Icon & Title */
+      .muun-framer-card .framer-12hi9of-container {
+        width: 48px !important;
+        height: 48px !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
+        z-index: 2 !important;
+        position: relative !important;
+        flex-shrink: 0 !important;
       }
 
-      section[data-framer-name="For Whom?"] .framer-12hi9of-container svg,
-      .framer-mu05uw .framer-12hi9of-container svg {
-        width: 100% !important;
-        height: 100% !important;
-        max-width: 60px !important;
-        max-height: 60px !important;
+      .muun-framer-card .framer-12hi9of-container svg {
+        width: 44px !important;
+        height: 44px !important;
+        transition: stroke 0.25s ease !important;
       }
 
-      section[data-framer-name="For Whom?"] .framer-1mpnhrg,
-      section[data-framer-name="For Whom?"] .framer-1dxlm5u,
-      section[data-framer-name="For Whom?"] [data-framer-name="Text"],
-      .framer-mu05uw [data-framer-name="Text"] {
+      .muun-framer-card .framer-31nozc {
+        z-index: 2 !important;
+        position: relative !important;
         width: 100% !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-        padding: 24px 36px !important;
-        display: flex !important;
-        justify-content: flex-start !important;
-        align-items: center !important;
+        text-align: center !important;
       }
 
-      section[data-framer-name="For Whom?"] p,
-      .framer-mu05uw p {
-        font-family: "Inter", sans-serif !important;
-        font-size: 15.5px !important;
-        line-height: 1.65 !important;
-        color: rgba(224, 242, 254, 0.92) !important;
-        width: 100% !important;
-        max-width: 100% !important;
+      .muun-framer-card h4 {
+        font-family: 'Inter', sans-serif !important;
+        font-size: 14.5px !important;
+        font-weight: 600 !important;
+        line-height: 1.22 !important;
         margin: 0 !important;
-        text-align: left !important;
-        white-space: normal !important;
+        text-align: center !important;
+        transition: color 0.25s ease !important;
+        word-break: normal !important;
       }
 
+      /* Description Box: Full width, proper padding, horizontal readable text */
+      .framer-mu05uw .muun-desc-outer,
+      .muun-desc-outer {
+        width: 100% !important;
+        max-width: 1200px !important;
+        margin: 28px auto 0 !important;
+        padding: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        box-sizing: border-box !important;
+      }
+
+      .framer-mu05uw .muun-desc-card,
+      .muun-desc-card {
+        width: 100% !important;
+        max-width: 1200px !important;
+        flex: 1 1 100% !important;
+        padding: 26px 36px !important;
+        border-radius: 32px !important;
+        background-color: #000000 !important;
+        border: 2px solid rgb(38, 38, 38) !important;
+        box-sizing: border-box !important;
+        position: relative !important;
+        backdrop-filter: blur(10px) !important;
+        -webkit-backdrop-filter: blur(10px) !important;
+        display: block !important;
+      }
+
+      .framer-mu05uw .framer-gfcum4,
+      .muun-desc-card .framer-gfcum4 {
+        width: 100% !important;
+        max-width: 100% !important;
+        flex: 1 1 100% !important;
+        white-space: normal !important;
+        word-break: normal !important;
+      }
+
+      .muun-desc-text {
+        font-family: 'Inter', sans-serif !important;
+        font-size: 16px !important;
+        line-height: 1.65 !important;
+        color: rgb(237, 237, 237) !important;
+        text-align: left !important;
+        margin: 0 !important;
+        width: 100% !important;
+        white-space: normal !important;
+        word-break: normal !important;
+        word-wrap: break-word !important;
+        display: block !important;
+        transition: opacity 0.15s ease, transform 0.15s ease !important;
+      }
+
+      /* Responsive: Mobile & Tablet */
+      @media (max-width: 820px) {
+        .muun-cards-track {
+          display: flex !important;
+          flex-direction: row !important;
+          flex-wrap: nowrap !important;
+          overflow-x: auto !important;
+          scroll-behavior: smooth !important;
+          -webkit-overflow-scrolling: touch !important;
+          scrollbar-width: none !important;
+          gap: 12px !important;
+          padding: 10px 4px !important;
+        }
+        .muun-cards-track::-webkit-scrollbar {
+          display: none !important;
+        }
+        .muun-framer-card {
+          flex: 0 0 142px !important;
+          width: 142px !important;
+          height: 142px !important;
+          min-width: 142px !important;
+          min-height: 142px !important;
+          border-radius: 40px !important;
+        }
+        .muun-framer-card.is-active,
+        .muun-framer-card.framer-v-1wn31oz {
+          border-radius: 9999px !important;
+        }
+        .muun-framer-card .framer-12hi9of-container {
+          width: 40px !important;
+          height: 40px !important;
+        }
+        .muun-framer-card .framer-12hi9of-container svg {
+          width: 36px !important;
+          height: 36px !important;
+        }
+        .muun-framer-card h4 {
+          font-size: 13px !important;
+        }
+        .muun-desc-card {
+          padding: 20px 22px !important;
+          border-radius: 24px !important;
+        }
+        .muun-desc-text {
+          font-size: 14.5px !important;
+          line-height: 1.55 !important;
+        }
+      }
+      
       /* ── 4. HEADER NAVIGATION: RESTORE NATIVE SIZE & ROLL-UP HOVER ANIMATION ── */
       .framer-Luar2 .framer-18kiu0w {
         overflow: visible !important;
@@ -3564,6 +3924,7 @@ for (const lang of ['ru', 'ky', 'en']) {
     <template id="muun-faq-tpl">${faqListHtml}</template>
     <template id="muun-zones-tpl">${thematicZonesHtml}</template>
     <template id="muun-reg-form-tpl">${regFormHtml}</template>
+    <template id="muun-target-tabs-tpl">${targetTabsHtml}</template>
     <template id="muun-about-tpl">
       ${customAboutHtml}
     </template>
@@ -3590,6 +3951,48 @@ for (const lang of ['ru', 'ky', 'en']) {
         const LOC_MINISTRY = ${JSON.stringify(loc.ministry)};
 
         const HEADINGS = ${JSON.stringify(hd)};
+        const TARGET_AUDIENCE_DATA = ${JSON.stringify(targetAudienceItems)};
+
+        function initTargetCards(items) {
+          const container = document.querySelector('.muun-for-whom-container');
+          if (!container || !Array.isArray(items)) return;
+          const cards = container.querySelectorAll('.muun-framer-card');
+          const descText = container.querySelector('.muun-desc-text');
+
+          function selectCard(idx) {
+            if (!items[idx]) return;
+            cards.forEach(function(c, i) {
+              const isAct = i === idx;
+              c.classList.toggle('is-active', isAct);
+              c.classList.toggle('framer-v-1wn31oz', isAct);
+              c.classList.toggle('framer-v-6klljf', !isAct);
+              c.setAttribute('data-framer-name', isAct ? 'Clicked' : 'Square');
+              c.setAttribute('aria-pressed', isAct ? 'true' : 'false');
+              const cube = c.querySelector('.framer-vdq0vg');
+              if (cube) cube.style.display = isAct ? 'block' : 'none';
+            });
+
+            if (descText) {
+              descText.style.opacity = '0';
+              descText.style.transform = 'translateY(4px)';
+              setTimeout(function() {
+                descText.textContent = items[idx].desc;
+                descText.style.opacity = '1';
+                descText.style.transform = 'translateY(0)';
+              }, 120);
+            }
+          }
+
+          cards.forEach(function(card, idx) {
+            card.onclick = function() { selectCard(idx); };
+            card.onkeydown = function(e) {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                selectCard(idx);
+              }
+            };
+          });
+        }
 
         const TRANSLATIONS = {
           'Speaker': "${t['nav.speakers'] || t['nav.participants'] || 'Спикеры'}",
@@ -4316,74 +4719,26 @@ for (const lang of ['ru', 'ky', 'en']) {
             }
           }
 
-          // 8. FOR WHOM TABS: EXACT POSITIONAL MAPPING & CUSTOM ICONS
-          const forWhomTabs = document.querySelectorAll('section[data-framer-name="For Whom?"] .framer-NWfWD, .framer-mu05uw .framer-NWfWD');
-          if (forWhomTabs.length >= 4) {
-            const h0 = forWhomTabs[0].querySelector('h4');
-            if (h0 && h0.textContent.trim() !== HEADINGS.targetTabs.t1) h0.textContent = HEADINGS.targetTabs.t1;
-            const h1 = forWhomTabs[1].querySelector('h4');
-            if (h1 && h1.textContent.trim() !== HEADINGS.targetTabs.t2) h1.textContent = HEADINGS.targetTabs.t2;
-            const h2 = forWhomTabs[2].querySelector('h4');
-            if (h2 && h2.textContent.trim() !== HEADINGS.targetTabs.t3) h2.textContent = HEADINGS.targetTabs.t3;
-            const h3 = forWhomTabs[3].querySelector('h4');
-            if (h3 && h3.textContent.trim() !== HEADINGS.targetTabs.t4) h3.textContent = HEADINGS.targetTabs.t4;
-
-            // Tab 0: Школьники (keep current icon)
-
-            // Tab 0: Школьники (keep current icon)
-
-            // Tab 1: Студенты (Человек со шляпой - 50x50)
-            const icon1 = forWhomTabs[1].querySelector('.framer-12hi9of-container');
-            if (icon1 && !icon1.querySelector('.muun-icon-student')) {
-              icon1.innerHTML = '<div class="muun-icon-student" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;">' +
-                '<svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">' +
-                  '<path d="M22 7l-10-4-10 4 10 4 10-4z"/>' +
-                  '<path d="M6 9.5v3"/>' +
-                  '<circle cx="12" cy="13" r="3"/>' +
-                  '<path d="M6 21v-1a6 6 0 0 1 12 0v1"/>' +
-                '</svg>' +
-              '</div>';
+          // 8. FOR WHOM TABS (6 CATEGORIES): INITIALIZE INTERACTIVE CARDS & TEMPLATE FALLBACK
+          const targetContent = document.querySelector('section[data-framer-name="For Whom?"] .framer-mu05uw');
+          if (targetContent) {
+            const oldFramerContainer = targetContent.querySelector('.framer-9wjni4-container');
+            if (oldFramerContainer) {
+              oldFramerContainer.style.setProperty('display', 'none', 'important');
             }
-
-            // Tab 2: Предприниматели (Знак денег / банкнота - 50x50)
-            const icon2 = forWhomTabs[2].querySelector('.framer-12hi9of-container');
-            if (icon2 && !icon2.querySelector('.muun-icon-money')) {
-              icon2.innerHTML = '<div class="muun-icon-money" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;">' +
-                '<svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">' +
-                  '<rect width="20" height="12" x="2" y="6" rx="2"/>' +
-                  '<circle cx="12" cy="12" r="2.5"/>' +
-                  '<path d="M6 12h.01M18 12h.01"/>' +
-                '</svg>' +
-              '</div>';
+            let forWhomEl = targetContent.querySelector('.muun-for-whom-container');
+            if (!forWhomEl) {
+              const tpl = document.getElementById('muun-target-tabs-tpl');
+              if (tpl) {
+                targetContent.appendChild(tpl.content.cloneNode(true));
+                forWhomEl = targetContent.querySelector('.muun-for-whom-container');
+              }
             }
-
-            // Tab 3: Родители (Просто 2 человека - 50x50)
-            const icon3 = forWhomTabs[3].querySelector('.framer-12hi9of-container');
-            if (icon3 && !icon3.querySelector('.muun-icon-parents')) {
-              icon3.innerHTML = '<div class="muun-icon-parents" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;">' +
-                '<svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">' +
-                  '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>' +
-                  '<circle cx="9" cy="7" r="4"/>' +
-                  '<path d="M22 21v-2a4 4 0 0 0-3-3.87"/>' +
-                  '<path d="M16 3.13a4 4 0 0 1 0 7.75"/>' +
-                '</svg>' +
-              '</div>';
+            if (forWhomEl && !forWhomEl.hasAttribute('data-initialized')) {
+              forWhomEl.setAttribute('data-initialized', 'true');
+              initTargetCards(TARGET_AUDIENCE_DATA);
             }
           }
-
-          // 9. FOR WHOM DESCRIPTIONS: COMPREHENSIVE 3 SENTENCES PER CATEGORY
-          document.querySelectorAll('section[data-framer-name="For Whom?"] p, .framer-mu05uw p').forEach(p => {
-            const t = p.textContent.trim();
-            if (t.includes('Unlock AI') || t.includes('operations') || t.includes('Познакомьтесь с профессиями')) {
-              p.textContent = HEADINGS.targetTabs.d1;
-            } else if (t.includes('Identify breakthrough') || t.includes('disruptive startups') || t.includes('Найдите актуальные стажировки')) {
-              p.textContent = HEADINGS.targetTabs.d2;
-            } else if (t.includes('smarter products') || t.includes('collaborators') || t.includes('Откройте новые стратегические')) {
-              p.textContent = HEADINGS.targetTabs.d3;
-            } else if (t.includes('Explore powerful') || t.includes('dev community') || t.includes('Узнайте о реальных тенденциях')) {
-              p.textContent = HEADINGS.targetTabs.d4;
-            }
-          });
 
           // 10. Program block (shared with /program)
           ${programFixerJs(lang)}

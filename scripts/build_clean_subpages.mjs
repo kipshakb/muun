@@ -34,7 +34,9 @@ function speakerRoster(lang) {
       { name: 'Эмиль Билгазиев', role: 'Основатель American Institute of Technology (AIT); экс-технический директор одного из подразделений Facebook (Meta)', photo: '/assets/speaker-bilgaziev.jpg', focus: 'center center' },
       { name: 'Аденов Абдыкерим Болотович', role: 'Преподаватель ML в Международном колледже IT и бизнеса Salymbekov University, основатель бишкекского клуба по робототехнике RoboComm', photo: '/assets/speaker-adenov.jpg', focus: 'center 18%' },
       { name: 'Аманат Молдокеева', role: 'Председатель Наблюдательного совета ProKG; председатель Евразийского сберегательного банка', photo: '/assets/speaker-moldokeeva.jpg', focus: 'center 20%' },
-      { name: 'Элдос Амантур', role: 'Коммерческий директор Технопарка', photo: '/assets/speaker-amantur.jpg', focus: 'center 18%' }
+      { name: 'Элдос Амантур', role: 'Коммерческий директор Технопарка', photo: '/assets/speaker-amantur.jpg', focus: 'center center' },
+      { name: 'Айдана Оторбаева', role: 'Мастер спорта по футболу, вице-президент Ассоциации женского футбола Кыргызской Республики', photo: '/assets/speaker-otorbaeva.jpg', focus: 'center center' },
+      { name: 'Чолпон Жакыпова', role: 'СЕО «Meteora», директор общественного фонда «AstroTech», член AstroCommunity KG', photo: '/assets/speaker-zhakypova.png', focus: 'center center' }
     ],
     ky: [
       { name: 'Азис Абакиров', role: 'Кыргыз Республикасынын Жогорку технологиялар паркынын директору', photo: '/assets/speaker-abakirov.jpg', focus: 'center center' },
@@ -46,7 +48,9 @@ function speakerRoster(lang) {
       { name: 'Эмиль Билгазиев', role: 'American Institute of Technology (AIT) негиздөөчүсү; Facebook (Meta) бөлүмдөрүнүн биринин мурдагы техникалык директору', photo: '/assets/speaker-bilgaziev.jpg', focus: 'center center' },
       { name: 'Аденов Абдыкерим Болотович', role: 'Salymbekov University Эл аралык IT жана бизнес колледжинин ML окутуучусу, Бишкектеги RoboComm робототехника клубунун негиздөөчүсү', photo: '/assets/speaker-adenov.jpg', focus: 'center 18%' },
       { name: 'Аманат Молдокеева', role: 'ProKG Байкоочу кеңешинин төрайымы; Евразиялык сактык банкынын төрайымы', photo: '/assets/speaker-moldokeeva.jpg', focus: 'center 20%' },
-      { name: 'Элдос Амантур', role: 'Технопарктын коммерциялык директору', photo: '/assets/speaker-amantur.jpg', focus: 'center 18%' }
+      { name: 'Элдос Амантур', role: 'Технопарктын коммерциялык директору', photo: '/assets/speaker-amantur.jpg', focus: 'center center' },
+      { name: 'Айдана Оторбаева', role: 'Футбол боюнча спорт чебери, Кыргыз Республикасынын аялдар футболу ассоциациясынын вице-президенти', photo: '/assets/speaker-otorbaeva.jpg', focus: 'center center' },
+      { name: 'Чолпон Жакыпова', role: '«Meteora» СЕОсу, «AstroTech» коомдук фондунун директору, AstroCommunity KG мүчөсү', photo: '/assets/speaker-zhakypova.png', focus: 'center center' }
     ],
     en: [
       { name: 'Azis Abakirov', role: 'Director of the High Technology Park of the Kyrgyz Republic', photo: '/assets/speaker-abakirov.jpg', focus: 'center center' },
@@ -58,7 +62,9 @@ function speakerRoster(lang) {
       { name: 'Emil Bilgaziev', role: 'Founder of the American Institute of Technology (AIT); former technical director of a Facebook (Meta) division', photo: '/assets/speaker-bilgaziev.jpg', focus: 'center center' },
       { name: 'Abdykerim Bolotovich Adenov', role: 'ML instructor at the International College of IT and Business, Salymbekov University; founder of the Bishkek robotics club RoboComm', photo: '/assets/speaker-adenov.jpg', focus: 'center 18%' },
       { name: 'Amanat Moldokeeva', role: 'Chair of the Supervisory Board of ProKG; Chair of the Eurasian Savings Bank', photo: '/assets/speaker-moldokeeva.jpg', focus: 'center 20%' },
-      { name: 'Eldos Amantur', role: 'Commercial Director of the Technopark', photo: '/assets/speaker-amantur.jpg', focus: 'center 18%' }
+      { name: 'Eldos Amantur', role: 'Commercial Director of the Technopark', photo: '/assets/speaker-amantur.jpg', focus: 'center center' },
+      { name: 'Aidana Otorbaeva', role: 'Master of Sports in Football, Vice President of the Women\'s Football Association of the Kyrgyz Republic', photo: '/assets/speaker-otorbaeva.jpg', focus: 'center center' },
+      { name: 'Cholpon Zhakypova', role: 'CEO of Meteora, Director of the AstroTech Public Foundation, Member of AstroCommunity KG', photo: '/assets/speaker-zhakypova.png', focus: 'center center' }
     ]
   };
   const people = {
@@ -470,7 +476,11 @@ for (const lang of languages) {
         [data-framer-name="Speakers 1"] img[src*="speaker-moldokeeva"],
         .muun-extra-photo img[src*="speaker-moldokeeva"] { object-position: center 20% !important; }
         [data-framer-name="Speakers 1"] img[src*="speaker-amantur"],
-        .muun-extra-photo img[src*="speaker-amantur"] { object-position: center 18% !important; }
+        .muun-extra-photo img[src*="speaker-amantur"] { object-position: center center !important; }
+        [data-framer-name="Speakers 1"] img[src*="speaker-otorbaeva"],
+        .muun-extra-photo img[src*="speaker-otorbaeva"] { object-position: center center !important; }
+        [data-framer-name="Speakers 1"] img[src*="speaker-zhakypova"],
+        .muun-extra-photo img[src*="speaker-zhakypova"] { object-position: center center !important; }
         [data-framer-name="Speakers 1"] img[src*="speaker-placeholder"] { object-position: center center !important; }
         [data-framer-name="Speakers 1"] {
           flex-direction: column !important;
