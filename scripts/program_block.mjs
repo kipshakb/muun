@@ -5,14 +5,14 @@ const UI = {
   ru: {
     trackAll: 'Все сессии',
     talks: 'MUUN Talks',
-    panel: 'Панельные сессии',
-    partner: 'От партнёров',
-    startup: 'Startup Battle',
+    pitch: 'Питч-сессии',
+    table: 'Открытый стол',
     hallAll: 'Все залы',
     kurultai: 'Зал «Курултай»',
-    sairan: 'Зал «Сайран»',
-    panelBadge: 'Панельная сессия',
-    partnerBadge: 'От партнёров',
+    nasyyat: 'Зал «Насыят»',
+    sanzhyra: 'Зал «Санжыра»',
+    pitchBadge: 'Питч-сессия',
+    tableBadge: 'Открытый стол',
     people: 'Модератор и спикеры будут объявлены позже',
     empty: 'По выбранным фильтрам сессий нет',
     more: 'Подробнее'
@@ -20,14 +20,14 @@ const UI = {
   ky: {
     trackAll: 'Бардык сессиялар',
     talks: 'MUUN Talks',
-    panel: 'Панелдик сессиялар',
-    partner: 'Өнөктөштөрдөн',
-    startup: 'Startup Battle',
+    pitch: 'Питч-сессиялар',
+    table: 'Ачык стол',
     hallAll: 'Бардык залдар',
     kurultai: '«Курултай» залы',
-    sairan: '«Сайран» залы',
-    panelBadge: 'Панелдик сессия',
-    partnerBadge: 'Өнөктөштөрдөн',
+    nasyyat: '«Насыят» залы',
+    sanzhyra: '«Санжыра» залы',
+    pitchBadge: 'Питч-сессия',
+    tableBadge: 'Ачык стол',
     people: 'Модератор жана спикерлер кийинчерээк жарыяланат',
     empty: 'Тандалган чыпкалар боюнча сессиялар жок',
     more: 'Кененирээк'
@@ -35,380 +35,358 @@ const UI = {
   en: {
     trackAll: 'All sessions',
     talks: 'MUUN Talks',
-    panel: 'Panel sessions',
-    partner: 'Partner sessions',
-    startup: 'Startup Battle',
+    pitch: 'Pitch sessions',
+    table: 'Open Table',
     hallAll: 'All halls',
     kurultai: 'Kurultai Hall',
-    sairan: 'Sairan Hall',
-    panelBadge: 'Panel session',
-    partnerBadge: 'Partner session',
+    nasyyat: 'Nasyyat Hall',
+    sanzhyra: 'Sanzhyra Hall',
+    pitchBadge: 'Pitch session',
+    tableBadge: 'Open Table',
     people: 'Moderator and speakers to be announced',
     empty: 'No sessions match the selected filters',
     more: 'Details'
   }
 };
 
-// kind: talks | panel | partner | startup | ceremony | service
-// hall: kurultai | sairan | undefined (общий слот на всю ширину)
+// kind: talks | pitch | table | ceremony | service
+// hall: kurultai | nasyyat | sanzhyra | undefined (общий слот на всю ширину)
 const DAYS = [
   {
-    label: { ru: 'День 1', ky: '1-күн', en: 'Day 1' },
+    label: { ru: '17 ноября', ky: '17-ноябрь', en: '17 November' },
     title: {
-      ru: '17 ноября · Международный день студентов',
-      ky: '17-ноябрь · Эл аралык студенттер күнү',
-      en: '17 November · International Students’ Day'
+      ru: 'Международный день студентов',
+      ky: 'Эл аралык студенттер күнү',
+      en: 'International Students’ Day'
     },
     rows: [
+      {
+        time: '07:00–10:00',
+        items: [{
+          kind: 'service',
+          title: {
+            ru: 'Регистрация приглашённых участников',
+            ky: 'Чакырылган катышуучуларды каттоо',
+            en: 'Registration of invited participants'
+          },
+          note: {
+            ru: 'Строго по приглашению',
+            ky: 'Чакыруу боюнча гана',
+            en: 'Strictly by invitation'
+          }
+        }]
+      },
       {
         time: '10:00–11:00',
         items: [{
-          kind: 'ceremony',
-          title: { ru: 'Церемония официального открытия', ky: 'Расмий ачылыш аземи', en: 'Official Opening Ceremony' },
-          note: { ru: 'Строго по приглашению', ky: 'Чакыруу менен гана', en: 'By invitation only' }
-        }]
-      },
-      {
-        time: '14:00',
-        items: [{
           kind: 'service',
-          title: { ru: 'Экспозиция открыта', ky: 'Экспозиция ачык', en: 'Exhibition opens' },
-          note: { ru: 'С 14:00 вход по регистрации', ky: '14:00дөн баштап каттоо менен кирүү', en: 'Entry with registration from 14:00' }
-        }]
-      },
-      {
-        time: '14:00–14:50',
-        items: [{
-          kind: 'talks', hall: 'kurultai', code: 'MUUN Talks 1 · МАКСАТ', codeEn: 'MUUN Talks 1 · MAKSAT',
           title: {
-            ru: 'Профессии будущего: чему учить сегодня',
-            ky: 'Келечектин кесиптери: бүгүн эмнеге окутуу керек',
-            en: 'Professions of the Future: What to Teach Today'
+            ru: 'Выставочная экспозиция',
+            ky: 'Көргөзмө экспозициясы',
+            en: 'Exhibition showcase'
           },
-          desc: {
-            ru: 'Первая ключевая сессия. Ценность — ЦЕЛЬ, символ — снежный барс. О том, какие профессии будут нужны экономике Кыргызстана и чему учить поколение уже сейчас.',
-            ky: 'Биринчи негизги сессия. Баалуулук — МАКСАТ, символу — илбирс. Кыргызстандын экономикасына кандай кесиптер керек болору жана муунду азыртан эмнеге окутуу керектиги тууралуу.',
-            en: 'The first keynote session. Value — PURPOSE, symbol — the snow leopard. Which professions Kyrgyzstan’s economy will need and what this generation should be learning right now.'
-          }
-        }]
-      },
-      {
-        time: '15:00–15:50',
-        items: [
-          {
-            kind: 'panel', hall: 'kurultai', code: 'П1', codeEn: 'P1',
-            title: {
-              ru: 'Образование без границ: Stanford, Harvard, MIT, Columbia',
-              ky: 'Чек арасыз билим: Stanford, Harvard, MIT, Columbia',
-              en: 'Education Without Borders: Stanford, Harvard, MIT, Columbia'
-            },
-            desc: {
-              ru: 'Истории поступления кыргызстанцев в ведущие мировые университеты: подготовка, финансирование, что делать школьнику уже сейчас.',
-              ky: 'Кыргызстандыктардын дүйнөнүн алдыңкы университеттерине тапшыруу тажрыйбасы: даярдык, каржылоо жана мектеп окуучусу азыртан эмне кылышы керек.',
-              en: 'How students from Kyrgyzstan got into the world’s leading universities: preparation, funding and what a school student can start doing now.'
-            }
-          },
-          {
-            kind: 'partner', hall: 'sairan',
-            title: {
-              ru: 'Блок презентаций: университеты',
-              ky: 'Презентациялар блогу: университеттер',
-              en: 'Presentations: Universities'
-            },
-            desc: {
-              ru: 'Университеты представляют специальности, условия поступления, гранты и стипендии.',
-              ky: 'Университеттер адистиктерин, кабыл алуу шарттарын, гранттарды жана стипендияларды тааныштырат.',
-              en: 'Universities present their programmes, admission requirements, grants and scholarships.'
-            }
-          }
-        ]
-      },
-      {
-        time: '16:00–16:50',
-        items: [{
-          kind: 'talks', hall: 'kurultai', code: 'MUUN Talks 2 · УМТУЛУУ', codeEn: 'MUUN Talks 2 · UMTULUU',
-          title: {
-            ru: 'Новое поколение в эпоху AI: образование, карьера и навыки будущего',
-            ky: 'Жасалма интеллект доорундагы жаңы муун: билим, карьера жана келечектин көндүмдөрү',
-            en: 'A New Generation in the Age of AI: Education, Careers and Future Skills'
-          },
-          desc: {
-            ru: 'Вторая ключевая сессия. Ценность — СТРЕМЛЕНИЕ, символ — беркут. Как искусственный интеллект меняет требования к специалистам и какие навыки дают молодым преимущество.',
-            ky: 'Экинчи негизги сессия. Баалуулук — УМТУЛУУ, символу — бүркүт. Жасалма интеллект адистерге коюлган талаптарды кантип өзгөртүп жатканы жана жаштарга кайсы көндүмдөр артыкчылык берери тууралуу.',
-            en: 'The second keynote session. Value — ASPIRATION, symbol — the golden eagle. How artificial intelligence is changing what employers expect and which skills give young people an edge.'
-          }
-        }]
-      },
-      {
-        time: '17:00–17:45',
-        items: [
-          {
-            kind: 'panel', hall: 'kurultai', code: 'П3', codeEn: 'P3',
-            title: {
-              ru: 'Креативный Кыргызстан: интеллектуальная собственность и цифровое будущее',
-              ky: 'Креативдүү Кыргызстан: интеллектуалдык менчик жана санариптик келечек',
-              en: 'Creative Kyrgyzstan: Intellectual Property and the Digital Future'
-            },
-            desc: {
-              ru: 'Как блогеры, фестивали, кино и разработчики защищают свои права и зарабатывают на интеллектуальной собственности.',
-              ky: 'Блогерлер, фестивалдар, кино жана иштеп чыгуучулар өз укуктарын кантип коргоп, интеллектуалдык менчиктен кантип киреше табышат.',
-              en: 'How bloggers, festivals, filmmakers and developers protect their rights and earn from intellectual property.'
-            }
-          },
-          {
-            kind: 'partner', hall: 'sairan',
-            title: {
-              ru: 'Ярмарка вакансий и слот партнёра',
-              ky: 'Жумуш ярмаркасы жана өнөктөштүн слоту',
-              en: 'Job Fair and Partner Slot'
-            },
-            desc: {
-              ru: 'Работодатели представляют вакансии и стажировки. В блоке — выступление партнёра.',
-              ky: 'Иш берүүчүлөр бош орундарды жана стажировкаларды сунушташат. Блокто өнөктөштүн чыгып сүйлөөсү бар.',
-              en: 'Employers present vacancies and internships. The block includes a partner presentation.'
-            }
-          }
-        ]
-      },
-      {
-        time: '17:45–18:00',
-        items: [{
-          kind: 'ceremony', hall: 'kurultai', wide: true,
-          title: { ru: 'Закрытие первого дня', ky: 'Биринчи күндүн жабылышы', en: 'Day One Closing' },
-          desc: {
-            ru: 'Итоги дня, объявление топ-10 Startup Battle, анонс второго дня, концертный номер.',
-            ky: 'Күндүн жыйынтыгы, Startup Battle топ-10 жарыяланышы, экинчи күндүн анонсу жана концерттик номер.',
-            en: 'Highlights of the day, announcement of the Startup Battle top 10, a preview of day two and a musical performance.'
-          }
-        }]
-      },
-      {
-        time: '18:00',
-        items: [{
-          kind: 'service',
-          title: { ru: 'Окончание первого дня', ky: 'Биринчи күндүн аягы', en: 'End of Day One' }
-        }]
-      }
-    ]
-  },
-  {
-    label: { ru: 'День 2', ky: '2-күн', en: 'Day 2' },
-    title: {
-      ru: '18 ноября · Финал, награждение и закрытие',
-      ky: '18-ноябрь · Финал, сыйлыктар жана жабылыш',
-      en: '18 November · Finals, Awards and Closing'
-    },
-    rows: [
-      {
-        time: '09:00–10:00',
-        items: [{
-          kind: 'service',
-          title: { ru: 'Начало регистрации', ky: 'Каттоонун башталышы', en: 'Registration opens' },
-          note: { ru: 'Экспозиция работает с 09:00 до 18:00', ky: 'Экспозиция 09:00дөн 18:00гө чейин иштейт', en: 'The exhibition is open from 09:00 to 18:00' }
-        }]
-      },
-      {
-        time: '10:00–10:50',
-        items: [
-          {
-            kind: 'talks', hall: 'kurultai', code: 'MUUN Talks 3 · УЧУР', codeEn: 'MUUN Talks 3 · UCHUR',
-            title: {
-              ru: 'Время перемен: искусственный интеллект, технологии и трансформация рынка труда',
-              ky: 'Өзгөрүүлөр мезгили: жасалма интеллект, технологиялар жана эмгек рыногунун трансформациясы',
-              en: 'Time of Change: AI, Technology and the Transformation of the Labour Market'
-            },
-            desc: {
-              ru: 'Третья ключевая сессия. Ценность — ВРЕМЯ ПЕРЕМЕН, символ — Луна в фазе роста. О том, как технологии меняют отрасли и рынок труда страны.',
-              ky: 'Үчүнчү негизги сессия. Баалуулук — ӨЗГӨРҮҮЛӨР МЕЗГИЛИ, символу — жаңы туулган Ай. Технологиялар тармактарды жана өлкөнүн эмгек рыногун кантип өзгөртүп жатканы тууралуу.',
-              en: 'The third keynote session. Value — TIME OF CHANGE, symbol — the waxing Moon. How technology is reshaping industries and the country’s labour market.'
-            }
-          },
-          {
-            kind: 'partner', hall: 'sairan',
-            title: {
-              ru: 'Блок презентаций: школы и колледжи',
-              ky: 'Презентациялар блогу: мектептер жана колледждер',
-              en: 'Presentations: Schools and Colleges'
-            },
-            desc: {
-              ru: 'На сцене — программы профессионального и дополнительного образования.',
-              ky: 'Сахнада — кесиптик жана кошумча билим берүү программалары.',
-              en: 'Vocational and supplementary education programmes take the stage.'
-            }
-          }
-        ]
-      },
-      {
-        time: '11:00–11:50',
-        items: [
-          {
-            kind: 'panel', hall: 'kurultai', code: 'П2', codeEn: 'P2',
-            title: {
-              ru: 'Глобальный Big Tech: карьерные траектории от Бишкека',
-              ky: 'Глобалдык Big Tech: Бишкектен башталган карьералык жолдор',
-              en: 'Global Big Tech: Career Paths Starting in Bishkek'
-            },
-            desc: {
-              ru: 'Кыргызстанцы в Google, Meta, Microsoft и Apple о том, как попали в глобальные компании и с чего начать студенту.',
-              ky: 'Google, Meta, Microsoft жана Apple компанияларында иштеген кыргызстандыктар глобалдык компанияларга кантип кирүүгө болорун жана студент эмнеден баштаарын айтып беришет.',
-              en: 'People from Kyrgyzstan working at Google, Meta, Microsoft and Apple share how they got there and where a student should start.'
-            }
-          },
-          {
-            kind: 'partner', hall: 'sairan',
-            title: {
-              ru: 'Блок презентаций: университеты',
-              ky: 'Презентациялар блогу: университеттер',
-              en: 'Presentations: Universities'
-            },
-            desc: {
-              ru: 'Второй блок университетов: специальности, условия поступления, гранты и стипендии.',
-              ky: 'Университеттердин экинчи блогу: адистиктер, кабыл алуу шарттары, гранттар жана стипендиялар.',
-              en: 'The second university block: programmes, admission requirements, grants and scholarships.'
-            }
-          }
-        ]
-      },
-      {
-        time: '12:00–12:50',
-        items: [{
-          kind: 'talks', hall: 'kurultai', code: 'MUUN Talks 4 · НИЕТ', codeEn: 'MUUN Talks 4 · NIET',
-          title: {
-            ru: 'От идеи к действию: предпринимательство, стартапы и молодёжные инициативы',
-            ky: 'Идеядан аракетке: ишкердик, стартаптар жана жаштар демилгелери',
-            en: 'From Idea to Action: Entrepreneurship, Startups and Youth Initiatives'
-          },
-          desc: {
-            ru: 'Четвёртая ключевая сессия. Ценность — НАМЕРЕНИЕ, символ — тулпар. О пути от идеи до первого клиента и первого инвестора.',
-            ky: 'Төртүнчү негизги сессия. Баалуулук — НИЕТ, символу — тулпар. Идеядан биринчи кардарга жана биринчи инвесторго чейинки жол тууралуу.',
-            en: 'The fourth keynote session. Value — INTENTION, symbol — the tulpar. The journey from an idea to the first customer and the first investor.'
-          }
-        }]
-      },
-      {
-        time: '13:00–14:00',
-        items: [
-          {
-            kind: 'panel', hall: 'kurultai', code: 'П8', codeEn: 'P8',
-            title: {
-              ru: 'Финтех и банкинг: конкуренция за клиента',
-              ky: 'Финтех жана банкинг: кардар үчүн атаандаштык',
-              en: 'Fintech and Banking: Competing for the Customer'
-            },
-            desc: {
-              ru: 'Банки, телеком и платежи в эпоху цифровой трансформации. Председатели правления банков и Visa о том, кого они нанимают.',
-              ky: 'Санариптик трансформация доорундагы банктар, телеком жана төлөмдөр. Банктардын башкармалык төрагалары жана Visa кимди жумушка алышарын айтып беришет.',
-              en: 'Banks, telecoms and payments in the era of digital transformation. Bank CEOs and Visa on who they are hiring.'
-            }
-          },
-          {
-            kind: 'panel', hall: 'sairan', code: 'П6', codeEn: 'P6',
-            title: {
-              ru: 'Аэрокосмос и ИИ: мышление без границ',
-              ky: 'Аэрокосмос жана ЖИ: чек арасыз ой жүгүртүү',
-              en: 'Aerospace and AI: Thinking Without Limits'
-            },
-            desc: {
-              ru: 'Стратосферные разработки, автономные системы и нейросети вместе с кыргызстанскими инженерами. В блоке — слот партнёра.',
-              ky: 'Кыргызстандык инженерлер менен стратосфералык иштеп чыгуулар, автономдуу системалар жана нейрон тармактары. Блокто өнөктөштүн слоту бар.',
-              en: 'Stratospheric projects, autonomous systems and neural networks with engineers from Kyrgyzstan. Includes a partner slot.'
-            }
-          }
-        ]
-      },
-      {
-        time: '14:00–14:45',
-        items: [
-          {
-            kind: 'panel', hall: 'kurultai', code: 'П9', codeEn: 'P9',
-            title: {
-              ru: 'Жить в Кыргызстане — работать со всем миром',
-              ky: 'Кыргызстанда жашап, бүткүл дүйнө менен иштөө',
-              en: 'Live in Kyrgyzstan, Work with the World'
-            },
-            desc: {
-              ru: 'Инфраструктура для компаний с глобальными амбициями: Парк высоких технологий, Парк креативных индустрий, СЭЗ «Бишкек», агентство по инвестициям.',
-              ky: 'Глобалдык максаттары бар компаниялар үчүн инфраструктура: Жогорку технологиялар парки, Креативдүү индустриялар парки, «Бишкек» ЭЭА, инвестициялар боюнча агенттик.',
-              en: 'Infrastructure for companies with global ambitions: the High Technology Park, the Creative Industries Park, the Bishkek Free Economic Zone and the investment agency.'
-            }
-          },
-          {
-            kind: 'panel', hall: 'sairan', code: 'П7', codeEn: 'P7',
-            title: {
-              ru: 'Стартапы и инновации: новое поколение основателей',
-              ky: 'Стартаптар жана инновациялар: негиздөөчүлөрдүн жаңы мууну',
-              en: 'Startups and Innovation: A New Generation of Founders'
-            },
-            desc: {
-              ru: 'От Web3 до искусственной кожи — предприниматели, меняющие Кыргызстан.',
-              ky: 'Web3төн жасалма териге чейин — Кыргызстанды өзгөртүп жаткан ишкерлер.',
-              en: 'From Web3 to artificial skin — the entrepreneurs changing Kyrgyzstan.'
-            }
-          }
-        ]
-      },
-      {
-        time: '15:00–15:45',
-        items: [
-          {
-            kind: 'panel', hall: 'kurultai', code: 'П5', codeEn: 'P5',
-            title: {
-              ru: 'Инклюзия без барьеров',
-              ky: 'Тоскоолдуксуз инклюзия',
-              en: 'Inclusion Without Barriers'
-            },
-            desc: {
-              ru: 'Решения для устранения социальных, образовательных и инфраструктурных барьеров. ЮНИСЕФ, ОБСЕ, Совет по делам лиц с инвалидностью при Кабинете министров.',
-              ky: 'Социалдык, билим берүү жана инфраструктуралык тоскоолдуктарды жоюу чечимдери. ЮНИСЕФ, ЕККУ, Министрлер Кабинетине караштуу Ден соолугунун мүмкүнчүлүгү чектелген адамдардын иштери боюнча кеңеш.',
-              en: 'Solutions for removing social, educational and infrastructure barriers. UNICEF, OSCE and the Council on Persons with Disabilities under the Cabinet of Ministers.'
-            }
-          },
-          {
-            kind: 'panel', hall: 'sairan', code: 'П4', codeEn: 'P4',
-            title: {
-              ru: 'Спорт и киберспорт: эра цифровых атлетов',
-              ky: 'Спорт жана киберспорт: санариптик атлеттер доору',
-              en: 'Sport and Esports: The Era of Digital Athletes'
-            },
-            desc: {
-              ru: 'От Всемирных игр кочевников до F1H2O — как кыргызстанцы создают профессии будущего в спорте.',
-              ky: 'Дүйнөлүк көчмөндөр оюндарынан F1H2Oго чейин — кыргызстандыктар спортто келечектин кесиптерин кантип түзүп жатышат.',
-              en: 'From the World Nomad Games to F1H2O — how people from Kyrgyzstan are creating the sports professions of the future.'
-            }
-          }
-        ]
-      },
-      {
-        time: '16:30–17:15',
-        items: [{
-          kind: 'startup',
-          title: { ru: 'Финал стартапов', ky: 'Стартаптардын финалы', en: 'Startup Finals' }
-        }]
-      },
-      {
-        time: '17:15–17:50',
-        items: [{
-          kind: 'ceremony',
-          title: { ru: 'Церемония награждения', ky: 'Сыйлык тапшыруу аземи', en: 'Awards Ceremony' }
-        }]
-      },
-      {
-        time: '17:50–18:15',
-        items: [{
-          kind: 'ceremony',
-          title: { ru: 'Церемония закрытия', ky: 'Жабылыш аземи', en: 'Closing Ceremony' },
           note: {
-            ru: 'Закладка капсулы будущего до 2036 года',
-            ky: '2036-жылга чейинки келечек капсуласын коюу',
-            en: 'Sealing of a time capsule to be opened in 2036'
+            ru: 'Для приглашённых участников церемонии',
+            ky: 'Аземдин чакырылган катышуучулары үчүн',
+            en: 'For invited ceremony participants'
           }
         }]
+      },
+      {
+        time: '11:00–12:00',
+        items: [{
+          kind: 'ceremony',
+          title: {
+            ru: 'Церемония официального открытия',
+            ky: 'Расмий ачылыш аземи',
+            en: 'Official Opening Ceremony'
+          },
+          note: {
+            ru: 'Строго по приглашению',
+            ky: 'Чакыруу боюнча гана',
+            en: 'Strictly by invitation'
+          },
+          desc: {
+            ru: 'Торжественный старт главного молодёжного дня страны.',
+            ky: 'Өлкөнүн башкы жаштар күнүнүн салтанаттуу башталышы.',
+            en: 'Grand opening of the country’s premier youth day.'
+          }
+        }]
+      },
+      {
+        time: '13:30',
+        items: [{
+          kind: 'service',
+          title: {
+            ru: 'Вход для посетителей по регистрации',
+            ky: 'Каттоо боюнча келүүчүлөрдүн кирүүсү',
+            en: 'Visitor Entry with Registration'
+          },
+          note: {
+            ru: 'Выставочная экспозиция открыта до 17:45',
+            ky: 'Көргөзмө экспозициясы 17:45ке чейин ачык',
+            en: 'Exhibition open until 17:45'
+          },
+          desc: {
+            ru: 'Выставочная экспозиция открыта до 17:45. С 14:00 в фойе зала Курултай — карьерная зона «Оффер у стенда»: экспресс-собеседования у стендов и разбор резюме. Приходи с резюме!',
+            ky: 'Көргөзмө экспозициясы 17:45ке чейин ачык. 14:00дөн баштап «Курултай» залынын фойесинде — «Стендде оффер» карьералык аймагы: стенддерде экспресс-маектешүүлөр жана резюмени талдоо. Резюмеңиз менен келиңиз!',
+            en: 'Exhibition open until 17:45. From 14:00 in Kurultai Hall foyer — career zone “Offer at the Stand”: express interviews and CV reviews. Come with your resume!'
+          }
+        }]
+      },
+      {
+        time: '14:00–14:55',
+        items: [
+          {
+            kind: 'talks', hall: 'kurultai',
+            code: 'MUUN Talks · МАКСАТ', codeEn: 'MUUN Talks · MAKSAT',
+            timeSlot: '14:00–14:45',
+            title: {
+              ru: 'Пленарная сессия 1: «Профессии будущего: чему учить сегодня»',
+              ky: '1-пленардык сессия: «Келечектин кесиптери: бүгүн эмнеге окутуу керек»',
+              en: 'Plenary Session 1: “Professions of the Future: What to Teach Today”'
+            },
+            desc: {
+              ru: '«Кем ты станешь через 10 лет» — какие профессии нужны стране завтра и чему учиться уже сегодня.',
+              ky: '«10 жылдан кийин ким болосуң» — эртең өлкөгө кайсы кесиптер керек болот жана бүгүн эмнеге окуу зарыл.',
+              en: '“Who will you become in 10 years” — what professions the country will need tomorrow and what to learn today.'
+            }
+          },
+          {
+            kind: 'pitch', hall: 'nasyyat',
+            badge: { ru: 'Питч-сессия', ky: 'Питч-сессия', en: 'Pitch Session' },
+            timeSlot: '14:00–15:30',
+            title: {
+              ru: 'Питч-сессия Kel Start: открытие и выступления № 1–15',
+              ky: 'Kel Start питч-сессиясы: ачылышы жана № 1–15 чыгып сүйлөөлөрү',
+              en: 'Kel Start Pitch Session: Opening & Pitches #1–15'
+            },
+            desc: {
+              ru: '30 молодёжных стартапов — одна сцена. Старт конкурса, затем питчи перед жюри и инвесторами: 3 минуты на питч, 2 — на вопросы.',
+              ky: '30 жаштар стартапы — бир сахна. Сынактын башталышы, калыстар тобу менен инвесторлордун алдында питчтер: питчке 3 мүнөт, суроолорго 2 мүнөт.',
+              en: '30 youth startups — one stage. Kickoff followed by pitches to judges and investors: 3 min pitch, 2 min Q&A.'
+            }
+          },
+          {
+            kind: 'table', hall: 'sanzhyra',
+            badge: { ru: 'Круглый стол 1', ky: '1-тегерек стол', en: 'Roundtable 1' },
+            timeSlot: '14:00–14:55',
+            title: {
+              ru: 'Круглый стол 1 «Лаборатория профессий будущего»',
+              ky: '1-тегерек стол «Келечек кесиптеринин лабораториясы»',
+              en: 'Roundtable 1: “Laboratory of Future Professions”'
+            },
+            desc: {
+              ru: '«Потрогай будущее» — робототехника, медтех и ИИ в живых демонстрациях от практиков.',
+              ky: '«Келечекти сезип көр» — робототехника, медтех жана ЖИ тажрыйбалуу адистердин жандуу көрсөтмөсүндө.',
+              en: '“Touch the future” — robotics, medtech and AI in live practical demonstrations.'
+            }
+          }
+        ]
+      },
+      {
+        time: '14:55–15:40',
+        items: [
+          {
+            kind: 'talks', hall: 'kurultai',
+            code: 'MUUN Talks · УМТУЛУУ', codeEn: 'MUUN Talks · UMTULUU',
+            timeSlot: '14:55–15:40',
+            title: {
+              ru: 'Пленарная сессия 2: «От Бишкека до Harvard и Big Tech: как мечтать масштабно в эпоху AI»',
+              ky: '2-пленардык сессия: «Бишкектен Harvard жана Big Techке чейин: AI доорунда кантип масштабдуу кыялдануу керек»',
+              en: 'Plenary Session 2: “From Bishkek to Harvard & Big Tech: How to Dream Big in the Age of AI”'
+            },
+            desc: {
+              ru: '«Из Бишкека — в Big Tech» — реальные истории пути в глобальные IT-компании и навыки, которые для этого нужны.',
+              ky: '«Бишкектен — Big Techке» — глобалдык IT-компанияларга жетүү жолунун чыныгы тарыхтары жана буга зарыл көндүмдөр.',
+              en: '“From Bishkek to Big Tech” — real stories of journeys to global IT companies and skills needed.'
+            }
+          },
+          {
+            kind: 'table', hall: 'sanzhyra',
+            badge: { ru: 'Круглый стол 2', ky: '2-тегерек стол', en: 'Roundtable 2' },
+            timeSlot: '15:00–15:35',
+            title: {
+              ru: 'Круглый стол 2 «Спорт и киберспорт: игра на победу»',
+              ky: '2-тегерек стол «Спорт жана киберспорт: жеңиш үчүн оюн»',
+              en: 'Roundtable 2: “Sport and Esports: Playing to Win”'
+            },
+            desc: {
+              ru: 'От киберспорта до Всемирных игр кочевников: какие профессии скрываются за большим спортом.',
+              ky: 'Киберспорттон Дүйнөлүк көчмөндөр оюндарына чейин: чоң спорттун артында кандай кесиптер турат.',
+              en: 'From esports to the World Nomad Games: what professions lie behind major sports.'
+            }
+          }
+        ]
+      },
+      {
+        time: '15:40–16:15',
+        items: [
+          {
+            kind: 'talks', hall: 'kurultai',
+            code: 'MUUN Talks · УЧУР', codeEn: 'MUUN Talks · UCHUR',
+            timeSlot: '15:50–16:35',
+            title: {
+              ru: 'Пленарная сессия 3: «Время перемен: ИИ, технологии, интеллектуальная собственность и рынок труда»',
+              ky: '3-пленардык сессия: «Өзгөрүүлөр мезгили: ЖИ, технологиялар, интеллектуалдык менчик жана эмгек рыногу»',
+              en: 'Plenary Session 3: “Time of Change: AI, Technology, Intellectual Property and the Labour Market”'
+            },
+            desc: {
+              ru: '«ИИ не заберёт твою работу, если ты знаешь новые правила и умеешь защищать свои идеи» — где появятся новые рабочие места, какие навыки нужны уже сейчас и как превратить свою идею в защищённый актив.',
+              ky: '«Эгер жаңы эрежелерди билип, идеяларыңды коргой алсаң, ЖИ жумушуңду тартып албайт» — жаңы жумуш орундары кайда пайда болот, азыртан кандай көндүмдөр керек жана идеяны кантип корголгон активге айландырууга болот.',
+              en: '“AI won’t take your job if you know the new rules and how to protect your ideas” — where new jobs will emerge, what skills are needed now, and how to turn your idea into a protected asset.'
+            }
+          },
+          {
+            kind: 'pitch', hall: 'nasyyat',
+            badge: { ru: 'Питч-сессия', ky: 'Питч-сессия', en: 'Pitch Session' },
+            timeSlot: '15:45–17:00',
+            title: {
+              ru: 'Питч-сессия Kel Start: выступления № 16–30',
+              ky: 'Kel Start питч-сессиясы: № 16–30 чыгып сүйлөөлөрү',
+              en: 'Kel Start Pitch Session: Pitches #16–30'
+            },
+            desc: {
+              ru: 'Вторая волна питчей — поддержи команды из зала. Итоги — в 17:45 в зале «Курултай».',
+              ky: 'Питчтердин экинчи толкуну — залдан командаларды колдоп бериңиз. Жыйынтыгы — 17:45те «Курултай» залында.',
+              en: 'The second wave of pitches — support teams from the audience. Results at 17:45 in Kurultai Hall.'
+            }
+          },
+          {
+            kind: 'table', hall: 'sanzhyra',
+            badge: { ru: 'Мастер-класс', ky: 'Мастер-класс', en: 'Masterclass' },
+            timeSlot: '15:40–16:15',
+            title: {
+              ru: 'Мастер-класс «Оффер мечты: как попасть в глобальную компанию»',
+              ky: 'Мастер-класс «Кыялдагы оффер: глобалдык компанияга кантип кирүү керек»',
+              en: 'Masterclass: “Dream Offer: How to Land a Job at a Global Company”'
+            },
+            desc: {
+              ru: 'Разбор резюме и учебное собеседование — узнай, что ищут международные работодатели.',
+              ky: 'Резюмелерди талдоо жана машыгуу маектешүүсү — эл аралык иш берүүчүлөр эмнени издешерин билип алыңыз.',
+              en: 'Resume review and mock interview — learn what international employers look for.'
+            }
+          }
+        ]
+      },
+      {
+        time: '16:15–16:35',
+        items: [
+          {
+            kind: 'table', hall: 'sanzhyra',
+            badge: { ru: 'Открытый диалог', ky: 'Ачык диалог', en: 'Open Dialogue' },
+            timeSlot: '16:15–16:35',
+            title: {
+              ru: 'Открытый диалог «Спроси PhD: учёба в США и гранты»',
+              ky: 'Ачык диалог «PhDден сура: АКШдагы окуу жана гранттар»',
+              en: 'Open Dialogue: “Ask a PhD: US Studies & Grants”'
+            },
+            desc: {
+              ru: 'Как поступить в университет США и найти стипендию — задай свой вопрос напрямую.',
+              ky: 'АКШ университетине кантип тапшыруу жана стипендия табуу керек — сурооңузду түздөн-түз бериңиз.',
+              en: 'How to apply to a US university and find a scholarship — ask your question directly.'
+            }
+          }
+        ]
+      },
+      {
+        time: '16:35–17:30',
+        items: [
+          {
+            kind: 'talks', hall: 'kurultai',
+            code: 'MUUN Talks · НИЕТ', codeEn: 'MUUN Talks · NIET',
+            timeSlot: '16:45–17:30',
+            title: {
+              ru: 'Пленарная сессия 4: «От идеи к действию: предпринимательство, стартапы и молодёжные инициативы»',
+              ky: '4-пленардык сессия: «Идеядан аракетке: ишкердик, стартаптар жана жаштар демилгелери»',
+              en: 'Plenary Session 4: “From Idea to Action: Entrepreneurship, Startups and Youth Initiatives”'
+            },
+            desc: {
+              ru: '«Хватит ждать — запускай своё» — как начать дело без капитала и где найти первое финансирование.',
+              ky: '«Күтүүнү токтот — өз ишиңди башта» — капиталсыз бизнести кантип баштоо жана биринчи каржылоону кайдан табуу керек.',
+              en: '“Stop waiting — launch your own” — how to start a business without capital and find initial funding.'
+            }
+          },
+          {
+            kind: 'table', hall: 'sanzhyra',
+            badge: { ru: 'Круглый стол 3', ky: '3-тегерек стол', en: 'Roundtable 3' },
+            timeSlot: '16:35–17:30',
+            title: {
+              ru: 'Круглый стол 3 «От идеи до оффера: стартап, блог, Big Tech, финтех»',
+              ky: '3-тегерек стол «Идеядан офферге чейин: стартап, блог, Big Tech, финтех»',
+              en: 'Roundtable 3: “From Idea to Offer: Startup, Blog, Big Tech, Fintech”'
+            },
+            desc: {
+              ru: '«Без фильтров» — честные истории о четырёх путях. Выбери свой.',
+              ky: '«Фильтрсиз» — төрт жол тууралуу ачык тарыхтар. Өзүңдүкүн танда.',
+              en: '“Unfiltered” — honest stories about four pathways. Choose yours.'
+            }
+          }
+        ]
+      },
+      {
+        time: '17:45–18:05',
+        items: [
+          {
+            kind: 'pitch', hall: 'kurultai', wide: true,
+            badge: { ru: 'Итоги Kel Start', ky: 'Kel Start жыйынтыгы', en: 'Kel Start Results' },
+            timeSlot: '17:45–18:05',
+            title: {
+              ru: 'Подведение итогов питч-сессии Kel Start',
+              ky: 'Kel Start питч-сессиясынын жыйынтыгын чыгаруу',
+              en: 'Kel Start Pitch Session Results & Awards'
+            },
+            desc: {
+              ru: 'Объявляем лучшие молодёжные стартапы дня и чествуем победителей.',
+              ky: 'Күндүн мыкты жаштар стартаптарын жарыялап, жеңүүчүлөрдү сыйлайбыз.',
+              en: 'Announcing the best youth startups of the day and honoring the winners.'
+            }
+          }
+        ]
+      },
+      {
+        time: '18:05–18:30',
+        items: [
+          {
+            kind: 'ceremony', hall: 'kurultai', wide: true,
+            timeSlot: '18:05–18:30',
+            title: {
+              ru: 'Концертная программа',
+              ky: 'Концерттик программа',
+              en: 'Concert Programme'
+            },
+            desc: {
+              ru: 'Яркий финал дня MUUN 2026.',
+              ky: 'MUUN 2026 күнүнүн жаркын финалы.',
+              en: 'A bright finale of MUUN 2026.'
+            }
+          }
+        ]
+      },
+      {
+        time: '18:30',
+        items: [
+          {
+            kind: 'service',
+            title: {
+              ru: 'Окончание форума',
+              ky: 'Форумдун аягы',
+              en: 'End of Forum'
+            }
+          }
+        ]
       }
     ]
   }
 ];
 
-const TRACK_OF = { talks: 'talks', panel: 'panel', partner: 'partner', startup: 'startup' };
+const TRACK_OF = {
+  talks: 'talks',
+  pitch: 'pitch',
+  table: 'table',
+  ceremony: 'ceremony',
+  service: 'service'
+};
 
 function esc(value) {
   return String(value)
@@ -419,10 +397,18 @@ function esc(value) {
 }
 
 function badgeText(item, lang, ui) {
-  if (item.kind === 'talks') return lang === 'en' ? item.codeEn : item.code;
-  if (item.kind === 'panel') return `${ui.panelBadge} · ${lang === 'en' ? item.codeEn : item.code}`;
-  if (item.kind === 'partner') return ui.partnerBadge;
-  if (item.kind === 'startup') return ui.startup;
+  if (item.badge) {
+    if (typeof item.badge === 'object') {
+      return item.badge[lang] || item.badge.ru || '';
+    }
+    return String(item.badge);
+  }
+  if (item.kind === 'talks') {
+    if (lang === 'en') return item.codeEn || item.code || 'MUUN Talks';
+    return item.code || 'MUUN Talks';
+  }
+  if (item.kind === 'pitch') return ui.pitchBadge;
+  if (item.kind === 'table') return ui.tableBadge;
   return '';
 }
 
@@ -432,12 +418,19 @@ function renderItem(item, lang, ui) {
   const badge = badgeText(item, lang, ui);
   const hallLabel = item.hall ? ui[item.hall] : '';
   const desc = item.desc ? item.desc[lang] : '';
-  const withPeople = item.kind === 'talks' || item.kind === 'panel';
+  const withPeople = (item.kind === 'talks' || item.kind === 'table') && item.withPeople !== false;
   const expandable = Boolean(desc) || withPeople;
   const meta = (badge || hallLabel)
     ? `<span class="muun-prog-meta">${badge ? `<span class="muun-prog-badge">${esc(badge)}</span>` : ''}${hallLabel ? `<span class="muun-prog-hall">${esc(hallLabel)}</span>` : ''}</span>`
     : '';
-  const note = item.note ? `<span class="muun-prog-note">${esc(item.note[lang])}</span>` : '';
+
+  const timeBadge = item.timeSlot
+    ? `<span class="muun-prog-time-badge"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg><span>${esc(item.timeSlot)}</span></span>`
+    : '';
+
+  const rawNote = item.note ? (typeof item.note === 'object' ? (item.note[lang] || item.note.ru) : item.note) : '';
+  const note = rawNote ? `<span class="muun-prog-note">${esc(rawNote)}</span>` : '';
+
   const classes = [
     'muun-prog-item',
     `is-${item.kind}`,
@@ -447,12 +440,12 @@ function renderItem(item, lang, ui) {
   const attrs = `data-track="${track}"${item.hall ? ` data-hall="${item.hall}"` : ''}`;
 
   if (!expandable) {
-    return `<div class="${classes}" ${attrs}><div class="muun-prog-head">${meta}<h3 class="muun-prog-title">${esc(item.title[lang])}</h3>${note}</div></div>`;
+    return `<div class="${classes}" ${attrs}><div class="muun-prog-head">${meta}<h3 class="muun-prog-title">${esc(item.title[lang])}</h3>${timeBadge}${note}</div></div>`;
   }
 
   return `<div class="${classes}" ${attrs}>` +
     `<button type="button" class="muun-prog-head" aria-expanded="false" aria-label="${esc(ui.more)}: ${esc(item.title[lang])}">` +
-      `${meta}<h3 class="muun-prog-title">${esc(item.title[lang])}</h3>${note}` +
+      `${meta}<h3 class="muun-prog-title">${esc(item.title[lang])}</h3>${timeBadge}${note}` +
       `<span class="muun-prog-toggle" aria-hidden="true"></span>` +
     `</button>` +
     `<div class="muun-prog-body"><div class="muun-prog-body-inner">` +
@@ -465,10 +458,16 @@ function renderItem(item, lang, ui) {
 export function renderProgramBlock(lang) {
   const ui = UI[lang] || UI.ru;
   const trackChips = [
-    ['all', ui.trackAll], ['talks', ui.talks], ['panel', ui.panel], ['partner', ui.partner], ['startup', ui.startup]
+    ['all', ui.trackAll],
+    ['talks', ui.talks],
+    ['pitch', ui.pitch],
+    ['table', ui.table]
   ].map(([v, label], i) => `<button type="button" class="muun-prog-chip${i === 0 ? ' is-active' : ''}${v === 'talks' ? ' is-talks' : ''}" data-prog-filter="track" data-value="${v}">${esc(label)}</button>`).join('');
   const hallChips = [
-    ['all', ui.hallAll], ['kurultai', ui.kurultai], ['sairan', ui.sairan]
+    ['all', ui.hallAll],
+    ['kurultai', ui.kurultai],
+    ['nasyyat', ui.nasyyat],
+    ['sanzhyra', ui.sanzhyra]
   ].map(([v, label], i) => `<button type="button" class="muun-prog-chip${i === 0 ? ' is-active' : ''}" data-prog-filter="hall" data-value="${v}">${esc(label)}</button>`).join('');
 
   const days = DAYS.map((day) => `
@@ -554,6 +553,7 @@ export const programCss = `
     padding: 18px 24px;
     background: rgb(1, 30, 255);
     border-radius: 24px 0 0 24px;
+    white-space: nowrap;
   }
   .muun-prog-daytitle {
     display: flex;
@@ -576,37 +576,77 @@ export const programCss = `
   .muun-prog-rows { display: flex; flex-direction: column; gap: 32px; }
   .muun-prog-row {
     display: grid;
-    grid-template-columns: 233px minmax(0, 1fr);
-    column-gap: 74px;
-    padding-left: 24px;
+    grid-template-columns: 200px minmax(0, 1fr);
+    column-gap: 48px;
+    padding-left: 16px;
     align-items: start;
   }
   .muun-prog-time {
-    padding-top: 22px;
-    font-size: 24px;
+    padding-top: 18px;
+    font-size: 22px;
     line-height: 1.4;
     letter-spacing: -0.03em;
+    font-weight: 500;
     color: rgb(237, 237, 237);
     white-space: nowrap;
   }
   .muun-prog-slots {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
     align-items: start;
   }
-  .muun-prog-item { grid-column: 1; border-radius: 24px; background: rgb(17, 17, 20); }
-  .muun-prog-item[data-hall="sairan"] { grid-column: 2; }
-  .muun-prog-item.is-wide { grid-column: 1 / -1; }
-  .muun-program[data-hall="kurultai"] .muun-prog-slots,
-  .muun-program[data-hall="sairan"] .muun-prog-slots { grid-template-columns: minmax(0, 1fr); }
-  .muun-program[data-hall="kurultai"] .muun-prog-item,
-  .muun-program[data-hall="sairan"] .muun-prog-item { grid-column: 1; }
-  .muun-prog-item.is-service { background: transparent; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.12); }
-  .muun-prog-item.is-talks {
-    background: linear-gradient(135deg, rgba(1, 30, 255, 0.38) 0%, rgba(1, 30, 255, 0.1) 48%, rgb(17, 17, 20) 100%);
-    box-shadow: inset 0 0 0 1px rgba(64, 96, 255, 0.6);
+  .muun-prog-item {
+    border-radius: 22px;
+    background: rgb(17, 17, 20);
+    transition: transform .2s ease, box-shadow .2s ease;
   }
+  .muun-prog-item[data-hall="kurultai"] { grid-column: 1; }
+  .muun-prog-item[data-hall="nasyyat"] { grid-column: 2; }
+  .muun-prog-item[data-hall="sanzhyra"] { grid-column: 3; }
+  .muun-prog-item.is-wide { grid-column: 1 / -1; }
+
+  /* Full width when filtered by specific hall */
+  .muun-program[data-hall="kurultai"] .muun-prog-slots,
+  .muun-program[data-hall="nasyyat"] .muun-prog-slots,
+  .muun-program[data-hall="sanzhyra"] .muun-prog-slots {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .muun-program[data-hall="kurultai"] .muun-prog-item,
+  .muun-program[data-hall="nasyyat"] .muun-prog-item,
+  .muun-program[data-hall="sanzhyra"] .muun-prog-item {
+    grid-column: 1 !important;
+  }
+
+  /* Full width when filtered by specific track */
+  .muun-program:not([data-track="all"]) .muun-prog-slots {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .muun-program:not([data-track="all"]) .muun-prog-item {
+    grid-column: 1 !important;
+  }
+
+  .muun-prog-item.is-service {
+    background: transparent;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.12);
+  }
+  .muun-prog-item.is-talks {
+    background: linear-gradient(135deg, rgba(1, 30, 255, 0.32) 0%, rgba(1, 30, 255, 0.08) 48%, rgb(17, 17, 20) 100%);
+    box-shadow: inset 0 0 0 1px rgba(64, 96, 255, 0.55);
+  }
+  .muun-prog-item.is-pitch {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.18) 0%, rgba(245, 158, 11, 0.04) 48%, rgb(17, 17, 20) 100%);
+    box-shadow: inset 0 0 0 1px rgba(245, 158, 11, 0.35);
+  }
+  .muun-prog-item.is-table {
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.18) 0%, rgba(14, 165, 233, 0.04) 48%, rgb(17, 17, 20) 100%);
+    box-shadow: inset 0 0 0 1px rgba(14, 165, 233, 0.35);
+  }
+  .muun-prog-item.is-ceremony {
+    background: linear-gradient(135deg, rgba(147, 51, 234, 0.22) 0%, rgba(147, 51, 234, 0.06) 48%, rgb(17, 17, 20) 100%);
+    box-shadow: inset 0 0 0 1px rgba(147, 51, 234, 0.45);
+  }
+
   .muun-prog-head {
     position: relative;
     display: flex;
@@ -614,51 +654,100 @@ export const programCss = `
     align-items: flex-start;
     gap: 10px;
     width: 100%;
-    padding: 24px 32px;
+    padding: 22px 24px;
     border: 0;
     background: none;
     color: inherit;
     font: inherit;
     text-align: left;
   }
-  button.muun-prog-head { padding-right: 84px; cursor: pointer; }
-  .muun-prog-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+  button.muun-prog-head { padding-right: 64px; cursor: pointer; }
+  .muun-prog-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
   .muun-prog-badge {
-    padding: 5px 12px;
+    padding: 4px 10px;
     border-radius: 100px;
     background: rgba(255,255,255,0.08);
     color: rgb(207, 207, 207);
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.05em;
     text-transform: uppercase;
   }
   .is-talks .muun-prog-badge { background: rgb(1, 30, 255); color: #fff; }
-  .is-panel .muun-prog-badge { background: rgba(41, 170, 225, 0.16); color: #8ed8ff; }
-  .is-startup .muun-prog-badge { background: rgba(255, 176, 32, 0.16); color: #ffc56b; }
+  .is-pitch .muun-prog-badge { background: rgba(245, 158, 11, 0.22); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); }
+  .is-table .muun-prog-badge { background: rgba(14, 165, 233, 0.22); color: #38bdf8; border: 1px solid rgba(14, 165, 233, 0.4); }
+  .is-ceremony .muun-prog-badge { background: rgba(147, 51, 234, 0.25); color: #c084fc; }
+
   .muun-prog-hall {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 500;
     letter-spacing: 0.04em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.5);
+    color: rgba(255,255,255,0.6);
   }
   .muun-prog-title {
     font-family: "Inter Display", Inter, sans-serif;
-    font-size: 26px;
+    font-size: 21px;
     font-weight: 500;
-    line-height: 1.25;
-    letter-spacing: -0.03em;
+    line-height: 1.28;
+    letter-spacing: -0.025em;
     color: rgb(237, 237, 237);
   }
-  .is-wide .muun-prog-title { font-size: 32px; }
-  .muun-prog-note { font-size: 16px; line-height: 1.5; color: rgb(191, 191, 191); }
+  .is-wide .muun-prog-title { font-size: 28px; }
+
+  /* Заметный акцентный бейдж времени сессии внутри карточки */
+  .muun-prog-time-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 8px;
+    padding: 5px 12px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.09);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    font-family: Inter, sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  }
+  .is-talks .muun-prog-time-badge {
+    background: rgba(1, 30, 255, 0.26);
+    border-color: rgba(64, 96, 255, 0.5);
+    color: #ffffff;
+  }
+  .is-pitch .muun-prog-time-badge {
+    background: rgba(245, 158, 11, 0.18);
+    border-color: rgba(245, 158, 11, 0.45);
+    color: #fef08a;
+  }
+  .is-table .muun-prog-time-badge {
+    background: rgba(14, 165, 233, 0.18);
+    border-color: rgba(14, 165, 233, 0.45);
+    color: #bae6fd;
+  }
+  .is-ceremony .muun-prog-time-badge {
+    background: rgba(147, 51, 234, 0.24);
+    border-color: rgba(147, 51, 234, 0.5);
+    color: #f3e8ff;
+  }
+
+  .muun-prog-note {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.45;
+    color: rgb(210, 210, 210);
+    margin-top: 4px;
+  }
+
   .muun-prog-toggle {
     position: absolute;
-    top: 24px;
-    right: 28px;
-    width: 40px;
-    height: 40px;
+    top: 20px;
+    right: 20px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     background: rgba(255,255,255,0.12);
     transition: transform .3s ease, background-color .2s ease;
@@ -668,9 +757,9 @@ export const programCss = `
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 14px;
+    width: 12px;
     height: 2px;
-    margin: -1px 0 0 -7px;
+    margin: -1px 0 0 -6px;
     border-radius: 2px;
     background: #fff;
   }
@@ -681,52 +770,68 @@ export const programCss = `
   .muun-prog-item.is-open .muun-prog-body { grid-template-rows: 1fr; }
   .muun-prog-body-inner { overflow: hidden; }
   .muun-prog-desc {
-    padding: 0 32px 0;
+    padding: 0 24px 0;
     max-width: 820px;
-    font-size: 18px;
-    line-height: 1.4;
+    font-size: 16px;
+    line-height: 1.45;
     color: rgb(191, 191, 191);
   }
   .muun-prog-people {
-    margin: 16px 32px 0 !important;
-    padding-top: 16px;
+    margin: 14px 24px 0 !important;
+    padding-top: 14px;
     border-top: 1px solid rgba(255,255,255,0.1);
-    font-size: 15px;
-    line-height: 1.5;
+    font-size: 14px;
+    line-height: 1.45;
     color: rgba(255,255,255,0.55);
   }
-  .muun-prog-body-inner > :last-child { margin-bottom: 26px !important; }
+  .muun-prog-body-inner > :last-child { margin-bottom: 22px !important; }
   .muun-prog-empty { font-size: 18px; color: rgb(191, 191, 191); }
+
   @media (max-width: 1199px) {
-    .muun-prog-row { grid-template-columns: 170px minmax(0, 1fr); column-gap: 32px; padding-left: 0; }
-    .muun-prog-time { font-size: 20px; }
+    .muun-prog-row { grid-template-columns: 150px minmax(0, 1fr); column-gap: 24px; padding-left: 0; }
+    .muun-prog-time { font-size: 19px; }
     .muun-prog-daylabel { flex-basis: 200px; }
-    .muun-prog-daytitle { padding: 18px 32px; }
-    .muun-prog-dayhead h3 { font-size: 30px; }
+    .muun-prog-daytitle { padding: 18px 28px; }
+    .muun-prog-dayhead h3 { font-size: 28px; }
+    .muun-prog-slots { gap: 12px; }
+    .muun-prog-head { padding: 18px 20px; }
+    .muun-prog-title { font-size: 18px; }
+    .is-wide .muun-prog-title { font-size: 22px; }
+    .muun-prog-time-badge { font-size: 16px; padding: 4px 11px; }
+  }
+  @media (max-width: 900px) {
+    .muun-prog-row { display: flex; flex-direction: column; align-items: stretch; gap: 10px; padding-left: 0; }
+    .muun-prog-time { padding-top: 0; font-size: 18px; }
+    .muun-prog-slots { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+    .muun-prog-item,
+    .muun-prog-item[data-hall="kurultai"],
+    .muun-prog-item[data-hall="nasyyat"],
+    .muun-prog-item[data-hall="sanzhyra"] {
+      grid-column: 1 !important;
+      border-radius: 20px;
+    }
   }
   @media (max-width: 809px) {
-    .muun-program { gap: 48px; }
+    .muun-program { gap: 40px; }
     .muun-prog-filters { margin-bottom: 0; }
     .muun-prog-chips { flex-wrap: nowrap; overflow-x: auto; width: 100%; padding-bottom: 4px; scrollbar-width: none; }
     .muun-prog-chips::-webkit-scrollbar { display: none; }
     .muun-prog-chip { flex: none; font-size: 14px; padding: 9px 16px; }
-    .muun-prog-day { gap: 28px; }
+    .muun-prog-day { gap: 24px; }
     .muun-prog-dayhead { min-height: 0; }
-    .muun-prog-daylabel { flex-basis: auto; padding: 14px 18px; border-radius: 18px 0 0 18px; }
-    .muun-prog-daytitle { padding: 14px 18px; border-radius: 0 18px 18px 0; }
-    .muun-prog-dayhead h3 { font-size: 20px; letter-spacing: -0.03em; }
-    .muun-prog-rows { gap: 24px; }
-    .muun-prog-row { display: flex; flex-direction: column; align-items: stretch; gap: 10px; }
-    .muun-prog-time { padding-top: 0; font-size: 18px; }
-    .muun-prog-slots { grid-template-columns: minmax(0, 1fr); gap: 12px; }
-    .muun-prog-item, .muun-prog-item[data-hall="sairan"] { grid-column: 1; border-radius: 20px; }
-    .muun-prog-head { padding: 20px; }
-    button.muun-prog-head { padding-right: 64px; }
-    .muun-prog-toggle { top: 18px; right: 16px; width: 34px; height: 34px; }
-    .muun-prog-title, .is-wide .muun-prog-title { font-size: 20px; }
-    .muun-prog-desc { padding: 0 20px; font-size: 16px; }
-    .muun-prog-people { margin: 14px 20px 0 !important; }
-    .muun-prog-body-inner > :last-child { margin-bottom: 20px !important; }
+    .muun-prog-daylabel { flex: 0 0 auto; padding: 12px 16px; border-radius: 16px 0 0 16px; }
+    .muun-prog-daytitle { padding: 12px 18px; border-radius: 0 16px 16px 0; }
+    .muun-prog-dayhead h3 { font-size: 17px; letter-spacing: -0.02em; }
+    .muun-prog-rows { gap: 20px; }
+    .muun-prog-head { padding: 16px 18px; }
+    button.muun-prog-head { padding-right: 56px; }
+    .muun-prog-toggle { top: 16px; right: 16px; width: 30px; height: 30px; }
+    .muun-prog-title, .is-wide .muun-prog-title { font-size: 18px; }
+    .muun-prog-time-badge { font-size: 15px; padding: 4px 10px; margin-top: 6px; }
+    .muun-prog-note { font-size: 14px; }
+    .muun-prog-desc { padding: 0 18px; font-size: 14px; }
+    .muun-prog-people { margin: 12px 18px 0 !important; font-size: 13px; }
+    .muun-prog-body-inner > :last-child { margin-bottom: 16px !important; }
   }
 `;
 
@@ -745,7 +850,7 @@ export const programClientJs = `
           var anyItem = false;
           row.querySelectorAll('.muun-prog-item').forEach(function (item) {
             var okTrack = track === 'all' || item.dataset.track === track;
-            var okHall = hall === 'all' || !item.dataset.hall || item.dataset.hall === hall;
+            var okHall = hall === 'all' || item.dataset.hall === hall;
             item.hidden = !(okTrack && okHall);
             if (!item.hidden) anyItem = true;
           });
