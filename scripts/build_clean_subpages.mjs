@@ -7,6 +7,8 @@ import { programCss, programClientJs, programFixerJs, injectProgramSsr } from '.
 import { applyFooterSocials, footerSocialCss, footerFixerJs, contactBlockHtml, contactCopy, contactSocialCss, contactFixerJs, mobileNavCss, renderMobileNav } from './muun_social.mjs';
 import { lockHeroMark, heroMarkCss, heroMarkScript } from './hero_mark.mjs';
 import { stripFramerRuntime } from './strip_framer_runtime.mjs';
+import { getRegistrationClientJs } from './reg_form_client.mjs';
+import { buildClosedRegPages } from './build_closedreg.mjs';
 
 console.log('Building completely polished subpages with exact fixes...');
 
@@ -1139,6 +1141,9 @@ for (const lang of languages) {
                 if (tpl) {
                   cardsWrap.innerHTML = '';
                   cardsWrap.appendChild(tpl.content.cloneNode(true));
+                  if (typeof window.switchRegTab === 'function') {
+                    window.switchRegTab('indiv');
+                  }
                 }
               }
 
@@ -1195,39 +1200,8 @@ for (const lang of languages) {
             ${slug === 'contacts' ? contactFixerJs(lang) : ''}
           }
 
-          // Registration form multi-step logic
-          window.handleCategorySelect = function(cat) {
-            document.querySelectorAll('.muun-cat-btn').forEach(b => {
-              b.classList.remove('active');
-              if (b.dataset.cat === cat) b.classList.add('active');
-            });
-            const catInput = document.getElementById('reg-category');
-            if (catInput) catInput.value = cat;
-          };
-
-          window.goToRegStep = function(step) {
-            const step1 = document.getElementById('muun-reg-step-1');
-            const step2 = document.getElementById('muun-reg-step-2');
-            if (step === 2) {
-              if (step1) step1.style.display = 'none';
-              if (step2) step2.style.display = 'block';
-            } else {
-              if (step2) step2.style.display = 'none';
-              if (step1) step1.style.display = 'block';
-            }
-          };
-
-          window.handleRegSubmit = function(e) {
-            e.preventDefault();
-            const btn = document.querySelector('.muun-reg-submit-btn');
-            if (btn) btn.textContent = '...';
-            setTimeout(() => {
-              const regCards = document.querySelector('.muun-reg-card');
-              if (regCards) {
-                regCards.innerHTML = '<div style=\"text-align:center;padding:40px 20px;\"><h3 style=\"color:#29AAE1;font-size:24px;margin-bottom:12px;\">${lang === 'ky' ? 'Ийгиликтүү катталдыңыз!' : lang === 'en' ? 'Successfully Registered!' : 'Регистрация успешна!'}</h3><p style=\"color:#fff;font-size:16px;\">${lang === 'ky' ? 'Билетиңиз электрондук почтаңызга жөнөтүлдү.' : lang === 'en' ? 'Your ticket has been sent to your email.' : 'Ваш билет отправлен на указанную почту.'}</p></div>';
-              }
-            }, 600);
-          };
+          // Full registration tab switcher and submission logic
+          ${getRegistrationClientJs(lang)}
 
           (function watchFramer(fix) {
             var obs = new MutationObserver(function () { schedule(); });
@@ -1308,3 +1282,4 @@ for (const lang of languages) {
 }
 
 console.log('Completely polished subpages build complete!');
+buildClosedRegPages();

@@ -6,3 +6,7 @@ export const PRESS_ENDPOINT =
 
 export const REGISTRATION_ENDPOINT =
   'https://script.google.com/macros/s/AKfycbzZ0Mbv7IXAx_bbqfTYeOQc0-ioT-wLwTsoJyxh7xKNQhj-BGuNedYirfoH9YFjwt12/exec';
+
+export const CLOSED_REGISTRATION_ENDPOINT =
+  'https://script.google.com/macros/s/AKfycbx7suuin6Kw2ddG9RH2Y7_tP-M6eMm2gGH0kXDb0kP19Q5W2_USjKl9g5vwguX4C9MF/exec';
+
