@@ -38,10 +38,11 @@ const downloadEagle = 'C:/Users/Beibars/Downloads/орел2.png';
 if (fs.existsSync(downloadEagle)) {
   fs.copyFileSync(downloadEagle, 'assets/eagle2.png');
 }
-for (const f of ['favicon.ico', 'favicon.png', 'logo-new.png', 'logo-crystal.png', 'logo-header.png', 'president.png', 'ministry-logo.jpeg', 'ministry-logo-white.png', 'kumtor.png', 'kyrgyzaltyn.png', 'aeroporty kyrgyzstana.png', 'eagle2.png', 'logo-footer.png', 'og-image.jpg', 'partner-cebc.png', 'partner-codify.png', 'partner-prokg.png', 'partner-htp.png', 'partner-mdk-ru.png', 'partner-mdk-ky.png', 'partner-contest.png', 'qr-instagram.svg', 'qr-facebook.svg', 'qr-threads.svg', 'qr-whatsapp.svg', 'speaker-abakirov.jpg', 'speaker-moldokeeva.jpg', 'speaker-amantur.jpg', 'speaker-otorbaeva.jpg', 'speaker-zhakypova.png']) {
-  if (fs.existsSync(`assets/${f}`)) {
-    fs.copyFileSync(`assets/${f}`, `dist/${f}`);
-    fs.copyFileSync(`assets/${f}`, `dist/assets/${f}`);
+for (const f of fs.readdirSync('assets')) {
+  const srcPath = `assets/${f}`;
+  if (fs.existsSync(srcPath) && fs.statSync(srcPath).isFile()) {
+    fs.copyFileSync(srcPath, `dist/${f}`);
+    fs.copyFileSync(srcPath, `dist/assets/${f}`);
   }
 }
 if (fs.existsSync('assets/aeroporty kyrgyzstana.png')) {
@@ -764,25 +765,25 @@ function homeSpeakerPeople(lang) {
       { name: 'Касымалиев Адылбек Алешович', role: 'Председатель Кабинета Министров Кыргызской Республики – Руководитель Администрации Президента Кыргызской Республики', photo: '/assets/speaker-kasymaliev.png', focus: 'center 15%' },
       { name: 'Исаматова Гульзат Тыныбековна', role: 'Министр науки, высшего образования и инноваций Кыргызской Республики', photo: '/assets/speaker-isamatova.jpg', focus: '30% 20%' },
       { name: 'Орунтаев Нурдан Кемелович', role: 'Министр строительства, архитектуры и жилищно-коммунального хозяйства Кыргызской Республики', photo: '/assets/speaker-oruntaev.jpg', focus: 'center 18%' },
-      { name: 'Динара Русланкызы', role: 'Основатель и директор ИТ-компании CODIFY', photo: '/assets/speaker-dinara.jpg', focus: 'center 30%' },
-      { name: 'Айжан Алишерова', role: 'Основатель фонда поддержки стартапов «We Fund»', photo: '/assets/speaker-alisherova.jpg', focus: 'center 16%' },
-      { name: 'Бекназаров Жакшылык Бекназарович', role: 'Председатель молодежного движения Кыргызстана, Отличник молодежной политики Кыргызской Республики', photo: '/assets/speaker-beknazarov.jpg', focus: 'center 30%' }
+      { name: 'Рысбеков Алтынбек Дурусбекович', role: 'Министр энергетики Кыргызской Республики', photo: '/assets/speaker-rysbekov.jpg', focus: 'center center' },
+      { name: 'Эльвира Сурабалдиева', role: 'Депутат Жогорку Кенеша Кыргызской Республики', photo: '/assets/speaker-surabaldieva.jpg', focus: 'center center' },
+      { name: 'Эсеналиева Назира Солтонбековна', role: 'Ректор Международного университета «Ала-Тоо», кандидат экономических наук', photo: '/assets/speaker-esenalieva.jpg', focus: 'center center' }
     ],
     ky: [
       { name: 'Касымалиев Адылбек Алешович', role: 'Кыргыз Республикасынын Министрлер Кабинетинин Төрагасы – Кыргыз Республикасынын Президентинин Администрациясынын жетекчиси', photo: '/assets/speaker-kasymaliev.png', focus: 'center 15%' },
       { name: 'Исаматова Гульзат Тыныбековна', role: 'Кыргыз Республикасынын илим, жогорку билим берүү жана инновациялар министри', photo: '/assets/speaker-isamatova.jpg', focus: '30% 20%' },
       { name: 'Орунтаев Нурдан Кемелович', role: 'Кыргыз Республикасынын курулуш, архитектура жана турак жай-коммуналдык чарба министри', photo: '/assets/speaker-oruntaev.jpg', focus: 'center 18%' },
-      { name: 'Динара Русланкызы', role: 'CODIFY ИТ-компаниясынын негиздөөчүсү жана директору', photo: '/assets/speaker-dinara.jpg', focus: 'center 30%' },
-      { name: 'Айжан Алишерова', role: '«We Fund» стартаптарды колдоо фондунун негиздөөчүсү', photo: '/assets/speaker-alisherova.jpg', focus: 'center 16%' },
-      { name: 'Бекназаров Жакшылык Бекназарович', role: 'Кыргызстандын жаштар кыймылынын төрагасы, Кыргыз Республикасынын жаштар саясатынын отличниги', photo: '/assets/speaker-beknazarov.jpg', focus: 'center 30%' }
+      { name: 'Рысбеков Алтынбек Дурусбекович', role: 'Кыргыз Республикасынын энергетика министри', photo: '/assets/speaker-rysbekov.jpg', focus: 'center center' },
+      { name: 'Эльвира Сурабалдиева', role: 'Кыргыз Республикасынын Жогорку Кеңешинин депутаты', photo: '/assets/speaker-surabaldieva.jpg', focus: 'center center' },
+      { name: 'Эсеналиева Назира Солтонбековна', role: '«Ала-Тоо» Эл аралык университетинин ректору, экономика илимдеринин кандидаты', photo: '/assets/speaker-esenalieva.jpg', focus: 'center center' }
     ],
     en: [
       { name: 'Adylbek Aleshovich Kasymaliev', role: 'Chairman of the Cabinet of Ministers of the Kyrgyz Republic – Head of the Presidential Administration of the Kyrgyz Republic', photo: '/assets/speaker-kasymaliev.png', focus: 'center 15%' },
       { name: 'Gulzat Tynybekovna Isamatova', role: 'Minister of Science, Higher Education and Innovation of the Kyrgyz Republic', photo: '/assets/speaker-isamatova.jpg', focus: '30% 20%' },
       { name: 'Nurdan Kemelovich Oruntaev', role: 'Minister of Construction, Architecture and Housing and Communal Services of the Kyrgyz Republic', photo: '/assets/speaker-oruntaev.jpg', focus: 'center 18%' },
-      { name: 'Dinara Ruslankyzy', role: 'Founder and Director of the IT company CODIFY', photo: '/assets/speaker-dinara.jpg', focus: 'center 30%' },
-      { name: 'Aizhan Alisherova', role: 'Founder of the startup support fund We Fund', photo: '/assets/speaker-alisherova.jpg', focus: 'center 16%' },
-      { name: 'Zhakshylyk Beknazarovich Beknazarov', role: 'Chairman of the Youth Movement of Kyrgyzstan, Excellence in Youth Policy of the Kyrgyz Republic', photo: '/assets/speaker-beknazarov.jpg', focus: 'center 30%' }
+      { name: 'Altynbek Durusbekovich Rysbekov', role: 'Minister of Energy of the Kyrgyz Republic', photo: '/assets/speaker-rysbekov.jpg', focus: 'center center' },
+      { name: 'Elvira Surabaldieva', role: 'Member of the Jogorku Kenesh of the Kyrgyz Republic', photo: '/assets/speaker-surabaldieva.jpg', focus: 'center center' },
+      { name: 'Nazira Soltonbekovna Esenalieva', role: 'Rector of Ala-Too International University, PhD in Economics', photo: '/assets/speaker-esenalieva.jpg', focus: 'center center' }
     ]
   };
   return people[lang];
@@ -2185,6 +2186,11 @@ for (const lang of ['ru', 'ky', 'en']) {
       section[data-framer-name="Speakers"] [data-framer-name="Image"] img[src*="speaker-beknazarov"] {
         transform: scale(1.72) !important;
         transform-origin: center 34% !important;
+      }
+      section[data-framer-name="Speakers"] [data-framer-name="Image"] img[src*="speaker-rysbekov"],
+      section[data-framer-name="Speakers"] [data-framer-name="Image"] img[src*="speaker-surabaldieva"],
+      section[data-framer-name="Speakers"] [data-framer-name="Image"] img[src*="speaker-esenalieva"] {
+        object-position: center center !important;
       }
       section[data-framer-name="Speakers"] [data-framer-name="Name"],
       section[data-framer-name="Speakers"] [data-framer-name="Name"] h4,
