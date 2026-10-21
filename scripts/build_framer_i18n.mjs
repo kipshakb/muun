@@ -598,9 +598,8 @@ function renderRegForm(lang) {
 
             <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
               <div>
-                <label class="field-label">${S['reg.dob']} *</label>
-                <input type="date" name="birthDate" required class="form-input-dark" min="1920-01-01" max="2026-10-13" />
-                <span class="field-note">${S['reg.dob_note']}</span>
+                <label class="field-label">${S['reg.phone']} *</label>
+                <input type="tel" name="phone" required class="form-input-dark" autocomplete="tel" placeholder="+996 700 123 456" />
               </div>
               <div>
                 <label class="field-label">${S['reg.email']} *</label>
@@ -609,26 +608,23 @@ function renderRegForm(lang) {
               </div>
             </div>
 
-            <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-              <div>
-                <label class="field-label">${S['reg.phone']} *</label>
-                <input type="tel" name="phone" required class="form-input-dark" autocomplete="tel" placeholder="+996 700 123 456" />
-              </div>
-              <div>
-                <label class="field-label">${S['reg.category_label']} *</label>
-                <select name="category" required class="form-input-dark">
-                  <option value="" disabled selected>${S['reg.category_label']}</option>
-                  <option value="school">${S['reg.cat_school_v2']}</option>
-                  <option value="college">${S['reg.cat_college']}</option>
-                  <option value="university">${S['reg.cat_university']}</option>
-                  <option value="graduate">${S['reg.cat_graduate']}</option>
-                  <option value="young_specialist">${S['reg.cat_young_spec']}</option>
-                  <option value="parent">${S['reg.cat_parent_v2'] || S['reg.cat_parent']}</option>
-                  <option value="company">${S['reg.cat_company']}</option>
-                  <option value="media">${S['reg.cat_media']}</option>
-                  <option value="other">${S['reg.cat_other']}</option>
-                </select>
-              </div>
+            <div>
+              <label class="field-label">${S['reg.category_label']} *</label>
+              <select name="category" required class="form-input-dark">
+                <option value="" disabled selected>${S['reg.category_label']}</option>
+                <option value="school">${S['reg.cat_school_v2'] || S['reg.cat_school']}</option>
+                <option value="student">${S['reg.cat_student']}</option>
+                <option value="young_specialist">${S['reg.cat_young_spec']}</option>
+                <option value="moderator">${S['reg.cat_moderator']}</option>
+                <option value="speaker">${S['reg.cat_speaker']}</option>
+                <option value="exhibitor">${S['reg.cat_exhibitor']}</option>
+                <option value="staff">${S['reg.cat_staff']}</option>
+                <option value="organizer">${S['reg.cat_organizer']}</option>
+                <option value="parent">${S['reg.cat_parent_v2'] || S['reg.cat_parent']}</option>
+                <option value="company">${S['reg.cat_company']}</option>
+                <option value="media">${S['reg.cat_media']}</option>
+                <option value="other">${S['reg.cat_other']}</option>
+              </select>
             </div>
 
             <div>
