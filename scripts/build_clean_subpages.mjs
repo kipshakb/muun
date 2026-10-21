@@ -527,19 +527,42 @@ for (const lang of languages) {
           flex-wrap: nowrap !important;
           align-items: stretch !important;
           height: auto !important;
+          box-sizing: border-box !important;
         }
         [data-framer-name="Speakers 1"] > * {
           width: 100% !important;
           max-width: 100% !important;
+          margin-left: 0 !important;
+          margin-right: 0 !important;
+          box-sizing: border-box !important;
           flex: none !important;
+        }
+        [data-framer-name="Speakers 1"] [data-framer-name="Container"] {
+          width: 100% !important;
+          max-width: 100% !important;
+          margin-left: 0 !important;
+          margin-right: 0 !important;
+          box-sizing: border-box !important;
+        }
+        [data-framer-name="Speakers 1"] [data-framer-name="Content"]:has(> [data-framer-name="Layer 1"]) {
+          width: 100% !important;
+          max-width: 100% !important;
+          box-sizing: border-box !important;
+        }
+        [data-framer-name="Speakers 1"] [data-framer-name="Layer 1"],
+        [data-framer-name="Speakers 1"] [data-framer-name="Layer 2"] {
+          width: 100% !important;
+          max-width: 100% !important;
+          gap: 24px !important;
+          box-sizing: border-box !important;
         }
         .muun-extra-speakers {
           display: grid !important;
           grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-          gap: 56px 24px !important;
+          gap: 64px 24px !important;
           width: 100% !important;
-          max-width: 1320px !important;
-          margin: 56px auto 0 !important;
+          max-width: 100% !important;
+          margin: 64px 0 0 !important;
           padding: 0 !important;
           box-sizing: border-box !important;
           position: relative !important;
@@ -549,7 +572,7 @@ for (const lang of languages) {
           display: flex !important;
           flex-direction: column !important;
           align-items: stretch !important;
-          gap: 14px !important;
+          gap: 20px !important;
           min-width: 0 !important;
         }
         .muun-extra-photo {
@@ -1019,6 +1042,13 @@ for (const lang of languages) {
             const speakerSection = document.querySelector('[data-framer-name="Speakers 1"]');
             if (speakerSection && EXTRA_SPEAKERS_HTML && !document.querySelector('.muun-extra-speakers')) {
               speakerSection.insertAdjacentHTML('beforeend', EXTRA_SPEAKERS_HTML);
+            }
+            const speakerContainer = document.querySelector('[data-framer-name="Speakers 1"] [data-framer-name="Container"]');
+            if (speakerContainer) {
+              speakerContainer.style.setProperty('max-width', '100%', 'important');
+              speakerContainer.style.setProperty('width', '100%', 'important');
+              speakerContainer.style.setProperty('margin-left', '0', 'important');
+              speakerContainer.style.setProperty('margin-right', '0', 'important');
             }
             let speakerProfiles = [...document.querySelectorAll('[data-framer-name="Speakers 1"] [data-framer-name="Profile"]')];
             const visibleProfiles = speakerProfiles.filter(p => p.getBoundingClientRect().height > 0);
