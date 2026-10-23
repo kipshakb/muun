@@ -62,18 +62,145 @@ async function downloadAll() {
   return files;
 }
 
-function patchSource(source, pairs) {
-  const list = pairs
-    .filter((pair) => pair && typeof pair[0] === "string" && typeof pair[1] === "string")
-    .filter((pair) => pair[0].length >= 10 && pair[0] !== pair[1] && !pair[1].includes(pair[0]))
-    .filter((pair) => !pair[0].includes("<") && !pair[0].includes("{") && !pair[0].includes("http"))
-    .sort((a, b) => b[0].length - a[0].length);
+const SPEAKER_PHOTOS = {
+  'eTTTIcVnwyKXnDY6kbVhA1AyzQ': '/assets/speaker-kasymaliev.png',
+  'XhuDITv6DpWNuBYIj1HtJ4DvTQw': '/assets/speaker-isamatova.jpg',
+  '86VJMTqMd6VC2SOf3RhzPDR4emk': '/assets/speaker-oruntaev.jpg',
+  'TzozA0OcRZ36gzl3GAQAWwujo': '/assets/speaker-rysbekov.jpg',
+  'dlhgx3fMLQZlK7XF8F8pg5OGE': '/assets/speaker-surabaldieva.jpg',
+  'FVjwWr85ut7DBy7LiAzsJoNMlLM': '/assets/speaker-esenalieva.jpg',
+  'cFl24iPInxckRrL32eRgadp9ZJM': '/assets/speaker-dinara.jpg',
+  'UPhDD72urZKey0YOy5IaOSRCJj0': '/assets/speaker-alisherova.jpg'
+};
+
+const SPEAKER_TEXTS = {
+  ru: [
+    ['Dr. Emma Parker', 'Касымалиев Адылбек Алешович'],
+    ['Senior Software Engineer', 'Председатель Кабинета Министров Кыргызской Республики – Руководитель Администрации Президента Кыргызской Республики'],
+    ['John Mitchell', 'Исаматова Гульзат Тыныбековна'],
+    ['Full Stack Developer', 'Министр науки, высшего образования и инноваций Кыргызской Республики'],
+    ['Samantha Hayes', 'Орунтаев Нурдан Кемелович'],
+    ['Backend Architect', 'Министр строительства, архитектуры и жилищно-коммунального хозяйства Кыргызской Республики'],
+    ['James Turner', 'Рысбеков Алтынбек Дурусбекович'],
+    ['DevOps Specialist', 'Министр энергетики Кыргызской Республики'],
+    ['Laura Chang', 'Эльвира Сурабалдиева'],
+    ['Cloud Solutions Expert', 'Депутат Жогорку Кенеша Кыргызской Республики'],
+    ['Michael Anderson', 'Эсеналиева Назира Солтонбековна'],
+    ['Mobile App Engineer', 'Ректор Международного университета «Ала-Тоо», кандидат экономических наук'],
+    ['Dr. Maya Bennett', 'Динара Русланкызы'],
+    ['AI/ML Engineer', 'Основатель и директор ИТ-компании CODIFY'],
+    ['Jonathan Reyes', 'Айжан Алишерова'],
+    ['Technical Lead – Web Platforms', 'Основатель фонда поддержки стартапов «We Fund»'],
+    ['Chief AI Scientist', 'Председатель Кабинета Министров Кыргызской Республики – Руководитель Администрации Президента Кыргызской Республики'],
+    ['CEO, AI Solutions Corp', 'Министр науки, высшего образования и инноваций Кыргызской Республики'],
+    ['Senior Data Scientist', 'Министр строительства, архитектуры и жилищно-коммунального хозяйства Кыргызской Республики'],
+    ['Director of AI Strategy', 'Депутат Жогорку Кенеша Кыргызской Республики'],
+    ['Chief Technologist', 'Ректор Международного университета «Ала-Тоо», кандидат экономических наук']
+  ],
+  ky: [
+    ['Dr. Emma Parker', 'Касымалиев Адылбек Алешович'],
+    ['Senior Software Engineer', 'Кыргыз Республикасынын Министрлер Кабинетинин Төрагасы – Кыргыз Республикасынын Президентинин Администрациясынын жетекчиси'],
+    ['John Mitchell', 'Исаматова Гульзат Тыныбековна'],
+    ['Full Stack Developer', 'Кыргыз Республикасынын илим, жогорку билим берүү жана инновациялар министри'],
+    ['Samantha Hayes', 'Орунтаев Нурдан Кемелович'],
+    ['Backend Architect', 'Кыргыз Республикасынын курулуш, архитектура жана турак жай-коммуналдык чарба министри'],
+    ['James Turner', 'Рысбеков Алтынбек Дурусбекович'],
+    ['DevOps Specialist', 'Кыргыз Республикасынын энергетика министри'],
+    ['Laura Chang', 'Эльвира Сурабалдиева'],
+    ['Cloud Solutions Expert', 'Кыргыз Республикасынын Жогорку Кеңешинин депутаты'],
+    ['Michael Anderson', 'Эсеналиева Назира Солтонбековна'],
+    ['Mobile App Engineer', '«Ала-Тоо» Эл аралык университетинин ректору, экономика илимдеринин кандидаты'],
+    ['Dr. Maya Bennett', 'Динара Русланкызы'],
+    ['AI/ML Engineer', 'CODIFY ИТ-компаниясынын негиздөөчүсү жана директору'],
+    ['Jonathan Reyes', 'Айжан Алишерова'],
+    ['Technical Lead – Web Platforms', '«We Fund» стартаптарды колдоо фондунун негиздөөчүсү'],
+    ['Chief AI Scientist', 'Кыргыз Республикасынын Министрлер Кабинетинин Төрагасы – Кыргыз Республикасынын Президентинин Администрациясынын жетекчиси'],
+    ['CEO, AI Solutions Corp', 'Кыргыз Республикасынын илим, жогорку билим берүү жана инновациялар министри'],
+    ['Senior Data Scientist', 'Кыргыз Республикасынын курулуш, архитектура жана турак жай-коммуналдык чарба министри'],
+    ['Director of AI Strategy', 'Кыргыз Республикасынын Жогорку Кеңешинин депутаты'],
+    ['Chief Technologist', '«Ала-Тоо» Эл аралык университетинин ректору, экономика илимдеринин кандидаты']
+  ],
+  en: [
+    ['Dr. Emma Parker', 'Adylbek Aleshovich Kasymaliev'],
+    ['Senior Software Engineer', 'Chairman of the Cabinet of Ministers of the Kyrgyz Republic – Head of the Presidential Administration of the Kyrgyz Republic'],
+    ['John Mitchell', 'Gulzat Tynybekovna Isamatova'],
+    ['Full Stack Developer', 'Minister of Science, Higher Education and Innovation of the Kyrgyz Republic'],
+    ['Samantha Hayes', 'Nurdan Kemelovich Oruntaev'],
+    ['Backend Architect', 'Minister of Construction, Architecture and Housing and Communal Services of the Kyrgyz Republic'],
+    ['James Turner', 'Altynbek Durusbekovich Rysbekov'],
+    ['DevOps Specialist', 'Minister of Energy of the Kyrgyz Republic'],
+    ['Laura Chang', 'Elvira Surabaldieva'],
+    ['Cloud Solutions Expert', 'Member of the Jogorku Kenesh of the Kyrgyz Republic'],
+    ['Michael Anderson', 'Nazira Soltonbekovna Esenalieva'],
+    ['Mobile App Engineer', 'Rector of Ala-Too International University, PhD in Economics'],
+    ['Dr. Maya Bennett', 'Dinara Ruslankyzy'],
+    ['AI/ML Engineer', 'Founder and Director of the IT company CODIFY'],
+    ['Jonathan Reyes', 'Aizhan Alisherova'],
+    ['Technical Lead – Web Platforms', 'Founder of the startup support fund We Fund'],
+    ['Chief AI Scientist', 'Chairman of the Cabinet of Ministers of the Kyrgyz Republic – Head of the Presidential Administration of the Kyrgyz Republic'],
+    ['CEO, AI Solutions Corp', 'Minister of Science, Higher Education and Innovation of the Kyrgyz Republic'],
+    ['Senior Data Scientist', 'Minister of Construction, Architecture and Housing and Communal Services of the Kyrgyz Republic'],
+    ['Director of AI Strategy', 'Member of the Jogorku Kenesh of the Kyrgyz Republic'],
+    ['Chief Technologist', 'Rector of Ala-Too International University, PhD in Economics']
+  ]
+};
+
+function patchSource(source, pairs, lang) {
   let out = source;
+
+  // 1. Replace ALL original template speaker photos with local MUUN photos
+  for (const [hash, photo] of Object.entries(SPEAKER_PHOTOS)) {
+    out = out.replace(new RegExp('https://framerusercontent\\.com/images/' + hash + '\\.png[^`"\'\\s]*', 'g'), photo);
+  }
+
+  // 2. Patch H1, H2, and Kicker in Speakers subpage JS modules
+  if (lang === 'ru') {
+    out = out.replaceAll('children:`SPEAKERS`', 'children:`СПИКЕРЫ`');
+    out = out.replaceAll('children:"SPEAKERS"', 'children:"СПИКЕРЫ"');
+    out = out.replaceAll('`Meet Our Esteemed Developers and `', '`Познакомьтесь с ведущими спикерами и экспертами`');
+    out = out.replaceAll('"Meet Our Esteemed Developers and "', '"Познакомьтесь с ведущими спикерами и экспертами"');
+    out = out.replaceAll('`Technology Trailblazers`', '``');
+    out = out.replaceAll('"Technology Trailblazers"', '""');
+    out = out.replaceAll('zbD88MwBd:`Speakers`', 'zbD88MwBd:`Спикеры`');
+    out = out.replaceAll('zbD88MwBd:"Speakers"', 'zbD88MwBd:"Спикеры"');
+  } else if (lang === 'ky') {
+    out = out.replaceAll('children:`SPEAKERS`', 'children:`СПИКЕРЛЕР`');
+    out = out.replaceAll('children:"SPEAKERS"', 'children:"СПИКЕРЛЕР"');
+    out = out.replaceAll('`Meet Our Esteemed Developers and `', '`Алдыңкы спикерлер жана эксперттер менен таанышыңыз`');
+    out = out.replaceAll('"Meet Our Esteemed Developers and "', '"Алдыңкы спикерлер жана эксперттер менен таанышыңыз"');
+    out = out.replaceAll('`Technology Trailblazers`', '``');
+    out = out.replaceAll('"Technology Trailblazers"', '""');
+    out = out.replaceAll('zbD88MwBd:`Speakers`', 'zbD88MwBd:`Спикерлер`');
+    out = out.replaceAll('zbD88MwBd:"Speakers"', 'zbD88MwBd:"Спикерлер"');
+  } else {
+    out = out.replaceAll('`Meet Our Esteemed Developers and `', '`Meet the leading speakers and experts`');
+    out = out.replaceAll('"Meet Our Esteemed Developers and "', '"Meet the leading speakers and experts"');
+    out = out.replaceAll('`Technology Trailblazers`', '``');
+    out = out.replaceAll('"Technology Trailblazers"', '""');
+  }
+
+  // 3. Replace speaker names and designations
+  const spkTexts = SPEAKER_TEXTS[lang] || [];
+  for (const [from, to] of spkTexts) {
+    if (out.includes(from)) out = out.split(from).join(to);
+  }
+
+  // 4. Social links replacement
+  out = out.replaceAll('https://www.instagram.com/jitu.ux/', 'https://www.instagram.com/muun.expo.kg?vrfl=ZW83M3E0YTNqMHp2');
+  out = out.replaceAll('https://www.linkedin.com/in/jitendra-raut/', 'https://www.threads.com/@muun.expo.kg?invite=0');
+  out = out.replaceAll('www.linkedin.com/in/jitendra-raut/', 'https://www.threads.com/@muun.expo.kg?invite=0');
+
+  // 5. Standard phrase list replacement
+  const list = pairs
+    .filter((pair) => pair && typeof pair[0] === 'string' && typeof pair[1] === 'string')
+    .filter((pair) => pair[0].length >= 4 && pair[0] !== pair[1] && !pair[1].includes(pair[0]))
+    .filter((pair) => !pair[0].includes('<') && !pair[0].includes('{') && !pair[0].includes('http'))
+    .sort((a, b) => b[0].length - a[0].length);
+
   for (const [from, to] of list) {
     if (out.includes(from)) out = out.split(from).join(to);
   }
   for (const [from, to] of UNIVERSAL) {
-    if (from.length >= 10) continue;
     if (out.includes(from)) out = out.split(from).join(to);
   }
   return out;
@@ -121,7 +248,7 @@ export async function vendorFramerEngine() {
     fs.mkdirSync(dir, { recursive: true });
     const langPairs = [...(pairs[lang] || []), ...UNIVERSAL];
     for (const [name, source] of files) {
-      fs.writeFileSync(path.join(dir, name), patchSource(source, langPairs));
+      fs.writeFileSync(path.join(dir, name), patchSource(source, langPairs, lang));
       written.add(lang);
     }
   }

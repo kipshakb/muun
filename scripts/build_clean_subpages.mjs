@@ -143,28 +143,35 @@ function findFramerMarker(html, name) {
 }
 
 function applySpeakerRoster(pageHtml, roster) {
-  const start = findFramerMarker(pageHtml, 'Speakers 1');
-  const end = findFramerMarker(pageHtml, 'Speakers 2');
-  if (start === -1 || end === -1 || end < start) {
-    console.warn('Speaker sections not found for roster replacement', start, end);
-    return pageHtml;
-  }
-  let block = pageHtml.slice(start, end);
+  // 1. Remove Speakers 2 section completely from SSR DOM
+  pageHtml = pageHtml.replace(/<section\b[^>]*data-framer-name="Speakers 2"[\s\S]*?<\/section>/gi, '');
+
+  // 2. Globally replace all speaker images, names and roles across the entire HTML
   SPEAKER_ORIGINALS.forEach((orig, i) => {
     const person = roster[i];
-    block = block.replaceAll(orig.name, person.name);
-    block = block.replaceAll(orig.role, person.role);
-    block = block.split(`https://framerusercontent.com/images/${orig.img}.png`).join(person.photo);
+    if (!person) return;
+    pageHtml = pageHtml.replaceAll(orig.name, person.name);
+    pageHtml = pageHtml.replaceAll(orig.role, person.role);
+    pageHtml = pageHtml.replace(new RegExp(`https://framerusercontent\\.com/images/${orig.img}\\.png[^"'\\s]*`, 'g'), person.photo);
   });
-  block = block.replace(/<img\b[^>]*\/assets\/speaker-[^>]*>/g, (tag) => (
+
+  // 3. Strip residual srcset and sizes for speaker images so local photos show instantly
+  pageHtml = pageHtml.replace(/<img\b[^>]*\/assets\/speaker-[^>]*>/g, (tag) => (
     tag
       .replace(/\s(?:srcset|sizes)="[^"]*"/gi, '')
       .replace(/(\ssrc="\/assets\/speaker-[^"?]+)\?[^"]*"/, '$1"')
   ));
-  const extra = renderExtraSpeakers(roster);
-  const close = block.lastIndexOf('</section>');
-  if (extra && close !== -1) block = block.slice(0, close) + extra + block.slice(close);
-  return pageHtml.slice(0, start) + block + pageHtml.slice(end);
+
+  // 4. Inject extra speakers into Speakers 1
+  const start = findFramerMarker(pageHtml, 'Speakers 1');
+  if (start !== -1) {
+    const close = pageHtml.indexOf('</section>', start);
+    const extra = renderExtraSpeakers(roster);
+    if (extra && close !== -1) {
+      pageHtml = pageHtml.slice(0, close) + extra + pageHtml.slice(close);
+    }
+  }
+  return pageHtml;
 }
 
 function escHtml(value) {
@@ -670,6 +677,20 @@ for (const lang of languages) {
         .framer-2trhh7-container [data-framer-name="Blue Blur"] {
           display: none !important;
         }
+        [data-framer-name="Speakers 2"] {
+          display: none !important;
+        }
+        /* Safety guard: never show unreplaced Eventis stock images */
+        img[src*="eTTTIcVnwyKXnDY6kbVhA1AyzQ"],
+        img[src*="XhuDITv6DpWNuBYIj1HtJ4DvTQw"],
+        img[src*="86VJMTqMd6VC2SOf3RhzPDR4emk"],
+        img[src*="TzozA0OcRZ36gzl3GAQAWwujo"],
+        img[src*="dlhgx3fMLQZlK7XF8F8pg5OGE"],
+        img[src*="FVjwWr85ut7DBy7LiAzsJoNMlLM"],
+        img[src*="cFl24iPInxckRrL32eRgadp9ZJM"],
+        img[src*="UPhDD72urZKey0YOy5IaOSRCJj0"] {
+          opacity: 0 !important;
+        }
         ` : ''}
       </style>
     `;
@@ -706,7 +727,7 @@ for (const lang of languages) {
 
     // Replace Kickers and Subheadings in content section (single clean kicker, NO double dash!)
     if (slug === 'speakers') {
-      const spk1 = pageHtml.indexOf('data-framer-name="Speakers 1"');
+      const spk1 = findFramerMarker(pageHtml, 'Speakers 1');
       if (spk1 !== -1) {
         const h4Match = pageHtml.slice(spk1).match(/<h4[^>]*>[\s\S]*?<\/h4>/i);
         if (h4Match) {
@@ -716,15 +737,8 @@ for (const lang of languages) {
         if (h2Match) {
           pageHtml = pageHtml.replace(h2Match[0], `<h2 class="framer-text framer-styles-preset-y2rde0" data-styles-preset="ukkzEhTCI" style="font-family:'Inter',sans-serif;">${pageTitle.sub}</h2>`);
         }
-        pageHtml = applySpeakerRoster(pageHtml, speakerRoster(lang));
       }
-      const spk2 = pageHtml.indexOf('data-framer-name="Speakers 2"');
-      if (spk2 !== -1) {
-        const h4Match2 = pageHtml.slice(spk2).match(/<h4[^>]*>[\s\S]*?<\/h4>/i);
-        if (h4Match2) {
-          pageHtml = pageHtml.replace(h4Match2[0], `<h4 class="framer-text framer-styles-preset-luad1x" data-styles-preset="QrpSGcou5" style="--framer-text-color:var(--token-873fb35c-2084-47f0-9254-cb5d8b65f475, rgb(255, 255, 255));font-family:'Inter',sans-serif;">${pageTitle.kicker}</h4>`);
-        }
-      }
+      pageHtml = applySpeakerRoster(pageHtml, speakerRoster(lang));
     } else if (slug === 'program') {
       const agSec = pageHtml.indexOf('data-framer-name="Agenda"');
       if (agSec !== -1) {

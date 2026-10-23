@@ -458,10 +458,11 @@ export const mobileNavCss = `
       visibility: visible !important;
     }
     nav.framer-Luar2[data-framer-name="Phone Scroll"] [data-framer-name="Primary Button"] {
-      height: 40px !important;
-      min-height: 40px !important;
-      padding: 0 14px !important;
+      height: 38px !important;
+      min-height: 38px !important;
+      padding: 0 12px !important;
       box-sizing: border-box !important;
+      margin-right: 56px !important;
     }
     nav.framer-Luar2[data-framer-name="Phone Scroll"] [data-framer-name="Get Ticket"] p {
       font-size: 13px !important;
