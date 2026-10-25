@@ -54,7 +54,7 @@ const localizedContent = {
   ru: {
     title: 'ВЫБЕРИ СВОЕ<br>БУДУЩЕЕ',
     subtitle: 'Национальная молодежная выставка-форум<br>профессий будущего',
-    date: '17 ноября 2026',
+    date: '28 ноября 2026',
     location: 'Конгресс-холл «Ырыс Ордо», Бишкек',
     btnPrimary: 'Стать участником',
     btnSecondary: 'Бесплатная регистрация',
@@ -63,7 +63,7 @@ const localizedContent = {
   ky: {
     title: 'КЕЛЕЧЕГИҢДИ<br>ТАНДА',
     subtitle: 'Кыргызстандын келечек кесиптеринин<br>улуттук жаштар көргөзмө-форуму',
-    date: '17-ноябрь 2026',
+    date: '28-ноябрь 2026',
     location: '«Ырыс Ордо» конгресс-холлу, Бишкек',
     btnPrimary: 'Катышуучу болуу',
     btnSecondary: 'Акысыз каттоо',
@@ -72,7 +72,7 @@ const localizedContent = {
   en: {
     title: 'CHOOSE YOUR<br>FUTURE',
     subtitle: 'National Youth Exhibition-Forum<br>of Professions of the Future',
-    date: '17 November 2026',
+    date: '28 November 2026',
     location: 'Yrys Ordo Congress Hall, Bishkek',
     btnPrimary: 'Become a participant',
     btnSecondary: 'Free registration',
@@ -205,7 +205,7 @@ const faqData = {
       },
       {
         q: 'Где и в какое время будет проходить форум?',
-        a: 'Форум пройдет 17 ноября 2026 года в Бишкеке, в Конгресс-холле «Ырыс Ордо» (Бишкек Арена), с 14:00 до 19:00.'
+        a: 'Форум пройдет 28 ноября 2026 года в Бишкеке, в Конгресс-холле «Ырыс Ордо» (Бишкек Арена), с 14:00 до 19:00.'
       },
       {
         q: 'Как компания или учебное заведение могут стать экспонентом?',
@@ -236,7 +236,7 @@ const faqData = {
       },
       {
         q: 'Иш-чара кайсы жерде жана кайсы убакта өтөт?',
-        a: 'Форум 2026-жылдын 17-ноябрында Бишкек шаарында, «Ырыс Ордо» конгресс-холлунда (Бишкек Арена) саат 14:00дөн 19:00гө чейин өтөт.'
+        a: 'Форум 2026-жылдын 28-ноябрында Бишкек шаарында, «Ырыс Ордо» конгресс-холлунда (Бишкек Арена) саат 14:00дөн 19:00гө чейин өтөт.'
       },
       {
         q: 'Компания же ЖОЖ катары кантип катышса болот?',
@@ -267,7 +267,7 @@ const faqData = {
       },
       {
         q: 'Where and when will the forum take place?',
-        a: 'The forum will be held on 17 November 2026 in Bishkek at the Yrys Ordo Congress Hall (Bishkek Arena), from 14:00 to 19:00.'
+        a: 'The forum will be held on 28 November 2026 in Bishkek at the Yrys Ordo Congress Hall (Bishkek Arena), from 14:00 to 19:00.'
       },
       {
         q: 'How can a company or university become an exhibitor?',

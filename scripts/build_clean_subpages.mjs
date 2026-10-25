@@ -46,7 +46,8 @@ function speakerRoster(lang) {
       { name: 'Даниэль Абдылдаев', role: 'CIO Accelerate Prosperity, Managing Partner ADVentures, сооснователь chANGELS', photo: '/assets/speaker-abdyldaev.jpg', focus: 'center center' },
       { name: 'Аденов Нурсултан Нурланович', role: 'Руководитель Международного секретариата Всемирных игр кочевников', photo: '/assets/speaker-adenov-nursultan.jpg', focus: 'center center' },
       { name: 'Чолпонбек Жумашукуров', role: 'MBA Harvard Business School, выпускник АУЦА, сооснователь Highland Capital Partners и ProKG', photo: '/assets/speaker-zhumashukurov.jpg', focus: 'center center' },
-      { name: 'Азрет Кенжалиев', role: 'Сооснователь и CTO VisaKG; ex-Google DeepMind', photo: '/assets/speaker-kenzhaliev.jpg', focus: 'center center' }
+      { name: 'Азрет Кенжалиев', role: 'Сооснователь и CTO VisaKG; ex-Google DeepMind', photo: '/assets/speaker-kenzhaliev.jpg', focus: 'center center' },
+      { name: 'Гулназа Халманбетова', role: 'Founder & CEO, Mama Space', photo: '/assets/speaker-khalmanbetova.jpg', focus: 'center center' }
     ],
     ky: [
       { name: 'Бекназаров Жакшылык Бекназарович', role: 'Кыргызстандын жаштар кыймылынын төрагасы, Кыргыз Республикасынын жаштар саясатынын отличниги', photo: '/assets/speaker-beknazarov.jpg', focus: 'center 30%' },
@@ -68,7 +69,8 @@ function speakerRoster(lang) {
       { name: 'Даниэль Абдылдаев', role: 'Accelerate Prosperity CIOсу, ADVentures башкаруучу өнөктөшү, chANGELS тең негиздөөчүсү', photo: '/assets/speaker-abdyldaev.jpg', focus: 'center center' },
       { name: 'Аденов Нурсултан Нурланович', role: 'Дүйнөлүк көчмөндөр оюндарынын Эл аралык катчылыгынын жетекчиси', photo: '/assets/speaker-adenov-nursultan.jpg', focus: 'center center' },
       { name: 'Чолпонбек Жумашукуров', role: 'Harvard Business School MBA, БААУ бүтүрүүчүсү, Highland Capital Partners жана ProKG тең негиздөөчүсү', photo: '/assets/speaker-zhumashukurov.jpg', focus: 'center center' },
-      { name: 'Азрет Кенжалиев', role: 'VisaKG тең негиздөөчүсү жана CTOсу; ex-Google DeepMind', photo: '/assets/speaker-kenzhaliev.jpg', focus: 'center center' }
+      { name: 'Азрет Кенжалиев', role: 'VisaKG тең негиздөөчүсү жана CTOсу; ex-Google DeepMind', photo: '/assets/speaker-kenzhaliev.jpg', focus: 'center center' },
+      { name: 'Гулназа Халманбетова', role: 'Mama Space негиздөөчүсү жана башкы директору (Founder & CEO)', photo: '/assets/speaker-khalmanbetova.jpg', focus: 'center center' }
     ],
     en: [
       { name: 'Zhakshylyk Beknazarovich Beknazarov', role: 'Chairman of the Youth Movement of Kyrgyzstan, Excellence in Youth Policy of the Kyrgyz Republic', photo: '/assets/speaker-beknazarov.jpg', focus: 'center 30%' },
@@ -90,7 +92,8 @@ function speakerRoster(lang) {
       { name: 'Daniel Abdyldaev', role: 'CIO of Accelerate Prosperity, Managing Partner at ADVentures, Co-founder of chANGELS', photo: '/assets/speaker-abdyldaev.jpg', focus: 'center center' },
       { name: 'Nursultan Nurlanovich Adenov', role: 'Head of the International Secretariat of the World Nomad Games', photo: '/assets/speaker-adenov-nursultan.jpg', focus: 'center center' },
       { name: 'Cholponbek Zhumashukurov', role: 'MBA Harvard Business School, AUCA alumnus, Co-founder of Highland Capital Partners and ProKG', photo: '/assets/speaker-zhumashukurov.jpg', focus: 'center center' },
-      { name: 'Azret Kenzhaliev', role: 'Co-founder & CTO of VisaKG; ex-Google DeepMind', photo: '/assets/speaker-kenzhaliev.jpg', focus: 'center center' }
+      { name: 'Azret Kenzhaliev', role: 'Co-founder & CTO of VisaKG; ex-Google DeepMind', photo: '/assets/speaker-kenzhaliev.jpg', focus: 'center center' },
+      { name: 'Gulnaza Khalmanbetova', role: 'Founder & CEO, Mama Space', photo: '/assets/speaker-khalmanbetova.jpg', focus: 'center center' }
     ]
   };
   const people = {
@@ -331,10 +334,10 @@ for (const lang of languages) {
 
     const htmlLang = lang === 'en' ? 'en' : lang === 'ky' ? 'ky' : 'ru';
     const metaDesc = lang === 'ky'
-      ? 'MUUN 2026 — Кыргызстандын келечек кесиптеринин улуттук жаштар көргөзмө-форуму. 17-ноябрь, Бишкек, Ырыс Ордо.'
+      ? 'MUUN 2026 — Кыргызстандын келечек кесиптеринин улуттук жаштар көргөзмө-форуму. 28-ноябрь, Бишкек, Ырыс Ордо.'
       : lang === 'en'
-      ? 'MUUN 2026 — national youth exhibition-forum of the professions of the future. 17 November, Bishkek, Yrys Ordo.'
-      : 'MUUN 2026 — национальная молодежная выставка-форум профессий будущего. 17 ноября, Бишкек, Ырыс Ордо.';
+      ? 'MUUN 2026 — national youth exhibition-forum of the professions of the future. 28 November, Bishkek, Yrys Ordo.'
+      : 'MUUN 2026 — национальная молодежная выставка-форум профессий будущего. 28 ноября, Бишкек, Ырыс Ордо.';
     pageHtml = pageHtml.replace(/<html lang="[^"]*">/i, `<html lang="${htmlLang}">`);
     pageHtml = pageHtml.replace(/<title>[\s\S]*?<\/title>/i, `<title>${pageTitle.meta} — MUUN 2026</title>`);
     pageHtml = pageHtml.replaceAll('Eventis - Free Event and Conference Template', `${pageTitle.meta} — MUUN 2026`);
@@ -527,7 +530,8 @@ for (const lang of languages) {
         .muun-extra-photo img[src*="speaker-surabaldieva"],
         .muun-extra-photo img[src*="speaker-zhumashukurov"],
         .muun-extra-photo img[src*="speaker-rysbekov"],
-        .muun-extra-photo img[src*="speaker-kenzhaliev"] { object-position: center center !important; }
+        .muun-extra-photo img[src*="speaker-kenzhaliev"],
+        .muun-extra-photo img[src*="speaker-khalmanbetova"] { object-position: center center !important; }
         [data-framer-name="Speakers 1"] img[src*="speaker-placeholder"] { object-position: center center !important; }
         [data-framer-name="Speakers 1"] {
           flex-direction: column !important;
@@ -767,15 +771,15 @@ for (const lang of languages) {
 
       const venueCopy = {
         ru: [
-          'Конгресс-холл «Ырыс Ордо» в комплексе «Бишкек Арена» — место проведения MUUN 2026, национальной молодежной выставки-форума профессий будущего. 17 ноября здесь встречаются школьники, студенты, университеты, работодатели и государственные организации.',
+          'Конгресс-холл «Ырыс Ордо» в комплексе «Бишкек Арена» — место проведения MUUN 2026, национальной молодежной выставки-форума профессий будущего. 28 ноября здесь встречаются школьники, студенты, университеты, работодатели и государственные организации.',
           'На площадке работают главная сцена, панельные дискуссии и стойки регистрации. Гости проходят тематические зоны, слушают выступления и лично общаются с компаниями и учебными заведениями о карьере, обучении и проектах.'
         ],
         ky: [
-          '«Ырыс Ордо» конгресс-холлу «Бишкек Арена» комплексинде MUUN 2026 — келечектин кесиптеринин улуттук жаштар көргөзмө-форуму өтөт. 17-ноябрда бул жерде мектеп окуучулары, студенттер, университеттер, иш берүүчүлөр жана мамлекеттик уюмдар жолугат.',
+          '«Ырыс Ордо» конгресс-холлу «Бишкек Арена» комплексинде MUUN 2026 — келечектин кесиптеринин улуттук жаштар көргөзмө-форуму өтөт. 28-ноябрда бул жерде мектеп окуучулары, студенттер, университеттер, иш берүүчүлөр жана мамлекеттик уюмдар жолугат.',
           'Аянтчада башкы сахна, панелдик талкуулар жана каттоо зонасы иштейт. Коноктор тематикалык зоналарды кыдырып, чыгып сүйлөөлөрдү угуп, компаниялар жана окуу жайлар менен карьера, билим жана долбоорлор тууралуу жеке сүйлөшөт.'
         ],
         en: [
-          'The Yrys Ordo Congress Hall at the Bishkek Arena complex is the venue for MUUN 2026, the national youth exhibition-forum of the professions of the future. On 17 November, school students, university students, employers and public institutions meet here.',
+          'The Yrys Ordo Congress Hall at the Bishkek Arena complex is the venue for MUUN 2026, the national youth exhibition-forum of the professions of the future. On 28 November, school students, university students, employers and public institutions meet here.',
           'The hall brings together the main stage, panel discussions and registration desks. Guests walk through the thematic zones, listen to the sessions and talk directly with companies and education institutions about careers, study and projects.'
         ]
       }[lang];
@@ -1161,15 +1165,15 @@ for (const lang of languages) {
               if (thirdShot) thirdShot.style.setProperty('display', 'none', 'important');
               const venueParas = ${JSON.stringify({
                 ru: [
-                  'Конгресс-холл «Ырыс Ордо» в комплексе «Бишкек Арена» — место проведения MUUN 2026, национальной молодежной выставки-форума профессий будущего. 17 ноября здесь встречаются школьники, студенты, университеты, работодатели и государственные организации.',
+                  'Конгресс-холл «Ырыс Ордо» в комплексе «Бишкек Арена» — место проведения MUUN 2026, национальной молодежной выставки-форума профессий будущего. 28 ноября здесь встречаются школьники, студенты, университеты, работодатели и государственные организации.',
                   'На площадке работают главная сцена, панельные дискуссии и стойки регистрации. Гости проходят тематические зоны, слушают выступления и лично общаются с компаниями и учебными заведениями о карьере, обучении и проектах.'
                 ],
                 ky: [
-                  '«Ырыс Ордо» конгресс-холлу «Бишкек Арена» комплексинде MUUN 2026 — келечектин кесиптеринин улуттук жаштар көргөзмө-форуму өтөт. 17-ноябрда бул жерде мектеп окуучулары, студенттер, университеттер, иш берүүчүлөр жана мамлекеттик уюмдар жолугат.',
+                  '«Ырыс Ордо» конгресс-холлу «Бишкек Арена» комплексинде MUUN 2026 — келечектин кесиптеринин улуттук жаштар көргөзмө-форуму өтөт. 28-ноябрда бул жерде мектеп окуучулары, студенттер, университеттер, иш берүүчүлөр жана мамлекеттик уюмдар жолугат.',
                   'Аянтчада башкы сахна, панелдик талкуулар жана каттоо зонасы иштейт. Коноктор тематикалык зоналарды кыдырып, чыгып сүйлөөлөрдү угуп, компаниялар жана окуу жайлар менен карьера, билим жана долбоорлор тууралуу жеке сүйлөшөт.'
                 ],
                 en: [
-                  'The Yrys Ordo Congress Hall at the Bishkek Arena complex is the venue for MUUN 2026, the national youth exhibition-forum of the professions of the future. On 17 November, school students, university students, employers and public institutions meet here.',
+                  'The Yrys Ordo Congress Hall at the Bishkek Arena complex is the venue for MUUN 2026, the national youth exhibition-forum of the professions of the future. On 28 November, school students, university students, employers and public institutions meet here.',
                   'The hall brings together the main stage, panel discussions and registration desks. Guests walk through the thematic zones, listen to the sessions and talk directly with companies and education institutions about careers, study and projects.'
                 ]
               }[lang])};

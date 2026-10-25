@@ -53,11 +53,11 @@ const UI = {
 // hall: kurultai | nasyyat | sanzhyra | undefined (общий слот на всю ширину)
 const DAYS = [
   {
-    label: { ru: '17 ноября', ky: '17-ноябрь', en: '17 November' },
+    label: { ru: '28 ноября', ky: '28-ноябрь', en: '28 November' },
     title: {
-      ru: 'Международный день студентов',
-      ky: 'Эл аралык студенттер күнү',
-      en: 'International Students’ Day'
+      ru: 'День профессий будущего',
+      ky: 'Келечек кесиптеринин күнү',
+      en: 'Day of Future Professions'
     },
     rows: [
       {

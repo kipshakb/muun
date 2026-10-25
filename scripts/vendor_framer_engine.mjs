@@ -23,6 +23,12 @@ const UNIVERSAL = [
   ["Eventis", "MUUN"]
 ];
 
+const LOGO_AICRON = "1BHox7UUEVMJHfAPN4qPh5r4o";
+const LOGO_NAV = "tJ1jqpEOBL9Nna5facx9Yh1rSA";
+const LOGO_CRYSTAL = "/assets/logo-crystal.png";
+const LOGO_HEADER = "/assets/logo-header.png";
+const LOGO_FOOTER = "/assets/logo-footer.png";
+
 function seedFiles() {
   const names = new Set();
   for (const file of TEMPLATES) {
@@ -145,8 +151,19 @@ const SPEAKER_TEXTS = {
   ]
 };
 
-function patchSource(source, pairs, lang) {
+function patchSource(source, pairs, lang, name = '') {
   let out = source;
+
+  // 0. Replace Eventis logos with MUUN assets. The hero "AICRON" mark lives in
+  // page modules, the same SVG is reused by the footer in script_main, and the
+  // navbar logo is in script_main too. srcSet is dropped so the browser cannot
+  // pick a CDN variant of the stock file.
+  const aicronTarget = name.startsWith('script_main') ? LOGO_FOOTER : LOGO_CRYSTAL;
+  for (const [hash, local] of [[LOGO_AICRON, aicronTarget], [LOGO_NAV, LOGO_HEADER]]) {
+    const url = 'https://framerusercontent\\.com/images/' + hash + '\\.svg[^`"\'\\s]*';
+    out = out.replace(new RegExp('src:`' + url + '`,srcSet:`[^`]*`', 'g'), 'src:`' + local + '`');
+    out = out.replace(new RegExp(url, 'g'), local);
+  }
 
   // 1. Replace ALL original template speaker photos with local MUUN photos
   for (const [hash, photo] of Object.entries(SPEAKER_PHOTOS)) {
@@ -248,7 +265,7 @@ export async function vendorFramerEngine() {
     fs.mkdirSync(dir, { recursive: true });
     const langPairs = [...(pairs[lang] || []), ...UNIVERSAL];
     for (const [name, source] of files) {
-      fs.writeFileSync(path.join(dir, name), patchSource(source, langPairs, lang));
+      fs.writeFileSync(path.join(dir, name), patchSource(source, langPairs, lang, name));
       written.add(lang);
     }
   }
