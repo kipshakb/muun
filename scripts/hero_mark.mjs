@@ -35,6 +35,7 @@ export function lockHeroMark(html) {
 
 export const heroMarkCss = `
       figure.framer-f0om72 { opacity: 1 !important; }
+      figure.framer-f0om72 img { object-fit: contain !important; }
       /* Navbar ships with opacity:0.001 + translateY(-40px) until Framer's
          appear animation runs. On slow networks that can take seconds, leaving
          the header empty, so render it in its final state immediately. */

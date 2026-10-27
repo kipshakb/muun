@@ -233,8 +233,8 @@ const pagesConfig = {
     template: 'contact',
     titles: {
       ru: { h1: 'НОВОСТИ', kicker: 'Новости', sub: 'Актуальные события и новости форума', meta: 'Новости' },
-      ky: { h1: 'ЖАҢЫЛЫКТАР', kicker: 'Жаңылыктар', sub: 'MUUN 2026 форумунун актуалдуу окуялары жана жаңылыктары', subHtml: 'MUUN 2026 форумунун актуалдуу окуялары<br>жана жаңылыктары', meta: 'Жаңылыктар' },
-      en: { h1: 'NEWS', kicker: 'News', sub: 'Latest updates and news from MUUN 2026', subHtml: 'Latest updates and news<br>from MUUN 2026', meta: 'News' }
+      ky: { h1: 'ЖАҢЫЛЫКТАР', kicker: 'Жаңылыктар', sub: '«Жаратман МУУН» форумунун актуалдуу окуялары жана жаңылыктары', subHtml: '«Жаратман МУУН» форумунун актуалдуу окуялары<br>жана жаңылыктары', meta: 'Жаңылыктар' },
+      en: { h1: 'NEWS', kicker: 'News', sub: 'Latest updates and news from Zharatman MUUN', subHtml: 'Latest updates and news<br>from Zharatman MUUN', meta: 'News' }
     }
   },
   press: {
@@ -329,18 +329,18 @@ for (const lang of languages) {
   for (const [slug, conf] of Object.entries(pagesConfig)) {
     let pageHtml = lockHeroMark(templates[conf.template]
       .split('https://framerusercontent.com/images/AxQMXkb9SNyxDMp63XvKlzyGFo.png')
-      .join('/favicon.png?v=7'));
+      .join('/favicon.png?v=11'));
     const pageTitle = conf.titles[lang];
 
     const htmlLang = lang === 'en' ? 'en' : lang === 'ky' ? 'ky' : 'ru';
     const metaDesc = lang === 'ky'
-      ? 'MUUN 2026 — Кыргызстандын келечек кесиптеринин улуттук жаштар көргөзмө-форуму. 28-ноябрь, Бишкек, Ырыс Ордо.'
+      ? '«Жаратман МУУН» улуттук жаштар форуму. 28-ноябрь, Бишкек, Ырыс Ордо.'
       : lang === 'en'
-      ? 'MUUN 2026 — national youth exhibition-forum of the professions of the future. 28 November, Bishkek, Yrys Ordo.'
-      : 'MUUN 2026 — национальная молодежная выставка-форум профессий будущего. 28 ноября, Бишкек, Ырыс Ордо.';
+      ? 'National Youth Forum Zharatman MUUN. 28 November, Bishkek, Yrys Ordo.'
+      : 'Жаратман МУУН — национальный молодежный форум. 28 ноября, Бишкек, Ырыс Ордо.';
     pageHtml = pageHtml.replace(/<html lang="[^"]*">/i, `<html lang="${htmlLang}">`);
-    pageHtml = pageHtml.replace(/<title>[\s\S]*?<\/title>/i, `<title>${pageTitle.meta} — MUUN 2026</title>`);
-    pageHtml = pageHtml.replaceAll('Eventis - Free Event and Conference Template', `${pageTitle.meta} — MUUN 2026`);
+    pageHtml = pageHtml.replace(/<title>[\s\S]*?<\/title>/i, `<title>${pageTitle.meta} — Жаратман МУУН</title>`);
+    pageHtml = pageHtml.replaceAll('Eventis - Free Event and Conference Template', `${pageTitle.meta} — Жаратман МУУН`);
     pageHtml = pageHtml.replaceAll('Join Eventis, the premier technology and IT summit, bringing together developers, designers, entrepreneurs, and investors to explore the latest in software development, AI innovations, and startup growth.', metaDesc);
     pageHtml = pageHtml.replaceAll('https://eventis.framer.website/', `https://muun.kg/${lang}/`);
 
@@ -771,15 +771,15 @@ for (const lang of languages) {
 
       const venueCopy = {
         ru: [
-          'Конгресс-холл «Ырыс Ордо» в комплексе «Бишкек Арена» — место проведения MUUN 2026, национальной молодежной выставки-форума профессий будущего. 28 ноября здесь встречаются школьники, студенты, университеты, работодатели и государственные организации.',
+          'Конгресс-холл «Ырыс Ордо» в комплексе «Бишкек Арена» — место проведения Жаратман МУУН, национального молодежного форума профессий будущего. 28 ноября здесь встречаются школьники, студенты, университеты, работодатели и государственные организации.',
           'На площадке работают главная сцена, панельные дискуссии и стойки регистрации. Гости проходят тематические зоны, слушают выступления и лично общаются с компаниями и учебными заведениями о карьере, обучении и проектах.'
         ],
         ky: [
-          '«Ырыс Ордо» конгресс-холлу «Бишкек Арена» комплексинде MUUN 2026 — келечектин кесиптеринин улуттук жаштар көргөзмө-форуму өтөт. 28-ноябрда бул жерде мектеп окуучулары, студенттер, университеттер, иш берүүчүлөр жана мамлекеттик уюмдар жолугат.',
+          '«Ырыс Ордо» конгресс-холлу «Бишкек Арена» комплексинде «Жаратман МУУН» — келечектин кесиптеринин улуттук жаштар көргөзмө-форуму өтөт. 28-ноябрда бул жерде мектеп окуучулары, студенттер, университеттер, иш берүүчүлөр жана мамлекеттик уюмдар жолугат.',
           'Аянтчада башкы сахна, панелдик талкуулар жана каттоо зонасы иштейт. Коноктор тематикалык зоналарды кыдырып, чыгып сүйлөөлөрдү угуп, компаниялар жана окуу жайлар менен карьера, билим жана долбоорлор тууралуу жеке сүйлөшөт.'
         ],
         en: [
-          'The Yrys Ordo Congress Hall at the Bishkek Arena complex is the venue for MUUN 2026, the national youth exhibition-forum of the professions of the future. On 28 November, school students, university students, employers and public institutions meet here.',
+          'The Yrys Ordo Congress Hall at the Bishkek Arena complex is the venue for Zharatman MUUN, the national youth exhibition-forum of the professions of the future. On 28 November, school students, university students, employers and public institutions meet here.',
           'The hall brings together the main stage, panel discussions and registration desks. Guests walk through the thematic zones, listen to the sessions and talk directly with companies and education institutions about careers, study and projects.'
         ]
       }[lang];
@@ -928,15 +928,16 @@ for (const lang of languages) {
                 img.removeAttribute('srcset');
                 img.removeAttribute('sizes');
               }
-              img.style.setProperty('max-height', '45px', 'important');
+              img.style.setProperty('max-height', '50px', 'important');
+              img.style.setProperty('margin-left', '18px', 'important');
               img.style.setProperty('width', 'auto', 'important');
-              img.style.setProperty('max-width', '190px', 'important');
+              img.style.setProperty('max-width', '230px', 'important');
               img.style.setProperty('object-fit', 'contain', 'important');
               img.style.setProperty('object-position', 'left center', 'important');
               
               const a = img.closest('a');
               if (a) {
-                a.style.setProperty('width', '195px', 'important');
+                a.style.setProperty('width', '230px', 'important');
                 a.style.setProperty('max-width', 'none', 'important');
                 a.style.setProperty('display', 'flex', 'important');
                 a.style.setProperty('align-items', 'center', 'important');
@@ -1165,15 +1166,15 @@ for (const lang of languages) {
               if (thirdShot) thirdShot.style.setProperty('display', 'none', 'important');
               const venueParas = ${JSON.stringify({
                 ru: [
-                  'Конгресс-холл «Ырыс Ордо» в комплексе «Бишкек Арена» — место проведения MUUN 2026, национальной молодежной выставки-форума профессий будущего. 28 ноября здесь встречаются школьники, студенты, университеты, работодатели и государственные организации.',
+                  'Конгресс-холл «Ырыс Ордо» в комплексе «Бишкек Арена» — место проведения Жаратман МУУН, национального молодежного форума профессий будущего. 28 ноября здесь встречаются школьники, студенты, университеты, работодатели и государственные организации.',
                   'На площадке работают главная сцена, панельные дискуссии и стойки регистрации. Гости проходят тематические зоны, слушают выступления и лично общаются с компаниями и учебными заведениями о карьере, обучении и проектах.'
                 ],
                 ky: [
-                  '«Ырыс Ордо» конгресс-холлу «Бишкек Арена» комплексинде MUUN 2026 — келечектин кесиптеринин улуттук жаштар көргөзмө-форуму өтөт. 28-ноябрда бул жерде мектеп окуучулары, студенттер, университеттер, иш берүүчүлөр жана мамлекеттик уюмдар жолугат.',
+                  '«Ырыс Ордо» конгресс-холлу «Бишкек Арена» комплексинде «Жаратман МУУН» — келечектин кесиптеринин улуттук жаштар көргөзмө-форуму өтөт. 28-ноябрда бул жерде мектеп окуучулары, студенттер, университеттер, иш берүүчүлөр жана мамлекеттик уюмдар жолугат.',
                   'Аянтчада башкы сахна, панелдик талкуулар жана каттоо зонасы иштейт. Коноктор тематикалык зоналарды кыдырып, чыгып сүйлөөлөрдү угуп, компаниялар жана окуу жайлар менен карьера, билим жана долбоорлор тууралуу жеке сүйлөшөт.'
                 ],
                 en: [
-                  'The Yrys Ordo Congress Hall at the Bishkek Arena complex is the venue for MUUN 2026, the national youth exhibition-forum of the professions of the future. On 28 November, school students, university students, employers and public institutions meet here.',
+                  'The Yrys Ordo Congress Hall at the Bishkek Arena complex is the venue for Zharatman MUUN, the national youth exhibition-forum of the professions of the future. On 28 November, school students, university students, employers and public institutions meet here.',
                   'The hall brings together the main stage, panel discussions and registration desks. Guests walk through the thematic zones, listen to the sessions and talk directly with companies and education institutions about careers, study and projects.'
                 ]
               }[lang])};
@@ -1240,8 +1241,8 @@ for (const lang of languages) {
                 regH4.textContent = expRegKicker;
               }
               const regH2 = regSec.querySelector('h2');
-              const expRegTitle = "${lang === 'ky' ? 'Көргөзмө-форумга бүгүн катталыңыз' : lang === 'en' ? 'Register for the Exhibition-Forum Today' : 'Зарегистрируйтесь на выставку-форум уже сегодня'}";
-              const expRegH2Html = '${lang === 'ky' ? 'Көргөзмө-форумга <span class="heading-muted">бүгүн катталыңыз</span>' : lang === 'en' ? 'Register for the Exhibition-Forum <span class="heading-muted">Today</span>' : 'Зарегистрируйтесь на выставку-форум <span class="heading-muted">уже сегодня</span>'}';
+              const expRegTitle = "${lang === 'ky' ? 'Көргөзмө-форумга бүгүн катталыңыз' : lang === 'en' ? 'Register for the Exhibition-Forum Today' : 'Зарегистрируйтесь на форум уже сегодня'}";
+              const expRegH2Html = '${lang === 'ky' ? 'Көргөзмө-форумга<br><span class="heading-muted">бүгүн катталыңыз</span>' : lang === 'en' ? 'Register for the Forum<br><span class="heading-muted">Today</span>' : 'Зарегистрируйтесь на форум<br><span class="heading-muted">уже сегодня</span>'}';
               if (regH2 && regH2.textContent.replace(/\\s+/g, ' ').trim() !== expRegTitle) {
                 regH2.innerHTML = expRegH2Html;
               }

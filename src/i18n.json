@@ -6,8 +6,8 @@
       "ogLocale": "ky_KG",
       "label": "KG",
       "meta": {
-        "title": "MUUN 2026 - Кыргызстандын келечек кесиптеринин улуттук жаштар көргөзмө-форуму",
-        "description": "MUUN26 — Кыргызстандын келечек кесиптеринин жаштар көргөзмө-форуму. 28-ноябрь 2026, Бишкек, Ырыс Ордо. Билим, карьера жана инновациялар."
+        "title": "«Жаратман МУУН» - Улуттук жаштар форуму",
+        "description": "«Жаратман МУУН» улуттук жаштар форуму. 28-ноябрь 2026, Бишкек, Ырыс Ордо. Билим, карьера жана инновациялар."
       }
     },
     "ru": {
@@ -16,8 +16,8 @@
       "ogLocale": "ru_RU",
       "label": "RU",
       "meta": {
-        "title": "MUUN 2026 - Национальная молодежная выставка-форум профессий будущего",
-        "description": "MUUN26 — молодежная выставка-форум профессий будущего Кыргызстана. 28 ноября 2026, Бишкек, Ырыс Ордо. Образование, карьера и инновации."
+        "title": "Жаратман МУУН - Национальный молодежный форум",
+        "description": "Жаратман МУУН — национальный молодежный форум. 28 ноября 2026, Бишкек, Ырыс Ордо. Образование, карьера и инновации."
       }
     },
     "en": {
@@ -26,8 +26,8 @@
       "ogLocale": "en_US",
       "label": "EN",
       "meta": {
-        "title": "MUUN 2026 - National Youth Exhibition-Forum of Professions of the Future",
-        "description": "MUUN26 — Kyrgyzstan's youth exhibition-forum of the professions of the future. 28 November 2026, Bishkek, Yrys Ordo. Education, careers and innovation."
+        "title": "Zharatman MUUN - National Youth Forum",
+        "description": "Zharatman MUUN — National Youth Forum. 28 November 2026, Bishkek, Yrys Ordo. Education, careers and innovation."
       }
     }
   },
@@ -42,7 +42,7 @@
       "nav.contact": "Байланыш",
       "hero.date": "28-ноябрь 2026 · «Ырыс Ордо» конгресс-холлу, Бишкек, Кыргызстан",
       "hero.title": "МААНИЛҮҮ ТАНДОО — КЕЛЕЧЕКТИН БАШТАЛЫШЫ",
-      "hero.subtitle": "Кыргызстандын келечек кесиптеринин жаштар көргөзмө-форуму",
+      "hero.subtitle": "«Жаратман МУУН» улуттук жаштар форуму",
       "hero.desc": "МАКСАТ · УМТУЛУУ · УЧУР · НИЕТ. Билим берүү, карьера жана инновацияларды бир аянтчага бириктирген улуттук платформа.",
       "hero.cta_register": "Катталуу",
       "hero.cta_whatsapp": "WhatsApp жазуу",
@@ -142,7 +142,7 @@
       "opp.c5_d": "Билим берүү, Программалар, Эл аралык уюмдар, Дүйнөлүк компаниялар",
       "comp.quote": "«Бүгүнкү кесип тандоодон Кыргызстандын экономикасынын эртеңки атаандаштыкка жөндөмдүүлүгү көз каранды»",
       "comp.desc": "MUUN 26 — жаштарды, билим берүү тутумун, иш берүүчүлөрдү жана мамлекетти бир максаттын: жаңы муундагы адистерди даярдоонун тегерегинде бириктирген практикалык аянтча.",
-      "venue.desc": "«Ырыс Ордо» Конгресс-холлу MUUN 2026 — жаштарды, билим берүүнү, ири иш берүүчүлөрдү, технологияларды жана мамлекетти бир мейкиндикте бириктирген келечектин кесиптеринин жаштар көргөзмө-форумунун аянтчасы болот.",
+      "venue.desc": "«Ырыс Ордо» Конгресс-холлу «Жаратман МУУН» — жаштарды, билим берүүнү, ири иш берүүчүлөрдү, технологияларды жана мамлекетти бир мейкиндикте бириктирген келечектин кесиптеринин жаштар форумунун аянтчасы болот.",
       "zones.title": "ЗОНАЛАР ЖАНА ИШ-ЧАРАЛАР",
       "zones.desc": "«Ырыс Ордонун» ар бир зонасында бул күнү эмне болот",
       "zones.z1": "БАШКЫ ЗАЛ",
@@ -558,7 +558,7 @@
       "news.cat_hack": "Хакатон",
       "news.cat_students": "Студенттер",
       "news.cat_interviews": "Интервью",
-      "news.n1_title": "MUUN 2026 форумуна каттоо башталды",
+      "news.n1_title": "«Жаратман МУУН» форумуна каттоо башталды",
       "news.n1_cat": "Даярдык",
       "news.n1_desc": "Келечектин кесиптери боюнча Борбордук Азиядагы эң ири жаштар форумуна билдирмелерди кабыл алуу башталды.",
       "news.n1_date": "12-октябрь 2026",
@@ -813,11 +813,11 @@
       "nav.contact": "Контакты",
       "hero.date": "28 ноября 2026 · Конгресс-холл «Ырыс Ордо», Бишкек, Кыргызстан",
       "hero.title": "ВАЖНЫЙ ВЫБОР — НАЧАЛО БУДУЩЕГО",
-      "hero.subtitle": "Молодежная выставка-форум профессий будущего Кыргызстана",
+      "hero.subtitle": "Национальный молодежный форум Жаратман МУУН",
       "hero.desc": "МАКСАТ · СТРЕМЛЕНИЕ · ОБУЧЕНИЕ · НАМЕРЕНИЕ. Национальная платформа, объединяющая образование, карьеру и инновации на одной площадке.",
       "hero.cta_register": "Регистрация",
       "hero.cta_whatsapp": "Написать в WhatsApp",
-      "hero.ministry": "При поддержке Министерства науки, высшего образования и инноваций Кыргызской Республики",
+      "hero.ministry": "При поддержке Министерства науки, высшего образования<br>и инноваций Кыргызской Республики",
       "banner.left": "Discover Your Future — Открой своё будущее",
       "banner.right": "К поколению! — Стремись к Луне!",
       "problem.title": "Тысячи молодых кыргызстанцев выбирают своё будущее без достаточной информации",
@@ -886,7 +886,7 @@
       "final.desc": "MUUN — частная инициатива. Государственное финансирование не требуется. Льготные условия для образовательных учреждений.",
       "final.partner": "Стать партнёром",
       "final.register": "Регистрация",
-      "footer.ministry": "При поддержке Министерства науки, высшего образования и инноваций Кыргызской Республики",
+      "footer.ministry": "При поддержке Министерства науки, высшего образования<br>и инноваций Кыргызской Республики",
       "footer.date": "28 ноября 2026 · Конгресс-холл «Ырыс Ордо», Бишкек, Кыргызстан",
       "footer.copyright": "© 2026 MUUN26. Все права защищены.",
       "why.title": "ПОЧЕМУ MUUN?",
@@ -913,7 +913,7 @@
       "opp.c5_d": "Образование, Программы, Международные организации, Глобальные компании",
       "comp.quote": "«От выбора профессии сегодня зависит конкурентоспособность экономики Кыргызстана завтра»",
       "comp.desc": "MUUN 26 — практическая площадка, объединяющая молодежь, систему образования, работодателей и государство вокруг одной задачи: подготовки нового поколения специалистов.",
-      "venue.desc": "Конгресс-холл «Ырыс Ордо» станет площадкой MUUN 2026 — национальной молодежной выставки-форума профессий будущего, объединяющей молодежь, образование, крупнейших работодателей, технологии и государство в одном пространстве.",
+      "venue.desc": "Конгресс-холл «Ырыс Ордо» в комплексе «Бишкек Арена» — место проведения Жаратман МУУН, национального молодежного форума, объединяющего молодежь, образование, крупнейших работодателей, технологии и государство в одном пространстве.",
       "zones.title": "ЗОНЫ И АКТИВНОСТИ",
       "zones.desc": "Что происходит в каждой зоне «Ырыс Ордо» в этот день",
       "zones.z1": "ГЛАВНЫЙ ЗАЛ",
@@ -989,8 +989,8 @@
       "reg.step1": "Данные",
       "reg.step2": "Билет",
       "reg.title": "Регистрация посетителя MUUN 2026",
-      "reg.subtitle": "Бесплатный вход на молодежную выставку-форум профессий будущего",
-      "reg.lead": "Вход на молодёжную выставку-форум профессий будущего бесплатный.",
+      "reg.subtitle": "Бесплатный вход на молодежный форум профессий будущего",
+      "reg.lead": "Вход на молодёжный форум профессий будущего бесплатный.",
       "reg.access": "Форум проходит в Конгресс-холле «Ырыс Ордо», где действует пропускной режим. Вход только по предварительной регистрации, в день форума зарегистрироваться на месте нельзя.",
       "reg.deadline_line": "Регистрация открыта до 24 ноября, 18:00.",
       "reg.hours": "Часы работы: 28 ноября с 14:00 до 19:00.",
@@ -1170,7 +1170,7 @@
       "reg.btn_close_pending": "Понятно, закрыть",
       "p_terms_badge": "0 сом · Бесплатная базовая экспозиция",
       "p_terms_title": "Участие организаций — бесплатное",
-      "p_terms_subtitle": "Пожалуйста, ознакомьтесь с ключевым регламентом участия в молодежной выставке-форуме MUUN 2026 перед заполнением заявки:",
+      "p_terms_subtitle": "Пожалуйста, ознакомьтесь с ключевым регламентом участия в молодежном форуме MUUN 2026 перед заполнением заявки:",
       "p_term_card1_t": "Базовое участие — бесплатное",
       "p_term_card1_d": "Базовое участие образовательных организаций, работодателей, государственных органов, международных и общественных организаций в тематических зонах осуществляется на бесплатной основе — в пределах утверждённой экспозиционной модели и при наличии мест.",
       "p_term_card2_t": "Лимит мест и отбор заявок",
@@ -1329,7 +1329,7 @@
       "news.cat_hack": "Хакатон",
       "news.cat_students": "Студенты",
       "news.cat_interviews": "Интервью",
-      "news.n1_title": "Старт регистрации на форум MUUN 2026",
+      "news.n1_title": "Старт регистрации на форум Жаратман МУУН",
       "news.n1_cat": "Подготовка",
       "news.n1_desc": "Официально объявлено о начале приема заявок на участие в крупнейшем молодежном форуме профессий будущего в Центральной Азии.",
       "news.n1_date": "12 октября 2026",
@@ -1584,7 +1584,7 @@
       "nav.contact": "Contact",
       "hero.date": "28 November 2026 · Yrys Ordo Congress Hall, Bishkek, Kyrgyzstan",
       "hero.title": "A MEANINGFUL CHOICE — THE BEGINNING OF THE FUTURE",
-      "hero.subtitle": "Kyrgyzstan's youth exhibition-forum of the professions of the future",
+      "hero.subtitle": "National Youth Forum Zharatman MUUN",
       "hero.desc": "PURPOSE · ASPIRATION · LEARNING · INTENTION. A national platform uniting education, careers and innovation in one place.",
       "hero.cta_register": "Register",
       "hero.cta_whatsapp": "Message on WhatsApp",
@@ -1684,7 +1684,7 @@
       "opp.c5_d": "Education, Programs, International organizations, Global companies",
       "comp.quote": "«The competitiveness of Kyrgyzstan's economy tomorrow depends on the choice of profession today»",
       "comp.desc": "MUUN 26 is a practical platform uniting youth, the education system, employers, and the government around one goal: preparing a new generation of professionals.",
-      "venue.desc": "The Yrys Ordo Congress Hall will become the venue for MUUN 2026 — the national youth exhibition-forum of the professions of the future, bringing together youth, education, major employers, technologies, and the state in one space.",
+      "venue.desc": "The Yrys Ordo Congress Hall at the Bishkek Arena complex is the venue for Zharatman MUUN — the national youth forum bringing together youth, education, major employers, technologies, and the state in one space.",
       "zones.title": "ZONES AND ACTIVITIES",
       "zones.desc": "What happens in each zone of Yrys Ordo on this day",
       "zones.z1": "MAIN HALL",
@@ -2100,7 +2100,7 @@
       "news.cat_hack": "Hackathon",
       "news.cat_students": "Students",
       "news.cat_interviews": "Interviews",
-      "news.n1_title": "Registration for MUUN 2026 is open",
+      "news.n1_title": "Registration for Zharatman MUUN is open",
       "news.n1_cat": "Preparation",
       "news.n1_desc": "The application process for the largest youth forum of future professions in Central Asia has officially started.",
       "news.n1_date": "Oct 12, 2026",

@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { execSync } from 'child_process';
 import { renderParticipantModal } from './participant_modal.mjs';
 import { REGISTRATION_ENDPOINT } from './form_endpoints.mjs';
 import { getRegistrationClientJs } from './reg_form_client.mjs';
@@ -7,6 +8,12 @@ import { programCss, programClientJs, programFixerJs, injectProgramSsr } from '.
 import { lockHeroMark, heroMarkCss, heroMarkScript } from './hero_mark.mjs';
 import { stripFramerRuntime } from './strip_framer_runtime.mjs';
 import { vendorFramerEngine } from './vendor_framer_engine.mjs';
+
+try {
+  execSync('powershell -ExecutionPolicy Bypass -File scripts/process_user_assets.ps1', { stdio: 'inherit' });
+} catch (e) {
+  console.warn('Asset processing note:', e.message);
+}
 
 const rawHtml = fs.readFileSync('templates/eventis_raw.html', 'utf8');
 try { fs.unlinkSync('dist/.framer-pairs.json'); } catch { /* fresh build */ }
@@ -53,16 +60,16 @@ if (fs.existsSync('assets/aeroporty kyrgyzstana.png')) {
 const localizedContent = {
   ru: {
     title: 'ВЫБЕРИ СВОЕ<br>БУДУЩЕЕ',
-    subtitle: 'Национальная молодежная выставка-форум<br>профессий будущего',
+    subtitle: 'Национальный молодежный форум Жаратман МУУН',
     date: '28 ноября 2026',
     location: 'Конгресс-холл «Ырыс Ордо», Бишкек',
     btnPrimary: 'Стать участником',
     btnSecondary: 'Бесплатная регистрация',
-    ministry: 'При поддержке Министерства науки, высшего образования и инноваций Кыргызской Республики'
+    ministry: 'При поддержке Министерства науки, высшего образования<br>и инноваций Кыргызской Республики'
   },
   ky: {
     title: 'КЕЛЕЧЕГИҢДИ<br>ТАНДА',
-    subtitle: 'Кыргызстандын келечек кесиптеринин<br>улуттук жаштар көргөзмө-форуму',
+    subtitle: '«Жаратман МУУН» улуттук жаштар форуму',
     date: '28-ноябрь 2026',
     location: '«Ырыс Ордо» конгресс-холлу, Бишкек',
     btnPrimary: 'Катышуучу болуу',
@@ -71,7 +78,7 @@ const localizedContent = {
   },
   en: {
     title: 'CHOOSE YOUR<br>FUTURE',
-    subtitle: 'National Youth Exhibition-Forum<br>of Professions of the Future',
+    subtitle: 'National Youth Forum Zharatman MUUN',
     date: '28 November 2026',
     location: 'Yrys Ordo Congress Hall, Bishkek',
     btnPrimary: 'Become a participant',
@@ -336,7 +343,7 @@ const SECTION_HEADINGS = {
     },
     target: {
       kicker: 'Для Кого?',
-      titleHtml: 'Кто должен посетить <span class="heading-muted">выставку-форум</span>'
+      titleHtml: 'Кто должен посетить <span class="heading-muted">форум</span>'
     },
     ticker: 'МАКСАТ . УМТУЛУУ . УЧУР . НИЕТ . МАКСАТ . УМТУЛУУ . УЧУР . НИЕТ . МАКСАТ . УМТУЛУУ . УЧУР . НИЕТ . ',
     speakers: {
@@ -357,8 +364,8 @@ const SECTION_HEADINGS = {
     },
     registration: {
       kicker: 'Регистрация',
-      titleHtml: 'Зарегистрируйтесь на выставку-форум <span class="heading-muted">уже сегодня</span>',
-      titleText: 'Зарегистрируйтесь на выставку-форум уже сегодня'
+      titleHtml: 'Зарегистрируйтесь на форум<br><span class="heading-muted">уже сегодня</span>',
+      titleText: 'Зарегистрируйтесь на форум уже сегодня'
     },
     targetTabs: {
       t1: 'Школьники',
@@ -957,7 +964,7 @@ for (const lang of ['ru', 'ky', 'en']) {
   const targetAudienceItems = getTargetAudienceData(lang);
   const targetTabsHtml = renderTargetTabsHtml(targetAudienceItems);
 
-  const metaTitle = m.title || (lang === 'ky' ? 'MUUN 2026 - Кыргызстандын келечек кесиптеринин улуттук жаштар көргөзмө-форуму' : lang === 'en' ? 'MUUN 2026 - National Youth Exhibition-Forum of Professions of the Future' : 'MUUN 2026 - Национальная молодежная выставка-форум профессий будущего');
+  const metaTitle = m.title || (lang === 'ky' ? '«Жаратман МУУН» - Улуттук жаштар форуму' : lang === 'en' ? 'Zharatman MUUN - National Youth Forum' : 'Жаратман МУУН - Национальный молодежный форум');
 
   // 1. String replacements in raw HTML
   const spTxt = lang === 'ky' ? 'Спикерлер' : lang === 'en' ? 'Speakers' : 'Спикеры';
@@ -970,7 +977,7 @@ for (const lang of ['ru', 'ky', 'en']) {
     ['Join Eventis, the premier technology and IT summit, bringing together developers, designers, entrepreneurs, and investors to explore the latest in software development, AI innovations, and startup growth.', m.description || loc.subtitle.replace('<br>', ' ')],
     ['https://eventis.framer.website/', 'https://muun.kg/'],
     ['Marina Bay, Singapore', loc.location],
-    ['https://framerusercontent.com/images/AxQMXkb9SNyxDMp63XvKlzyGFo.png', '/favicon.png?v=7'],
+    ['https://framerusercontent.com/images/AxQMXkb9SNyxDMp63XvKlzyGFo.png', '/favicon.png?v=11'],
     ['About Aicron', curAbout.kicker],
     ['Innovation . Networking . Marketing . Learning . ', hd.ticker],
     ['https://framerusercontent.com/images/1BHox7UUEVMJHfAPN4qPh5r4o.svg', '/assets/logo-footer.png'],
@@ -1338,6 +1345,14 @@ for (const lang of ['ru', 'ky', 'en']) {
         pointer-events: none !important;
       }
 
+      /* Header logo on main site: slightly larger and shifted right */
+      nav img[src*="logo-header"] {
+        max-height: 50px !important;
+        margin-left: 18px !important;
+        width: auto !important;
+        object-fit: contain !important;
+      }
+
       /* Hero Stage Container */
       .framer-1pvbk64 {
         padding: 0 5% !important;
@@ -1371,11 +1386,12 @@ for (const lang of ['ru', 'ky', 'en']) {
       figure.framer-f0om72 {
         opacity: 1 !important;
         position: static !important;
-        transform: translate(6vw, -8px) !important;
-        width: 45% !important;
-        max-width: 550px !important;
+        transform: translate(5vw, -8px) !important;
+        width: 44% !important;
+        max-width: 560px !important;
         height: auto !important;
-        aspect-ratio: 1 !important;
+        aspect-ratio: 2070 / 2260 !important;
+        max-height: min(65vh, 600px) !important;
         overflow: visible !important;
         z-index: 1 !important;
         pointer-events: none !important;
@@ -1476,9 +1492,9 @@ for (const lang of ['ru', 'ky', 'en']) {
         display: flex !important;
         flex-direction: row !important;
         align-items: center !important;
-        gap: 16px !important;
-        margin-top: 26px !important;
-        max-width: 600px !important;
+        gap: 18px !important;
+        margin-top: 24px !important;
+        max-width: 750px !important;
         padding: 0 !important;
         background: transparent !important;
         border: none !important;
@@ -1488,9 +1504,9 @@ for (const lang of ['ru', 'ky', 'en']) {
       }
 
       .muun-ministry-logo {
-        height: 38px !important;
+        height: 48px !important;
         width: auto !important;
-        max-width: 58px !important;
+        max-width: 72px !important;
         object-fit: contain !important;
         border: none !important;
         box-shadow: none !important;
@@ -1503,10 +1519,10 @@ for (const lang of ['ru', 'ky', 'en']) {
 
       .muun-ministry-text {
         font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif !important;
-        font-size: 13.5px !important;
+        font-size: 16.5px !important;
         font-weight: 400 !important;
         line-height: 1.45 !important;
-        color: rgba(224, 242, 254, 0.85) !important;
+        color: rgba(224, 242, 254, 0.9) !important;
         letter-spacing: -0.01em !important;
         margin: 0 !important;
         text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6) !important;
@@ -3690,7 +3706,8 @@ for (const lang of ['ru', 'ky', 'en']) {
         }
         figure.framer-f0om72 {
           width: 58vw !important;
-          max-width: 220px !important;
+          max-width: 260px !important;
+          aspect-ratio: 2070 / 2260 !important;
           transform: none !important;
           order: -1 !important;
         }
@@ -3735,12 +3752,16 @@ for (const lang of ['ru', 'ky', 'en']) {
         .muun-hero-ministry {
           max-width: 100% !important;
           width: 100% !important;
-          align-items: flex-start !important;
-          gap: 12px !important;
-          margin-top: 16px !important;
+          align-items: center !important;
+          gap: 14px !important;
+          margin-top: 18px !important;
+        }
+        .muun-ministry-logo {
+          height: 40px !important;
+          max-width: 60px !important;
         }
         .muun-ministry-text {
-          font-size: 12px !important;
+          font-size: 14px !important;
         }
         .framer-poyw0 {
           position: relative !important;
@@ -4231,8 +4252,8 @@ for (const lang of ['ru', 'ky', 'en']) {
                 '</div>';
             } else {
               const minTextEl = heroTextContainer.querySelector('.muun-ministry-text');
-              if (minTextEl && minTextEl.textContent !== LOC_MINISTRY) {
-                minTextEl.textContent = LOC_MINISTRY;
+              if (minTextEl && minTextEl.innerHTML !== LOC_MINISTRY) {
+                minTextEl.innerHTML = LOC_MINISTRY;
               }
               const minImgEl = heroTextContainer.querySelector('.muun-ministry-logo');
               if (minImgEl && !minImgEl.src.includes('ministry-logo-white.png')) {
@@ -4254,10 +4275,11 @@ for (const lang of ['ru', 'ky', 'en']) {
               img.src = '/assets/logo-header.png';
               if(img.hasAttribute('srcset')) img.removeAttribute('srcset');
             }
-            img.style.setProperty('max-height', '45px', 'important');
+            img.style.setProperty('max-height', '50px', 'important');
+            img.style.setProperty('margin-left', '18px', 'important');
             img.style.setProperty('height', '100%', 'important');
             img.style.setProperty('width', 'auto', 'important');
-            img.style.setProperty('max-width', '100%', 'important');
+            img.style.setProperty('max-width', '230px', 'important');
             img.style.setProperty('object-fit', 'contain', 'important');
             img.style.setProperty('object-position', 'left center', 'important');
             
@@ -4265,8 +4287,8 @@ for (const lang of ['ru', 'ky', 'en']) {
             if (a) {
               const scrollNav = !!(a.closest('nav') && a.closest('nav').getAttribute('data-framer-name') === 'Phone Scroll');
               const narrow = window.innerWidth <= 810 && scrollNav;
-              a.style.setProperty('width', narrow ? '150px' : '195px', 'important');
-              a.style.setProperty('height', narrow ? '45px' : '51px', 'important');
+              a.style.setProperty('width', narrow ? '160px' : '230px', 'important');
+              a.style.setProperty('height', narrow ? '48px' : '54px', 'important');
               a.style.setProperty('max-width', narrow ? '42vw' : 'none', 'important');
               a.style.setProperty('flex', '0 0 auto', 'important');
               a.style.setProperty('display', 'flex', 'important');
@@ -4687,6 +4709,5 @@ for (const lang of ['ru', 'ky', 'en']) {
 
 console.log('Successfully generated dist/ru, dist/ky, dist/en, and dist/index.html with updated Inter typography, complete nav links, left-aligned 3-sentence descriptions, and refined ticker font.');
 
-import { execSync } from 'child_process';
 execSync('node scripts/build_clean_subpages.mjs', { stdio: 'inherit' });
 await vendorFramerEngine();
