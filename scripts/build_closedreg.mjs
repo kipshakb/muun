@@ -36,10 +36,10 @@ export function buildClosedRegHtml(lang) {
   ).join('');
 
   const metaTitle = lang === 'ky'
-    ? 'Катышуучуну жабык каттоо — MUUN 2026'
+    ? 'Катышуучуну жабык каттоо - Жаратман МУУН'
     : lang === 'en'
-      ? 'Private Participant Registration — MUUN 2026'
-      : 'Закрытая регистрация участника — MUUN 2026';
+      ? 'Private Participant Registration - Zharatman MUUN'
+      : 'Закрытая регистрация участника - Жаратман МУУН';
 
   const badgeText = lang === 'ky'
     ? 'Жабык каттоо'

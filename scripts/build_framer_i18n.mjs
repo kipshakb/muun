@@ -45,6 +45,7 @@ const downloadEagle = 'C:/Users/Beibars/Downloads/орел2.png';
 if (fs.existsSync(downloadEagle)) {
   fs.copyFileSync(downloadEagle, 'assets/eagle2.png');
 }
+
 for (const f of fs.readdirSync('assets')) {
   const srcPath = `assets/${f}`;
   if (fs.existsSync(srcPath) && fs.statSync(srcPath).isFile()) {
@@ -358,9 +359,11 @@ const SECTION_HEADINGS = {
     faq: faqData.ru,
     partners: {
       kicker: 'Партнеры',
-      titleHtml: 'Генеральные партнеры',
-      titleText: 'Генеральные партнеры',
-      ecoTitleHtml: 'ECO-SYSTEM <span class="heading-muted">партнеры</span>'
+      titleHtml: 'Партнеры МУУН',
+      titleText: 'Партнеры МУУН',
+      ecoTitleHtml: 'ECO-SYSTEM <span class="heading-muted">партнеры</span>',
+      mediaTitleHtml: 'Медиа <span class="heading-muted">партнеры</span>',
+      mediaTitleText: 'Медиа партнеры'
     },
     registration: {
       kicker: 'Регистрация',
@@ -404,9 +407,11 @@ const SECTION_HEADINGS = {
     faq: faqData.ky,
     partners: {
       kicker: 'Өнөктөштөр',
-      titleHtml: 'Башкы өнөктөштөр',
-      titleText: 'Башкы өнөктөштөр',
-      ecoTitleHtml: 'ECO-SYSTEM <span class="heading-muted">өнөктөштөр</span>'
+      titleHtml: 'МУУН өнөктөштөрү',
+      titleText: 'МУУН өнөктөштөрү',
+      ecoTitleHtml: 'ECO-SYSTEM <span class="heading-muted">өнөктөштөр</span>',
+      mediaTitleHtml: 'Медиа <span class="heading-muted">өнөктөштөр</span>',
+      mediaTitleText: 'Медиа өнөктөштөр'
     },
     registration: {
       kicker: 'Каттоо',
@@ -450,9 +455,11 @@ const SECTION_HEADINGS = {
     faq: faqData.en,
     partners: {
       kicker: 'Partners',
-      titleHtml: 'General Partners',
-      titleText: 'General Partners',
-      ecoTitleHtml: 'ECO-SYSTEM <span class="heading-muted">partners</span>'
+      titleHtml: 'MUUN Partners',
+      titleText: 'MUUN Partners',
+      ecoTitleHtml: 'ECO-SYSTEM <span class="heading-muted">partners</span>',
+      mediaTitleHtml: 'Media <span class="heading-muted">Partners</span>',
+      mediaTitleText: 'Media Partners'
     },
     registration: {
       kicker: 'Registration',
@@ -730,36 +737,224 @@ const HOME_SPEAKER_SLOTS = [
   { slot: 'Speaker 06', name: 'Michael Anderson', role: 'Chief Technologist', img: 'dlhgx3fMLQZlK7XF8F8pg5OGE' }
 ];
 
-function renderEcoPartners(titleHtml, lang) {
+function renderPartnerCard(partner) {
+  const content = partner.darkBadge
+    ? `<div class="muun-dark-logo-badge" style="${partner.darkBadge}">
+        <img src="${partner.src}" alt="${partner.alt}" class="muun-partner-logo ${partner.logoClass}" loading="lazy" />
+      </div>`
+    : `<img src="${partner.src}" alt="${partner.alt}" class="muun-partner-logo ${partner.logoClass}" loading="lazy" />`;
+
+  if (partner.url) {
+    return `<a href="${partner.url}" target="_blank" rel="noopener noreferrer" class="muun-partner-card" title="${partner.name}">
+      ${content}
+    </a>`;
+  }
+  return `<div class="muun-partner-card no-link" title="${partner.name}">
+    ${content}
+  </div>`;
+}
+
+function renderMarqueeTrack(items, animClass) {
+  const groupCards = [];
+  // Duplicate items twice per group for continuous infinite loop flow
+  for (let r = 0; r < 2; r++) {
+    for (const item of items) {
+      groupCards.push(renderPartnerCard(item));
+    }
+  }
+  const groupHtml = groupCards.join('\n      ');
+  return `<div class="muun-marquee-viewport">
+    <div class="muun-marquee-track">
+      <div class="muun-marquee-group ${animClass}">
+        ${groupHtml}
+      </div>
+      <div class="muun-marquee-group ${animClass}" aria-hidden="true">
+        ${groupHtml}
+      </div>
+    </div>
+  </div>`;
+}
+
+function getGeneralPartners(lang) {
+  return [
+    {
+      name: 'Kumtor Gold Company',
+      alt: lang === 'ky' ? 'Кумтөр Голд Компани' : 'Кумтор Голд Компани',
+      url: 'https://www.kumtor.kg/ru/',
+      src: '/assets/kumtor.png',
+      logoClass: 'kumtor-logo'
+    },
+    {
+      name: lang === 'ky' ? '«Кыргызалтын» ААК' : 'ОАО «Кыргызалтын»',
+      alt: 'Кыргызалтын',
+      url: 'https://ru.kyrgyzaltyn.kg/',
+      src: '/assets/kyrgyzaltyn.png',
+      logoClass: 'kyrgyzaltyn-logo'
+    },
+    {
+      name: lang === 'ky' ? '«Кыргызстан аэропорттору» ААК' : 'ОАО «Аэропорты Кыргызстана»',
+      alt: 'Аэропорты Кыргызстана',
+      url: 'https://www.airport.kg/',
+      src: '/assets/aeroporty-kyrgyzstana.png',
+      logoClass: 'aeroporty-logo'
+    },
+    {
+      name: lang === 'ky' ? 'Евразиялык патенттик уюм (ЕАПО)' : 'Евразийская патентная организация (ЕАПО)',
+      alt: 'EAPO',
+      url: 'https://www.eapo.org/',
+      src: '/assets/partner-eapo.png',
+      logoClass: 'eapo-logo'
+    },
+    {
+      name: 'TIKA',
+      alt: 'TIKA',
+      url: 'https://tika.gov.tr/en/office/kazakhstan-astana-program-coordination-office/',
+      src: '/assets/partner-tika.png',
+      logoClass: 'tika-logo'
+    }
+  ];
+}
+
+function getEcoPartners(lang) {
   const mdkSrc = lang === 'ky' ? '/assets/partner-mdk-ky.png' : '/assets/partner-mdk-ru.png';
   const mdkAlt = lang === 'ky'
     ? 'Кыргызстан жаштар кыймылы'
     : lang === 'en'
       ? 'Youth Movement of Kyrgyzstan'
       : 'Молодежное движение Кыргызстана';
-  return `<div class="muun-eco-partners">
-    <h2 class="muun-eco-partners-title">${titleHtml}</h2>
-    <div class="muun-eco-grid">
-      <div class="muun-partner-card" title="CEBC">
-        <img src="/assets/partner-cebc.png" alt="China-Eurasian Business Council" class="muun-partner-logo eco-cebc" />
-      </div>
-      <div class="muun-partner-card" title="Codify">
-        <img src="/assets/partner-codify.png" alt="Codify" class="muun-partner-logo eco-codify" />
-      </div>
-      <div class="muun-partner-card" title="ProKG">
-        <img src="/assets/partner-prokg.png" alt="ProKG" class="muun-partner-logo eco-prokg" />
-      </div>
-      <div class="muun-partner-card" title="High Technology Park">
-        <img src="/assets/partner-htp.png" alt="High Technology Park of the Kyrgyz Republic" class="muun-partner-logo eco-htp" />
-      </div>
-      <div class="muun-partner-card" title="${mdkAlt}">
-        <img src="${mdkSrc}" alt="${mdkAlt}" class="muun-partner-logo eco-mdk" />
-      </div>
-      <div class="muun-partner-card" title="Contest">
-        <img src="/assets/partner-contest.png" alt="Contest" class="muun-partner-logo eco-contest" />
-      </div>
+
+  return [
+    {
+      name: 'China-Eurasian Business Council (CEBC)',
+      alt: 'CEBC',
+      url: 'https://cebc-tau.vercel.app/',
+      src: '/assets/partner-cebc.png',
+      logoClass: 'eco-cebc'
+    },
+    {
+      name: 'Codify',
+      alt: 'Codify',
+      url: 'https://codifylab.com/',
+      src: '/assets/partner-codify.png',
+      logoClass: 'eco-codify'
+    },
+    {
+      name: 'ProKG',
+      alt: 'ProKG',
+      url: 'https://prokg.net/',
+      src: '/assets/partner-prokg.png',
+      logoClass: 'eco-prokg'
+    },
+    {
+      name: lang === 'ky' ? 'Жогорку технологиялар паркы' : 'High Technology Park',
+      alt: 'High Technology Park',
+      url: 'https://htp.kg/ru/',
+      src: '/assets/partner-htp.png',
+      logoClass: 'eco-htp'
+    },
+    {
+      name: mdkAlt,
+      alt: mdkAlt,
+      url: '',
+      src: mdkSrc,
+      logoClass: 'eco-mdk'
+    },
+    {
+      name: 'Contest',
+      alt: 'Contest',
+      url: 'https://contest.kg/',
+      src: '/assets/partner-contest.png',
+      logoClass: 'eco-contest'
+    }
+  ];
+}
+
+function getMediaPartners(lang) {
+  return [
+    {
+      name: 'ЭлТР (dntp)',
+      alt: 'ЭлТР',
+      url: '',
+      src: '/assets/partner-eltr.png',
+      logoClass: 'media-logo-eltr',
+      darkBadge: 'background:#003750;border-radius:16px;padding:8px 12px;width:100%;height:100%;display:flex;align-items:center;justify-content:center;box-sizing:border-box;'
+    },
+    {
+      name: 'Регион ТВ',
+      alt: 'Регион ТВ',
+      url: 'https://region.kg/category/stati',
+      src: '/assets/partner-regiontv.png',
+      logoClass: 'media-logo-region'
+    },
+    {
+      name: '7 Канал',
+      alt: '7 Канал',
+      url: 'https://7tv.kg/',
+      src: '/assets/partner-channel7.png',
+      logoClass: 'media-logo-ch7'
+    },
+    {
+      name: 'Кыргыз радиосу',
+      alt: 'Кыргыз радиосу',
+      url: '',
+      src: '/assets/partner-kyrgyz-radio.png',
+      logoClass: 'media-logo-radio',
+      darkBadge: 'background:#0c172d;border-radius:16px;padding:8px 12px;width:100%;height:100%;display:flex;align-items:center;justify-content:center;box-sizing:border-box;'
+    },
+    {
+      name: 'Мин Кыял FM',
+      alt: 'Мин Кыял FM',
+      url: '',
+      src: '/assets/partner-minkyal.png',
+      logoClass: 'media-logo-minkyal',
+      darkBadge: 'background:#0c172d;border-radius:16px;padding:8px 12px;width:100%;height:100%;display:flex;align-items:center;justify-content:center;box-sizing:border-box;'
+    },
+    {
+      name: 'Ала-Тоо 24',
+      alt: 'Ала-Тоо 24',
+      url: '',
+      src: '/assets/partner-alatoo24.png',
+      logoClass: 'media-logo-alatoo'
+    },
+    {
+      name: 'УТРК',
+      alt: 'УТРК',
+      url: 'https://utrk.kg/',
+      src: '/assets/partner-utrk.png',
+      logoClass: 'media-logo-utrk'
+    },
+    {
+      name: 'Кабар',
+      alt: 'КНИА «Кабар»',
+      url: 'https://ru.kabar.kg/',
+      src: '/assets/partner-kabar.png',
+      logoClass: 'media-logo-kabar'
+    }
+  ];
+}
+
+function renderPartnersSection(partnersMeta, lang) {
+  const generalPartners = getGeneralPartners(lang);
+  const ecoPartners = getEcoPartners(lang);
+  const mediaPartners = getMediaPartners(lang);
+
+  const generalTrackHtml = renderMarqueeTrack(generalPartners, 'muun-marquee-general');
+  const ecoTrackHtml = renderMarqueeTrack(ecoPartners, 'muun-marquee-eco');
+  const mediaTrackHtml = renderMarqueeTrack(mediaPartners, 'muun-marquee-media');
+
+  return `
+    <div class="muun-partners-category muun-general-partners">
+      ${generalTrackHtml}
     </div>
-  </div>`;
+    <div class="muun-partners-category muun-eco-partners">
+      <h2 class="muun-eco-partners-title">${partnersMeta.ecoTitleHtml}</h2>
+      ${ecoTrackHtml}
+    </div>
+    <div class="muun-partners-category muun-media-partners">
+      <h2 class="muun-eco-partners-title">${partnersMeta.mediaTitleHtml}</h2>
+      ${mediaTrackHtml}
+    </div>
+  `;
 }
 
 function homeSpeakerPeople(lang) {
@@ -1054,19 +1249,8 @@ for (const lang of ['ru', 'ky', 'en']) {
     }
   }
 
-  // Pre-render Partners section: general partners, then ECO-SYSTEM partners
-  const ecoPartnersHtml = renderEcoPartners(hd.partners.ecoTitleHtml, lang);
-  const partnersGridInnerHtml = `<div class="muun-general-grid">
-    <div class="muun-partner-card" title="Kumtor Gold Company">
-      <img src="/assets/kumtor.png" alt="Кумтөр Голд Компани" class="muun-partner-logo kumtor-logo" />
-    </div>
-    <div class="muun-partner-card" title="Кыргызалтын">
-      <img src="/assets/kyrgyzaltyn.png" alt="ОАО Кыргызалтын" class="muun-partner-logo kyrgyzaltyn-logo" />
-    </div>
-    <div class="muun-partner-card" title="Аэропорты Кыргызстана">
-      <img src="/assets/aeroporty-kyrgyzstana.png" alt="ОАО Аэропорты Кыргызстана" class="muun-partner-logo aeroporty-logo" />
-    </div>
-  </div>${ecoPartnersHtml}`;
+  // Pre-render Partners section: general partners, then ECO-SYSTEM partners, then Media partners
+  const partnersGridInnerHtml = renderPartnersSection(hd.partners, lang);
   const partnersGridHtml = `<div class="framer-ff8lq4" data-framer-name="Partners">${partnersGridInnerHtml}</div>`;
 
   const spGridStart = finalHtml.indexOf('<div class="framer-ff8lq4"');
@@ -2249,54 +2433,132 @@ for (const lang of ['ru', 'ky', 'en']) {
         color: #29AAE1 !important;
       }
 
-      /* ── 4c. GENERAL PARTNERS: 3 COLUMNS & PROMINENT LOGOS ── */
+      /* ── 4c. PARTNERS SECTION & CONTINUOUS MARQUEE ── */
       .framer-v0m3u0 {
         position: relative !important;
         overflow: visible !important;
+      }
+
+      section[data-framer-name="Sponsors"] .framer-1cwmk1v,
+      .framer-v0m3u0 .framer-1cwmk1v {
+        max-width: 1320px !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
+        align-items: flex-start !important;
+        box-sizing: border-box !important;
+      }
+
+      section[data-framer-name="Sponsors"] .framer-1cncrv2,
+      .framer-v0m3u0 .framer-1cncrv2 {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        align-items: flex-start !important;
+      }
+
+      section[data-framer-name="Sponsors"] .framer-ostf7s,
+      .framer-v0m3u0 .framer-ostf7s {
+        margin: 0 !important;
+        padding: 0 !important;
+        text-align: left !important;
+        width: 100% !important;
       }
 
       .framer-ff8lq4 {
         display: flex !important;
         flex-direction: column !important;
         align-items: stretch !important;
-        gap: 64px !important;
+        gap: 56px !important;
         width: 100% !important;
-        max-width: 1320px !important;
-        margin: 0 auto !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
         box-sizing: border-box !important;
       }
 
-      .muun-general-grid {
-        display: grid !important;
-        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-        gap: 32px !important;
+      .muun-partners-category {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 24px !important;
         width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
         box-sizing: border-box !important;
       }
 
-      @media (max-width: 992px) {
-        .muun-general-grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-          gap: 24px !important;
+      .muun-eco-partners-title {
+        margin: 0 !important;
+        padding: 0 !important;
+        text-align: left !important;
+        font-family: inherit !important;
+      }
+
+      .muun-marquee-viewport {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+        position: relative !important;
+        padding: 16px 0 !important;
+        margin: -16px 0 !important;
+        box-sizing: border-box !important;
+      }
+
+      .muun-marquee-track {
+        display: flex !important;
+        width: max-content !important;
+        gap: 24px !important;
+        user-select: none !important;
+        box-sizing: border-box !important;
+      }
+
+      .muun-marquee-group {
+        display: flex !important;
+        align-items: center !important;
+        gap: 24px !important;
+        flex-shrink: 0 !important;
+        will-change: transform !important;
+      }
+
+      /* Hover pauses the movement */
+      .muun-marquee-viewport:hover .muun-marquee-group {
+        animation-play-state: paused !important;
+      }
+
+      /* Faster, lively velocity-matched linear scrolling (~106px/s) */
+      .muun-marquee-general {
+        animation: muunMarqueeScroll 25s linear infinite !important;
+      }
+
+      .muun-marquee-eco {
+        animation: muunMarqueeScroll 30s linear infinite !important;
+      }
+
+      .muun-marquee-media {
+        animation: muunMarqueeScroll 40s linear infinite !important;
+      }
+
+      @keyframes muunMarqueeScroll {
+        0% {
+          transform: translate3d(0, 0, 0);
+        }
+        100% {
+          transform: translate3d(calc(-100% - 24px), 0, 0);
         }
       }
 
-      @media (max-width: 640px) {
-        .muun-general-grid {
-          grid-template-columns: 1fr !important;
-          gap: 16px !important;
-        }
-        .framer-ff8lq4 {
-          gap: 40px !important;
-        }
-      }
-
+      /* Card styling - exactly 5 frames visible in 1320px viewport (245px * 5 + 24px * 4 = 1321px) */
       .muun-partner-card {
         background: #FFFFFF !important;
         border-radius: 24px !important;
-        padding: 32px 36px !important;
-        min-height: 160px !important;
-        height: 175px !important;
+        padding: 24px 28px !important;
+        min-height: 150px !important;
+        height: 165px !important;
+        width: 245px !important;
+        flex: 0 0 245px !important;
         box-sizing: border-box !important;
         display: flex !important;
         align-items: center !important;
@@ -2304,8 +2566,9 @@ for (const lang of ['ru', 'ky', 'en']) {
         position: relative !important;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), 0 0 1px rgba(255, 255, 255, 0.4) !important;
         border: 1px solid rgba(255, 255, 255, 0.6) !important;
-        transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease !important;
         cursor: pointer !important;
+        text-decoration: none !important;
         overflow: hidden !important;
       }
 
@@ -2313,6 +2576,11 @@ for (const lang of ['ru', 'ky', 'en']) {
         transform: translateY(-6px) scale(1.02) !important;
         border-color: #29AAE1 !important;
         box-shadow: 0 16px 40px rgba(41, 170, 225, 0.35), 0 0 25px rgba(41, 170, 225, 0.4) !important;
+        z-index: 10 !important;
+      }
+
+      .muun-partner-card.no-link {
+        cursor: default !important;
       }
 
       .muun-partner-card img {
@@ -2329,95 +2597,126 @@ for (const lang of ['ru', 'ky', 'en']) {
         transform: scale(1.05) !important;
       }
 
+      .muun-dark-logo-badge {
+        box-sizing: border-box !important;
+      }
+
+      /* Logo dimensions inside frames */
       .muun-partner-card .kumtor-logo {
-        max-height: 115px !important;
-        max-width: 250px !important;
+        max-height: 85px !important;
+        max-width: 200px !important;
       }
-
       .muun-partner-card .kyrgyzaltyn-logo {
-        max-height: 115px !important;
-        max-width: 250px !important;
+        max-height: 85px !important;
+        max-width: 200px !important;
       }
-
       .muun-partner-card .aeroporty-logo {
+        max-height: 60px !important;
+        max-width: 215px !important;
+      }
+      .muun-partner-card .eapo-logo {
+        max-height: 80px !important;
+        max-width: 170px !important;
+      }
+      .muun-partner-card .tika-logo {
+        max-height: 60px !important;
+        max-width: 200px !important;
+      }
+
+      .muun-partner-card .eco-cebc {
         max-height: 75px !important;
-        max-width: 330px !important;
+        max-width: 195px !important;
+      }
+      .muun-partner-card .eco-codify {
+        max-height: 52px !important;
+        max-width: 190px !important;
+      }
+      .muun-partner-card .eco-prokg {
+        max-height: 70px !important;
+        max-width: 190px !important;
+      }
+      .muun-partner-card .eco-htp {
+        max-height: 52px !important;
+        max-width: 190px !important;
+      }
+      .muun-partner-card .eco-mdk {
+        max-height: 85px !important;
+        max-width: 195px !important;
+      }
+      .muun-partner-card .eco-contest {
+        max-height: 52px !important;
+        max-width: 185px !important;
       }
 
-      .muun-eco-partners {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: flex-start !important;
-        gap: 32px !important;
-        width: 100% !important;
-        max-width: 1320px !important;
-        margin: 0 auto !important;
-        box-sizing: border-box !important;
+      .muun-partner-card .media-logo-eltr {
+        max-height: 65px !important;
+        max-width: 180px !important;
       }
-
-      .muun-eco-partners-title {
-        margin: 0 !important;
-        text-align: left !important;
+      .muun-partner-card .media-logo-region {
+        max-height: 60px !important;
+        max-width: 190px !important;
       }
-
-      .muun-eco-grid {
-        display: grid !important;
-        grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
-        gap: 20px !important;
-        width: 100% !important;
-        margin: 0 !important;
-        box-sizing: border-box !important;
+      .muun-partner-card .media-logo-ch7 {
+        max-height: 70px !important;
+        max-width: 185px !important;
       }
-
-      .muun-eco-grid .muun-partner-card {
-        height: 150px !important;
-        min-height: 140px !important;
-        padding: 22px 18px !important;
+      .muun-partner-card .media-logo-radio {
+        max-height: 65px !important;
+        max-width: 180px !important;
       }
-
-      .muun-eco-grid .muun-partner-logo {
-        max-height: 92px !important;
-        max-width: 100% !important;
+      .muun-partner-card .media-logo-minkyal {
+        max-height: 65px !important;
+        max-width: 180px !important;
       }
-
-      .muun-eco-grid .eco-codify {
+      .muun-partner-card .media-logo-alatoo {
+        max-height: 50px !important;
+        max-width: 190px !important;
+      }
+      .muun-partner-card .media-logo-utrk {
         max-height: 58px !important;
+        max-width: 185px !important;
+      }
+      .muun-partner-card .media-logo-kabar {
+        max-height: 58px !important;
+        max-width: 195px !important;
       }
 
-      .muun-eco-grid .eco-htp {
-        max-height: 52px !important;
-      }
-
-      .muun-eco-grid .eco-mdk {
-        max-height: 104px !important;
-        max-width: 100% !important;
-      }
-
-      .muun-eco-grid .eco-contest {
-        max-height: 52px !important;
-        max-width: 92% !important;
-      }
-
-      @media (max-width: 1200px) {
-        .muun-eco-grid {
-          grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+      @media (max-width: 768px) {
+        .muun-partner-card {
+          width: 200px !important;
+          flex: 0 0 200px !important;
+          height: 140px !important;
+          min-height: 130px !important;
+          padding: 18px 20px !important;
+          border-radius: 20px !important;
+        }
+        .framer-ff8lq4 {
+          gap: 42px !important;
         }
       }
 
-      @media (max-width: 992px) {
-        .muun-eco-grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      @media (max-width: 480px) {
+        .muun-partner-card {
+          width: 170px !important;
+          flex: 0 0 170px !important;
+          height: 125px !important;
+          min-height: 115px !important;
+          padding: 14px 16px !important;
+          border-radius: 16px !important;
         }
-      }
-
-      @media (max-width: 640px) {
-        .muun-eco-grid {
-          grid-template-columns: 1fr !important;
+        .muun-marquee-track {
           gap: 16px !important;
         }
-        .muun-eco-grid .muun-partner-card {
-          height: auto !important;
-          min-height: 120px !important;
+        .muun-marquee-group {
+          gap: 16px !important;
+        }
+        @keyframes muunMarqueeScroll {
+          0% {
+            transform: translate3d(0, 0, 0);
+          }
+          100% {
+            transform: translate3d(calc(-100% - 16px), 0, 0);
+          }
         }
       }
 
@@ -3850,9 +4149,9 @@ for (const lang of ['ru', 'ky', 'en']) {
         }
 
         .muun-partner-card {
-          height: auto !important;
-          min-height: 132px !important;
-          padding: 22px 18px !important;
+          height: 140px !important;
+          min-height: 130px !important;
+          padding: 18px 20px !important;
         }
         .muun-faq-item { padding: 16px 16px !important; border-radius: 18px !important; }
         .muun-faq-eagle-img { max-width: 220px !important; }
@@ -4570,9 +4869,9 @@ for (const lang of ['ru', 'ky', 'en']) {
             }
           });
 
-          // 14. Partners Grid: general partners, then ECO-SYSTEM partners
+          // 14. Partners Grid: general partners, then ECO-SYSTEM partners, then Media partners
           const partnersGrid = document.querySelector('.framer-ff8lq4');
-          if (partnersGrid && !partnersGrid.querySelector('.muun-eco-partners')) {
+          if (partnersGrid && !partnersGrid.querySelector('.muun-marquee-viewport')) {
             partnersGrid.innerHTML = ${JSON.stringify(partnersGridInnerHtml)};
           }
 

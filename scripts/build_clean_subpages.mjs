@@ -331,6 +331,8 @@ for (const lang of languages) {
       .split('https://framerusercontent.com/images/AxQMXkb9SNyxDMp63XvKlzyGFo.png')
       .join('/favicon.png?v=11'));
     const pageTitle = conf.titles[lang];
+    const brandSuffix = lang === 'en' ? 'Zharatman MUUN' : 'Жаратман МУУН';
+    const fullTitle = `${pageTitle.meta} - ${brandSuffix}`;
 
     const htmlLang = lang === 'en' ? 'en' : lang === 'ky' ? 'ky' : 'ru';
     const metaDesc = lang === 'ky'
@@ -339,8 +341,8 @@ for (const lang of languages) {
       ? 'National Youth Forum Zharatman MUUN. 28 November, Bishkek, Yrys Ordo.'
       : 'Жаратман МУУН — национальный молодежный форум. 28 ноября, Бишкек, Ырыс Ордо.';
     pageHtml = pageHtml.replace(/<html lang="[^"]*">/i, `<html lang="${htmlLang}">`);
-    pageHtml = pageHtml.replace(/<title>[\s\S]*?<\/title>/i, `<title>${pageTitle.meta} — Жаратман МУУН</title>`);
-    pageHtml = pageHtml.replaceAll('Eventis - Free Event and Conference Template', `${pageTitle.meta} — Жаратман МУУН`);
+    pageHtml = pageHtml.replace(/<title>[\s\S]*?<\/title>/i, `<title>${fullTitle}</title>`);
+    pageHtml = pageHtml.replaceAll('Eventis - Free Event and Conference Template', fullTitle);
     pageHtml = pageHtml.replaceAll('Join Eventis, the premier technology and IT summit, bringing together developers, designers, entrepreneurs, and investors to explore the latest in software development, AI innovations, and startup growth.', metaDesc);
     pageHtml = pageHtml.replaceAll('https://eventis.framer.website/', `https://muun.kg/${lang}/`);
 
@@ -911,7 +913,7 @@ for (const lang of languages) {
         ${slug === 'press' ? pressClientJs : ''}
         ${slug === 'program' ? programClientJs : ''}
         (function() {
-          const EXPECTED_TITLE = "${pageTitle.meta} — MUUN 2026";
+          const EXPECTED_TITLE = "${fullTitle}";
           const EXPECTED_H1 = "${pageTitle.h1}";
           const EXPECTED_KICKER = "${pageTitle.kicker}";
           const EXPECTED_H2 = "${pageTitle.sub.replace(/"/g, '\\"')}";
@@ -1319,7 +1321,7 @@ for (const lang of languages) {
       </script>
     `;
     const enginePairs = [
-      ['Eventis - Free Event and Conference Template', `${pageTitle.meta} — MUUN 2026`],
+      ['Eventis - Free Event and Conference Template', fullTitle],
       ['Join Eventis, the premier technology and IT summit, bringing together developers, designers, entrepreneurs, and investors to explore the latest in software development, AI innovations, and startup growth.', metaDesc],
       ['Get Ticket', regCtaText],
       ['Get Tickets', regCtaText],
