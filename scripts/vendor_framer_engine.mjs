@@ -73,8 +73,8 @@ const SPEAKER_PHOTOS = {
   'XhuDITv6DpWNuBYIj1HtJ4DvTQw': '/assets/speaker-isamatova.jpg',
   '86VJMTqMd6VC2SOf3RhzPDR4emk': '/assets/speaker-oruntaev.jpg',
   'TzozA0OcRZ36gzl3GAQAWwujo': '/assets/speaker-rysbekov.jpg',
+  'FVjwWr85ut7DBy7LiAzsJoNMlLM': '/assets/speaker-kubatov.jpg',
   'dlhgx3fMLQZlK7XF8F8pg5OGE': '/assets/speaker-surabaldieva.jpg',
-  'FVjwWr85ut7DBy7LiAzsJoNMlLM': '/assets/speaker-esenalieva.jpg',
   'cFl24iPInxckRrL32eRgadp9ZJM': '/assets/speaker-dinara.jpg',
   'UPhDD72urZKey0YOy5IaOSRCJj0': '/assets/speaker-alisherova.jpg'
 };
@@ -89,19 +89,19 @@ const SPEAKER_TEXTS = {
     ['Backend Architect', 'Министр строительства, архитектуры и жилищно-коммунального хозяйства Кыргызской Республики'],
     ['James Turner', 'Рысбеков Алтынбек Дурусбекович'],
     ['DevOps Specialist', 'Министр энергетики Кыргызской Республики'],
-    ['Laura Chang', 'Эльвира Сурабалдиева'],
+    ['Laura Chang', 'Кубатов Эдуард'],
+    ['Director of AI Strategy', 'Директор Государственного агентства по развитию туризма при Кабинете министров Кыргызской Республики, Президент Федерации альпинизма'],
+    ['Michael Anderson', 'Эльвира Сурабалдиева'],
+    ['Chief Technologist', 'Депутат Жогорку Кенеша Кыргызской Республики'],
     ['Cloud Solutions Expert', 'Депутат Жогорку Кенеша Кыргызской Республики'],
-    ['Michael Anderson', 'Эсеналиева Назира Солтонбековна'],
-    ['Mobile App Engineer', 'Ректор Международного университета «Ала-Тоо», кандидат экономических наук'],
+    ['Mobile App Engineer', 'Депутат Жогорку Кенеша Кыргызской Республики'],
     ['Dr. Maya Bennett', 'Динара Русланкызы'],
     ['AI/ML Engineer', 'Основатель и директор ИТ-компании CODIFY'],
     ['Jonathan Reyes', 'Айжан Алишерова'],
     ['Technical Lead – Web Platforms', 'Основатель фонда поддержки стартапов «We Fund»'],
     ['Chief AI Scientist', 'Председатель Кабинета Министров Кыргызской Республики – Руководитель Администрации Президента Кыргызской Республики'],
     ['CEO, AI Solutions Corp', 'Министр науки, высшего образования и инноваций Кыргызской Республики'],
-    ['Senior Data Scientist', 'Министр строительства, архитектуры и жилищно-коммунального хозяйства Кыргызской Республики'],
-    ['Director of AI Strategy', 'Депутат Жогорку Кенеша Кыргызской Республики'],
-    ['Chief Technologist', 'Ректор Международного университета «Ала-Тоо», кандидат экономических наук']
+    ['Senior Data Scientist', 'Министр строительства, архитектуры и жилищно-коммунального хозяйства Кыргызской Республики']
   ],
   ky: [
     ['Dr. Emma Parker', 'Касымалиев Адылбек Алешович'],
@@ -112,19 +112,19 @@ const SPEAKER_TEXTS = {
     ['Backend Architect', 'Кыргыз Республикасынын курулуш, архитектура жана турак жай-коммуналдык чарба министри'],
     ['James Turner', 'Рысбеков Алтынбек Дурусбекович'],
     ['DevOps Specialist', 'Кыргыз Республикасынын энергетика министри'],
-    ['Laura Chang', 'Эльвира Сурабалдиева'],
+    ['Laura Chang', 'Кубатов Эдуард'],
+    ['Director of AI Strategy', 'Кыргыз Республикасынын Министрлер Кабинетине караштуу Туризмди өнүктүрүү боюнча мамлекеттик агенттиктин директору, Альпинизм федерациясынын президенти'],
+    ['Michael Anderson', 'Эльвира Сурабалдиева'],
+    ['Chief Technologist', 'Кыргыз Республикасынын Жогорку Кеңешинин депутаты'],
     ['Cloud Solutions Expert', 'Кыргыз Республикасынын Жогорку Кеңешинин депутаты'],
-    ['Michael Anderson', 'Эсеналиева Назира Солтонбековна'],
-    ['Mobile App Engineer', '«Ала-Тоо» Эл аралык университетинин ректору, экономика илимдеринин кандидаты'],
+    ['Mobile App Engineer', 'Кыргыз Республикасынын Жогорку Кеңешинин депутаты'],
     ['Dr. Maya Bennett', 'Динара Русланкызы'],
     ['AI/ML Engineer', 'CODIFY ИТ-компаниясынын негиздөөчүсү жана директору'],
     ['Jonathan Reyes', 'Айжан Алишерова'],
     ['Technical Lead – Web Platforms', '«We Fund» стартаптарды колдоо фондунун негиздөөчүсү'],
     ['Chief AI Scientist', 'Кыргыз Республикасынын Министрлер Кабинетинин Төрагасы – Кыргыз Республикасынын Президентинин Администрациясынын жетекчиси'],
     ['CEO, AI Solutions Corp', 'Кыргыз Республикасынын илим, жогорку билим берүү жана инновациялар министри'],
-    ['Senior Data Scientist', 'Кыргыз Республикасынын курулуш, архитектура жана турак жай-коммуналдык чарба министри'],
-    ['Director of AI Strategy', 'Кыргыз Республикасынын Жогорку Кеңешинин депутаты'],
-    ['Chief Technologist', '«Ала-Тоо» Эл аралык университетинин ректору, экономика илимдеринин кандидаты']
+    ['Senior Data Scientist', 'Кыргыз Республикасынын курулуш, архитектура жана турак жай-коммуналдык чарба министри']
   ],
   en: [
     ['Dr. Emma Parker', 'Adylbek Aleshovich Kasymaliev'],
@@ -135,19 +135,19 @@ const SPEAKER_TEXTS = {
     ['Backend Architect', 'Minister of Construction, Architecture and Housing and Communal Services of the Kyrgyz Republic'],
     ['James Turner', 'Altynbek Durusbekovich Rysbekov'],
     ['DevOps Specialist', 'Minister of Energy of the Kyrgyz Republic'],
-    ['Laura Chang', 'Elvira Surabaldieva'],
+    ['Laura Chang', 'Eduard Kubatov'],
+    ['Director of AI Strategy', 'Director of the State Agency for Tourism Development under the Cabinet of Ministers of the Kyrgyz Republic, President of the Mountaineering Federation'],
+    ['Michael Anderson', 'Elvira Surabaldieva'],
+    ['Chief Technologist', 'Member of the Jogorku Kenesh of the Kyrgyz Republic'],
     ['Cloud Solutions Expert', 'Member of the Jogorku Kenesh of the Kyrgyz Republic'],
-    ['Michael Anderson', 'Nazira Soltonbekovna Esenalieva'],
-    ['Mobile App Engineer', 'Rector of Ala-Too International University, PhD in Economics'],
+    ['Mobile App Engineer', 'Member of the Jogorku Kenesh of the Kyrgyz Republic'],
     ['Dr. Maya Bennett', 'Dinara Ruslankyzy'],
     ['AI/ML Engineer', 'Founder and Director of the IT company CODIFY'],
     ['Jonathan Reyes', 'Aizhan Alisherova'],
     ['Technical Lead – Web Platforms', 'Founder of the startup support fund We Fund'],
     ['Chief AI Scientist', 'Chairman of the Cabinet of Ministers of the Kyrgyz Republic – Head of the Presidential Administration of the Kyrgyz Republic'],
     ['CEO, AI Solutions Corp', 'Minister of Science, Higher Education and Innovation of the Kyrgyz Republic'],
-    ['Senior Data Scientist', 'Minister of Construction, Architecture and Housing and Communal Services of the Kyrgyz Republic'],
-    ['Director of AI Strategy', 'Member of the Jogorku Kenesh of the Kyrgyz Republic'],
-    ['Chief Technologist', 'Rector of Ala-Too International University, PhD in Economics']
+    ['Senior Data Scientist', 'Minister of Construction, Architecture and Housing and Communal Services of the Kyrgyz Republic']
   ]
 };
 

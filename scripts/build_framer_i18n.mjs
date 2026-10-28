@@ -362,6 +362,8 @@ const SECTION_HEADINGS = {
       titleHtml: 'Партнеры МУУН',
       titleText: 'Партнеры МУУН',
       ecoTitleHtml: 'ECO-SYSTEM <span class="heading-muted">партнеры</span>',
+      partTitleHtml: 'Участники',
+      partTitleText: 'Участники',
       mediaTitleHtml: 'Медиа <span class="heading-muted">партнеры</span>',
       mediaTitleText: 'Медиа партнеры'
     },
@@ -410,6 +412,8 @@ const SECTION_HEADINGS = {
       titleHtml: 'МУУН өнөктөштөрү',
       titleText: 'МУУН өнөктөштөрү',
       ecoTitleHtml: 'ECO-SYSTEM <span class="heading-muted">өнөктөштөр</span>',
+      partTitleHtml: 'Катышуучулар',
+      partTitleText: 'Катышуучулар',
       mediaTitleHtml: 'Медиа <span class="heading-muted">өнөктөштөр</span>',
       mediaTitleText: 'Медиа өнөктөштөр'
     },
@@ -458,6 +462,8 @@ const SECTION_HEADINGS = {
       titleHtml: 'MUUN Partners',
       titleText: 'MUUN Partners',
       ecoTitleHtml: 'ECO-SYSTEM <span class="heading-muted">partners</span>',
+      partTitleHtml: 'Participants',
+      partTitleText: 'Participants',
       mediaTitleHtml: 'Media <span class="heading-muted">Partners</span>',
       mediaTitleText: 'Media Partners'
     },
@@ -929,6 +935,130 @@ function getMediaPartners(lang) {
       url: 'https://ru.kabar.kg/',
       src: '/assets/partner-kabar.png',
       logoClass: 'media-logo-kabar'
+    },
+    {
+      name: lang === 'ky' ? '«Кыргыз Туусу» маалымат-басма үйү' : 'Информационно-издательский дом «Кыргыз Туусу»',
+      alt: 'Кыргыз Туусу',
+      url: 'https://ktmedia.kg/ru/%D0%BD%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D0%B8',
+      src: '/assets/partner-kyrgyztuusu.png',
+      logoClass: 'media-logo-kyrgyztuusu'
+    },
+    {
+      name: lang === 'ky' ? '«Вечерний Бишкек» гезити' : 'Издательский дом «Вечерний Бишкек»',
+      alt: 'Вечерний Бишкек',
+      url: 'https://www.vb.kg/',
+      src: '/assets/partner-vb.png',
+      logoClass: 'media-logo-vb'
+    }
+  ];
+}
+
+function getParticipantPartners(lang) {
+  return [
+    {
+      name: lang === 'ky'
+        ? 'Жусуп Баласагын атындагы Кыргыз улуттук университети'
+        : lang === 'en'
+          ? 'Kyrgyz National University named after Jusup Balasagyn'
+          : 'Кыргызский национальный университет имени Жусупа Баласагына',
+      alt: 'КНУ',
+      url: 'https://www.knu.kg/ky/ru/',
+      src: '/assets/partner-knu.png',
+      logoClass: 'part-logo-knu'
+    },
+    {
+      name: lang === 'ky'
+        ? 'И. Раззаков атындагы Кыргыз мамлекеттик техникалык университети (Политех)'
+        : lang === 'en'
+          ? 'I. Razzakov Kyrgyz State Technical University (Polytechnic)'
+          : 'Кыргызский государственный технический университет имени И. Раззакова (Политех)',
+      alt: 'КГТУ Политех',
+      url: 'https://kstu.kg/',
+      src: '/assets/partner-kstu.png',
+      logoClass: 'part-logo-kstu'
+    },
+    {
+      name: lang === 'ky'
+        ? 'Ош мамлекеттик университети'
+        : lang === 'en'
+          ? 'Osh State University'
+          : 'Ошский государственный университет',
+      alt: 'ОшГУ',
+      url: 'https://www.oshsu.kg/ru',
+      src: '/assets/partner-oshsu.png',
+      logoClass: 'part-logo-oshsu'
+    },
+    {
+      name: lang === 'ky'
+        ? '«Ала-Тоо» Эл аралык университети'
+        : lang === 'en'
+          ? 'Ala-Too International University'
+          : 'Международный университет «Ала-Тоо»',
+      alt: 'Ala-Too International University',
+      url: 'https://alatoo.edu.kg/',
+      src: '/assets/partner-alatoo.png',
+      logoClass: 'part-logo-alatoo'
+    },
+    {
+      name: lang === 'ky'
+        ? 'Кыргыз-Орус Славян университети'
+        : lang === 'en'
+          ? 'Kyrgyz-Russian Slavic University'
+          : 'Кыргызско-Российский Славянский университет',
+      alt: 'КРСУ',
+      url: 'https://www.krsu.kg/',
+      src: '/assets/partner-krsu.png',
+      logoClass: 'part-logo-krsu'
+    },
+    {
+      name: lang === 'ky'
+        ? 'Кыргыз-Түрк «Манас» университети'
+        : lang === 'en'
+          ? 'Kyrgyz-Turkish Manas University'
+          : 'Кыргызско-Турецкий университет «Манас»',
+      alt: 'КТУ Манас',
+      url: 'https://www.manas.edu.kg/ru/index.php',
+      src: '/assets/partner-manas.png',
+      logoClass: 'part-logo-manas'
+    },
+    {
+      name: lang === 'ky'
+        ? 'К.И. Скрябин атындагы Кыргыз улуттук агрардык университети'
+        : lang === 'en'
+          ? 'Kyrgyz National Agrarian University named after K.I. Skryabin'
+          : 'Кыргызский национальный аграрный университет имени К.И. Скрябина',
+      alt: 'КНАУ',
+      url: '',
+      src: '/assets/partner-knau.png',
+      logoClass: 'part-logo-knau'
+    },
+    {
+      name: 'Planning & Solutions Group',
+      alt: 'Planning & Solutions Group',
+      url: 'https://planningandsolutions.com/',
+      src: '/assets/partner-planning-solutions.png',
+      logoClass: 'part-logo-planning'
+    },
+    {
+      name: 'Oscar & Sons Group',
+      alt: 'Oscar & Sons Group',
+      url: 'https://oscarsons.com/',
+      src: '/assets/partner-oscarsons.png',
+      logoClass: 'part-logo-oscarsons'
+    },
+    {
+      name: 'AI Academy',
+      alt: 'AI Academy',
+      url: 'https://aiacademy.my/',
+      src: '/assets/partner-ai-academy.png',
+      logoClass: 'part-logo-aiacademy'
+    },
+    {
+      name: 'AIRUN',
+      alt: 'AIRUN',
+      url: 'https://business.airun.kg/ru',
+      src: '/assets/partner-airun.png',
+      logoClass: 'part-logo-airun'
     }
   ];
 }
@@ -936,10 +1066,12 @@ function getMediaPartners(lang) {
 function renderPartnersSection(partnersMeta, lang) {
   const generalPartners = getGeneralPartners(lang);
   const ecoPartners = getEcoPartners(lang);
+  const partPartners = getParticipantPartners(lang);
   const mediaPartners = getMediaPartners(lang);
 
   const generalTrackHtml = renderMarqueeTrack(generalPartners, 'muun-marquee-general');
   const ecoTrackHtml = renderMarqueeTrack(ecoPartners, 'muun-marquee-eco');
+  const partTrackHtml = renderMarqueeTrack(partPartners, 'muun-marquee-part');
   const mediaTrackHtml = renderMarqueeTrack(mediaPartners, 'muun-marquee-media');
 
   return `
@@ -949,6 +1081,10 @@ function renderPartnersSection(partnersMeta, lang) {
     <div class="muun-partners-category muun-eco-partners">
       <h2 class="muun-eco-partners-title">${partnersMeta.ecoTitleHtml}</h2>
       ${ecoTrackHtml}
+    </div>
+    <div class="muun-partners-category muun-part-partners">
+      <h2 class="muun-eco-partners-title">${partnersMeta.partTitleHtml || 'Участники'}</h2>
+      ${partTrackHtml}
     </div>
     <div class="muun-partners-category muun-media-partners">
       <h2 class="muun-eco-partners-title">${partnersMeta.mediaTitleHtml}</h2>
@@ -964,24 +1100,24 @@ function homeSpeakerPeople(lang) {
       { name: 'Исаматова Гульзат Тыныбековна', role: 'Министр науки, высшего образования и инноваций Кыргызской Республики', photo: '/assets/speaker-isamatova.jpg', focus: '30% 20%' },
       { name: 'Орунтаев Нурдан Кемелович', role: 'Министр строительства, архитектуры и жилищно-коммунального хозяйства Кыргызской Республики', photo: '/assets/speaker-oruntaev.jpg', focus: 'center 18%' },
       { name: 'Рысбеков Алтынбек Дурусбекович', role: 'Министр энергетики Кыргызской Республики', photo: '/assets/speaker-rysbekov.jpg', focus: 'center center' },
-      { name: 'Эльвира Сурабалдиева', role: 'Депутат Жогорку Кенеша Кыргызской Республики', photo: '/assets/speaker-surabaldieva.jpg', focus: 'center center' },
-      { name: 'Эсеналиева Назира Солтонбековна', role: 'Ректор Международного университета «Ала-Тоо», кандидат экономических наук', photo: '/assets/speaker-esenalieva.jpg', focus: 'center center' }
+      { name: 'Кубатов Эдуард', role: 'Директор Государственного агентства по развитию туризма при Кабинете министров Кыргызской Республики, Президент Федерации альпинизма', photo: '/assets/speaker-kubatov.jpg', focus: 'center 15%' },
+      { name: 'Эльвира Сурабалдиева', role: 'Депутат Жогорку Кенеша Кыргызской Республики', photo: '/assets/speaker-surabaldieva.jpg', focus: 'center center' }
     ],
     ky: [
       { name: 'Касымалиев Адылбек Алешович', role: 'Кыргыз Республикасынын Министрлер Кабинетинин Төрагасы – Кыргыз Республикасынын Президентинин Администрациясынын жетекчиси', photo: '/assets/speaker-kasymaliev.png', focus: 'center 15%' },
       { name: 'Исаматова Гульзат Тыныбековна', role: 'Кыргыз Республикасынын илим, жогорку билим берүү жана инновациялар министри', photo: '/assets/speaker-isamatova.jpg', focus: '30% 20%' },
       { name: 'Орунтаев Нурдан Кемелович', role: 'Кыргыз Республикасынын курулуш, архитектура жана турак жай-коммуналдык чарба министри', photo: '/assets/speaker-oruntaev.jpg', focus: 'center 18%' },
       { name: 'Рысбеков Алтынбек Дурусбекович', role: 'Кыргыз Республикасынын энергетика министри', photo: '/assets/speaker-rysbekov.jpg', focus: 'center center' },
-      { name: 'Эльвира Сурабалдиева', role: 'Кыргыз Республикасынын Жогорку Кеңешинин депутаты', photo: '/assets/speaker-surabaldieva.jpg', focus: 'center center' },
-      { name: 'Эсеналиева Назира Солтонбековна', role: '«Ала-Тоо» Эл аралык университетинин ректору, экономика илимдеринин кандидаты', photo: '/assets/speaker-esenalieva.jpg', focus: 'center center' }
+      { name: 'Кубатов Эдуард', role: 'Кыргыз Республикасынын Министрлер Кабинетине караштуу Туризмди өнүктүрүү боюнча мамлекеттик агенттиктин директору, Альпинизм федерациясынын президенти', photo: '/assets/speaker-kubatov.jpg', focus: 'center 15%' },
+      { name: 'Эльвира Сурабалдиева', role: 'Кыргыз Республикасынын Жогорку Кеңешинин депутаты', photo: '/assets/speaker-surabaldieva.jpg', focus: 'center center' }
     ],
     en: [
       { name: 'Adylbek Aleshovich Kasymaliev', role: 'Chairman of the Cabinet of Ministers of the Kyrgyz Republic – Head of the Presidential Administration of the Kyrgyz Republic', photo: '/assets/speaker-kasymaliev.png', focus: 'center 15%' },
       { name: 'Gulzat Tynybekovna Isamatova', role: 'Minister of Science, Higher Education and Innovation of the Kyrgyz Republic', photo: '/assets/speaker-isamatova.jpg', focus: '30% 20%' },
       { name: 'Nurdan Kemelovich Oruntaev', role: 'Minister of Construction, Architecture and Housing and Communal Services of the Kyrgyz Republic', photo: '/assets/speaker-oruntaev.jpg', focus: 'center 18%' },
       { name: 'Altynbek Durusbekovich Rysbekov', role: 'Minister of Energy of the Kyrgyz Republic', photo: '/assets/speaker-rysbekov.jpg', focus: 'center center' },
-      { name: 'Elvira Surabaldieva', role: 'Member of the Jogorku Kenesh of the Kyrgyz Republic', photo: '/assets/speaker-surabaldieva.jpg', focus: 'center center' },
-      { name: 'Nazira Soltonbekovna Esenalieva', role: 'Rector of Ala-Too International University, PhD in Economics', photo: '/assets/speaker-esenalieva.jpg', focus: 'center center' }
+      { name: 'Eduard Kubatov', role: 'Director of the State Agency for Tourism Development under the Cabinet of Ministers of the Kyrgyz Republic, President of the Mountaineering Federation', photo: '/assets/speaker-kubatov.jpg', focus: 'center 15%' },
+      { name: 'Elvira Surabaldieva', role: 'Member of the Jogorku Kenesh of the Kyrgyz Republic', photo: '/assets/speaker-surabaldieva.jpg', focus: 'center center' }
     ]
   };
   return people[lang];
@@ -2388,6 +2524,9 @@ for (const lang of ['ru', 'ky', 'en']) {
       section[data-framer-name="Speakers"] [data-framer-name="Image"] img[src*="speaker-esenalieva"] {
         object-position: center center !important;
       }
+      section[data-framer-name="Speakers"] [data-framer-name="Image"] img[src*="speaker-kubatov"] {
+        object-position: center 15% !important;
+      }
       section[data-framer-name="Speakers"] [data-framer-name="Name"],
       section[data-framer-name="Speakers"] [data-framer-name="Name"] h4,
       section[data-framer-name="Speakers"] [data-framer-name="Designation"],
@@ -2537,8 +2676,13 @@ for (const lang of ['ru', 'ky', 'en']) {
         animation: muunMarqueeScroll 30s linear infinite !important;
       }
 
+      .muun-marquee-uni,
+      .muun-marquee-part {
+        animation: muunMarqueeScroll 55s linear infinite !important;
+      }
+
       .muun-marquee-media {
-        animation: muunMarqueeScroll 40s linear infinite !important;
+        animation: muunMarqueeScroll 50s linear infinite !important;
       }
 
       @keyframes muunMarqueeScroll {
@@ -2679,6 +2823,69 @@ for (const lang of ['ru', 'ky', 'en']) {
       .muun-partner-card .media-logo-kabar {
         max-height: 58px !important;
         max-width: 195px !important;
+      }
+      .muun-partner-card .media-logo-kyrgyztuusu {
+        max-height: 60px !important;
+        max-width: 190px !important;
+      }
+      .muun-partner-card .media-logo-vb {
+        max-height: 52px !important;
+        max-width: 195px !important;
+      }
+
+      .muun-partner-card .part-logo-knu,
+      .muun-partner-card .uni-logo-knu {
+        max-height: 90px !important;
+        max-width: 175px !important;
+      }
+      .muun-partner-card .part-logo-kstu,
+      .muun-partner-card .uni-logo-kstu {
+        max-height: 90px !important;
+        max-width: 175px !important;
+      }
+      .muun-partner-card .part-logo-oshsu,
+      .muun-partner-card .uni-logo-oshsu {
+        max-height: 95px !important;
+        max-width: 160px !important;
+      }
+      .muun-partner-card .part-logo-alatoo,
+      .muun-partner-card .uni-logo-alatoo {
+        max-height: 52px !important;
+        max-width: 195px !important;
+      }
+      .muun-partner-card .part-logo-krsu,
+      .muun-partner-card .uni-logo-krsu {
+        max-height: 65px !important;
+        max-width: 185px !important;
+        border-radius: 10px !important;
+      }
+      .muun-partner-card .part-logo-manas,
+      .muun-partner-card .uni-logo-manas {
+        max-height: 90px !important;
+        max-width: 175px !important;
+      }
+      .muun-partner-card .part-logo-knau,
+      .muun-partner-card .uni-logo-knau {
+        max-height: 90px !important;
+        max-width: 175px !important;
+      }
+
+      .muun-partner-card .part-logo-planning {
+        max-height: 75px !important;
+        max-width: 110px !important;
+        border-radius: 12px !important;
+      }
+      .muun-partner-card .part-logo-oscarsons {
+        max-height: 48px !important;
+        max-width: 195px !important;
+      }
+      .muun-partner-card .part-logo-aiacademy {
+        max-height: 48px !important;
+        max-width: 195px !important;
+      }
+      .muun-partner-card .part-logo-airun {
+        max-height: 85px !important;
+        max-width: 175px !important;
       }
 
       @media (max-width: 768px) {

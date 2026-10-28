@@ -27,6 +27,7 @@ function speakerRoster(lang) {
   const jumabaevRole = 'Founder & CEO, LUWO · Ex-Google · Ex-JetBrains · Ex-Deutsche Bank · Founder, Growthhungry · TEDx Speaker';
   const extra = {
     ru: [
+      { name: 'Айжан Алишерова', role: 'Основатель фонда поддержки стартапов «We Fund»', photo: '/assets/speaker-alisherova.jpg', focus: 'center 16%' },
       { name: 'Бекназаров Жакшылык Бекназарович', role: 'Председатель молодежного движения Кыргызстана, Отличник молодежной политики Кыргызской Республики', photo: '/assets/speaker-beknazarov.jpg', focus: 'center 30%' },
       { name: 'Эрхан Адаев', role: 'Co-founder & CEO, AI Academy', photo: '/assets/speaker-adaev.jpg', focus: 'center 32%' },
       { name: 'Таалай Джумабаев', role: jumabaevRole, photo: '/assets/speaker-jumabaev.jpg', focus: 'center 18%' },
@@ -47,9 +48,11 @@ function speakerRoster(lang) {
       { name: 'Аденов Нурсултан Нурланович', role: 'Руководитель Международного секретариата Всемирных игр кочевников', photo: '/assets/speaker-adenov-nursultan.jpg', focus: 'center center' },
       { name: 'Чолпонбек Жумашукуров', role: 'MBA Harvard Business School, выпускник АУЦА, сооснователь Highland Capital Partners и ProKG', photo: '/assets/speaker-zhumashukurov.jpg', focus: 'center center' },
       { name: 'Азрет Кенжалиев', role: 'Сооснователь и CTO VisaKG; ex-Google DeepMind', photo: '/assets/speaker-kenzhaliev.jpg', focus: 'center center' },
-      { name: 'Гулназа Халманбетова', role: 'Founder & CEO, Mama Space', photo: '/assets/speaker-khalmanbetova.jpg', focus: 'center center' }
+      { name: 'Гулназа Халманбетова', role: 'Founder & CEO, Mama Space', photo: '/assets/speaker-khalmanbetova.jpg', focus: 'center center' },
+      { name: 'Такиров Урмат Канатбекович', role: 'Директор Центра «Кыргыз Экспорт» при Министерстве экономики и коммерции Кыргызской Республики', photo: '/assets/speaker-takirov.jpg', focus: 'center 20%' }
     ],
     ky: [
+      { name: 'Айжан Алишерова', role: '«We Fund» стартаптарды колдоо фондунун негиздөөчүсү', photo: '/assets/speaker-alisherova.jpg', focus: 'center 16%' },
       { name: 'Бекназаров Жакшылык Бекназарович', role: 'Кыргызстандын жаштар кыймылынын төрагасы, Кыргыз Республикасынын жаштар саясатынын отличниги', photo: '/assets/speaker-beknazarov.jpg', focus: 'center 30%' },
       { name: 'Эрхан Адаев', role: 'AI Academy негиздөөчүсү жана башкы директору', photo: '/assets/speaker-adaev.jpg', focus: 'center 32%' },
       { name: 'Таалай Джумабаев', role: jumabaevRole, photo: '/assets/speaker-jumabaev.jpg', focus: 'center 18%' },
@@ -70,9 +73,11 @@ function speakerRoster(lang) {
       { name: 'Аденов Нурсултан Нурланович', role: 'Дүйнөлүк көчмөндөр оюндарынын Эл аралык катчылыгынын жетекчиси', photo: '/assets/speaker-adenov-nursultan.jpg', focus: 'center center' },
       { name: 'Чолпонбек Жумашукуров', role: 'Harvard Business School MBA, БААУ бүтүрүүчүсү, Highland Capital Partners жана ProKG тең негиздөөчүсү', photo: '/assets/speaker-zhumashukurov.jpg', focus: 'center center' },
       { name: 'Азрет Кенжалиев', role: 'VisaKG тең негиздөөчүсү жана CTOсу; ex-Google DeepMind', photo: '/assets/speaker-kenzhaliev.jpg', focus: 'center center' },
-      { name: 'Гулназа Халманбетова', role: 'Mama Space негиздөөчүсү жана башкы директору (Founder & CEO)', photo: '/assets/speaker-khalmanbetova.jpg', focus: 'center center' }
+      { name: 'Гулназа Халманбетова', role: 'Mama Space негиздөөчүсү жана башкы директору (Founder & CEO)', photo: '/assets/speaker-khalmanbetova.jpg', focus: 'center center' },
+      { name: 'Такиров Урмат Канатбекович', role: 'Кыргыз Республикасынын Экономика жана коммерция министрлигине караштуу «Кыргыз Экспорт» борборунун директору', photo: '/assets/speaker-takirov.jpg', focus: 'center 20%' }
     ],
     en: [
+      { name: 'Aizhan Alisherova', role: 'Founder of the startup support fund We Fund', photo: '/assets/speaker-alisherova.jpg', focus: 'center 16%' },
       { name: 'Zhakshylyk Beknazarovich Beknazarov', role: 'Chairman of the Youth Movement of Kyrgyzstan, Excellence in Youth Policy of the Kyrgyz Republic', photo: '/assets/speaker-beknazarov.jpg', focus: 'center 30%' },
       { name: 'Erkhan Adaev', role: 'Co-founder & CEO, AI Academy', photo: '/assets/speaker-adaev.jpg', focus: 'center 32%' },
       { name: 'Taalay Dzhumabaev', role: jumabaevRole, photo: '/assets/speaker-jumabaev.jpg', focus: 'center 18%' },
@@ -93,7 +98,8 @@ function speakerRoster(lang) {
       { name: 'Nursultan Nurlanovich Adenov', role: 'Head of the International Secretariat of the World Nomad Games', photo: '/assets/speaker-adenov-nursultan.jpg', focus: 'center center' },
       { name: 'Cholponbek Zhumashukurov', role: 'MBA Harvard Business School, AUCA alumnus, Co-founder of Highland Capital Partners and ProKG', photo: '/assets/speaker-zhumashukurov.jpg', focus: 'center center' },
       { name: 'Azret Kenzhaliev', role: 'Co-founder & CTO of VisaKG; ex-Google DeepMind', photo: '/assets/speaker-kenzhaliev.jpg', focus: 'center center' },
-      { name: 'Gulnaza Khalmanbetova', role: 'Founder & CEO, Mama Space', photo: '/assets/speaker-khalmanbetova.jpg', focus: 'center center' }
+      { name: 'Gulnaza Khalmanbetova', role: 'Founder & CEO, Mama Space', photo: '/assets/speaker-khalmanbetova.jpg', focus: 'center center' },
+      { name: 'Urmat Kanatbekovich Takirov', role: 'Director of "Kyrgyz Export" Center under the Ministry of Economy and Commerce of the Kyrgyz Republic', photo: '/assets/speaker-takirov.jpg', focus: 'center 20%' }
     ]
   };
   const people = {
@@ -102,10 +108,10 @@ function speakerRoster(lang) {
       { name: 'Исаматова Гульзат Тыныбековна', role: 'Министр науки, высшего образования и инноваций Кыргызской Республики', photo: '/assets/speaker-isamatova.jpg', focus: '30% 20%' },
       { name: 'Орунтаев Нурдан Кемелович', role: 'Министр строительства, архитектуры и жилищно-коммунального хозяйства Кыргызской Республики', photo: '/assets/speaker-oruntaev.jpg', focus: 'center 18%' },
       { name: 'Рысбеков Алтынбек Дурусбекович', role: 'Министр энергетики Кыргызской Республики', photo: '/assets/speaker-rysbekov.jpg', focus: 'center center' },
+      { name: 'Кубатов Эдуард', role: 'Директор Государственного агентства по развитию туризма при Кабинете министров Кыргызской Республики, Президент Федерации альпинизма', photo: '/assets/speaker-kubatov.jpg', focus: 'center 15%' },
       { name: 'Эльвира Сурабалдиева', role: 'Депутат Жогорку Кенеша Кыргызской Республики', photo: '/assets/speaker-surabaldieva.jpg', focus: 'center center' },
       { name: 'Эсеналиева Назира Солтонбековна', role: 'Ректор Международного университета «Ала-Тоо», кандидат экономических наук', photo: '/assets/speaker-esenalieva.jpg', focus: 'center center' },
       { name: 'Динара Русланкызы', role: 'Основатель и директор ИТ-компании CODIFY', photo: '/assets/speaker-dinara.jpg', focus: 'center 30%' },
-      { name: 'Айжан Алишерова', role: 'Основатель фонда поддержки стартапов «We Fund»', photo: '/assets/speaker-alisherova.jpg', focus: 'center 16%' },
       ...extra.ru
     ],
     ky: [
@@ -113,10 +119,10 @@ function speakerRoster(lang) {
       { name: 'Исаматова Гульзат Тыныбековна', role: 'Кыргыз Республикасынын илим, жогорку билим берүү жана инновациялар министри', photo: '/assets/speaker-isamatova.jpg', focus: '30% 20%' },
       { name: 'Орунтаев Нурдан Кемелович', role: 'Кыргыз Республикасынын курулуш, архитектура жана турак жай-коммуналдык чарба министри', photo: '/assets/speaker-oruntaev.jpg', focus: 'center 18%' },
       { name: 'Рысбеков Алтынбек Дурусбекович', role: 'Кыргыз Республикасынын энергетика министри', photo: '/assets/speaker-rysbekov.jpg', focus: 'center center' },
+      { name: 'Кубатов Эдуард', role: 'Кыргыз Республикасынын Министрлер Кабинетине караштуу Туризмди өнүктүрүү боюнча мамлекеттик агенттиктин директору, Альпинизм федерациясынын президенти', photo: '/assets/speaker-kubatov.jpg', focus: 'center 15%' },
       { name: 'Эльвира Сурабалдиева', role: 'Кыргыз Республикасынын Жогорку Кеңешинин депутаты', photo: '/assets/speaker-surabaldieva.jpg', focus: 'center center' },
       { name: 'Эсеналиева Назира Солтонбековна', role: '«Ала-Тоо» Эл аралык университетинин ректору, экономика илимдеринин кандидаты', photo: '/assets/speaker-esenalieva.jpg', focus: 'center center' },
       { name: 'Динара Русланкызы', role: 'CODIFY ИТ-компаниясынын негиздөөчүсү жана директору', photo: '/assets/speaker-dinara.jpg', focus: 'center 30%' },
-      { name: 'Айжан Алишерова', role: '«We Fund» стартаптарды колдоо фондунун негиздөөчүсү', photo: '/assets/speaker-alisherova.jpg', focus: 'center 16%' },
       ...extra.ky
     ],
     en: [
@@ -124,10 +130,10 @@ function speakerRoster(lang) {
       { name: 'Gulzat Tynybekovna Isamatova', role: 'Minister of Science, Higher Education and Innovation of the Kyrgyz Republic', photo: '/assets/speaker-isamatova.jpg', focus: '30% 20%' },
       { name: 'Nurdan Kemelovich Oruntaev', role: 'Minister of Construction, Architecture and Housing and Communal Services of the Kyrgyz Republic', photo: '/assets/speaker-oruntaev.jpg', focus: 'center 18%' },
       { name: 'Altynbek Durusbekovich Rysbekov', role: 'Minister of Energy of the Kyrgyz Republic', photo: '/assets/speaker-rysbekov.jpg', focus: 'center center' },
+      { name: 'Eduard Kubatov', role: 'Director of the State Agency for Tourism Development under the Cabinet of Ministers of the Kyrgyz Republic, President of the Mountaineering Federation', photo: '/assets/speaker-kubatov.jpg', focus: 'center 15%' },
       { name: 'Elvira Surabaldieva', role: 'Member of the Jogorku Kenesh of the Kyrgyz Republic', photo: '/assets/speaker-surabaldieva.jpg', focus: 'center center' },
       { name: 'Nazira Soltonbekovna Esenalieva', role: 'Rector of Ala-Too International University, PhD in Economics', photo: '/assets/speaker-esenalieva.jpg', focus: 'center center' },
       { name: 'Dinara Ruslankyzy', role: 'Founder and Director of the IT company CODIFY', photo: '/assets/speaker-dinara.jpg', focus: 'center 30%' },
-      { name: 'Aizhan Alisherova', role: 'Founder of the startup support fund We Fund', photo: '/assets/speaker-alisherova.jpg', focus: 'center 16%' },
       ...extra.en
     ]
   }[lang];
@@ -503,6 +509,7 @@ for (const lang of languages) {
         [data-framer-name="Speakers 1"] img[src*="speaker-esenalieva"] { object-position: center center !important; }
         [data-framer-name="Speakers 1"] img[src*="speaker-dinara"] { object-position: center 28% !important; }
         [data-framer-name="Speakers 1"] img[src*="speaker-alisherova"] { object-position: center 16% !important; }
+        [data-framer-name="Speakers 1"] img[src*="speaker-kubatov"] { object-position: center 15% !important; }
         [data-framer-name="Speakers 1"] img[src*="speaker-beknazarov"],
         .muun-extra-photo img[src*="speaker-beknazarov"] { object-position: center 30% !important; transform: scale(1.72) !important; transform-origin: center 34% !important; }
         [data-framer-name="Speakers 1"] img[src*="speaker-adaev"],
@@ -533,7 +540,10 @@ for (const lang of languages) {
         .muun-extra-photo img[src*="speaker-zhumashukurov"],
         .muun-extra-photo img[src*="speaker-rysbekov"],
         .muun-extra-photo img[src*="speaker-kenzhaliev"],
-        .muun-extra-photo img[src*="speaker-khalmanbetova"] { object-position: center center !important; }
+        .muun-extra-photo img[src*="speaker-khalmanbetova"],
+        .muun-extra-photo img[src*="speaker-takirov"] { object-position: center 20% !important; }
+        .muun-extra-photo img[src*="speaker-kubatov"] { object-position: center 15% !important; }
+        .muun-extra-photo img[src*="speaker-alisherova"] { object-position: center 16% !important; }
         [data-framer-name="Speakers 1"] img[src*="speaker-placeholder"] { object-position: center center !important; }
         [data-framer-name="Speakers 1"] {
           flex-direction: column !important;
