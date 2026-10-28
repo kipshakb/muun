@@ -24,14 +24,20 @@ const extra = {
     topicsLbl: 'Ключевые треки',
     formKicker: 'Официальная регистрация прессы',
     s1: 'Информация о СМИ',
-    s2: 'Контактные данные и допуск службы безопасности',
-    s3: 'Формат работы и даты присутствия',
+    s2: 'Контактные данные',
+    s3: 'Формат работы',
+    repPrimary: 'Ответственное лицо СМИ (основной контакт)',
+    addMemberBtn: '+ Добавить сотрудника',
+    memberTitle: 'Сотрудник',
+    removeMemberBtn: 'Удалить',
     phMedia: 'Телеканал, агентство, издание, блог...',
-    phRole: 'Корреспондент, оператор, продюсер...',
+    phRole: 'Корреспондент, редактор, продюсер...',
+    phName: 'ФИО сотрудника',
+    phMemberRole: 'Оператор, техник, звукорежиссер...',
     phPin: '14 цифр ПИН / ИНН',
     phPressId: 'Номер удостоверения прессы',
     phEquip: 'Камеры, микрофоны, штативы...',
-    phComment: 'Специальные запросы на синхроны, спикеров или подключение ПТС...',
+    phComment: 'Вопросы, пожелания, требования к подключению или спикерам...',
     g1: 'Главная сцена',
     g2: 'Конгресс-холл «Ырыс Ордо»',
     g3: 'Панельные сессии',
@@ -49,14 +55,20 @@ const extra = {
     topicsLbl: 'Негизги багыттар',
     formKicker: 'Расмий пресс-каттоо',
     s1: 'ЖМК тууралуу маалымат',
-    s2: 'Байланыш маалыматтары жана коопсуздук кызматынын уруксаты',
-    s3: 'Иштөө форматы жана катышуу күндөрү',
+    s2: 'Байланыш маалыматтары',
+    s3: 'Иштөө форматы',
+    repPrimary: 'ЖМКнын жооптуу адамы (негизги байланыш)',
+    addMemberBtn: '+ Кызматкерди кошуу',
+    memberTitle: 'Кызматкер',
+    removeMemberBtn: 'Өчүрүү',
     phMedia: 'Телеканал, агентство, басылма, блог...',
-    phRole: 'Кабарчы, оператор, продюсер...',
+    phRole: 'Кабарчы, редактор, продюсер...',
+    phName: 'Кызматкердин аты-жөнү',
+    phMemberRole: 'Оператор, техник, үн режиссеру...',
     phPin: '14 орундуу ПИН / ИНН',
     phPressId: 'Пресс-күбөлүктүн номери',
     phEquip: 'Камералар, микрофондор, штативдер...',
-    phComment: 'Синхрон, спикерлер же ПТС туташтыруу боюнча атайын суроо-талаптар...',
+    phComment: 'Суроолор, каалоолор, туташуу же спикерлер боюнча суроо-талаптар...',
     g1: 'Башкы сахна',
     g2: '«Ырыс Ордо» конгресс-холлу',
     g3: 'Панелдик сессиялар',
@@ -74,14 +86,20 @@ const extra = {
     topicsLbl: 'Key tracks',
     formKicker: 'Official press registration',
     s1: 'Media information',
-    s2: 'Contact details and security clearance',
-    s3: 'Work format and attendance dates',
+    s2: 'Contact details',
+    s3: 'Work format',
+    repPrimary: 'Primary media representative (main contact)',
+    addMemberBtn: '+ Add employee',
+    memberTitle: 'Employee',
+    removeMemberBtn: 'Remove',
     phMedia: 'TV channel, agency, publication, blog...',
-    phRole: 'Correspondent, camera operator, producer...',
+    phRole: 'Correspondent, editor, producer...',
+    phName: 'Full name',
+    phMemberRole: 'Camera operator, technician, sound engineer...',
     phPin: '14-digit PIN / TIN',
     phPressId: 'Press ID number',
     phEquip: 'Cameras, microphones, tripods...',
-    phComment: 'Special requests for interviews, speakers, or OB van access...',
+    phComment: 'Questions, requests, OB van connection or speaker requests...',
     g1: 'Main stage',
     g2: 'Yrys Ordo Congress Hall',
     g3: 'Panel sessions',
@@ -348,6 +366,109 @@ export const pressCss = `
     grid-template-columns: 1fr 1fr;
     gap: 14px;
   }
+  .muun-press-req {
+    color: #f87171 !important;
+    font-weight: 700 !important;
+    margin-left: 2px !important;
+  }
+  .muun-press-subhead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 4px 0 14px;
+    padding: 7px 12px;
+    background: rgba(41, 170, 225, 0.08);
+    border: 1px solid rgba(41, 170, 225, 0.22);
+    border-radius: 9px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #8ed8ff;
+  }
+  .muun-press-members-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 14px;
+  }
+  .muun-press-member-card {
+    background: rgba(14, 26, 50, 0.65) !important;
+    border: 1px solid rgba(56, 189, 248, 0.24) !important;
+    border-radius: 14px !important;
+    padding: 16px 16px 4px !important;
+    position: relative !important;
+    animation: muunMemberIn 0.2s ease-out;
+  }
+  @keyframes muunMemberIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .muun-press-member-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .muun-press-member-title {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #e2e8f0;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .muun-press-member-num {
+    background: rgba(41, 170, 225, 0.2);
+    border: 1px solid rgba(41, 170, 225, 0.35);
+    color: #8ed8ff;
+    padding: 2px 8px;
+    border-radius: 100px;
+    font-size: 11.5px;
+    font-weight: 700;
+  }
+  .muun-press-member-remove {
+    background: transparent !important;
+    border: 1px solid rgba(239, 68, 68, 0.35) !important;
+    color: #fca5a5 !important;
+    border-radius: 8px !important;
+    padding: 4px 10px !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.2s !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+  }
+  .muun-press-member-remove:hover {
+    background: rgba(239, 68, 68, 0.16) !important;
+    border-color: #ef4444 !important;
+    color: #fff !important;
+  }
+  .muun-press-add-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    margin-top: 14px !important;
+    width: 100% !important;
+    padding: 12px 18px !important;
+    border: 1px dashed rgba(56, 189, 248, 0.45) !important;
+    background: rgba(56, 189, 248, 0.06) !important;
+    color: #38bdf8 !important;
+    border-radius: 12px !important;
+    font-size: 13.5px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+  }
+  .muun-press-add-btn:hover {
+    background: rgba(56, 189, 248, 0.14) !important;
+    border-color: #38bdf8 !important;
+    color: #fff !important;
+    transform: translateY(-1px);
+  }
   .muun-press-pills { display: flex; flex-wrap: wrap; gap: 8px; }
   .muun-press-pill {
     display: inline-flex !important;
@@ -516,14 +637,6 @@ export function renderPressBlock(lang) {
   const formatPills = formats.map(([value, key, checked]) =>
     `<label class="muun-press-pill"><input type="checkbox" name="format" value="${value}"${checked ? ' checked' : ''} /> <span>${esc(t(lang, key))}</span></label>`
   ).join('');
-  const sizePills = ['1', '2', '3', '4+'].map((value, i) =>
-    `<label class="muun-press-pill"><input type="radio" name="team_size" value="${value}"${i === 0 ? ' checked' : ''} /> <span>${value}</span></label>`
-  ).join('');
-  const datePills = [
-    ['nov17', 'press.f_date_nov17', true]
-  ].map(([value, key, checked]) =>
-    `<label class="muun-press-pill"><input type="radio" name="dates" value="${value}"${checked ? ' checked' : ''} /> <span>${esc(t(lang, key))}</span></label>`
-  ).join('');
 
   return `
     <div class="muun-press">
@@ -536,48 +649,51 @@ export function renderPressBlock(lang) {
               <div class="muun-press-step">
                 <h4><span class="muun-press-num">1</span> ${esc(x.s1)}</h4>
                 <div class="muun-press-field">
-                  <label for="press-media-name">${esc(t(lang, 'press.f_media_name'))}</label>
+                  <label for="press-media-name">${esc(t(lang, 'press.f_media_name'))} <span class="muun-press-req">*</span></label>
                   <input class="muun-press-input" id="press-media-name" type="text" name="media_name" required placeholder="${esc(x.phMedia)}" />
                 </div>
                 <div class="muun-press-field">
-                  <span class="muun-press-label">${esc(t(lang, 'press.f_media_type'))}</span>
+                  <span class="muun-press-label">${esc(t(lang, 'press.f_media_type'))} <span class="muun-press-req">*</span></span>
                   <div class="muun-press-pills">${typePills}</div>
                 </div>
                 <div class="muun-press-field">
                   <label for="press-media-url">${esc(t(lang, 'press.f_media_url'))}</label>
-                  <input class="muun-press-input" id="press-media-url" type="url" name="media_url" required placeholder="https://" />
+                  <input class="muun-press-input" id="press-media-url" type="url" name="media_url" placeholder="https://" />
                 </div>
               </div>
 
               <div class="muun-press-step">
                 <h4><span class="muun-press-num">2</span> ${esc(x.s2)}</h4>
+                <div class="muun-press-subhead">
+                  <span>👤 ${esc(x.repPrimary)}</span>
+                </div>
                 <div class="muun-press-row">
                   <div class="muun-press-field">
-                    <label for="press-name">${esc(t(lang, 'press.f_name'))}</label>
+                    <label for="press-name">${esc(t(lang, 'press.f_name'))} <span class="muun-press-req">*</span></label>
                     <input class="muun-press-input" id="press-name" type="text" name="rep_name" required />
                   </div>
                   <div class="muun-press-field">
-                    <label for="press-role">${esc(t(lang, 'press.f_role'))}</label>
+                    <label for="press-role">${esc(t(lang, 'press.f_role'))} <span class="muun-press-req">*</span></label>
                     <input class="muun-press-input" id="press-role" type="text" name="rep_role" required placeholder="${esc(x.phRole)}" />
                   </div>
                 </div>
                 <div class="muun-press-row">
                   <div class="muun-press-field">
-                    <label for="press-phone">${esc(t(lang, 'press.f_phone'))}</label>
+                    <label for="press-phone">${esc(t(lang, 'press.f_phone'))} <span class="muun-press-req">*</span></label>
                     <input class="muun-press-input" id="press-phone" type="tel" name="phone" required placeholder="+996 " />
                   </div>
                   <div class="muun-press-field">
-                    <label for="press-email">${esc(t(lang, 'press.f_email'))}</label>
+                    <label for="press-email">${esc(t(lang, 'press.f_email'))} <span class="muun-press-req">*</span></label>
                     <input class="muun-press-input" id="press-email" type="email" name="email" required />
                   </div>
                 </div>
                 <div class="muun-press-row">
                   <div class="muun-press-field">
-                    <label for="press-pin">${esc(t(lang, 'press.f_pin'))}</label>
+                    <label for="press-pin">${esc(t(lang, 'press.f_pin'))} <span class="muun-press-req">*</span></label>
                     <input class="muun-press-input" id="press-pin" type="text" name="pin" required placeholder="${esc(x.phPin)}" />
                   </div>
                   <div class="muun-press-field">
-                    <label for="press-id">${esc(t(lang, 'press.f_press_id'))}</label>
+                    <label for="press-id">${esc(t(lang, 'press.f_press_id'))} <span class="muun-press-req">*</span></label>
                     <input class="muun-press-input" id="press-id" type="text" name="press_id" required placeholder="${esc(x.phPressId)}" />
                   </div>
                 </div>
@@ -585,6 +701,9 @@ export function renderPressBlock(lang) {
                   <label for="press-equipment">${esc(t(lang, 'press.f_equipment'))}</label>
                   <input class="muun-press-input" id="press-equipment" type="text" name="equipment" placeholder="${esc(x.phEquip)}" />
                 </div>
+
+                <div class="muun-press-members-list" data-press-members-container></div>
+                <button type="button" class="muun-press-add-btn" data-press-add-member>${esc(x.addMemberBtn)}</button>
               </div>
 
               <div class="muun-press-step">
@@ -592,16 +711,6 @@ export function renderPressBlock(lang) {
                 <div class="muun-press-field">
                   <span class="muun-press-label">${esc(t(lang, 'press.f_formats_title'))}</span>
                   <div class="muun-press-pills">${formatPills}</div>
-                </div>
-                <div class="muun-press-row">
-                  <div class="muun-press-field">
-                    <span class="muun-press-label">${esc(t(lang, 'press.f_team_size_title'))}</span>
-                    <div class="muun-press-pills">${sizePills}</div>
-                  </div>
-                  <div class="muun-press-field">
-                    <span class="muun-press-label">${esc(t(lang, 'press.f_dates_title'))}</span>
-                    <div class="muun-press-pills">${datePills}</div>
-                  </div>
                 </div>
                 <div class="muun-press-field">
                   <label for="press-comment">${esc(t(lang, 'press.f_comment'))}</label>
@@ -628,6 +737,108 @@ export const pressClientJs = `
       root.dataset.pressBound = '1';
       const form = root.querySelector('.muun-press-form');
       if (!form) return;
+
+      var lang = (location.pathname.split('/').filter(Boolean)[0] || 'ru');
+      if (lang !== 'ru' && lang !== 'ky' && lang !== 'en') lang = 'ru';
+
+      const i18nTexts = {
+        ru: {
+          memberTitle: 'Сотрудник',
+          removeBtn: 'Удалить',
+          nameLbl: 'ФИО',
+          roleLbl: 'Должность',
+          pinLbl: 'ПИН (персональный идентификационный номер)',
+          equipLbl: 'Оборудование',
+          phName: 'ФИО сотрудника',
+          phRole: 'Оператор, техник, звукорежиссер...',
+          phPin: '14 цифр ПИН / ИНН',
+          phEquip: 'Камеры, микрофоны, штативы...'
+        },
+        ky: {
+          memberTitle: 'Кызматкер',
+          removeBtn: 'Өчүрүү',
+          nameLbl: 'Аты-жөнү',
+          roleLbl: 'Кызматы',
+          pinLbl: 'ПИН (жеке идентификациялык номер)',
+          equipLbl: 'Жабдуулар',
+          phName: 'Кызматкердин аты-жөнү',
+          phRole: 'Оператор, техник, үн режиссеру...',
+          phPin: '14 орундуу ПИН / ИНН',
+          phEquip: 'Камералар, микрофондор, штативдер...'
+        },
+        en: {
+          memberTitle: 'Employee',
+          removeBtn: 'Remove',
+          nameLbl: 'Full name',
+          roleLbl: 'Role / Position',
+          pinLbl: 'PIN / TIN',
+          equipLbl: 'Equipment',
+          phName: 'Full name',
+          phRole: 'Camera operator, technician, sound engineer...',
+          phPin: '14-digit PIN / TIN',
+          phEquip: 'Cameras, microphones, tripods...'
+        }
+      };
+
+      const L = i18nTexts[lang] || i18nTexts.ru;
+      const membersContainer = form.querySelector('[data-press-members-container]');
+      const addBtn = form.querySelector('[data-press-add-member]');
+
+      function reindexMembers() {
+        if (!membersContainer) return;
+        const cards = membersContainer.querySelectorAll('.muun-press-member-card');
+        cards.forEach(function (card, idx) {
+          const numSpan = card.querySelector('.muun-press-member-num');
+          if (numSpan) numSpan.textContent = '#' + (idx + 2);
+        });
+      }
+
+      if (addBtn && membersContainer) {
+        addBtn.addEventListener('click', function () {
+          const count = membersContainer.querySelectorAll('.muun-press-member-card').length;
+          const nextIndex = count + 2;
+          const card = document.createElement('div');
+          card.className = 'muun-press-member-card';
+          card.innerHTML = [
+            '<div class="muun-press-member-header">',
+            '  <span class="muun-press-member-title">',
+            '    <span class="muun-press-member-num">#' + nextIndex + '</span> ' + L.memberTitle,
+            '  </span>',
+            '  <button type="button" class="muun-press-member-remove" data-remove-member>✕ ' + L.removeBtn + '</button>',
+            '</div>',
+            '<div class="muun-press-row">',
+            '  <div class="muun-press-field">',
+            '    <label>' + L.nameLbl + ' <span class="muun-press-req">*</span></label>',
+            '    <input class="muun-press-input" type="text" name="member_name" required placeholder="' + L.phName + '" />',
+            '  </div>',
+            '  <div class="muun-press-field">',
+            '    <label>' + L.roleLbl + ' <span class="muun-press-req">*</span></label>',
+            '    <input class="muun-press-input" type="text" name="member_role" required placeholder="' + L.phRole + '" />',
+            '  </div>',
+            '</div>',
+            '<div class="muun-press-row">',
+            '  <div class="muun-press-field">',
+            '    <label>' + L.pinLbl + ' <span class="muun-press-req">*</span></label>',
+            '    <input class="muun-press-input" type="text" name="member_pin" required placeholder="' + L.phPin + '" />',
+            '  </div>',
+            '  <div class="muun-press-field">',
+            '    <label>' + L.equipLbl + '</label>',
+            '    <input class="muun-press-input" type="text" name="member_equipment" placeholder="' + L.phEquip + '" />',
+            '  </div>',
+            '</div>'
+          ].join('');
+
+          card.querySelector('[data-remove-member]').addEventListener('click', function () {
+            card.remove();
+            reindexMembers();
+          });
+
+          membersContainer.appendChild(card);
+          const firstInp = card.querySelector('input');
+          if (firstInp) firstInp.focus();
+        });
+      }
+
       form.addEventListener('submit', function (event) {
         event.preventDefault();
         const btn = form.querySelector('[data-press-submit]');
@@ -642,10 +853,54 @@ export const pressClientJs = `
         formData.delete('format');
         if (formats.length) formData.append('format', formats.join(', '));
         formData.set('form', 'press');
-        var lang = (location.pathname.split('/').filter(Boolean)[0] || 'ru');
-        if (lang !== 'ru' && lang !== 'ky' && lang !== 'en') lang = 'ru';
         formData.set('lang', lang);
         formData.set('submittedAt', new Date().toISOString());
+
+        // Gather additional members
+        const memberCards = membersContainer ? membersContainer.querySelectorAll('.muun-press-member-card') : [];
+        const extraList = [];
+        memberCards.forEach(function (c, i) {
+          const mName = (c.querySelector('[name="member_name"]')?.value || '').trim();
+          const mRole = (c.querySelector('[name="member_role"]')?.value || '').trim();
+          const mPin = (c.querySelector('[name="member_pin"]')?.value || '').trim();
+          const mEquip = (c.querySelector('[name="member_equipment"]')?.value || '').trim();
+          if (mName || mRole || mPin || mEquip) {
+            extraList.push({
+              index: i + 2,
+              name: mName,
+              role: mRole,
+              pin: mPin,
+              equipment: mEquip
+            });
+          }
+        });
+
+        // Clean up raw array fields from formData
+        formData.delete('member_name');
+        formData.delete('member_role');
+        formData.delete('member_pin');
+        formData.delete('member_equipment');
+
+        const totalTeamSize = 1 + extraList.length;
+        formData.set('team_size', String(totalTeamSize));
+
+        if (extraList.length > 0) {
+          const membersSummary = extraList.map(function (m, idx) {
+            let row = (idx + 1) + '. ' + (m.name || '—') + (m.role ? ' (' + m.role + ')' : '');
+            if (m.pin) row += ', ПИН: ' + m.pin;
+            if (m.equipment) row += ', Оборудование: ' + m.equipment;
+            return row;
+          }).join('\\n');
+          formData.set('additional_members', membersSummary);
+
+          // For backwards compatibility with older Apps Script:
+          const userComment = (form.querySelector('[name="comment"]')?.value || '').trim();
+          const combinedComment = userComment
+            ? userComment + '\\n\\n[Доп. участники (' + extraList.length + ')]:\\n' + membersSummary
+            : '[Доп. участники (' + extraList.length + ')]:\\n' + membersSummary;
+          formData.set('comment', combinedComment);
+        }
+
         var endpoint = '${PRESS_ENDPOINT}';
         if (!endpoint) {
           if (btn) {

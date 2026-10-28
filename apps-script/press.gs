@@ -1,30 +1,10 @@
-/**
- * MUUN 2026 — только «Аккредитация СМИ».
- *
- * Это отдельная таблица. В файлы участников и бесплатной регистрации
- * эти заявки не попадают.
- *
- * Как подключить:
- * 1. Создайте пустую Google-таблицу «MUUN 2026 — Аккредитация СМИ».
- * 2. Расширения → Apps Script. Удалите шаблон и вставьте этот файл.
- * 3. Токен бота и id чата уже стоят в начале файла, те же, что у участников.
- * 4. Развернуть → Новое развёртывание → Тип: Веб-приложение.
- *    Запускать от моего имени, доступ: Все.
- * 5. Скопируйте URL, который заканчивается на /exec, и пришлите его —
- *    его нужно поставить на сайт.
- *
- * Заявки пишутся в текущий лист этой таблицы.
- * Если лист пустой или стёрта строка заголовков, шапка создаётся заново.
- * В тот же Telegram-чат приходит сообщение «Аккредитация СМИ».
- */
-
 var TELEGRAM_BOT_TOKEN = '8738039810:AAH7rJYPLpTJeRvmJO0AzLjwp_p6GGkb878';
 var TELEGRAM_CHAT_ID = '-5249036131';
 
 var HEADERS = [
   'Дата', 'Название СМИ', 'Тип медиа', 'Ссылка', 'ФИО', 'Должность',
   'Телефон', 'Email', 'ПИН', 'Пресс-удостоверение', 'Оборудование',
-  'Формат работы', 'Размер команды', 'Даты', 'Комментарий', 'Язык'
+  'Дополнительные сотрудники', 'Формат работы', 'Комментарии', 'Язык'
 ];
 
 var MEDIA_TYPES = {
@@ -47,13 +27,6 @@ var FORMATS = {
   other: 'Другое'
 };
 
-var DATES = {
-  nov17: '28 ноября',
-  nov28: '28 ноября',
-  nov18: '18 ноября',
-  both: 'Оба дня'
-};
-
 function doPost(e) {
   var p = (e && e.parameter) || {};
   var lock = LockService.getScriptLock();
@@ -74,29 +47,40 @@ function doPost(e) {
       'ПИН': p.pin || '',
       'Пресс-удостоверение': p.press_id || '',
       'Оборудование': p.equipment || '',
+      'Дополнительные сотрудники': p.additional_members || '',
+      'Дополнительные участники': p.additional_members || '',
       'Формат работы': translateList(p.format, FORMATS),
-      'Размер команды': p.team_size || '',
-      'Даты': labelOf(DATES, p.dates),
+      'Комментарии': p.comment || '',
       'Комментарий': p.comment || '',
       'Язык': p.lang || ''
     };
     appendMapped(sheet, data);
-    notifyTelegram(sheet, [
+
+    var tgLines = [
       '🆕 Аккредитация СМИ',
       '',
+      'Дата: ' + data['Дата'],
       'СМИ: ' + data['Название СМИ'] + (data['Тип медиа'] ? ' (' + data['Тип медиа'] + ')' : ''),
       'Ссылка: ' + dash(data['Ссылка']),
-      'Журналист: ' + data['ФИО'] + (data['Должность'] ? ', ' + data['Должность'] : ''),
+      'Ответственный: ' + data['ФИО'] + (data['Должность'] ? ', ' + data['Должность'] : ''),
       'Телефон: ' + data['Телефон'],
       'Email: ' + data['Email'],
       'ПИН: ' + dash(data['ПИН']),
       'Удостоверение: ' + dash(data['Пресс-удостоверение']),
-      'Оборудование: ' + dash(data['Оборудование']),
-      'Формат: ' + dash(data['Формат работы']),
-      'Команда: ' + dash(data['Размер команды']),
-      'Даты: ' + dash(data['Даты']),
-      'Комментарий: ' + dash(data['Комментарий'])
-    ].join('\n'));
+      'Оборудование: ' + dash(data['Оборудование'])
+    ];
+    if (data['Дополнительные сотрудники']) {
+      tgLines.push('Доп. сотрудники:\n' + data['Дополнительные сотрудники']);
+    }
+    tgLines.push('Формат: ' + dash(data['Формат работы']));
+    var commentVal = data['Комментарии'] || data['Комментарий'];
+    if (commentVal) {
+      tgLines.push('Комментарии: ' + commentVal);
+    }
+
+    if (p.skip_tg !== '1' && p.silent !== '1' && p.test !== '1') {
+      notifyTelegram(sheet, tgLines.join('\n'));
+    }
   } finally {
     lock.releaseLock();
   }
@@ -105,13 +89,21 @@ function doPost(e) {
 
 function ensureHeader(sheet, headers) {
   var marker = headers[0];
-  if (sheet.getLastRow() === 0) {
+  var lastRow = sheet.getLastRow();
+  if (lastRow === 0) {
     writeHeader(sheet, headers);
     return;
   }
   var first = String(sheet.getRange(1, 1).getDisplayValue() || '').trim();
   if (first !== marker) {
-    sheet.insertRowBefore(1);
+    var width = Math.max(sheet.getLastColumn(), headers.length);
+    var row1Values = sheet.getRange(1, 1, 1, width).getDisplayValues()[0];
+    var isRow1Empty = !row1Values.some(function (v) {
+      return String(v || '').trim() !== '';
+    });
+    if (!isRow1Empty) {
+      sheet.insertRowBefore(1);
+    }
     writeHeader(sheet, headers);
     return;
   }
@@ -141,6 +133,12 @@ function appendMapped(sheet, data) {
     return sheetValue(data[h] != null ? data[h] : '');
   });
   var target = firstEmptyRow(sheet, width);
+  if (target > sheet.getMaxRows()) {
+    sheet.insertRowsAfter(sheet.getMaxRows(), target - sheet.getMaxRows());
+  }
+  if (row.length > sheet.getMaxColumns()) {
+    sheet.insertColumnsAfter(sheet.getMaxColumns(), row.length - sheet.getMaxColumns());
+  }
   sheet.getRange(target, 1, 1, row.length).setValues([row]);
 }
 
@@ -200,5 +198,9 @@ function dash(value) {
 function sheetDate(iso) {
   var date = iso ? new Date(iso) : new Date();
   if (isNaN(date.getTime())) date = new Date();
-  return date;
+  var tz = 'Asia/Bishkek';
+  try {
+    tz = SpreadsheetApp.getActiveSpreadsheet().getSpreadsheetTimeZone() || tz;
+  } catch (err) {}
+  return Utilities.formatDate(date, tz, 'dd.MM.yyyy HH:mm:ss');
 }
