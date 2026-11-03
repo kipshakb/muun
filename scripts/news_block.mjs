@@ -278,6 +278,17 @@ export const newsCss = `
 export const NEWS_ITEMS = {
   ru: [
     {
+      id: 'forum',
+      title: 'В Бишкеке пройдет форум-выставка будущих профессий «Жаратман МУУН»',
+      desc: '28 ноября 2026 года в конгресс-холле «Ырыс Ордо» в Бишкеке состоится форум-выставка будущих профессий «Жаратман МУУН» - площадка, объединяющая образование, профессиональную ориентацию, современные технологии и карьерные возможности для молодежи.',
+      content: 'Форум станет ключевым пространством диалога между ведущими вузами, технологическими компаниями, государственными структурами и молодым поколением Кыргызстана.',
+      date: '3 ноября 2026',
+      img: '/assets/news-forum.jpg',
+      imgPosition: 'center center',
+      sourceUrl: 'https://www.facebook.com/story.php?story_fbid=122139740613204621&id=61586138653481&mibextid=wwXIfr&rdid=DMQfHQVtZvlsvayZ#',
+      sourceLabel: 'Перейти к источнику'
+    },
+    {
       id: 'run',
       title: 'Около 5 тысяч студентов приняли участие в осеннем легкоатлетическом забеге «Жаратман МУУН»',
       desc: '24 октября в Бишкеке, Оше, Баткене, Нарыне и Таласе, а также на Иссык-Куле состоялся осенний легкоатлетический забег среди студентов высших и средних профессиональных учебных заведений Кыргызстана.',
@@ -302,6 +313,17 @@ export const NEWS_ITEMS = {
   ],
   ky: [
     {
+      id: 'forum',
+      title: 'Бишкекте “Жаратман МУУН” келечектеги кесиптердин  форум-көргөзмөсү өтөт',
+      desc: '2026-жылдын 28-ноябрында Бишкек шаарындагы “Ырыс Ордо” конгресс-холлунда билим берүүнү, кесипке багыт берүүнү, заманбап технологияларды жана жаштар үчүн карьералык мүмкүнчүлүктөрдү бириктирген “Жаратман МУУН” келечектеги кесиптердин  форум-көргөзмөсү өтөт.',
+      content: 'Форум алдыңкы жогорку окуу жайларынын, технологиялык компаниялардын, мамлекеттик түзүмдөрдүн жана Кыргызстандын жаштарынын ортосундагы башкы диалог аянтчасына айланат.',
+      date: '3-ноябрь 2026',
+      img: '/assets/news-forum.jpg',
+      imgPosition: 'center center',
+      sourceUrl: 'https://www.facebook.com/story.php?story_fbid=122139740613204621&id=61586138653481&mibextid=wwXIfr&rdid=DMQfHQVtZvlsvayZ#',
+      sourceLabel: 'Булакка өтүү'
+    },
+    {
       id: 'run',
       title: '«Жаратман МУУН» күзүндөгү жеңил атлетикалык жарышка 5 миңге жакын студент катышты',
       desc: '24-октябрда Бишкек, Ош, Баткен, Нарын, Талас шаарларында жана Ысык-Көлдө Кыргызстандын жогорку жана орто кесиптик окуу жайларынын студенттери арасында күзгү жеңил атлетикалык жарыш өттү.',
@@ -325,6 +347,17 @@ export const NEWS_ITEMS = {
     }
   ],
   en: [
+    {
+      id: 'forum',
+      title: '"Zharatman MUUN" Future Professions Forum-Exhibition to Be Held in Bishkek',
+      desc: 'On November 28, 2026, the Yrys Ordo Congress Hall in Bishkek will host the "Zharatman MUUN" future professions forum-exhibition — a platform uniting education, career guidance, modern technologies, and career opportunities for youth.',
+      content: 'The forum will serve as a premier platform for dialogue between leading universities, technology companies, government agencies, and the youth of Kyrgyzstan.',
+      date: 'November 3, 2026',
+      img: '/assets/news-forum.jpg',
+      imgPosition: 'center center',
+      sourceUrl: 'https://www.facebook.com/story.php?story_fbid=122139740613204621&id=61586138653481&mibextid=wwXIfr&rdid=DMQfHQVtZvlsvayZ#',
+      sourceLabel: 'Go to source'
+    },
     {
       id: 'run',
       title: 'About 5,000 Students Took Part in the "Zharatman MUUN" Autumn Athletic Race',

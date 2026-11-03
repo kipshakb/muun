@@ -1059,6 +1059,28 @@ function getParticipantPartners(lang) {
       url: 'https://business.airun.kg/ru',
       src: '/assets/partner-airun.png',
       logoClass: 'part-logo-airun'
+    },
+    {
+      name: lang === 'ky'
+        ? '«Кыргызстан улуттук электр тармагы» ААК (КУЭТ)'
+        : lang === 'en'
+          ? 'National Electrical Grid of Kyrgyzstan (NESK)'
+          : 'ОАО «Национальная электрическая сеть Кыргызстана» (НЭСК)',
+      alt: 'ОАО «НЭСК»',
+      url: 'https://nesk.kg/ru/',
+      src: '/assets/partner-nesk.png',
+      logoClass: 'part-logo-nesk'
+    },
+    {
+      name: lang === 'ky'
+        ? '«Кыргыз энергетикалык эсептешүү борбору» ААК (КЭЭБ)'
+        : lang === 'en'
+          ? 'Kyrgyz Energy Settlement Center (KERC)'
+          : 'ОАО «Кыргызский энергетический расчетный центр» (КЭРЦ)',
+      alt: 'ОАО «КЭРЦ»',
+      url: 'https://esep.energo.kg/',
+      src: '/assets/partner-kerc.png',
+      logoClass: 'part-logo-kerc'
     }
   ];
 }
@@ -2885,6 +2907,14 @@ for (const lang of ['ru', 'ky', 'en']) {
       }
       .muun-partner-card .part-logo-airun {
         max-height: 85px !important;
+        max-width: 175px !important;
+      }
+      .muun-partner-card .part-logo-nesk {
+        max-height: 52px !important;
+        max-width: 195px !important;
+      }
+      .muun-partner-card .part-logo-kerc {
+        max-height: 75px !important;
         max-width: 175px !important;
       }
 
