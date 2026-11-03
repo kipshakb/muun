@@ -16,8 +16,21 @@ try {
 }
 
 const rawHtml = fs.readFileSync('templates/eventis_raw.html', 'utf8');
-try { fs.unlinkSync('dist/.framer-pairs.json'); } catch { /* fresh build */ }
 const i18n = JSON.parse(fs.readFileSync('src/i18n.json', 'utf8'));
+
+let liveRemainingSeats = 615;
+try {
+  const statsRes = await fetch(`${REGISTRATION_ENDPOINT}?action=stats`, { signal: AbortSignal.timeout(10000) });
+  if (statsRes.ok) {
+    const statsData = await statsRes.json();
+    if (typeof statsData.remaining === 'number') {
+      liveRemainingSeats = statsData.remaining;
+      console.log(`[build] Synced live remaining seats: ${liveRemainingSeats}`);
+    }
+  }
+} catch (e) {
+  console.warn('[build] Could not fetch live seats quota, using fallback:', e.message);
+}
 const homeTemplate = fs.readFileSync('src/template.html', 'utf8');
 const kgMapStart = homeTemplate.indexOf('<svg id="kyrgyzstan-vector-map"');
 const kgMapEnd = homeTemplate.indexOf('</svg>', kgMapStart);
@@ -543,7 +556,7 @@ function renderRegForm(lang) {
         <!-- Live Seats Remaining Counter -->
         <div class="muun-seats-pill">
           <span class="muun-seats-dot"></span>
-          <span>${S['reg.seats_remaining_prefix'] ? S['reg.seats_remaining_prefix'] + ' ' : ''}<strong id="reg-quota-remaining">600</strong> ${S['reg.seats_remaining_suffix']}</span>
+          <span>${S['reg.seats_remaining_prefix'] ? S['reg.seats_remaining_prefix'] + ' ' : ''}<strong id="reg-quota-remaining">${liveRemainingSeats}</strong> ${S['reg.seats_remaining_suffix']}</span>
         </div>
 
         <!-- Registration Form -->
@@ -4990,6 +5003,9 @@ for (const lang of ['ru', 'ky', 'en']) {
                 regCards.innerHTML = '';
                 regCards.appendChild(tpl.content.cloneNode(true));
               }
+            }
+            if (typeof window.applySeatsRemaining === 'function') {
+              window.applySeatsRemaining();
             }
           }
 

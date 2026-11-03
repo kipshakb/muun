@@ -269,24 +269,64 @@ export function getRegistrationClientJs(lang, providedStrings, customEndpoint = 
       if (formStep) formStep.style.display = 'block';
     };
 
-    // Live Registration Seats Remaining Counter
-    function initRegistrationQuota() {
-      var remainingEl = document.getElementById('reg-quota-remaining');
-      var ENDPOINT = '${endpoint}';
+    // Live Registration Seats Remaining Counter & Rehydration Guard
+    window.applySeatsRemaining = function(val) {
+      if (typeof val === 'number' || (typeof val === 'string' && String(val).trim() !== '')) {
+        window.__muun_remaining_seats = String(val);
+        try { sessionStorage.setItem('muun_remaining_seats', String(val)); } catch(e) {}
+      }
+      var current = window.__muun_remaining_seats;
+      if (!current) {
+        try { current = sessionStorage.getItem('muun_remaining_seats'); } catch(e) {}
+      }
+      if (!current) return;
 
+      // 1. Update in active DOM
+      var els = document.querySelectorAll('#reg-quota-remaining, .reg-quota-remaining');
+      els.forEach(function(el) {
+        if (el.textContent !== current) {
+          el.textContent = current;
+        }
+      });
+
+      // 2. Update inside template so any future Framer cloneNode gets the updated number
+      var tpl = document.getElementById('muun-reg-form-tpl');
+      if (tpl && tpl.content) {
+        var tplEls = tpl.content.querySelectorAll('#reg-quota-remaining, .reg-quota-remaining');
+        tplEls.forEach(function(el) {
+          if (el.textContent !== current) {
+            el.textContent = current;
+          }
+        });
+      }
+    };
+
+    function initRegistrationQuota() {
+      // 1. Immediately apply cached quota if available
+      window.applySeatsRemaining();
+
+      var ENDPOINT = '${endpoint}';
       fetch(ENDPOINT + '?action=stats', { method: 'GET', cache: 'no-store' })
         .then(function(res) {
           if (!res.ok) throw new Error('HTTP ' + res.status);
           return res.json();
         })
         .then(function(data) {
-          if (data && typeof data.remaining === 'number' && remainingEl) {
-            remainingEl.textContent = data.remaining;
+          if (data && typeof data.remaining === 'number') {
+            window.applySeatsRemaining(data.remaining);
           }
         })
         .catch(function(err) {
           console.warn('Quota sync notice:', err);
         });
+
+      // Keep seats indicator in sync during initial Framer mounting & hydration passes
+      var pollCount = 0;
+      var pollTimer = setInterval(function() {
+        pollCount++;
+        window.applySeatsRemaining();
+        if (pollCount >= 12) clearInterval(pollTimer);
+      }, 400);
     }
 
     if (document.readyState === 'loading') {

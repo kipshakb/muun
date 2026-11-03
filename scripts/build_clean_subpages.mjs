@@ -1245,6 +1245,9 @@ for (const lang of languages) {
                   }
                 }
               }
+              if (typeof window.applySeatsRemaining === 'function') {
+                window.applySeatsRemaining();
+              }
 
               // Update registration title & kicker (identical to main landing page!)
               const regH4 = regSec.querySelector('h4');
