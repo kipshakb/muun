@@ -640,6 +640,10 @@ export function renderPressBlock(lang) {
 
   return `
     <div class="muun-press">
+      <!-- =========================================================================
+           ФОРМА АККРЕДИТАЦИИ СМИ (ВРЕМЕННО СКРЫТА ПО ЗАПРОСУ)
+           Чтобы вернуть форму на сайт: просто снимите комментирование с этого блока
+           =========================================================================
       <section class="muun-press-block" id="accreditation">
         <h3>${esc(t(lang, 'press.form_title'))}</h3>
         <p class="muun-press-lead">${esc(t(lang, 'press.form_desc'))}</p>
@@ -727,6 +731,7 @@ export function renderPressBlock(lang) {
           </form>
         </div>
       </section>
+      -->
     </div>`;
 }
 

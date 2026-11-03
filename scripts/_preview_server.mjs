@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const root = path.resolve('dist');
-const port = 4173;
+const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 
 const types = {
   '.html': 'text/html; charset=utf-8',
@@ -53,9 +53,25 @@ const server = http.createServer((req, res) => {
   }
   const ext = path.extname(file).toLowerCase();
   res.writeHead(200, { 'Content-Type': types[ext] || 'application/octet-stream' });
-  fs.createReadStream(file).pipe(res);
+  const stream = fs.createReadStream(file);
+  stream.on('error', (err) => {
+    if (!res.headersSent) {
+      res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
+      res.end('Error reading file');
+    }
+  });
+  stream.pipe(res);
+});
+
+server.on('error', (err) => {
+  console.error('Server error:', err.message);
+});
+
+process.on('uncaughtException', (err) => {
+  console.error('Unhandled exception in preview server:', err.message);
 });
 
 server.listen(port, '127.0.0.1', () => {
   console.log(`Preview http://127.0.0.1:${port}/`);
 });
+

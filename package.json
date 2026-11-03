@@ -5,6 +5,8 @@
   "type": "module",
   "description": "Статический мультиязычный лендинг MUUN26 (ky/ru/en), собирается в dist/",
   "scripts": {
+    "dev": "node scripts/_preview_server.mjs",
+    "start": "node scripts/_preview_server.mjs",
     "build": "node build.mjs",
     "css:watch": "npx tailwindcss -i src/styles.css -o dist/assets/styles.css --watch"
   },
