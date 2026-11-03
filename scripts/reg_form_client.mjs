@@ -105,30 +105,7 @@ export function getRegistrationClientJs(lang, providedStrings, customEndpoint = 
     };
 
     window.switchRegTab = function(tab) {
-      var btnIndiv = document.getElementById('tab-btn-indiv');
-      var btnGroup = document.getElementById('tab-btn-group');
-      var streamIndiv = document.getElementById('stream-indiv-fields');
-      var streamGroup = document.getElementById('stream-group-fields');
-      var typeInput = document.getElementById('regTypeInput');
-      var indiv = tab !== 'group';
-
-      if (btnIndiv) btnIndiv.classList.toggle('active', indiv);
-      if (btnGroup) btnGroup.classList.toggle('active', !indiv);
-      if (streamIndiv) streamIndiv.style.display = indiv ? 'flex' : 'none';
-      if (streamGroup) streamGroup.style.display = indiv ? 'none' : 'flex';
-      if (typeInput) typeInput.value = indiv ? 'individual' : 'group';
-
-      if (indiv) {
-        setStreamEnabled(streamGroup, false);
-        setStreamEnabled(streamIndiv, true);
-        var sel = document.getElementById('citizenship-select');
-        window.switchCitizenship(sel ? sel.value : 'kg');
-      } else {
-        setStreamEnabled(streamIndiv, false);
-        setPanelState(document.getElementById('citizen-kg'), false);
-        setPanelState(document.getElementById('citizen-foreign'), false);
-        setStreamEnabled(streamGroup, true);
-      }
+      // Individual visitors only
     };
 
     function resumeProblem(input) {
@@ -143,8 +120,7 @@ export function getRegistrationClientJs(lang, providedStrings, customEndpoint = 
       return '';
     }
 
-    function validateVisitorNames(form, regType) {
-      if (regType === 'group') return true;
+    function validateVisitorNames(form) {
       var resume = document.querySelector('#reg-resume');
       var resumeError = resumeProblem(resume);
       if (resumeError) { markRegInvalid(resume, resumeError); return false; }
@@ -192,10 +168,8 @@ export function getRegistrationClientJs(lang, providedStrings, customEndpoint = 
 
     window.submitVisitorForm = function(event, form) {
       event.preventDefault();
-      var regType = document.getElementById('regTypeInput') ? document.getElementById('regTypeInput').value : 'individual';
-      if (!validateVisitorNames(form, regType)) return;
-      var submitBtn = (regType === 'group') ? document.getElementById('reg-submit-btn-group') : document.getElementById('reg-submit-btn-indiv');
-      if (!submitBtn) submitBtn = form.querySelector('button[type="submit"]');
+      if (!validateVisitorNames(form)) return;
+      var submitBtn = document.getElementById('reg-submit-btn-indiv') || form.querySelector('button[type="submit"]');
 
       var originalText = submitBtn ? submitBtn.innerHTML : '';
       if (submitBtn) {
@@ -203,25 +177,11 @@ export function getRegistrationClientJs(lang, providedStrings, customEndpoint = 
         submitBtn.disabled = true;
       }
 
-      var indivBox = document.getElementById('stream-indiv-fields');
-      var groupBox = document.getElementById('stream-group-fields');
-      var inactiveBox = regType === 'group' ? indivBox : groupBox;
-      var turnedOff = [];
-      if (inactiveBox) {
-        inactiveBox.querySelectorAll('input, select, textarea').forEach(function (el) {
-          if (!el.disabled) {
-            el.disabled = true;
-            turnedOff.push(el);
-          }
-        });
-      }
-
       var resumeInput = document.getElementById('reg-resume');
-      var resumeFile = (regType !== 'group' && resumeInput && resumeInput.files && resumeInput.files[0]) ? resumeInput.files[0] : null;
+      var resumeFile = (resumeInput && resumeInput.files && resumeInput.files[0]) ? resumeInput.files[0] : null;
 
       var formData = new FormData(form);
       formData.delete('resume');
-      turnedOff.forEach(function (el) { el.disabled = false; });
 
       var interestsArray = formData.getAll('interests');
       if (interestsArray.length > 0) {
@@ -229,13 +189,13 @@ export function getRegistrationClientJs(lang, providedStrings, customEndpoint = 
         formData.append('interests', interestsArray.join(', '));
       }
 
-      var orgName = formData.get('organization') || formData.get('group_org') || '';
+      var orgName = formData.get('organization') || '';
       if (orgName && !formData.get('school_org')) formData.append('school_org', orgName);
 
       var randomNum = Math.floor(100000 + Math.random() * 900000);
-      var regId = (regType === 'group' ? 'MUUN-GRP-' : 'MUUN-') + randomNum;
+      var regId = 'MUUN-' + randomNum;
       formData.set('regId', regId);
-      formData.set('regType', regType);
+      formData.set('regType', 'individual');
       formData.set('form', 'registration');
       formData.set('lang', '${lang}');
       formData.set('submittedAt', new Date().toISOString());
@@ -308,5 +268,31 @@ export function getRegistrationClientJs(lang, providedStrings, customEndpoint = 
       if (pendingStep) pendingStep.style.display = 'none';
       if (formStep) formStep.style.display = 'block';
     };
+
+    // Live Registration Seats Remaining Counter
+    function initRegistrationQuota() {
+      var remainingEl = document.getElementById('reg-quota-remaining');
+      var ENDPOINT = '${endpoint}';
+
+      fetch(ENDPOINT + '?action=stats', { method: 'GET', cache: 'no-store' })
+        .then(function(res) {
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          return res.json();
+        })
+        .then(function(data) {
+          if (data && typeof data.remaining === 'number' && remainingEl) {
+            remainingEl.textContent = data.remaining;
+          }
+        })
+        .catch(function(err) {
+          console.warn('Quota sync notice:', err);
+        });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initRegistrationQuota);
+    } else {
+      initRegistrationQuota();
+    }
   `;
 }

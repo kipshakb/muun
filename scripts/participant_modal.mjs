@@ -88,6 +88,21 @@ export function renderParticipantModal(lang) {
           <h3 class="muun-part-screen-title">${t('p_terms_title')}</h3>
           <p class="muun-part-screen-sub">${t('p_terms_subtitle')}</p>
 
+          <!-- STUDENT / VISITOR WARNING CALLOUT -->
+          <div class="muun-part-student-alert">
+            <div class="muun-part-alert-badge">
+              <span>🎓</span>
+              <span>${t('p_student_alert_badge')}</span>
+            </div>
+            <div class="muun-part-alert-content">
+              <h4 class="muun-part-alert-title">${t('p_student_alert_title')}</h4>
+              <p class="muun-part-alert-desc">${t('p_student_alert_desc')}</p>
+              <button type="button" onclick="window.goToFreeRegistration()" class="muun-part-alert-cta">
+                ${t('p_student_alert_btn')} &rarr;
+              </button>
+            </div>
+          </div>
+
           <div class="muun-part-cards-grid">
             <div class="muun-part-card">
               <div class="muun-part-card-icon muun-icon-blue">🎁</div>
@@ -141,6 +156,17 @@ export function renderParticipantModal(lang) {
           <h3 class="muun-part-screen-title">${t('p_form_title')}</h3>
           <p class="muun-part-screen-sub">${t('p_form_subtitle')}</p>
 
+          <!-- STUDENT QUICK REMINDER -->
+          <div class="muun-part-student-alert muun-part-student-alert--compact">
+            <div class="muun-part-alert-compact-left">
+              <span class="muun-part-alert-compact-icon">🎓</span>
+              <span>${t('p_student_alert_short')}</span>
+            </div>
+            <button type="button" onclick="window.goToFreeRegistration()" class="muun-part-alert-compact-btn">
+              ${t('p_student_alert_btn')} &rarr;
+            </button>
+          </div>
+
           <form id="participant-form" onsubmit="window.submitParticipantForm(event, this)" class="muun-part-form">
             <!-- SECTION 1: Company -->
             <fieldset class="muun-part-fieldset">
@@ -148,6 +174,10 @@ export function renderParticipantModal(lang) {
               <div class="muun-part-field">
                 <label class="muun-part-lbl">${t('p_org_name')}</label>
                 <input type="text" required name="org" class="muun-part-input" />
+                <div id="part-student-hint" style="display:none; margin-top:8px; font-size:12px; color:#38bdf8; background:rgba(41,170,225,0.12); padding:8px 12px; border-radius:8px; border:1px solid rgba(41,170,225,0.35); line-height:1.4;">
+                  🎓 <strong>${t('p_student_alert_short')}</strong>
+                  <button type="button" onclick="window.goToFreeRegistration()" style="background:none; border:none; color:#ffffff; text-decoration:underline; cursor:pointer; font-weight:700; padding:0 0 0 6px;">${t('p_student_alert_btn')} &rarr;</button>
+                </div>
               </div>
               <div class="muun-part-row">
                 <div class="muun-part-field">
@@ -339,6 +369,106 @@ export function renderParticipantModal(lang) {
       background: rgba(41, 170, 225, 0.25);
       border-color: #29AAE1;
       transform: scale(1.08);
+    }
+    /* STUDENT / VISITOR NOTICE BANNER */
+    .muun-part-student-alert {
+      background: linear-gradient(135deg, rgba(41, 170, 225, 0.14) 0%, rgba(14, 165, 233, 0.06) 100%);
+      border: 1px solid rgba(41, 170, 225, 0.45);
+      border-radius: 16px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25), 0 0 15px rgba(41, 170, 225, 0.15) inset;
+    }
+    .muun-part-alert-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(41, 170, 225, 0.22);
+      border: 1px solid rgba(41, 170, 225, 0.55);
+      border-radius: 999px;
+      padding: 3px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #7dd3fc;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      width: fit-content;
+    }
+    .muun-part-alert-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #ffffff;
+      margin: 0 0 4px 0;
+    }
+    .muun-part-alert-desc {
+      font-size: 12.5px;
+      line-height: 1.5;
+      color: rgba(224, 242, 254, 0.88);
+      margin: 0 0 10px 0;
+    }
+    .muun-part-alert-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #29AAE1;
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      width: fit-content;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 14px rgba(41, 170, 225, 0.4);
+    }
+    .muun-part-alert-cta:hover {
+      background: #38bdf8;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(41, 170, 225, 0.6);
+    }
+    .muun-part-student-alert--compact {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .muun-part-alert-compact-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      color: #e0f2fe;
+    }
+    .muun-part-alert-compact-icon {
+      font-size: 16px;
+    }
+    .muun-part-alert-compact-btn {
+      background: rgba(41, 170, 225, 0.2);
+      border: 1px solid rgba(41, 170, 225, 0.6);
+      color: #7dd3fc;
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+    .muun-part-alert-compact-btn:hover {
+      background: #29AAE1;
+      color: #ffffff;
+    }
+    @media (max-width: 640px) {
+      .muun-part-student-alert--compact {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
     /* LEFT SIDEBAR */
     .muun-part-sidebar {
@@ -939,6 +1069,41 @@ export function renderParticipantModal(lang) {
           document.body.style.overflow = '';
         }
       };
+
+      window.goToFreeRegistration = function() {
+        window.closeParticipantModal();
+        setTimeout(function() {
+          var target = document.getElementById('visitor-reg-form') ||
+                       document.getElementById('registration') ||
+                       document.querySelector('[data-framer-name="Registration"]');
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            var firstInput = target.querySelector('input:not([type="hidden"]):not([disabled])');
+            if (firstInput) {
+              try { firstInput.focus(); } catch (e) {}
+            }
+          } else {
+            window.location.hash = '#registration';
+          }
+        }, 150);
+      };
+
+      // Real-time detection of student/university terms in organization & position fields
+      document.addEventListener('input', function(e) {
+        if (!e.target) return;
+        var form = e.target.closest('#participant-form');
+        if (!form) return;
+        if (e.target.name === 'org' || e.target.name === 'position') {
+          var orgInput = form.querySelector('input[name="org"]');
+          var posInput = form.querySelector('input[name="position"]');
+          var text = ((orgInput ? orgInput.value : '') + ' ' + (posInput ? posInput.value : '')).toLowerCase();
+          var hint = document.getElementById('part-student-hint');
+          var isStudent = /(студент|student|школьник|ученик|лицей|гимнази|колледж|универ|крсu|кну|ауца|манак|бгу|ктму|манас|кгуст)/i.test(text);
+          if (hint) {
+            hint.style.display = isStudent ? 'block' : 'none';
+          }
+        }
+      });
 
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {

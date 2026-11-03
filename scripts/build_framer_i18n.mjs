@@ -540,14 +540,10 @@ function renderRegForm(lang) {
           <p class="lead-strong">${S['reg.hours']}</p>
         </div>
 
-        <!-- Tabs Switcher (Individual vs Group) -->
-        <div class="reg-tabs-wrap">
-          <button type="button" id="tab-btn-indiv" class="reg-tab-btn active" onclick="window.switchRegTab('indiv')">
-            <span>👤</span> <span>${S['reg.tab_indiv']}</span>
-          </button>
-          <button type="button" id="tab-btn-group" class="reg-tab-btn" onclick="window.switchRegTab('group')">
-            <span>🏫</span> <span>${S['reg.tab_group']}</span>
-          </button>
+        <!-- Live Seats Remaining Counter -->
+        <div class="muun-seats-pill">
+          <span class="muun-seats-dot"></span>
+          <span>${S['reg.seats_remaining_prefix'] ? S['reg.seats_remaining_prefix'] + ' ' : ''}<strong id="reg-quota-remaining">600</strong> ${S['reg.seats_remaining_suffix']}</span>
         </div>
 
         <!-- Registration Form -->
@@ -659,39 +655,6 @@ function renderRegForm(lang) {
             </div>
 
             <button type="submit" id="reg-submit-btn-indiv" class="submit-btn">
-              ${S['reg.btn_submit']}
-            </button>
-
-            <div class="security-memo">
-              🔒 ${S['reg.protect']}
-            </div>
-          </div>
-
-          <!-- STREAM B: Organized Groups Form -->
-          <div id="stream-group-fields" style="display:none; flex-direction:column; gap:18px;">
-            <div class="group-info-box">
-              <h4>${S['reg.group_title']}</h4>
-              <p>${S['reg.group_subtitle']}</p>
-            </div>
-
-            <div>
-              <label class="field-label">${S['reg.group_org']} *</label>
-              <input type="text" name="group_org" class="form-input-dark" placeholder="${S['reg.group_org_ph']}" disabled />
-            </div>
-            <div>
-              <label class="field-label">${S['reg.group_leader_name']} *</label>
-              <input type="text" name="group_leader_name" class="form-input-dark" autocomplete="name" disabled />
-            </div>
-            <div>
-              <label class="field-label">${S['reg.group_leader_phone']} *</label>
-              <input type="tel" name="group_leader_phone" class="form-input-dark" autocomplete="tel" placeholder="+996 700 123 456" disabled />
-            </div>
-            <div>
-              <label class="field-label">${S['reg.group_leader_email']} *</label>
-              <input type="email" name="group_leader_email" class="form-input-dark" autocomplete="email" placeholder="school@edu.gov.kg" disabled />
-            </div>
-
-            <button type="submit" id="reg-submit-btn-group" class="submit-btn">
               ${S['reg.btn_submit']}
             </button>
 
@@ -3475,6 +3438,42 @@ for (const lang of ['ru', 'ky', 'en']) {
         line-height: 1.55 !important;
         font-weight: 500 !important;
         font-family: 'Inter', sans-serif !important;
+      }
+
+      /* Live Seats Remaining Pill */
+      .muun-seats-pill {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        background: rgba(41, 170, 225, 0.12) !important;
+        border: 1px solid rgba(41, 170, 225, 0.35) !important;
+        border-radius: 999px !important;
+        padding: 7px 16px !important;
+        margin-bottom: 20px !important;
+        width: fit-content !important;
+        font-size: 13.5px !important;
+        font-weight: 600 !important;
+        color: #e0f2fe !important;
+        font-family: 'Inter', sans-serif !important;
+        box-shadow: 0 0 15px rgba(41, 170, 225, 0.12) inset !important;
+      }
+      .muun-seats-dot {
+        width: 7px !important;
+        height: 7px !important;
+        border-radius: 50% !important;
+        background: #38bdf8 !important;
+        box-shadow: 0 0 8px #38bdf8 !important;
+        display: inline-block !important;
+        animation: muunPulse 1.8s infinite !important;
+      }
+      .muun-seats-pill strong {
+        color: #38bdf8 !important;
+        font-weight: 800 !important;
+        font-size: 15px !important;
+      }
+      @keyframes muunPulse {
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.4); opacity: 0.4; }
       }
 
       /* Tabs Switcher */

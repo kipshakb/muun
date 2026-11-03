@@ -1293,16 +1293,6 @@
             <span id="sgo-countdown-val" class="sgo-countdown-digits">-- д -- ч -- мин</span>
           </div>
 
-          <!-- Tabs Switcher (Individual vs Group) -->
-          <div style="display:flex; gap:8px; margin-bottom:20px;">
-            <button type="button" id="tab-btn-indiv" class="reg-tab-btn active" onclick="window.switchRegTab('indiv')">
-              👤 {{reg.tab_indiv}}
-            </button>
-            <button type="button" id="tab-btn-group" class="reg-tab-btn" onclick="window.switchRegTab('group')">
-              🏫 {{reg.tab_group}}
-            </button>
-          </div>
-
           <!-- Registration Form -->
           <form id="visitor-reg-form" onsubmit="submitVisitorForm(event, this)" style="display:flex; flex-direction:column; gap:16px;">
             <input type="hidden" name="regType" value="individual" id="regTypeInput" />
@@ -1435,85 +1425,6 @@
 
               <button type="submit" id="reg-submit-btn-indiv" class="btn btn--primary" style="width:100%; justify-content:center; padding:16px; font-size:15px; border-radius:100px; background:var(--accent); border:none; color:#fff; cursor:pointer; font-weight:700; letter-spacing:0.05em; box-shadow:0 4px 16px rgba(59,125,221,0.35);">
                 {{reg.btn_submit_indiv}}
-              </button>
-            </div>
-
-            <!-- STREAM B: Organized Groups Form -->
-            <div id="stream-group-fields" style="display:none; flex-direction:column; gap:16px;">
-              <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:10px; padding:12px 14px;">
-                <h4 style="font-size:14px; font-weight:700; color:#1e40af; margin:0 0 4px 0;">{{reg.group_title}}</h4>
-                <p style="font-size:12px; color:#3b82f6; margin:0;">{{reg.group_subtitle}}</p>
-              </div>
-
-              <div class="form-row" style="display:grid; grid-template-columns:1.5fr 1fr; gap:12px;">
-                <div>
-                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.group_org}} *</label>
-                  <input type="text" name="group_org" class="form-input-light" placeholder="{{reg.group_org_ph}}" />
-                </div>
-                <div>
-                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.group_city}} *</label>
-                  <input type="text" name="group_city" class="form-input-light" placeholder="{{reg.group_city_ph}}" />
-                </div>
-              </div>
-
-              <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-                <div>
-                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.group_leader_name}} *</label>
-                  <input type="text" name="group_leader_name" class="form-input-light" placeholder="ФИО сопровождающего" />
-                </div>
-                <div>
-                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.group_leader_role}} *</label>
-                  <input type="text" name="group_leader_role" class="form-input-light" placeholder="Завуч, декан, куратор" />
-                </div>
-              </div>
-
-              <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-                <div>
-                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.group_leader_phone}} *</label>
-                  <input type="tel" name="group_leader_phone" class="form-input-light" placeholder="+996 700 123 456" />
-                </div>
-                <div>
-                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.group_leader_email}} *</label>
-                  <input type="email" name="group_leader_email" class="form-input-light" placeholder="school@edu.gov.kg" />
-                </div>
-              </div>
-
-              <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;">
-                <div>
-                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.group_size}} *</label>
-                  <input type="number" name="group_size" min="5" max="500" class="form-input-light" placeholder="Напр. 45" />
-                </div>
-                <div>
-                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.day_label}} *</label>
-                  <select name="group_day" class="form-input-light">
-                    <option value="Nov28" selected>{{reg.day1}}</option>
-                  </select>
-                </div>
-                <div>
-                  <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.slot_label}} *</label>
-                  <select name="group_slot" class="form-input-light">
-                    <option value="Slot1" selected>09:30 – 12:30</option>
-                    <option value="Slot2">13:00 – 15:30</option>
-                    <option value="Slot3">16:00 – 18:30</option>
-                  </select>
-                </div>
-              </div>
-
-              <div>
-                <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.group_list_label}} *</label>
-                <input type="url" name="group_list_link" class="form-input-light" placeholder="{{reg.group_list_ph}}" />
-                <span style="display:block; font-size:11px; color:#64748b; margin-top:3px;">{{reg.group_list_note}}</span>
-              </div>
-
-              <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:10px; padding:12px 14px;">
-                <label style="display:flex; align-items:flex-start; gap:10px; font-size:12px; color:#1e293b; line-height:1.45; cursor:pointer;">
-                  <input type="checkbox" id="group-sgo-consent" style="margin-top:2px; accent-color:var(--accent);" />
-                  <span>{{reg.group_consent}}</span>
-                </label>
-              </div>
-
-              <button type="submit" id="reg-submit-btn-group" class="btn btn--primary" style="width:100%; justify-content:center; padding:16px; font-size:15px; border-radius:100px; background:var(--accent); border:none; color:#fff; cursor:pointer; font-weight:700; letter-spacing:0.05em; box-shadow:0 4px 16px rgba(59,125,221,0.35);">
-                {{reg.btn_submit_group}}
               </button>
             </div>
             

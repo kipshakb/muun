@@ -24,16 +24,11 @@
  */
 
 var INDIVIDUAL_SHEET = 'Индивидуально';
-var GROUP_SHEET = 'Группы';
 
 var INDIVIDUAL_HEADERS = [
   'Дата', 'Гражданство', 'Страна', 'Фамилия', 'Имя', 'Отчество',
   'ПИН', 'Номер паспорта', 'Дата рождения', 'Телефон', 'Email',
   'Категория', 'Организация', 'Язык', 'Резюме'
-];
-
-var GROUP_HEADERS = [
-  'Дата', 'Организация', 'Сопровождающий', 'Телефон', 'Email', 'Язык'
 ];
 
 var CATEGORIES = {
@@ -75,23 +70,129 @@ var RESUME_MIME = {
 
 var RESUME_FOLDER = 'MUUN 2026 — резюме';
 
+var TOTAL_SEATS_LIMIT = 800;
+
+function doGet(e) {
+  var stats = getRegistrationStats();
+  var callback = e && e.parameter && e.parameter.callback;
+  var json = JSON.stringify(stats);
+
+  if (callback) {
+    return ContentService.createTextOutput(callback + '(' + json + ')')
+      .setMimeType(ContentService.MimeType.JAVASCRIPT);
+  }
+
+  return ContentService.createTextOutput(json)
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+function getRegistrationStats() {
+  var cache = CacheService.getScriptCache();
+  var cached = cache.get('muun_reg_quota_stats_v2');
+  if (cached) {
+    try {
+      return JSON.parse(cached);
+    } catch (err) {}
+  }
+
+  var count = countUniqueRegistrations();
+  var limit = TOTAL_SEATS_LIMIT;
+  var remaining = Math.max(0, limit - count);
+  var percent = Math.min(100, Math.round((count / limit) * 100));
+
+  var stats = {
+    limit: limit,
+    registered: count,
+    remaining: remaining,
+    percent: percent,
+    isFull: remaining <= 0,
+    timestamp: new Date().toISOString()
+  };
+
+  try {
+    cache.put('muun_reg_quota_stats_v2', JSON.stringify(stats), 90);
+  } catch (err) {}
+
+  return stats;
+}
+
+function countUniqueRegistrations() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var indivSheet = ss.getSheetByName(INDIVIDUAL_SHEET);
+
+  var uniqueSet = {};
+  var uniqueCount = 0;
+
+  if (indivSheet && indivSheet.getLastRow() >= 2) {
+    var lastRow = indivSheet.getLastRow();
+    var lastCol = indivSheet.getLastColumn();
+    var headers = indivSheet.getRange(1, 1, 1, lastCol).getDisplayValues()[0];
+
+    var pinCol = -1;
+    var passCol = -1;
+    var emailCol = -1;
+    var phoneCol = -1;
+    var lastNameCol = -1;
+    var firstNameCol = -1;
+
+    for (var i = 0; i < headers.length; i++) {
+      var h = String(headers[i] || '').trim().toLowerCase();
+      if (h === 'пин') pinCol = i;
+      else if (h.indexOf('паспорт') !== -1) passCol = i;
+      else if (h === 'email') emailCol = i;
+      else if (h.indexOf('телефон') !== -1) phoneCol = i;
+      else if (h === 'фамилия') lastNameCol = i;
+      else if (h === 'имя') firstNameCol = i;
+    }
+
+    var values = indivSheet.getRange(2, 1, lastRow - 1, lastCol).getDisplayValues();
+    for (var r = 0; r < values.length; r++) {
+      var row = values[r];
+      var isFilled = row.some(function(cell) { return String(cell || '').trim() !== ''; });
+      if (!isFilled) continue;
+
+      var key = '';
+      var pin = pinCol >= 0 ? String(row[pinCol] || '').replace(/\D/g, '') : '';
+      var pass = passCol >= 0 ? String(row[passCol] || '').trim().toUpperCase() : '';
+      var email = emailCol >= 0 ? String(row[emailCol] || '').trim().toLowerCase() : '';
+      var phone = phoneCol >= 0 ? String(row[phoneCol] || '').replace(/\D/g, '') : '';
+      var fio = (lastNameCol >= 0 && firstNameCol >= 0)
+        ? (String(row[lastNameCol] || '').trim().toLowerCase() + '_' + String(row[firstNameCol] || '').trim().toLowerCase())
+        : '';
+
+      if (pin && pin.length >= 10) {
+        key = 'pin:' + pin;
+      } else if (pass && pass.length >= 4) {
+        key = 'pass:' + pass;
+      } else if (email && email.indexOf('@') !== -1) {
+        key = 'email:' + email;
+      } else if (phone && phone.length >= 9) {
+        key = 'phone:' + phone;
+      } else if (fio && fio.length >= 4) {
+        key = 'fio:' + fio;
+      } else {
+        key = 'row:' + (r + 2);
+      }
+
+      if (!uniqueSet[key]) {
+        uniqueSet[key] = true;
+        uniqueCount++;
+      }
+    }
+  }
+
+  return uniqueCount;
+}
+
 function doPost(e) {
   var p = postParams(e);
   var lock = LockService.getScriptLock();
   lock.waitLock(15000);
   try {
-    var isGroup = p.regType === 'group';
     var ss = SpreadsheetApp.getActiveSpreadsheet();
-    var sheet = sheetFor(ss, isGroup ? GROUP_SHEET : INDIVIDUAL_SHEET, isGroup ? GROUP_HEADERS : INDIVIDUAL_HEADERS);
+    var sheet = sheetFor(ss, INDIVIDUAL_SHEET, INDIVIDUAL_HEADERS);
     var foreign = p.citizenship === 'foreign';
-    var data = isGroup ? {
-      'Дата': sheetDate(p.submittedAt),
-      'Организация': p.group_org || '',
-      'Сопровождающий': p.group_leader_name || '',
-      'Телефон': p.group_leader_phone || '',
-      'Email': p.group_leader_email || '',
-      'Язык': p.lang || ''
-    } : {
+    var data = {
       'Дата': sheetDate(p.submittedAt),
       'Гражданство': CITIZENSHIP[p.citizenship] || p.citizenship || '',
       'Страна': foreign ? (p.country || '') : '',
@@ -108,7 +209,10 @@ function doPost(e) {
       'Язык': p.lang || '',
       'Резюме': resumeLink(p)
     };
-    appendMapped(sheet, data);
+    saveOrUpdateMapped(sheet, data);
+    try {
+      CacheService.getScriptCache().remove('muun_reg_quota_stats_v2');
+    } catch (clearErr) {}
   } finally {
     lock.releaseLock();
   }
@@ -254,17 +358,129 @@ function writeHeader(sheet, headers) {
   sheet.setFrozenRows(1);
 }
 
-function appendMapped(sheet, data) {
+function saveOrUpdateMapped(sheet, data) {
   var width = Math.max(sheet.getLastColumn(), 1);
   var headers = sheet.getRange(1, 1, 1, width).getDisplayValues()[0];
   var row = headers.map(function (h) {
     var key = String(h || '').trim();
     return sheetValue(data[key] != null ? data[key] : '');
   });
-  var target = firstEmptyRow(sheet, width);
-  var range = sheet.getRange(target, 1, 1, row.length);
+
+  var targetRow = -1;
+
+  // Ищем совпадение по ПИН, Паспорту или Email
+  if (sheet.getLastRow() >= 2) {
+    var pinCol = -1;
+    var passCol = -1;
+    var emailCol = -1;
+    for (var i = 0; i < headers.length; i++) {
+      var h = String(headers[i] || '').trim().toLowerCase();
+      if (h === 'пин') pinCol = i;
+      else if (h.indexOf('паспорт') !== -1) passCol = i;
+      else if (h === 'email') emailCol = i;
+    }
+
+    var newPin = data['ПИН'] ? String(data['ПИН']).replace(/\D/g, '') : '';
+    var newPass = data['Номер паспорта'] ? String(data['Номер паспорта']).trim().toUpperCase() : '';
+    var newEmail = data['Email'] ? String(data['Email']).trim().toLowerCase() : '';
+
+    var lastRow = sheet.getLastRow();
+    var values = sheet.getRange(2, 1, lastRow - 1, width).getDisplayValues();
+
+    for (var r = 0; r < values.length; r++) {
+      var curRow = values[r];
+      var curPin = pinCol >= 0 ? String(curRow[pinCol] || '').replace(/\D/g, '') : '';
+      var curPass = passCol >= 0 ? String(curRow[passCol] || '').trim().toUpperCase() : '';
+      var curEmail = emailCol >= 0 ? String(curRow[emailCol] || '').trim().toLowerCase() : '';
+
+      var isMatch = false;
+      if (newPin && newPin.length >= 10 && curPin === newPin) {
+        isMatch = true;
+      } else if (newPass && newPass.length >= 4 && curPass === newPass) {
+        isMatch = true;
+      } else if (newEmail && newEmail.indexOf('@') !== -1 && curEmail === newEmail) {
+        isMatch = true;
+      }
+
+      if (isMatch) {
+        targetRow = r + 2; // строка в таблице
+        break;
+      }
+    }
+  }
+
+  // Если совпадений нет — вставляем в новую строку
+  if (targetRow === -1) {
+    targetRow = firstEmptyRow(sheet, width);
+  }
+
+  var range = sheet.getRange(targetRow, 1, 1, row.length);
   range.setNumberFormat('@');
   range.setValues([row]);
+}
+
+/**
+ * Разовая очистка уже имеющихся дубликатов в таблице.
+ * Выберите cleanDuplicates вверху редактора Apps Script и нажмите «Выполнить».
+ * Удалит повторы на листе «Индивидуально», оставив самые свежие записи.
+ */
+function cleanDuplicates() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName(INDIVIDUAL_SHEET);
+  if (!sheet || sheet.getLastRow() < 3) {
+    Logger.log('Недостаточно строк для очистки.');
+    return;
+  }
+
+  var lastRow = sheet.getLastRow();
+  var lastCol = sheet.getLastColumn();
+  var headers = sheet.getRange(1, 1, 1, lastCol).getDisplayValues()[0];
+
+  var pinCol = -1;
+  var passCol = -1;
+  var emailCol = -1;
+  for (var i = 0; i < headers.length; i++) {
+    var h = String(headers[i] || '').trim().toLowerCase();
+    if (h === 'пин') pinCol = i;
+    else if (h.indexOf('паспорт') !== -1) passCol = i;
+    else if (h === 'email') emailCol = i;
+  }
+
+  var values = sheet.getRange(2, 1, lastRow - 1, lastCol).getDisplayValues();
+  var seen = {};
+  var rowsToDelete = [];
+
+  // Идём снизу вверх, чтобы сохранить самую последнюю (свежую) отправку человека
+  for (var r = values.length - 1; r >= 0; r--) {
+    var row = values[r];
+    var pin = pinCol >= 0 ? String(row[pinCol] || '').replace(/\D/g, '') : '';
+    var pass = passCol >= 0 ? String(row[passCol] || '').trim().toUpperCase() : '';
+    var email = emailCol >= 0 ? String(row[emailCol] || '').trim().toLowerCase() : '';
+
+    var key = '';
+    if (pin && pin.length >= 10) key = 'pin:' + pin;
+    else if (pass && pass.length >= 4) key = 'pass:' + pass;
+    else if (email && email.indexOf('@') !== -1) key = 'email:' + email;
+
+    if (!key) continue;
+
+    if (seen[key]) {
+      rowsToDelete.push(r + 2);
+    } else {
+      seen[key] = true;
+    }
+  }
+
+  // Удаляем строки снизу вверх
+  for (var d = 0; d < rowsToDelete.length; d++) {
+    sheet.deleteRow(rowsToDelete[d]);
+  }
+
+  try {
+    CacheService.getScriptCache().remove('muun_reg_quota_stats_v2');
+  } catch (e) {}
+
+  Logger.log('Удалено дубликатов: ' + rowsToDelete.length);
 }
 
 function firstEmptyRow(sheet, width) {
