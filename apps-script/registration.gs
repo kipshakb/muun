@@ -37,6 +37,8 @@ var CATEGORIES = {
   college: 'Студент колледжа',
   university: 'Студент университета',
   student: 'Студент',
+  kel_start: 'Кел Старт',
+  kelStart: 'Кел Старт',
   graduate: 'Выпускник',
   young_specialist: 'Молодой специалист',
   young_spec: 'Молодой специалист',

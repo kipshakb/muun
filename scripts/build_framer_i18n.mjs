@@ -643,6 +643,7 @@ function renderRegForm(lang) {
                 <option value="" disabled selected>${S['reg.category_label']}</option>
                 <option value="school">${S['reg.cat_school_v2'] || S['reg.cat_school']}</option>
                 <option value="student">${S['reg.cat_student']}</option>
+                <option value="kel_start">${S['reg.cat_kel_start']}</option>
                 <option value="young_specialist">${S['reg.cat_young_spec']}</option>
                 <option value="moderator">${S['reg.cat_moderator']}</option>
                 <option value="speaker">${S['reg.cat_speaker']}</option>
