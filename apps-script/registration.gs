@@ -37,6 +37,8 @@ var CATEGORIES = {
   college: 'Студент колледжа',
   university: 'Студент университета',
   student: 'Студент',
+  kel_start_participant: 'Кел Старт (участник)',
+  kel_start_commission: 'Кел Старт (межведомственная комиссия)',
   kel_start: 'Кел Старт',
   kelStart: 'Кел Старт',
   graduate: 'Выпускник',
