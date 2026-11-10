@@ -156,4 +156,5 @@ await writeFile(path.join(OUT, ".htaccess"), htaccess, "utf8");
 console.log("\n✓ CSS:", cssHref);
 console.log("✓ Генерируем точную копию Framer (pixel-perfect) с инъекцией MUUN контента...");
 execSync('node scripts/build_framer_i18n.mjs', { stdio: 'inherit' });
+execSync('node scripts/optimize_assets.mjs', { stdio: 'inherit' });
 console.log("✓ Готово. Залейте содержимое папки dist/ в httpdocs на Plesk.");
