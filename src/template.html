@@ -1360,8 +1360,7 @@
                     <option value="college">{{reg.cat_college}}</option>
                     <option value="university">{{reg.cat_university}}</option>
                     <option value="graduate">{{reg.cat_graduate}}</option>
-                    <option value="kel_start_participant">{{reg.cat_kel_start_participant}}</option>
-                    <option value="kel_start_commission">{{reg.cat_kel_start_commission}}</option>
+                    <option value="kel_start">{{reg.cat_kel_start}}</option>
                     <option value="young_spec">{{reg.cat_young_spec}}</option>
                     <option value="volunteer">{{reg.cat_volunteer}}</option>
                     <option value="parent">{{reg.cat_parent_v2}}</option>
@@ -1385,6 +1384,18 @@
                     <option value="Batken">{{reg.reg_batken}}</option>
                   </select>
                 </div>
+              </div>
+
+              <!-- Kel Start Subcategory (shown dynamically) -->
+              <div id="kel-start-subcat-group" style="display:none; margin-top:12px;">
+                <label style="display:block; margin-bottom:4px; font-size:12px; color:#1a1a1a; font-weight:700;">{{reg.subcategory_label}} *</label>
+                <select name="subcategory" id="reg-subcategory-select" class="form-input-light" disabled>
+                  <option value="" disabled selected>{{reg.subcategory_ph}}</option>
+                  <option value="Руководство">{{reg.subcat_leadership}}</option>
+                  <option value="Межведомственная комиссия">{{reg.subcat_commission}}</option>
+                  <option value="Секретариат">{{reg.subcat_secretariat}}</option>
+                  <option value="Участники">{{reg.subcat_participants}}</option>
+                </select>
               </div>
 
               <!-- Institution / Company -->

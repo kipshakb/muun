@@ -647,8 +647,7 @@ function renderRegForm(lang) {
                 <option value="" disabled selected>${S['reg.category_label']}</option>
                 <option value="school">${S['reg.cat_school_v2'] || S['reg.cat_school']}</option>
                 <option value="student">${S['reg.cat_student']}</option>
-                <option value="kel_start_participant">${S['reg.cat_kel_start_participant']}</option>
-                <option value="kel_start_commission">${S['reg.cat_kel_start_commission']}</option>
+                <option value="kel_start">${S['reg.cat_kel_start'] || 'Кел Старт'}</option>
                 <option value="young_specialist">${S['reg.cat_young_spec']}</option>
                 <option value="moderator">${S['reg.cat_moderator']}</option>
                 <option value="speaker">${S['reg.cat_speaker']}</option>
@@ -660,6 +659,17 @@ function renderRegForm(lang) {
                 <option value="company">${S['reg.cat_company']}</option>
                 <option value="media">${S['reg.cat_media']}</option>
                 <option value="other">${S['reg.cat_other']}</option>
+              </select>
+            </div>
+
+            <div id="kel-start-subcat-group" style="display:none;">
+              <label class="field-label">${S['reg.subcategory_label'] || 'Роль в «Кел Старт»'} *</label>
+              <select name="subcategory" id="reg-subcategory-select" class="form-input-dark" disabled>
+                <option value="" disabled selected>${S['reg.subcategory_ph'] || 'Выберите подкатегорию'}</option>
+                <option value="Руководство">${S['reg.subcat_leadership'] || 'Руководство'}</option>
+                <option value="Межведомственная комиссия">${S['reg.subcat_commission'] || 'Межведомственная комиссия'}</option>
+                <option value="Секретариат">${S['reg.subcat_secretariat'] || 'Секретариат'}</option>
+                <option value="Участники">${S['reg.subcat_participants'] || 'Участники'}</option>
               </select>
             </div>
 

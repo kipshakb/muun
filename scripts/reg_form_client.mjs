@@ -97,6 +97,26 @@ export function getRegistrationClientJs(lang, providedStrings, customEndpoint = 
       if (star) star.hidden = !required;
     }
 
+    function handleCategoryChange(selectEl) {
+      if (!selectEl) return;
+      var form = selectEl.closest('form') || document;
+      var subcatGroup = form.querySelector('#kel-start-subcat-group');
+      var subcatSelect = form.querySelector('#reg-subcategory-select') || (subcatGroup ? subcatGroup.querySelector('select') : null);
+      if (!subcatGroup || !subcatSelect) return;
+
+      var isKelStart = selectEl.value === 'kel_start' || selectEl.value === 'kelStart';
+      if (isKelStart) {
+        subcatGroup.style.display = 'block';
+        subcatSelect.disabled = false;
+        subcatSelect.setAttribute('required', '');
+      } else {
+        subcatGroup.style.display = 'none';
+        subcatSelect.disabled = true;
+        subcatSelect.removeAttribute('required');
+        subcatSelect.value = '';
+      }
+    }
+
     window.switchCitizenship = function (kind) {
       var isKg = kind !== 'foreign';
       setPanelState(document.getElementById('citizen-kg'), isKg);
@@ -152,10 +172,15 @@ export function getRegistrationClientJs(lang, providedStrings, customEndpoint = 
       window.__muun_reg_listeners_added = true;
       document.addEventListener('change', function (e) {
         var el = e.target;
-        if (!el || el.id !== 'reg-resume') return;
-        var problem = resumeProblem(el);
-        el.setCustomValidity(problem || '');
-        if (problem) el.reportValidity();
+        if (!el) return;
+        if (el.id === 'reg-resume') {
+          var problem = resumeProblem(el);
+          el.setCustomValidity(problem || '');
+          if (problem) el.reportValidity();
+        }
+        if (el.name === 'category') {
+          handleCategoryChange(el);
+        }
       });
 
       document.addEventListener('input', function (e) {
@@ -164,6 +189,17 @@ export function getRegistrationClientJs(lang, providedStrings, customEndpoint = 
         if (el.name === 'pin') el.value = String(el.value || '').replace(/\\D/g, '').slice(0, 14);
         el.setCustomValidity('');
       });
+    }
+
+    function initCategoryState() {
+      document.querySelectorAll('[name="category"]').forEach(function(sel) {
+        handleCategoryChange(sel);
+      });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initCategoryState);
+    } else {
+      initCategoryState();
     }
 
     window.submitVisitorForm = function(event, form) {
@@ -266,7 +302,11 @@ export function getRegistrationClientJs(lang, providedStrings, customEndpoint = 
       var pendingStep = document.getElementById('reg-step-pending');
       var formStep = document.getElementById('reg-step-form');
       if (pendingStep) pendingStep.style.display = 'none';
-      if (formStep) formStep.style.display = 'block';
+      if (formStep) {
+        formStep.style.display = 'block';
+        var cat = formStep.querySelector('[name="category"]');
+        if (cat) handleCategoryChange(cat);
+      }
     };
 
     // Live Registration Seats Remaining Counter & Rehydration Guard

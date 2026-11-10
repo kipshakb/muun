@@ -28,7 +28,7 @@ var INDIVIDUAL_SHEET = 'Индивидуально';
 var INDIVIDUAL_HEADERS = [
   'Дата', 'Гражданство', 'Страна', 'Фамилия', 'Имя', 'Отчество',
   'ПИН', 'Номер паспорта', 'Дата рождения', 'Телефон', 'Email',
-  'Категория', 'Организация', 'Язык', 'Резюме'
+  'Категория', 'Подкатегория', 'Организация', 'Язык', 'Резюме'
 ];
 
 var CATEGORIES = {
@@ -37,10 +37,10 @@ var CATEGORIES = {
   college: 'Студент колледжа',
   university: 'Студент университета',
   student: 'Студент',
-  kel_start_participant: 'Кел Старт (участник)',
-  kel_start_commission: 'Кел Старт (межведомственная комиссия)',
   kel_start: 'Кел Старт',
   kelStart: 'Кел Старт',
+  kel_start_participant: 'Кел Старт (участник)',
+  kel_start_commission: 'Кел Старт (межведомственная комиссия)',
   graduate: 'Выпускник',
   young_specialist: 'Молодой специалист',
   young_spec: 'Молодой специалист',
@@ -58,6 +58,18 @@ var CATEGORIES = {
   company: 'Представитель компании',
   media: 'СМИ / блогер',
   other: 'Другое'
+};
+
+var SUB_CATEGORIES = {
+  leadership: 'Руководство',
+  commission: 'Межведомственная комиссия',
+  secretariat: 'Секретариат',
+  participants: 'Участники',
+  participant: 'Участники',
+  'Руководство': 'Руководство',
+  'Межведомственная комиссия': 'Межведомственная комиссия',
+  'Секретариат': 'Секретариат',
+  'Участники': 'Участники'
 };
 
 var CITIZENSHIP = {
@@ -198,6 +210,13 @@ function doPost(e) {
     var ss = SpreadsheetApp.getActiveSpreadsheet();
     var sheet = sheetFor(ss, INDIVIDUAL_SHEET, INDIVIDUAL_HEADERS);
     var foreign = p.citizenship === 'foreign';
+    var subCatRaw = p.subcategory || p.subCategory || '';
+    var subCat = SUB_CATEGORIES[subCatRaw] || subCatRaw || '';
+    if (!subCat && p.category === 'kel_start_participant') subCat = 'Участники';
+    if (!subCat && p.category === 'kel_start_commission') subCat = 'Межведомственная комиссия';
+
+    var catName = CATEGORIES[p.category] || p.category || '';
+
     var data = {
       'Дата': sheetDate(p.submittedAt),
       'Гражданство': CITIZENSHIP[p.citizenship] || p.citizenship || '',
@@ -210,7 +229,8 @@ function doPost(e) {
       'Дата рождения': sheetBirthDate(p.birthDate),
       'Телефон': p.phone || '',
       'Email': p.email || '',
-      'Категория': CATEGORIES[p.category] || p.category || '',
+      'Категория': catName,
+      'Подкатегория': subCat,
       'Организация': p.organization || p.school_org || '',
       'Язык': p.lang || '',
       'Резюме': resumeLink(p)
