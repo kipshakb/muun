@@ -784,6 +784,20 @@ function getGeneralPartners(lang) {
       logoClass: 'aeroporty-logo'
     },
     {
+      name: 'Alma Bank',
+      alt: 'Alma Bank',
+      url: 'https://almabank.kg/ru',
+      src: '/assets/partner-almabank.png',
+      logoClass: 'almabank-logo'
+    },
+    {
+      name: lang === 'ky' ? '«Альянс Алтын» ЖЧК' : 'ОсОО «Альянс Алтын»',
+      alt: 'Альянс Алтын',
+      url: 'https://alliance-altyn.com/',
+      src: '/assets/partner-alliance-altyn.png',
+      logoClass: 'alliance-altyn-logo'
+    },
+    {
       name: lang === 'ky' ? 'Евразиялык патенттик уюм (ЕАПО)' : 'Евразийская патентная организация (ЕАПО)',
       alt: 'EAPO',
       url: 'https://www.eapo.org/',
@@ -2758,6 +2772,14 @@ for (const lang of ['ru', 'ky', 'en']) {
       .muun-partner-card .aeroporty-logo {
         max-height: 60px !important;
         max-width: 215px !important;
+      }
+      .muun-partner-card .almabank-logo {
+        max-height: 55px !important;
+        max-width: 200px !important;
+      }
+      .muun-partner-card .alliance-altyn-logo {
+        max-height: 68px !important;
+        max-width: 195px !important;
       }
       .muun-partner-card .eapo-logo {
         max-height: 80px !important;
