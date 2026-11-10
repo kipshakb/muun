@@ -9,10 +9,12 @@ import { lockHeroMark, heroMarkCss, heroMarkScript } from './hero_mark.mjs';
 import { stripFramerRuntime } from './strip_framer_runtime.mjs';
 import { vendorFramerEngine } from './vendor_framer_engine.mjs';
 
-try {
-  execSync('powershell -ExecutionPolicy Bypass -File scripts/process_user_assets.ps1', { stdio: 'inherit' });
-} catch (e) {
-  console.warn('Asset processing note:', e.message);
+if (!fs.existsSync('assets/logo-header.png') || !fs.existsSync('assets/logo-crystal.png')) {
+  try {
+    execSync('powershell -ExecutionPolicy Bypass -File scripts/process_user_assets.ps1', { stdio: 'inherit' });
+  } catch (e) {
+    console.warn('Asset processing note:', e.message);
+  }
 }
 
 const rawHtml = fs.readFileSync('templates/eventis_raw.html', 'utf8');
@@ -51,11 +53,11 @@ function kgMapSvgFor(lang) {
 // Copy all key assets to dist and dist/assets
 fs.mkdirSync('dist/assets', { recursive: true });
 const downloadMinistryLogo = 'C:/Users/Beibars/Downloads/лого министерство.jpeg';
-if (fs.existsSync(downloadMinistryLogo)) {
+if (fs.existsSync(downloadMinistryLogo) && !fs.existsSync('assets/ministry-logo.jpeg')) {
   fs.copyFileSync(downloadMinistryLogo, 'assets/ministry-logo.jpeg');
 }
 const downloadEagle = 'C:/Users/Beibars/Downloads/орел2.png';
-if (fs.existsSync(downloadEagle)) {
+if (fs.existsSync(downloadEagle) && !fs.existsSync('assets/eagle2.png')) {
   fs.copyFileSync(downloadEagle, 'assets/eagle2.png');
 }
 
@@ -67,7 +69,9 @@ for (const f of fs.readdirSync('assets')) {
   }
 }
 if (fs.existsSync('assets/aeroporty kyrgyzstana.png')) {
-  fs.copyFileSync('assets/aeroporty kyrgyzstana.png', 'assets/aeroporty-kyrgyzstana.png');
+  if (!fs.existsSync('assets/aeroporty-kyrgyzstana.png')) {
+    fs.copyFileSync('assets/aeroporty kyrgyzstana.png', 'assets/aeroporty-kyrgyzstana.png');
+  }
   fs.copyFileSync('assets/aeroporty kyrgyzstana.png', 'dist/assets/aeroporty-kyrgyzstana.png');
 }
 

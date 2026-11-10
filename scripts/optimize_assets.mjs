@@ -73,7 +73,7 @@ async function optimizeDirectory(dir, isSubdir = false) {
 
 export async function runAssetOptimizer() {
   console.log('⚡ Оптимизация изображений (Web-ready сжатие)...');
-  const targetDirs = ['assets', 'dist/assets'];
+  const targetDirs = ['dist/assets'];
   let grandBefore = 0;
   let grandAfter = 0;
   let grandCount = 0;

@@ -5,13 +5,13 @@ const UI = {
   ru: {
     trackAll: 'Все сессии',
     talks: 'MUUN Talks',
-    pitch: 'Питч-сессии',
+    pitch: 'КЕЛ Старт',
     table: 'Открытый стол',
     hallAll: 'Все залы',
     kurultai: 'Зал «Курултай»',
     nasyyat: 'Зал «Насыят»',
     sanzhyra: 'Зал «Санжыра»',
-    pitchBadge: 'Питч-сессия',
+    pitchBadge: 'КЕЛ Старт',
     tableBadge: 'Открытый стол',
     people: 'Модератор и спикеры будут объявлены позже',
     empty: 'По выбранным фильтрам сессий нет',
@@ -20,13 +20,13 @@ const UI = {
   ky: {
     trackAll: 'Бардык сессиялар',
     talks: 'MUUN Talks',
-    pitch: 'Питч-сессиялар',
+    pitch: 'КЕЛ Старт',
     table: 'Ачык стол',
     hallAll: 'Бардык залдар',
     kurultai: '«Курултай» залы',
     nasyyat: '«Насыят» залы',
     sanzhyra: '«Санжыра» залы',
-    pitchBadge: 'Питч-сессия',
+    pitchBadge: 'КЕЛ Старт',
     tableBadge: 'Ачык стол',
     people: 'Модератор жана спикерлер кийинчерээк жарыяланат',
     empty: 'Тандалган чыпкалар боюнча сессиялар жок',
@@ -35,13 +35,13 @@ const UI = {
   en: {
     trackAll: 'All sessions',
     talks: 'MUUN Talks',
-    pitch: 'Pitch sessions',
+    pitch: 'KEL Start',
     table: 'Open Table',
     hallAll: 'All halls',
     kurultai: 'Kurultai Hall',
     nasyyat: 'Nasyyat Hall',
     sanzhyra: 'Sanzhyra Hall',
-    pitchBadge: 'Pitch session',
+    pitchBadge: 'KEL Start',
     tableBadge: 'Open Table',
     people: 'Moderator and speakers to be announced',
     empty: 'No sessions match the selected filters',
@@ -77,6 +77,31 @@ const DAYS = [
         }]
       },
       {
+        time: '08:40–10:15',
+        items: [
+          {
+            kind: 'pitch', hall: 'nasyyat',
+            badge: { ru: 'КЕЛ Старт', ky: 'КЕЛ Старт', en: 'KEL Start' },
+            timeSlot: '08:40–10:15',
+            title: {
+              ru: 'Финальный этап «KEL Start»: открытие и питчинг проектов № 1–10',
+              ky: '«KEL Start» сынагынын финалы: ачылышы жана № 1–10 долбоорлордун питчинги',
+              en: 'KEL Start Final: Opening & Startup Pitches #1–10'
+            },
+            note: {
+              ru: 'Регистрация проектов с 08:00 · Зал «Насыят»',
+              ky: 'Долбоорлорду каттоо 08:00дөн баштап · «Насыят» залы',
+              en: 'Project registration from 08:00 · Nasyyat Hall'
+            },
+            desc: {
+              ru: 'Официальное открытие финала национального конкурса стартапов (08:40–08:55): приветственное слово и разъяснение регламента. Первый блок очных презентаций финалистов: проекты № 1–10 перед межведомственной комиссией (08:55–10:15). Регламент: 3 минуты — презентация, 5 минут — вопросы и ответы комиссии (8 минут на проект).',
+              ky: 'Стартаптардын улуттук сынагынын финалынын расмий ачылышы (08:40–08:55): куттуктоо сөз жана регламентти түшүндүрүү. Финалисттердин бет ачарынын биринчи блогу: ведомстволор аралык комиссиянын алдында № 1–10 долбоорлор (08:55–10:15). Регламент: 3 мүнөт — презентация, 5 мүнөт — комиссиянын суроо-жооптору (бир долбоорго 8 мүнөт).',
+              en: 'Official opening of the national startup competition final (08:40–08:55): welcome address, introduction of commission, and pitch rules. First block of live presentations: projects #1–10 before the interdepartmental commission (08:55–10:15). Format: 3 min presentation, 5 min Q&A (8 minutes per project).'
+            }
+          }
+        ]
+      },
+      {
         time: '10:00–11:00',
         items: [{
           kind: 'service',
@@ -110,6 +135,22 @@ const DAYS = [
             ru: 'Торжественный старт главного молодёжного дня страны.',
             ky: 'Өлкөнүн башкы жаштар күнүнүн салтанаттуу башталышы.',
             en: 'Grand opening of the country’s premier youth day.'
+          }
+        }]
+      },
+      {
+        time: '12:00–13:00',
+        items: [{
+          kind: 'service',
+          title: {
+            ru: 'Обеденный перерыв / Кофе-брейк',
+            ky: 'Түшкү тыныгуу / Кофе-брейк',
+            en: 'Lunch Break / Coffee Break'
+          },
+          note: {
+            ru: 'Для участников и гостей форума',
+            ky: 'Форумдун катышуучулары жана коноктору үчүн',
+            en: 'For forum participants and guests'
           }
         }]
       },
@@ -154,17 +195,22 @@ const DAYS = [
           },
           {
             kind: 'pitch', hall: 'nasyyat',
-            badge: { ru: 'Питч-сессия', ky: 'Питч-сессия', en: 'Pitch Session' },
-            timeSlot: '14:00–15:30',
+            badge: { ru: 'КЕЛ Старт', ky: 'КЕЛ Старт', en: 'KEL Start' },
+            timeSlot: '13:00–14:20',
             title: {
-              ru: 'Питч-сессия Kel Start: открытие и выступления № 1–15',
-              ky: 'Kel Start питч-сессиясы: ачылышы жана № 1–15 чыгып сүйлөөлөрү',
-              en: 'Kel Start Pitch Session: Opening & Pitches #1–15'
+              ru: 'Питчинг стартапов «KEL Start»: проекты № 11–20',
+              ky: '«KEL Start» стартап-питчинги: № 11–20 долбоорлор',
+              en: 'KEL Start Startup Pitches: Projects #11–20'
+            },
+            note: {
+              ru: 'Второй блок (старт в 13:00) · Зал «Насыят»',
+              ky: 'Экинчи блок (башталышы 13:00) · «Насыят» залы',
+              en: 'Second block (starts at 13:00) · Nasyyat Hall'
             },
             desc: {
-              ru: '30 молодёжных стартапов — одна сцена. Старт конкурса, затем питчи перед жюри и инвесторами: 3 минуты на питч, 2 — на вопросы.',
-              ky: '30 жаштар стартапы — бир сахна. Сынактын башталышы, калыстар тобу менен инвесторлордун алдында питчтер: питчке 3 мүнөт, суроолорго 2 мүнөт.',
-              en: '30 youth startups — one stage. Kickoff followed by pitches to judges and investors: 3 min pitch, 2 min Q&A.'
+              ru: 'Второй блок очных презентаций финалистов национального конкурса перед межведомственной комиссией: проекты № 11–20. Регламент: 3 минуты — презентация проекта, 5 минут — вопросы и ответы комиссии (8 минут на проект).',
+              ky: 'Улуттук сынактын финалисттеринин ведомстволор аралык комиссиянын алдында бет ачарынын экинчи блогу: № 11–20 долбоорлор. Регламент: 3 мүнөт — долбоордун презентациясы, 5 мүнөт — комиссиянын суроо-жооптору (бир долбоорго 8 мүнөт).',
+              en: 'Second block of finalist live presentations before the interdepartmental commission: projects #11–20. Format: 3 min presentation, 5 min commission Q&A (8 minutes per project).'
             }
           },
           {
@@ -200,6 +246,26 @@ const DAYS = [
               ru: '«Из Бишкека — в Big Tech» — реальные истории пути в глобальные IT-компании и навыки, которые для этого нужны.',
               ky: '«Бишкектен — Big Techке» — глобалдык IT-компанияларга жетүү жолунун чыныгы тарыхтары жана буга зарыл көндүмдөр.',
               en: '“From Bishkek to Big Tech” — real stories of journeys to global IT companies and skills needed.'
+            }
+          },
+          {
+            kind: 'pitch', hall: 'nasyyat',
+            badge: { ru: 'КЕЛ Старт', ky: 'КЕЛ Старт', en: 'KEL Start' },
+            timeSlot: '14:20–15:40',
+            title: {
+              ru: 'Питчинг стартапов «KEL Start»: проекты № 21–30',
+              ky: '«KEL Start» стартап-питчинги: № 21–30 долбоорлор',
+              en: 'KEL Start Startup Pitches: Projects #21–30'
+            },
+            note: {
+              ru: 'Третий блок · Зал «Насыят»',
+              ky: 'Үчүнчү блок · «Насыят» залы',
+              en: 'Third block · Nasyyat Hall'
+            },
+            desc: {
+              ru: 'Завершающий блок очных презентаций финалистов конкурса: проекты № 21–30. Регламент: 3 минуты — презентация проекта, 5 минут — вопросы и ответы комиссии (8 минут на проект). Победители конкурса будут объявлены в 17:45 на главной сцене в зале «Курултай».',
+              ky: 'Сынактын финалисттеринин бет ачарынын жыйынтыктоочу блогу: № 21–30 долбоорлор. Регламент: 3 мүнөт — долбоордун презентациясы, 5 мүнөт — комиссиянын суроо-жооптору (бир долбоорго 8 мүнөт). Жеңүүчүлөр 17:45те «Курултай» залындагы башкы сахнада жарыяланат.',
+              en: 'Final block of live pitches by finalists: projects #21–30. Format: 3 min presentation, 5 min commission Q&A (8 minutes per project). Winners will be announced at 17:45 on the main stage in Kurultai Hall.'
             }
           },
           {
@@ -239,17 +305,22 @@ const DAYS = [
           },
           {
             kind: 'pitch', hall: 'nasyyat',
-            badge: { ru: 'Питч-сессия', ky: 'Питч-сессия', en: 'Pitch Session' },
-            timeSlot: '15:45–17:00',
+            badge: { ru: 'КЕЛ Старт', ky: 'КЕЛ Старт', en: 'KEL Start' },
+            timeSlot: '15:40–16:10',
             title: {
-              ru: 'Питч-сессия Kel Start: выступления № 16–30',
-              ky: 'Kel Start питч-сессиясы: № 16–30 чыгып сүйлөөлөрү',
-              en: 'Kel Start Pitch Session: Pitches #16–30'
+              ru: '«KEL Start»: Заседание комиссии и подведение итогов',
+              ky: '«KEL Start»: Комиссиянын отуруму жана жыйынтык чыгаруу',
+              en: 'KEL Start: Commission Deliberation & Closing Remarks'
+            },
+            note: {
+              ru: 'Зал «Насыят»',
+              ky: '«Насыят» залы',
+              en: 'Nasyyat Hall'
             },
             desc: {
-              ru: 'Вторая волна питчей — поддержи команды из зала. Итоги — в 17:45 в зале «Курултай».',
-              ky: 'Питчтердин экинчи толкуну — залдан командаларды колдоп бериңиз. Жыйынтыгы — 17:45те «Курултай» залында.',
-              en: 'The second wave of pitches — support teams from the audience. Results at 17:45 in Kurultai Hall.'
+              ru: 'Рабочее обсуждение межведомственной комиссии: рассмотрение результатов оценивания, сопоставление проектов по критериям, формирование рейтинга заявок (15:40–16:00). Завершение этапа: заключительное слово, информирование о порядке награждения и памятное общее фото участников (16:00–16:10).',
+              ky: 'Ведомстволор аралык комиссиянын жумушчу талкуусу: баалоо жыйынтыктарын кароо, критерийлер боюнча долбоорлорду салыштыруу, рейтинг түзүү (15:40–16:00). Этаптын аякташы: корутунду сөз, сыйлоо тартиби жөнүндө маалымат жана катышуучулардын жалпы эстелик сүрөтү (16:00–16:10).',
+              en: 'Deliberation of the interdepartmental commission: review of evaluation scores, project comparison, and applicant ranking (15:40–16:00). Stage wrap-up: closing remarks, award procedure briefing, and group photo of participants (16:00–16:10).'
             }
           },
           {
@@ -329,17 +400,22 @@ const DAYS = [
         items: [
           {
             kind: 'pitch', hall: 'kurultai', wide: true,
-            badge: { ru: 'Итоги Kel Start', ky: 'Kel Start жыйынтыгы', en: 'Kel Start Results' },
+            badge: { ru: 'Награждение «КЕЛ Старт»', ky: '«КЕЛ Старт» сыйлоо', en: 'KEL Start Awards' },
             timeSlot: '17:45–18:05',
             title: {
-              ru: 'Подведение итогов питч-сессии Kel Start',
-              ky: 'Kel Start питч-сессиясынын жыйынтыгын чыгаруу',
-              en: 'Kel Start Pitch Session Results & Awards'
+              ru: 'Церемония награждения победителей конкурса «KEL Start»',
+              ky: '«KEL Start» сынагынын жеңүүчүлөрүн салтанаттуу сыйлоо аземи',
+              en: 'KEL Start Award Ceremony'
+            },
+            note: {
+              ru: 'Главная сцена · Зал «Курултай»',
+              ky: 'Башкы сахна · «Курултай» залы',
+              en: 'Main Stage · Kurultai Hall'
             },
             desc: {
-              ru: 'Объявляем лучшие молодёжные стартапы дня и чествуем победителей.',
-              ky: 'Күндүн мыкты жаштар стартаптарын жарыялап, жеңүүчүлөрдү сыйлайбыз.',
-              en: 'Announcing the best youth startups of the day and honoring the winners.'
+              ru: 'Торжественное объявление итогов финала «KEL Start» на главной сцене форума. Вручение сертификатов государственной финансовой поддержки и грантов лучшим молодёжным инновационным проектам и стартапам Кыргызстана от Министерства науки, высшего образования и инноваций КР.',
+              ky: 'Форумдун башкы сахнасында «KEL Start» сынагынын финалынын жыйынтыгын салтанаттуу жарыялоо. Кыргызстандын мыкты жаштар инновациялык долбоорлоруна жана стартаптарына КР Илим, жогорку билим жана инновациялар министрлигинен мамлекеттик каржылык колдоо сертификаттарын жана гранттарды тапшыруу.',
+              en: 'Solemn announcement of KEL Start final results on the main stage. Presentation of national financial grant certificates and support to Kyrgyzstan’s best youth innovative projects and startups by the Ministry of Science, Higher Education and Innovation of the Kyrgyz Republic.'
             }
           }
         ]
@@ -462,7 +538,7 @@ export function renderProgramBlock(lang) {
     ['talks', ui.talks],
     ['pitch', ui.pitch],
     ['table', ui.table]
-  ].map(([v, label], i) => `<button type="button" class="muun-prog-chip${i === 0 ? ' is-active' : ''}${v === 'talks' ? ' is-talks' : ''}" data-prog-filter="track" data-value="${v}">${esc(label)}</button>`).join('');
+  ].map(([v, label], i) => `<button type="button" class="muun-prog-chip${i === 0 ? ' is-active' : ''}${v === 'talks' ? ' is-talks' : ''}${v === 'pitch' ? ' is-pitch-chip' : ''}" data-prog-filter="track" data-value="${v}">${esc(label)}</button>`).join('');
   const hallChips = [
     ['all', ui.hallAll],
     ['kurultai', ui.kurultai],
@@ -543,6 +619,7 @@ export const programCss = `
   .muun-prog-chip:hover { background: rgba(255,255,255,0.2); }
   .muun-prog-chip.is-active { background: rgb(1, 30, 255); }
   .muun-prog-chip.is-talks:not(.is-active) { box-shadow: inset 0 0 0 1px rgba(64, 96, 255, 0.7); }
+  .muun-prog-chip.is-pitch-chip:not(.is-active) { box-shadow: inset 0 0 0 1px rgba(245, 158, 11, 0.65); }
   .muun-prog-day { display: flex; flex-direction: column; gap: 48px; }
   .muun-prog-day[hidden], .muun-prog-row[hidden], .muun-prog-item[hidden] { display: none !important; }
   .muun-prog-dayhead { display: flex; align-items: stretch; min-height: 85px; }
