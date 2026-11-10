@@ -51,6 +51,8 @@ var CATEGORIES = {
   staff: 'Персонал',
   stuff: 'Персонал',
   organizer: 'Организатор',
+  volunteer: 'Волонтёр',
+  volunteers: 'Волонтёр',
   parent: 'Родитель / педагог',
   teacher: 'Педагог',
   company: 'Представитель компании',

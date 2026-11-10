@@ -660,6 +660,7 @@ export function buildClosedRegHtml(lang) {
                 <option value="exhibitor">${S['reg.cat_exhibitor']}</option>
                 <option value="staff">${S['reg.cat_staff']}</option>
                 <option value="organizer">${S['reg.cat_organizer']}</option>
+                <option value="volunteer">${S['reg.cat_volunteer']}</option>
                 <option value="parent">${S['reg.cat_parent_v2'] || S['reg.cat_parent']}</option>
                 <option value="company">${S['reg.cat_company']}</option>
                 <option value="media">${S['reg.cat_media']}</option>
