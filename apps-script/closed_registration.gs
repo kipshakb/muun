@@ -19,6 +19,9 @@
 
 var SHEET_NAME = 'Закрытая регистрация';
 
+// ID отдельной таблицы для организаторов «Кел Старт» (заявки дублируются туда автоматически)
+var KEL_START_SPREADSHEET_ID = '134ytyCrmLOUKVwo6Gx0HmV23IVI8NiYAtFAfcDqDy2w';
+
 var HEADERS = [
   'Дата', 'Гражданство', 'Страна', 'Фамилия', 'Имя', 'Отчество',
   'ПИН', 'Номер паспорта', 'Дата рождения', 'Телефон', 'Email',
@@ -121,10 +124,84 @@ function doPost(e) {
       'Резюме': resumeLink(p)
     };
     appendMapped(sheet, data);
+
+    // Авто-дублирование в таблицу организаторов «Кел Старт» (только колонки A-N по заголовкам)
+    if (isKelStartCategory(p.category, catName)) {
+      try {
+        appendKelStart(data);
+      } catch (errKel) {
+        Logger.log('KelStart sync error: ' + errKel);
+      }
+    }
   } finally {
     lock.releaseLock();
   }
   return ContentService.createTextOutput('ok');
+}
+
+function isKelStartCategory(catKey, catName) {
+  var key = String(catKey || '').toLowerCase();
+  var name = String(catName || '').toLowerCase();
+  return key.indexOf('kel_start') !== -1 || key.indexOf('kelstart') !== -1 || name.indexOf('кел старт') !== -1;
+}
+
+function appendKelStart(data) {
+  if (!KEL_START_SPREADSHEET_ID) return;
+  var ss = SpreadsheetApp.openById(KEL_START_SPREADSHEET_ID);
+  var sheet = ss.getSheets()[0];
+  appendMapped(sheet, data);
+}
+
+/**
+ * Разовая функция: копирует уже имеющиеся заявки «Кел Старт»
+ * из основной таблицы в созданную таблицу для организаторов.
+ * В редакторе выберите syncExistingKelStart и нажмите «Выполнить».
+ */
+function syncExistingKelStart() {
+  if (!KEL_START_SPREADSHEET_ID) {
+    Logger.log('Не указан KEL_START_SPREADSHEET_ID');
+    return;
+  }
+  var mainSs = SpreadsheetApp.getActiveSpreadsheet();
+  var mainSheet = mainSs.getSheetByName(SHEET_NAME) || mainSs.getSheets()[0];
+  var kelSs = SpreadsheetApp.openById(KEL_START_SPREADSHEET_ID);
+  var kelSheet = kelSs.getSheets()[0];
+
+  var mainHeaders = mainSheet.getRange(1, 1, 1, mainSheet.getLastColumn()).getDisplayValues()[0];
+  var catCol = -1;
+  for (var i = 0; i < mainHeaders.length; i++) {
+    if (String(mainHeaders[i] || '').trim().toLowerCase() === 'категория') {
+      catCol = i;
+      break;
+    }
+  }
+  if (catCol === -1) {
+    Logger.log('Колонка «Категория» не найдена в основной таблице');
+    return;
+  }
+
+  var lastRow = mainSheet.getLastRow();
+  if (lastRow < 2) {
+    Logger.log('В основной таблице нет данных');
+    return;
+  }
+  var rows = mainSheet.getRange(2, 1, lastRow - 1, mainSheet.getLastColumn()).getDisplayValues();
+
+  var copiedCount = 0;
+  for (var r = 0; r < rows.length; r++) {
+    var rowVals = rows[r];
+    var catVal = String(rowVals[catCol] || '');
+    if (catVal.toLowerCase().indexOf('кел старт') !== -1) {
+      var rowData = {};
+      for (var c = 0; c < mainHeaders.length; c++) {
+        var hName = String(mainHeaders[c] || '').trim();
+        rowData[hName] = rowVals[c];
+      }
+      appendMapped(kelSheet, rowData);
+      copiedCount++;
+    }
+  }
+  Logger.log('Успешно перенесено заявок: ' + copiedCount);
 }
 
 function postParams(e) {
