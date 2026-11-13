@@ -1,56 +1,252 @@
 // Единый блок программы: один и тот же HTML вставляется в секцию Agenda
 // на главной и на странице /program.
+//
+// Источник: «28.11_MUUN26_проект программы от 12.11» (общая программа)
+// и программа финала «KEL Start» (подробная панель по фильтру «КЕЛ Старт»).
+// Где документы расходятся по времени — берётся общая программа.
+//
+// Устройство:
+//   PARALLEL — длинные события, идущие фоном весь день (плашка над лентой,
+//              видна только при фильтре «Вся программа»);
+//   KEL      — подробная программа финала KEL Start (видна только при
+//              фильтре «КЕЛ Старт»; открывается и кнопкой на карточке);
+//   DAYS     — основная лента по залу «Курултай».
 
 const UI = {
   ru: {
-    trackAll: 'Все сессии',
+    trackAll: 'Вся программа',
     talks: 'MUUN Talks',
-    pitch: 'КЕЛ Старт',
-    table: 'Открытый стол',
-    hallAll: 'Все залы',
-    kurultai: 'Зал «Курултай»',
-    nasyyat: 'Зал «Насыят»',
-    sanzhyra: 'Зал «Санжыра»',
-    pitchBadge: 'КЕЛ Старт',
-    tableBadge: 'Открытый стол',
-    people: 'Модератор и спикеры будут объявлены позже',
-    empty: 'По выбранным фильтрам сессий нет',
+    maek: 'Ачык маек',
+    kel: 'КЕЛ Старт',
+    parallel: 'Параллельно в течение дня',
+    kelMore: 'Программа КЕЛ Старт',
+    kelBack: 'Вся программа',
+    format: 'Формат',
+    keynote: 'Keynote',
+    speakers: 'Спикеры',
+    moderator: 'Модератор',
+    topics: 'О чём поговорим',
+    empty: 'По выбранному фильтру сессий нет',
     more: 'Подробнее'
   },
   ky: {
-    trackAll: 'Бардык сессиялар',
+    trackAll: 'Толук программа',
     talks: 'MUUN Talks',
-    pitch: 'КЕЛ Старт',
-    table: 'Ачык стол',
-    hallAll: 'Бардык залдар',
-    kurultai: '«Курултай» залы',
-    nasyyat: '«Насыят» залы',
-    sanzhyra: '«Санжыра» залы',
-    pitchBadge: 'КЕЛ Старт',
-    tableBadge: 'Ачык стол',
-    people: 'Модератор жана спикерлер кийинчерээк жарыяланат',
-    empty: 'Тандалган чыпкалар боюнча сессиялар жок',
+    maek: 'Ачык маек',
+    kel: 'КЕЛ Старт',
+    parallel: 'Күн бою катар өтөт',
+    kelMore: 'КЕЛ Старт программасы',
+    kelBack: 'Толук программа',
+    format: 'Формат',
+    keynote: 'Keynote',
+    speakers: 'Спикерлер',
+    moderator: 'Модератор',
+    topics: 'Эмне жөнүндө сүйлөшөбүз',
+    empty: 'Тандалган чыпка боюнча сессиялар жок',
     more: 'Кененирээк'
   },
   en: {
-    trackAll: 'All sessions',
+    trackAll: 'Full programme',
     talks: 'MUUN Talks',
-    pitch: 'KEL Start',
-    table: 'Open Table',
-    hallAll: 'All halls',
-    kurultai: 'Kurultai Hall',
-    nasyyat: 'Nasyyat Hall',
-    sanzhyra: 'Sanzhyra Hall',
-    pitchBadge: 'KEL Start',
-    tableBadge: 'Open Table',
-    people: 'Moderator and speakers to be announced',
-    empty: 'No sessions match the selected filters',
+    maek: 'Open Talk',
+    kel: 'KEL Start',
+    parallel: 'Running in parallel all day',
+    kelMore: 'KEL Start programme',
+    kelBack: 'Full programme',
+    format: 'Format',
+    keynote: 'Keynote',
+    speakers: 'Speakers',
+    moderator: 'Moderator',
+    topics: 'Topics',
+    empty: 'No sessions match the selected filter',
     more: 'Details'
   }
 };
 
-// kind: talks | pitch | table | ceremony | service
-// hall: kurultai | nasyyat | sanzhyra | undefined (общий слот на всю ширину)
+const KURULTAI = { ru: 'Зал «Курултай»', ky: '«Курултай» залы', en: 'Kurultai Hall' };
+const FOYER = { ru: 'Фойе зала «Курултай»', ky: '«Курултай» залынын фойеси', en: 'Kurultai Hall foyer' };
+const NASYYAT = { ru: 'Зал «Насыят»', ky: '«Насыят» залы', en: 'Nasyyat Hall' };
+const SAIRAN = { ru: 'Зал «Сайран»', ky: '«Сайран» залы', en: 'Sairan Hall' };
+
+const SLIDO = {
+  ru: 'вопросы участников через Slido',
+  ky: 'катышуучулардын Slido аркылуу суроолору',
+  en: 'audience questions via Slido'
+};
+
+// ── Параллельные события ──────────────────────────────────────────────
+const PARALLEL = [
+  {
+    kind: 'pitch',
+    time: '08:00–16:10',
+    place: NASYYAT,
+    badge: { ru: 'КЕЛ Старт', ky: 'КЕЛ Старт', en: 'KEL Start' },
+    title: {
+      ru: 'Финал конкурса стартапов «KEL Start»',
+      ky: '«KEL Start» стартаптар сынагынын финалы',
+      en: 'KEL Start startup competition final'
+    },
+    desc: {
+      ru: 'Питч-сессия: презентации стартапов и вопросы жюри.',
+      ky: 'Питч-сессия: стартаптардын презентациялары жана калыстардын суроолору.',
+      en: 'Pitch session: startup presentations and jury questions.'
+    },
+    openKel: true
+  },
+  {
+    kind: 'expo',
+    time: '12:45–17:30',
+    place: FOYER,
+    badge: { ru: 'Выставка', ky: 'Көргөзмө', en: 'Exhibition' },
+    title: {
+      ru: 'Выставочная экспозиция',
+      ky: 'Көргөзмө экспозициясы',
+      en: 'Exhibition'
+    },
+    desc: {
+      ru: 'Стенды работодателей, государственных предприятий, университетов и партнёров проекта.',
+      ky: 'Иш берүүчүлөрдүн, мамлекеттик ишканалардын, университеттердин жана долбоордун өнөктөштөрүнүн стенддери.',
+      en: 'Stands of employers, state enterprises, universities and project partners.'
+    }
+  },
+  {
+    kind: 'expo',
+    time: '13:00–18:00',
+    place: FOYER,
+    badge: { ru: 'Карьера', ky: 'Карьера', en: 'Careers' },
+    title: {
+      ru: 'Карьерная зона «Оффер у стенда»',
+      ky: '«Стенддеги оффер» карьера зонасы',
+      en: '“Offer at the Stand” career zone'
+    },
+    desc: {
+      ru: 'Экспресс-собеседования с представителями кадровых служб компаний-экспонентов у стендов и консультации по составлению резюме.',
+      ky: 'Көргөзмөгө катышкан компаниялардын кадр кызматтарынын өкүлдөрү менен стенддердин жанында экспресс-маектешүү жана резюме түзүү боюнча кеңештер.',
+      en: 'Express interviews with HR representatives of exhibiting companies right at their stands, plus CV consultations.'
+    }
+  }
+];
+
+// ── Подробная программа KEL Start ─────────────────────────────────────
+const KEL = {
+  title: {
+    ru: 'Финал национального конкурса инновационных проектов и стартапов «KEL Start»',
+    ky: '«KEL Start» инновациялык долбоорлор жана стартаптар улуттук сынагынын финалы',
+    en: 'Final of the KEL Start national competition of innovative projects and startups'
+  },
+  meta: {
+    ru: 'Зал «Насыят» · до 30 проектов · 8 минут на проект: 3 минуты презентация и 5 минут вопросы комиссии',
+    ky: '«Насыят» залы · 30 долбоорго чейин · бир долбоорго 8 мүнөт: 3 мүнөт презентация жана 5 мүнөт комиссиянын суроолору',
+    en: 'Nasyyat Hall · up to 30 projects · 8 minutes per project: 3-minute pitch and 5 minutes of commission Q&A'
+  },
+  org: {
+    ru: 'Организатор — Министерство науки, высшего образования и инноваций Кыргызской Республики. Секретариат — Государственный фонд интеллектуальной собственности. Проекты оценивает межведомственная комиссия.',
+    ky: 'Уюштуруучу — Кыргыз Республикасынын Илим, жогорку билим берүү жана инновациялар министрлиги. Катчылык — Интеллектуалдык менчик мамлекеттик фонду. Долбоорлорду ведомстволор аралык комиссия баалайт.',
+    en: 'Organiser: Ministry of Science, Higher Education and Innovation of the Kyrgyz Republic. Secretariat: State Intellectual Property Fund. Projects are assessed by an interdepartmental commission.'
+  },
+  rows: [
+    {
+      time: '08:00–08:40',
+      title: {
+        ru: 'Регистрация финалистов, членов межведомственной комиссии и гостей',
+        ky: 'Финалисттерди, ведомстволор аралык комиссиянын мүчөлөрүн жана коноктарды каттоо',
+        en: 'Registration of finalists, commission members and guests'
+      },
+      note: {
+        ru: 'Уточнение очерёдности выступлений, приём презентаций',
+        ky: 'Чыгып сүйлөө кезегин тактоо, презентацияларды кабыл алуу',
+        en: 'Confirming the running order and collecting presentations'
+      }
+    },
+    {
+      time: '08:40–08:55',
+      title: {
+        ru: 'Открытие финала',
+        ky: 'Финалдын ачылышы',
+        en: 'Opening of the final'
+      },
+      note: {
+        ru: 'Приветственное слово: Сулайманова Лира Сулаймановна, заместитель министра науки, высшего образования и инноваций КР. Представление комиссии и регламента питчинга',
+        ky: 'Куттуктоо сөз: Сулайманова Лира Сулаймановна, Кыргыз Республикасынын илим, жогорку билим берүү жана инновациялар министринин орун басары. Комиссияны жана питчинг регламентин тааныштыруу',
+        en: 'Welcome address: Lira Sulaimanova, Deputy Minister of Science, Higher Education and Innovation of the Kyrgyz Republic. Introduction of the commission and pitch rules'
+      }
+    },
+    {
+      time: '08:55–10:15',
+      title: {
+        ru: 'Питчинг проектов № 1–10',
+        ky: '№ 1–10 долбоорлордун питчинги',
+        en: 'Pitches: projects 1–10'
+      }
+    },
+    {
+      time: '10:15–13:00',
+      title: {
+        ru: 'Участие в официальной части форума и перерыв',
+        ky: 'Форумдун расмий бөлүгүнө катышуу жана тыныгуу',
+        en: 'Forum official programme and break'
+      },
+      note: {
+        ru: 'Церемония открытия «Жаратман МУУН» — 11:00–12:45, зал «Курултай»',
+        ky: '«Жаратман МУУН» ачылыш аземи — 11:00–12:45, «Курултай» залы',
+        en: 'Zharatman MUUN opening ceremony: 11:00–12:45, Kurultai Hall'
+      }
+    },
+    {
+      time: '13:00–15:40',
+      title: {
+        ru: 'Питчинг проектов № 11–30',
+        ky: '№ 11–30 долбоорлордун питчинги',
+        en: 'Pitches: projects 11–30'
+      }
+    },
+    {
+      time: '15:40–16:00',
+      title: {
+        ru: 'Рабочее обсуждение межведомственной комиссии',
+        ky: 'Ведомстволор аралык комиссиянын иштиктүү талкуусу',
+        en: 'Commission deliberation'
+      },
+      note: {
+        ru: 'Рассмотрение результатов оценивания и формирование рейтинга заявок',
+        ky: 'Баалоонун жыйынтыктарын карап чыгуу жана арыздардын рейтингин түзүү',
+        en: 'Reviewing the scores and ranking the applications'
+      }
+    },
+    {
+      time: '16:00–16:10',
+      title: {
+        ru: 'Завершение финального этапа и общее фото',
+        ky: 'Финалдык этаптын жабылышы жана жалпы сүрөт',
+        en: 'Closing of the final stage and group photo'
+      },
+      note: {
+        ru: 'Заключительное слово: Сулайманова Лира Сулаймановна',
+        ky: 'Жыйынтыктоочу сөз: Сулайманова Лира Сулаймановна',
+        en: 'Closing remarks: Lira Sulaimanova'
+      }
+    },
+    {
+      time: '19:25–19:40',
+      highlight: true,
+      title: {
+        ru: 'Объявление и награждение победителей',
+        ky: 'Жеңүүчүлөрдү жарыялоо жана сыйлоо',
+        en: 'Winners announced and awarded'
+      },
+      note: {
+        ru: 'Главная сцена · зал «Курултай»',
+        ky: 'Негизги сахна · «Курултай» залы',
+        en: 'Main stage · Kurultai Hall'
+      }
+    }
+  ]
+};
+
+// ── Основная лента ────────────────────────────────────────────────────
+// kind: talks | maek | pitch | ceremony | premiere | service
+const p = (ru, ky, en) => ({ ru, ky, en });
+
 const DAYS = [
   {
     label: { ru: '28 ноября', ky: '28-ноябрь', en: '28 November' },
@@ -64,393 +260,267 @@ const DAYS = [
         time: '07:00–10:00',
         items: [{
           kind: 'service',
-          title: {
-            ru: 'Регистрация приглашённых участников',
-            ky: 'Чакырылган катышуучуларды каттоо',
-            en: 'Registration of invited participants'
-          },
-          note: {
-            ru: 'Строго по приглашению',
-            ky: 'Чакыруу боюнча гана',
-            en: 'Strictly by invitation'
-          }
+          title: p('Регистрация и допуск участников', 'Катышуучуларды каттоо жана киргизүү', 'Registration and admission of participants'),
+          note: p('Для участников закрытой регистрации', 'Жабык каттоо аркылуу катталгандар үчүн', 'For participants registered through closed registration')
         }]
       },
       {
-        time: '08:40–10:15',
-        items: [
-          {
-            kind: 'pitch', hall: 'nasyyat',
-            badge: { ru: 'КЕЛ Старт', ky: 'КЕЛ Старт', en: 'KEL Start' },
-            timeSlot: '08:40–10:15',
-            title: {
-              ru: 'Финальный этап «KEL Start»: открытие и питчинг проектов № 1–10',
-              ky: '«KEL Start» сынагынын финалы: ачылышы жана № 1–10 долбоорлордун питчинги',
-              en: 'KEL Start Final: Opening & Startup Pitches #1–10'
-            },
-            note: {
-              ru: 'Регистрация проектов с 08:00 · Зал «Насыят»',
-              ky: 'Долбоорлорду каттоо 08:00дөн баштап · «Насыят» залы',
-              en: 'Project registration from 08:00 · Nasyyat Hall'
-            },
-            desc: {
-              ru: 'Официальное открытие финала национального конкурса стартапов (08:40–08:55): приветственное слово и разъяснение регламента. Первый блок очных презентаций финалистов: проекты № 1–10 перед межведомственной комиссией (08:55–10:15). Регламент: 3 минуты — презентация, 5 минут — вопросы и ответы комиссии (8 минут на проект).',
-              ky: 'Стартаптардын улуттук сынагынын финалынын расмий ачылышы (08:40–08:55): куттуктоо сөз жана регламентти түшүндүрүү. Финалисттердин бет ачарынын биринчи блогу: ведомстволор аралык комиссиянын алдында № 1–10 долбоорлор (08:55–10:15). Регламент: 3 мүнөт — презентация, 5 мүнөт — комиссиянын суроо-жооптору (бир долбоорго 8 мүнөт).',
-              en: 'Official opening of the national startup competition final (08:40–08:55): welcome address, introduction of commission, and pitch rules. First block of live presentations: projects #1–10 before the interdepartmental commission (08:55–10:15). Format: 3 min presentation, 5 min Q&A (8 minutes per project).'
-            }
-          }
-        ]
-      },
-      {
-        time: '10:00–11:00',
-        items: [{
-          kind: 'service',
-          title: {
-            ru: 'Выставочная экспозиция',
-            ky: 'Көргөзмө экспозициясы',
-            en: 'Exhibition showcase'
-          },
-          note: {
-            ru: 'Для приглашённых участников церемонии',
-            ky: 'Аземдин чакырылган катышуучулары үчүн',
-            en: 'For invited ceremony participants'
-          }
-        }]
-      },
-      {
-        time: '11:00–12:00',
+        time: '10:00–10:30',
         items: [{
           kind: 'ceremony',
-          title: {
-            ru: 'Церемония официального открытия',
-            ky: 'Расмий ачылыш аземи',
-            en: 'Official Opening Ceremony'
-          },
-          note: {
-            ru: 'Строго по приглашению',
-            ky: 'Чакыруу боюнча гана',
-            en: 'Strictly by invitation'
-          },
-          desc: {
-            ru: 'Торжественный старт главного молодёжного дня страны.',
-            ky: 'Өлкөнүн башкы жаштар күнүнүн салтанаттуу башталышы.',
-            en: 'Grand opening of the country’s premier youth day.'
-          }
+          place: KURULTAI,
+          badge: p('Пре-шоу', 'Пре-шоу', 'Pre-show'),
+          title: p('Пре-шоу: ведущий, музыка, ролик MUUN', 'Пре-шоу: алып баруучу, музыка, MUUN ролиги', 'Pre-show: host, music and the MUUN film'),
+          note: p('В 10:30 зал заполнен, двери закрываются', 'Саат 10:30да зал толот, эшиктер жабылат', 'At 10:30 the hall is seated and the doors close')
         }]
       },
       {
-        time: '12:00–13:00',
+        time: '10:30–11:00',
         items: [{
           kind: 'service',
-          title: {
-            ru: 'Обеденный перерыв / Кофе-брейк',
-            ky: 'Түшкү тыныгуу / Кофе-брейк',
-            en: 'Lunch Break / Coffee Break'
-          },
-          note: {
-            ru: 'Для участников и гостей форума',
-            ky: 'Форумдун катышуучулары жана коноктору үчүн',
-            en: 'For forum participants and guests'
+          title: p('Прибытие первых лиц и обход выставочной экспозиции официальной делегацией', 'Биринчи жетекчилердин келиши жана расмий делегациянын көргөзмөнү кыдыруусу', 'Arrival of senior officials and the official delegation’s tour of the exhibition'),
+          note: p('Протокольный маршрут', 'Протоколдук маршрут', 'Protocol route')
+        }]
+      },
+      {
+        time: '11:00–12:45',
+        items: [{
+          kind: 'ceremony',
+          place: KURULTAI,
+          badge: p('Церемония', 'Азем', 'Ceremony'),
+          title: p('Церемония открытия', 'Ачылыш аземи', 'Opening ceremony'),
+          points: [
+            p('Прибытие первых лиц и встреча у входа', 'Биринчи жетекчилердин келиши жана кире бериште тосуп алуу', 'Arrival of senior officials and welcome at the entrance'),
+            p('Начало официальной части и запуск ролика проекта', 'Расмий бөлүктүн башталышы жана долбоордун ролигин көрсөтүү', 'Start of the official part and the project film'),
+            p('Государственный гимн Кыргызской Республики', 'Кыргыз Республикасынын Мамлекеттик гимни', 'National anthem of the Kyrgyz Republic'),
+            p('Приветственное слово Председателя Кабинета Министров Кыргызской Республики А.А. Касымалиева', 'Кыргыз Республикасынын Министрлер Кабинетинин Төрагасы А.А. Касымалиевдин куттуктоо сөзү', 'Welcome address by A.A. Kasymaliev, Chairman of the Cabinet of Ministers of the Kyrgyz Republic'),
+            p('Церемония награждения обладателей Президентской стипендии', 'Президенттик стипендиянын ээлерин сыйлоо аземи', 'Award ceremony for Presidential Scholarship holders'),
+            p('Выступление Президентского стипендиата', 'Президенттик стипендиаттын сөзү', 'Speech by a Presidential Scholar'),
+            p('Концертная программа', 'Концерттик программа', 'Concert programme')
+          ],
+          moderator: {
+            name: p('Исаматова Г.Т.', 'Исаматова Г.Т.', 'G.T. Isamatova'),
+            role: p('Министр науки, высшего образования и инноваций Кыргызской Республики', 'Кыргыз Республикасынын Илим, жогорку билим берүү жана инновациялар министри', 'Minister of Science, Higher Education and Innovation of the Kyrgyz Republic')
           }
         }]
       },
       {
-        time: '13:30',
+        time: '12:00–13:30',
         items: [{
           kind: 'service',
-          title: {
-            ru: 'Вход для посетителей по регистрации',
-            ky: 'Каттоо боюнча келүүчүлөрдүн кирүүсү',
-            en: 'Visitor Entry with Registration'
-          },
-          note: {
-            ru: 'Выставочная экспозиция открыта до 17:45',
-            ky: 'Көргөзмө экспозициясы 17:45ке чейин ачык',
-            en: 'Exhibition open until 17:45'
-          },
-          desc: {
-            ru: 'Выставочная экспозиция открыта до 17:45. С 14:00 в фойе зала Курултай — карьерная зона «Оффер у стенда»: экспресс-собеседования у стендов и разбор резюме. Приходи с резюме!',
-            ky: 'Көргөзмө экспозициясы 17:45ке чейин ачык. 14:00дөн баштап «Курултай» залынын фойесинде — «Стендде оффер» карьералык аймагы: стенддерде экспресс-маектешүүлөр жана резюмени талдоо. Резюмеңиз менен келиңиз!',
-            en: 'Exhibition open until 17:45. From 14:00 in Kurultai Hall foyer — career zone “Offer at the Stand”: express interviews and CV reviews. Come with your resume!'
-          }
+          place: SAIRAN,
+          title: p('Питание участников', 'Катышуучуларды тамактандыруу', 'Lunch for participants')
         }]
       },
       {
-        time: '14:00–14:55',
-        items: [
-          {
-            kind: 'talks', hall: 'kurultai',
-            code: 'MUUN Talks · МАКСАТ', codeEn: 'MUUN Talks · MAKSAT',
-            timeSlot: '14:00–14:45',
-            title: {
-              ru: 'Пленарная сессия 1: «Профессии будущего: чему учить сегодня»',
-              ky: '1-пленардык сессия: «Келечектин кесиптери: бүгүн эмнеге окутуу керек»',
-              en: 'Plenary Session 1: “Professions of the Future: What to Teach Today”'
-            },
-            desc: {
-              ru: '«Кем ты станешь через 10 лет» — какие профессии нужны стране завтра и чему учиться уже сегодня.',
-              ky: '«10 жылдан кийин ким болосуң» — эртең өлкөгө кайсы кесиптер керек болот жана бүгүн эмнеге окуу зарыл.',
-              en: '“Who will you become in 10 years” — what professions the country will need tomorrow and what to learn today.'
-            }
-          },
-          {
-            kind: 'pitch', hall: 'nasyyat',
-            badge: { ru: 'КЕЛ Старт', ky: 'КЕЛ Старт', en: 'KEL Start' },
-            timeSlot: '13:00–14:20',
-            title: {
-              ru: 'Питчинг стартапов «KEL Start»: проекты № 11–20',
-              ky: '«KEL Start» стартап-питчинги: № 11–20 долбоорлор',
-              en: 'KEL Start Startup Pitches: Projects #11–20'
-            },
-            note: {
-              ru: 'Второй блок (старт в 13:00) · Зал «Насыят»',
-              ky: 'Экинчи блок (башталышы 13:00) · «Насыят» залы',
-              en: 'Second block (starts at 13:00) · Nasyyat Hall'
-            },
-            desc: {
-              ru: 'Второй блок очных презентаций финалистов национального конкурса перед межведомственной комиссией: проекты № 11–20. Регламент: 3 минуты — презентация проекта, 5 минут — вопросы и ответы комиссии (8 минут на проект).',
-              ky: 'Улуттук сынактын финалисттеринин ведомстволор аралык комиссиянын алдында бет ачарынын экинчи блогу: № 11–20 долбоорлор. Регламент: 3 мүнөт — долбоордун презентациясы, 5 мүнөт — комиссиянын суроо-жооптору (бир долбоорго 8 мүнөт).',
-              en: 'Second block of finalist live presentations before the interdepartmental commission: projects #11–20. Format: 3 min presentation, 5 min commission Q&A (8 minutes per project).'
-            }
-          },
-          {
-            kind: 'table', hall: 'sanzhyra',
-            badge: { ru: 'Круглый стол 1', ky: '1-тегерек стол', en: 'Roundtable 1' },
-            timeSlot: '14:00–14:55',
-            title: {
-              ru: 'Круглый стол 1 «Лаборатория профессий будущего»',
-              ky: '1-тегерек стол «Келечек кесиптеринин лабораториясы»',
-              en: 'Roundtable 1: “Laboratory of Future Professions”'
-            },
-            desc: {
-              ru: '«Потрогай будущее» — робототехника, медтех и ИИ в живых демонстрациях от практиков.',
-              ky: '«Келечекти сезип көр» — робототехника, медтех жана ЖИ тажрыйбалуу адистердин жандуу көрсөтмөсүндө.',
-              en: '“Touch the future” — robotics, medtech and AI in live practical demonstrations.'
-            }
-          }
-        ]
+        time: '12:45',
+        items: [{
+          kind: 'service',
+          title: p('Вход для посетителей по бесплатной регистрации', 'Акысыз каттоо аркылуу келгендердин кириши', 'Entry for visitors with free registration'),
+          note: p('Открываются выставочная экспозиция и карьерная зона', 'Көргөзмө экспозициясы жана карьера зонасы ачылат', 'The exhibition and the career zone open')
+        }]
       },
       {
-        time: '14:55–15:40',
-        items: [
-          {
-            kind: 'talks', hall: 'kurultai',
-            code: 'MUUN Talks · УМТУЛУУ', codeEn: 'MUUN Talks · UMTULUU',
-            timeSlot: '14:55–15:40',
-            title: {
-              ru: 'Пленарная сессия 2: «От Бишкека до Harvard и Big Tech: как мечтать масштабно в эпоху AI»',
-              ky: '2-пленардык сессия: «Бишкектен Harvard жана Big Techке чейин: AI доорунда кантип масштабдуу кыялдануу керек»',
-              en: 'Plenary Session 2: “From Bishkek to Harvard & Big Tech: How to Dream Big in the Age of AI”'
-            },
-            desc: {
-              ru: '«Из Бишкека — в Big Tech» — реальные истории пути в глобальные IT-компании и навыки, которые для этого нужны.',
-              ky: '«Бишкектен — Big Techке» — глобалдык IT-компанияларга жетүү жолунун чыныгы тарыхтары жана буга зарыл көндүмдөр.',
-              en: '“From Bishkek to Big Tech” — real stories of journeys to global IT companies and skills needed.'
-            }
-          },
-          {
-            kind: 'pitch', hall: 'nasyyat',
-            badge: { ru: 'КЕЛ Старт', ky: 'КЕЛ Старт', en: 'KEL Start' },
-            timeSlot: '14:20–15:40',
-            title: {
-              ru: 'Питчинг стартапов «KEL Start»: проекты № 21–30',
-              ky: '«KEL Start» стартап-питчинги: № 21–30 долбоорлор',
-              en: 'KEL Start Startup Pitches: Projects #21–30'
-            },
-            note: {
-              ru: 'Третий блок · Зал «Насыят»',
-              ky: 'Үчүнчү блок · «Насыят» залы',
-              en: 'Third block · Nasyyat Hall'
-            },
-            desc: {
-              ru: 'Завершающий блок очных презентаций финалистов конкурса: проекты № 21–30. Регламент: 3 минуты — презентация проекта, 5 минут — вопросы и ответы комиссии (8 минут на проект). Победители конкурса будут объявлены в 17:45 на главной сцене в зале «Курултай».',
-              ky: 'Сынактын финалисттеринин бет ачарынын жыйынтыктоочу блогу: № 21–30 долбоорлор. Регламент: 3 мүнөт — долбоордун презентациясы, 5 мүнөт — комиссиянын суроо-жооптору (бир долбоорго 8 мүнөт). Жеңүүчүлөр 17:45те «Курултай» залындагы башкы сахнада жарыяланат.',
-              en: 'Final block of live pitches by finalists: projects #21–30. Format: 3 min presentation, 5 min commission Q&A (8 minutes per project). Winners will be announced at 17:45 on the main stage in Kurultai Hall.'
-            }
-          },
-          {
-            kind: 'table', hall: 'sanzhyra',
-            badge: { ru: 'Круглый стол 2', ky: '2-тегерек стол', en: 'Roundtable 2' },
-            timeSlot: '15:00–15:35',
-            title: {
-              ru: 'Круглый стол 2 «Спорт и киберспорт: игра на победу»',
-              ky: '2-тегерек стол «Спорт жана киберспорт: жеңиш үчүн оюн»',
-              en: 'Roundtable 2: “Sport and Esports: Playing to Win”'
-            },
-            desc: {
-              ru: 'От киберспорта до Всемирных игр кочевников: какие профессии скрываются за большим спортом.',
-              ky: 'Киберспорттон Дүйнөлүк көчмөндөр оюндарына чейин: чоң спорттун артында кандай кесиптер турат.',
-              en: 'From esports to the World Nomad Games: what professions lie behind major sports.'
-            }
-          }
-        ]
+        time: '13:00–13:50',
+        items: [{
+          kind: 'talks',
+          place: KURULTAI,
+          badge: p('MUUN Talks 1 · Максат', 'MUUN Talks 1 · Максат', 'MUUN Talks 1 · Maksat'),
+          title: p('«Профессии будущего: чему учить сегодня»', '«Келечектин кесиптери: бүгүн эмнени үйрөтүү керек»', '“Professions of the future: what to teach today”'),
+          format: p('Ключевое выступление, модерируемый диалог, ' + SLIDO.ru, 'Негизги баяндама, модератор жетектеген диалог, ' + SLIDO.ky, 'Keynote, moderated dialogue, ' + SLIDO.en),
+          speakers: [
+            { name: p('Орунтаев Нурдан Кемелович', 'Орунтаев Нурдан Кемелович', 'Nurdan Oruntaev'), role: p('Министр строительства, архитектуры и жилищно-коммунального хозяйства Кыргызской Республики', 'Кыргыз Республикасынын Курулуш, архитектура жана турак жай-коммуналдык чарба министри', 'Minister of Construction, Architecture, Housing and Utilities of the Kyrgyz Republic') },
+            { name: p('Рысбеков Алтынбек Дурусбекович', 'Рысбеков Алтынбек Дурусбекович', 'Altynbek Rysbekov'), role: p('Министр энергетики Кыргызской Республики', 'Кыргыз Республикасынын Энергетика министри', 'Minister of Energy of the Kyrgyz Republic') },
+            { name: p('Кубатов Эдуард Джумакадырович', 'Кубатов Эдуард Джумакадырович', 'Eduard Kubatov'), role: p('Директор Государственного агентства по развитию туризма при Кабинете Министров Кыргызской Республики', 'Кыргыз Республикасынын Министрлер Кабинетине караштуу Туризмди өнүктүрүү боюнча мамлекеттик агенттиктин директору', 'Director of the State Agency for Tourism Development under the Cabinet of Ministers of the Kyrgyz Republic') },
+            { name: p('Сурабалдиева Эльвира', 'Сурабалдиева Эльвира', 'Elvira Surabaldieva') }
+          ],
+          moderator: { name: p('Эсеналиева Назира Солтонбековна', 'Эсеналиева Назира Солтонбековна', 'Nazira Esenalieva'), role: p('Ректор Международного университета «Ала-Тоо»', '«Ала-Тоо» эл аралык университетинин ректору', 'Rector of Ala-Too International University') },
+          topics: [
+            p('профессии будущего', 'келечектин кесиптери', 'professions of the future'),
+            p('чему учить сегодня', 'бүгүн эмнени үйрөтүү керек', 'what to teach today'),
+            p('карьера в строительстве', 'курулуштагы карьера', 'careers in construction'),
+            p('карьера в энергетике', 'энергетикадагы карьера', 'careers in energy'),
+            p('карьера в туризме', 'туризмдеги карьера', 'careers in tourism'),
+            p('ориентиры для обучения', 'окуу үчүн багыттар', 'study guidance')
+          ]
+        }]
       },
       {
-        time: '15:40–16:15',
-        items: [
-          {
-            kind: 'talks', hall: 'kurultai',
-            code: 'MUUN Talks · УЧУР', codeEn: 'MUUN Talks · UCHUR',
-            timeSlot: '15:50–16:35',
-            title: {
-              ru: 'Пленарная сессия 3: «Время перемен: ИИ, технологии, интеллектуальная собственность и рынок труда»',
-              ky: '3-пленардык сессия: «Өзгөрүүлөр мезгили: ЖИ, технологиялар, интеллектуалдык менчик жана эмгек рыногу»',
-              en: 'Plenary Session 3: “Time of Change: AI, Technology, Intellectual Property and the Labour Market”'
-            },
-            desc: {
-              ru: '«ИИ не заберёт твою работу, если ты знаешь новые правила и умеешь защищать свои идеи» — где появятся новые рабочие места, какие навыки нужны уже сейчас и как превратить свою идею в защищённый актив.',
-              ky: '«Эгер жаңы эрежелерди билип, идеяларыңды коргой алсаң, ЖИ жумушуңду тартып албайт» — жаңы жумуш орундары кайда пайда болот, азыртан кандай көндүмдөр керек жана идеяны кантип корголгон активге айландырууга болот.',
-              en: '“AI won’t take your job if you know the new rules and how to protect your ideas” — where new jobs will emerge, what skills are needed now, and how to turn your idea into a protected asset.'
-            }
-          },
-          {
-            kind: 'pitch', hall: 'nasyyat',
-            badge: { ru: 'КЕЛ Старт', ky: 'КЕЛ Старт', en: 'KEL Start' },
-            timeSlot: '15:40–16:10',
-            title: {
-              ru: '«KEL Start»: Заседание комиссии и подведение итогов',
-              ky: '«KEL Start»: Комиссиянын отуруму жана жыйынтык чыгаруу',
-              en: 'KEL Start: Commission Deliberation & Closing Remarks'
-            },
-            note: {
-              ru: 'Зал «Насыят»',
-              ky: '«Насыят» залы',
-              en: 'Nasyyat Hall'
-            },
-            desc: {
-              ru: 'Рабочее обсуждение межведомственной комиссии: рассмотрение результатов оценивания, сопоставление проектов по критериям, формирование рейтинга заявок (15:40–16:00). Завершение этапа: заключительное слово, информирование о порядке награждения и памятное общее фото участников (16:00–16:10).',
-              ky: 'Ведомстволор аралык комиссиянын жумушчу талкуусу: баалоо жыйынтыктарын кароо, критерийлер боюнча долбоорлорду салыштыруу, рейтинг түзүү (15:40–16:00). Этаптын аякташы: корутунду сөз, сыйлоо тартиби жөнүндө маалымат жана катышуучулардын жалпы эстелик сүрөтү (16:00–16:10).',
-              en: 'Deliberation of the interdepartmental commission: review of evaluation scores, project comparison, and applicant ranking (15:40–16:00). Stage wrap-up: closing remarks, award procedure briefing, and group photo of participants (16:00–16:10).'
-            }
-          },
-          {
-            kind: 'table', hall: 'sanzhyra',
-            badge: { ru: 'Мастер-класс', ky: 'Мастер-класс', en: 'Masterclass' },
-            timeSlot: '15:40–16:15',
-            title: {
-              ru: 'Мастер-класс «Оффер мечты: как попасть в глобальную компанию»',
-              ky: 'Мастер-класс «Кыялдагы оффер: глобалдык компанияга кантип кирүү керек»',
-              en: 'Masterclass: “Dream Offer: How to Land a Job at a Global Company”'
-            },
-            desc: {
-              ru: 'Разбор резюме и учебное собеседование — узнай, что ищут международные работодатели.',
-              ky: 'Резюмелерди талдоо жана машыгуу маектешүүсү — эл аралык иш берүүчүлөр эмнени издешерин билип алыңыз.',
-              en: 'Resume review and mock interview — learn what international employers look for.'
-            }
-          }
-        ]
+        time: '14:00–14:20',
+        items: [{
+          kind: 'premiere',
+          place: KURULTAI,
+          badge: p('Технологическая премьера', 'Технологиялык премьера', 'Tech premiere'),
+          title: p('Airun AI: «AIRUN 2.0 — ИИ на кыргызском языке»', 'Airun AI: «AIRUN 2.0 — кыргыз тилиндеги жасалма интеллект»', 'Airun AI: “AIRUN 2.0 — AI in the Kyrgyz language”'),
+          format: p('Keynote и live-демо, 20 минут', 'Keynote жана түз демо, 20 мүнөт', 'Keynote and live demo, 20 minutes'),
+          speakers: [
+            { name: p('Чынгыз Арзиев', 'Чыңгыз Арзиев', 'Chyngyz Arziev'), role: p('Основатель и CEO Airun AI', 'Airun AI негиздөөчүсү жана CEO', 'Founder and CEO of Airun AI') }
+          ],
+          topics: [
+            p('ИИ на кыргызском', 'кыргыз тилиндеги ЖИ', 'AI in Kyrgyz'),
+            p('премьера Airun 2.0', 'Airun 2.0 премьерасы', 'Airun 2.0 premiere'),
+            p('live-демо', 'түз демо', 'live demo'),
+            p('языковые технологии', 'тил технологиялары', 'language technology'),
+            p('инструменты для учёбы', 'окуу үчүн куралдар', 'study tools'),
+            p('практика применения', 'колдонуу практикасы', 'practical use')
+          ]
+        }]
       },
       {
-        time: '16:15–16:35',
-        items: [
-          {
-            kind: 'table', hall: 'sanzhyra',
-            badge: { ru: 'Открытый диалог', ky: 'Ачык диалог', en: 'Open Dialogue' },
-            timeSlot: '16:15–16:35',
-            title: {
-              ru: 'Открытый диалог «Спроси PhD: учёба в США и гранты»',
-              ky: 'Ачык диалог «PhDден сура: АКШдагы окуу жана гранттар»',
-              en: 'Open Dialogue: “Ask a PhD: US Studies & Grants”'
-            },
-            desc: {
-              ru: 'Как поступить в университет США и найти стипендию — задай свой вопрос напрямую.',
-              ky: 'АКШ университетине кантип тапшыруу жана стипендия табуу керек — сурооңузду түздөн-түз бериңиз.',
-              en: 'How to apply to a US university and find a scholarship — ask your question directly.'
-            }
-          }
-        ]
+        time: '14:30–15:30',
+        items: [{
+          kind: 'talks',
+          place: KURULTAI,
+          badge: p('MUUN Talks 2 · Умтулуу', 'MUUN Talks 2 · Умтулуу', 'MUUN Talks 2 · Umtuluu'),
+          title: p('«От Кыргызстана до глобальных компаний: как мечтать масштабно в эпоху AI»', '«Кыргызстандан глобалдык компанияларга чейин: AI доорунда кантип чоң кыялдануу керек»', '“From Kyrgyzstan to global companies: how to dream big in the age of AI”'),
+          format: p('Keynote (онлайн), панельная дискуссия, ' + SLIDO.ru, 'Keynote (онлайн), панелдик талкуу, ' + SLIDO.ky, 'Keynote (online), panel discussion, ' + SLIDO.en),
+          keynote: { name: p('Джумабаев Таалай', 'Жумабаев Таалай', 'Taalai Djumabaev'), role: p('Senior Software Engineer, Google (Остин, США) · онлайн', 'Senior Software Engineer, Google (Остин, АКШ) · онлайн', 'Senior Software Engineer, Google (Austin, USA) · online') },
+          speakers: [
+            { name: p('Билгазиев Эмиль, PhD', 'Билгазиев Эмиль, PhD', 'Emil Bilgaziev, PhD'), role: p('AI-инженер (Meta, Snapchat, Uber), сооснователь American Institute of Technology (AIT)', 'AI-инженер (Meta, Snapchat, Uber), American Institute of Technology (AIT) тең негиздөөчүсү', 'AI engineer (Meta, Snapchat, Uber), co-founder of the American Institute of Technology (AIT)') },
+            { name: p('Жумашукуров Чолпонбек', 'Жумашукуров Чолпонбек', 'Cholponbek Zhumashukurov'), role: p('MBA Harvard Business School, сооснователь Highland Capital Partners и ProKG', 'MBA Harvard Business School, Highland Capital Partners жана ProKG тең негиздөөчүсү', 'MBA, Harvard Business School; co-founder of Highland Capital Partners and ProKG') },
+            { name: p('Кенжалиев Азрет', 'Кенжалиев Азрет', 'Azret Kenzhaliev'), role: p('Сооснователь и CTO VisaKG; ex-Google DeepMind, Palantir, Yelp', 'VisaKG тең негиздөөчүсү жана CTO; мурда Google DeepMind, Palantir, Yelp', 'Co-founder and CTO of VisaKG; ex-Google DeepMind, Palantir, Yelp') },
+            { name: p('Момуналиева Жазгул Сакеновна', 'Момуналиева Жазгул Сакеновна', 'Zhazgul Momunalieva'), role: p('Директор HR-департамента BAKAI Bank', 'BAKAI Bank HR-департаментинин директору', 'HR Director, BAKAI Bank') },
+            { name: p('Эсен Сагынов', 'Эсен Сагынов', 'Esen Sagynov'), role: p('Основатель Mancho, экс-Amazon', 'Mancho негиздөөчүсү, мурда Amazon', 'Founder of Mancho, ex-Amazon') }
+          ],
+          moderator: { name: p('Алишерова Айжан', 'Алишерова Айжан', 'Aizhan Alisherova'), role: p('Основатель фонда «We Fund»; Nuroo AI, Startup Lab 119', '«We Fund» фондунун негиздөөчүсү; Nuroo AI, Startup Lab 119', 'Founder of We Fund; Nuroo AI, Startup Lab 119') },
+          topics: [
+            p('карьерные траектории', 'карьералык жолдор', 'career paths'),
+            p('путь в глобальные компании', 'глобалдык компанияларга жол', 'the road to global companies'),
+            p('карьера в эпоху AI', 'AI доорундагы карьера', 'careers in the age of AI'),
+            p('стажировки и карьера в банке', 'банктагы стажировка жана карьера', 'bank internships and careers'),
+            p('опыт фаундеров', 'негиздөөчүлөрдүн тажрыйбасы', 'founders’ experience')
+          ]
+        }]
       },
       {
-        time: '16:35–17:30',
-        items: [
-          {
-            kind: 'talks', hall: 'kurultai',
-            code: 'MUUN Talks · НИЕТ', codeEn: 'MUUN Talks · NIET',
-            timeSlot: '16:45–17:30',
-            title: {
-              ru: 'Пленарная сессия 4: «От идеи к действию: предпринимательство, стартапы и молодёжные инициативы»',
-              ky: '4-пленардык сессия: «Идеядан аракетке: ишкердик, стартаптар жана жаштар демилгелери»',
-              en: 'Plenary Session 4: “From Idea to Action: Entrepreneurship, Startups and Youth Initiatives”'
-            },
-            desc: {
-              ru: '«Хватит ждать — запускай своё» — как начать дело без капитала и где найти первое финансирование.',
-              ky: '«Күтүүнү токтот — өз ишиңди башта» — капиталсыз бизнести кантип баштоо жана биринчи каржылоону кайдан табуу керек.',
-              en: '“Stop waiting — launch your own” — how to start a business without capital and find initial funding.'
-            }
-          },
-          {
-            kind: 'table', hall: 'sanzhyra',
-            badge: { ru: 'Круглый стол 3', ky: '3-тегерек стол', en: 'Roundtable 3' },
-            timeSlot: '16:35–17:30',
-            title: {
-              ru: 'Круглый стол 3 «От идеи до оффера: стартап, блог, Big Tech, финтех»',
-              ky: '3-тегерек стол «Идеядан офферге чейин: стартап, блог, Big Tech, финтех»',
-              en: 'Roundtable 3: “From Idea to Offer: Startup, Blog, Big Tech, Fintech”'
-            },
-            desc: {
-              ru: '«Без фильтров» — честные истории о четырёх путях. Выбери свой.',
-              ky: '«Фильтрсиз» — төрт жол тууралуу ачык тарыхтар. Өзүңдүкүн танда.',
-              en: '“Unfiltered” — honest stories about four pathways. Choose yours.'
-            }
-          }
-        ]
+        time: '15:40–16:25',
+        items: [{
+          kind: 'maek',
+          place: KURULTAI,
+          badge: p('Ачык маек', 'Ачык маек', 'Open Talk'),
+          title: p('«Экономика будущего: энергия, экспорт и рабочие места для молодёжи»', '«Келечектин экономикасы: энергия, экспорт жана жаштар үчүн жумуш орундары»', '“The economy of the future: energy, exports and jobs for young people”'),
+          desc: p('Энергия, экспорт и рабочие места — кого ищут работодатели и как попасть в отрасль.', 'Энергия, экспорт жана жумуш орундары — иш берүүчүлөр кимди издейт жана тармакка кантип кирсе болот.', 'Energy, exports and jobs: who employers are looking for and how to get into the sector.'),
+          speakers: [
+            { name: p('Байгазиев Айдар Абдыбекович', 'Байгазиев Айдар Абдыбекович', 'Aidar Baigaziev'), role: p('Начальник отдела энергобаланса и потерь электроэнергии, ОАО «Кыргызский энергетический расчетный центр»', '«Кыргыз энергетикалык эсептешүү борбору» ААКнын энергобаланс жана электр энергиясынын жоготуулары бөлүмүнүн башчысы', 'Head of Energy Balance and Power Losses, Kyrgyz Energy Settlement Centre OJSC') },
+            { name: p('Мухаммед уулу Болот', 'Мухаммед уулу Болот', 'Bolot Mukhammed uulu'), role: p('Заместитель генерального директора ОАО «Кыргызкомур»', '«Кыргызкөмүр» ААКнын башкы директорунун орун басары', 'Deputy General Director, Kyrgyzkomur OJSC') },
+            { name: p('Такиров Урмат Канатбекович', 'Такиров Урмат Канатбекович', 'Urmat Takirov'), role: p('Директор Центра «Кыргыз Экспорт» при Министерстве экономики и коммерции Кыргызской Республики', 'Кыргыз Республикасынын Экономика жана коммерция министрлигине караштуу «Кыргыз Экспорт» борборунун директору', 'Director of the Kyrgyz Export Centre under the Ministry of Economy and Commerce of the Kyrgyz Republic') },
+            { name: p('Эльдар Абакиров', 'Эльдар Абакиров', 'Eldar Abakirov'), role: p('Экс-депутат Жогорку Кенеша VII созыва, экс-заместитель министра экономики КР, предприниматель', 'VII чакырылыштагы Жогорку Кеңештин мурдагы депутаты, КР экономика министринин мурдагы орун басары, ишкер', 'Former member of the 7th Jogorku Kenesh, former Deputy Minister of Economy, entrepreneur') },
+            { name: p('Представитель ОАО «НЭС Кыргызстан»', '«Кыргызстандын УЭТ» ААКнын өкүлү', 'Representative of NEG Kyrgyzstan OJSC'), role: p('уточняется', 'такталууда', 'to be confirmed') }
+          ],
+          topics: [
+            p('энергия и рабочие места', 'энергия жана жумуш орундары', 'energy and jobs'),
+            p('экспорт и внешние рынки', 'экспорт жана тышкы рыноктор', 'exports and foreign markets'),
+            p('кого ищут работодатели', 'иш берүүчүлөр кимди издейт', 'what employers look for'),
+            p('карьера в отрасли', 'тармактагы карьера', 'careers in the sector'),
+            p('предпринимательство', 'ишкердик', 'entrepreneurship')
+          ]
+        }]
       },
       {
-        time: '17:45–18:05',
-        items: [
-          {
-            kind: 'pitch', hall: 'kurultai', wide: true,
-            badge: { ru: 'Награждение «КЕЛ Старт»', ky: '«КЕЛ Старт» сыйлоо', en: 'KEL Start Awards' },
-            timeSlot: '17:45–18:05',
-            title: {
-              ru: 'Церемония награждения победителей конкурса «KEL Start»',
-              ky: '«KEL Start» сынагынын жеңүүчүлөрүн салтанаттуу сыйлоо аземи',
-              en: 'KEL Start Award Ceremony'
-            },
-            note: {
-              ru: 'Главная сцена · Зал «Курултай»',
-              ky: 'Башкы сахна · «Курултай» залы',
-              en: 'Main Stage · Kurultai Hall'
-            },
-            desc: {
-              ru: 'Торжественное объявление итогов финала «KEL Start» на главной сцене форума. Вручение сертификатов государственной финансовой поддержки и грантов лучшим молодёжным инновационным проектам и стартапам Кыргызстана от Министерства науки, высшего образования и инноваций КР.',
-              ky: 'Форумдун башкы сахнасында «KEL Start» сынагынын финалынын жыйынтыгын салтанаттуу жарыялоо. Кыргызстандын мыкты жаштар инновациялык долбоорлоруна жана стартаптарына КР Илим, жогорку билим жана инновациялар министрлигинен мамлекеттик каржылык колдоо сертификаттарын жана гранттарды тапшыруу.',
-              en: 'Solemn announcement of KEL Start final results on the main stage. Presentation of national financial grant certificates and support to Kyrgyzstan’s best youth innovative projects and startups by the Ministry of Science, Higher Education and Innovation of the Kyrgyz Republic.'
-            }
-          }
-        ]
+        time: '16:35–17:25',
+        items: [{
+          kind: 'talks',
+          place: KURULTAI,
+          badge: p('MUUN Talks 3 · Учур', 'MUUN Talks 3 · Учур', 'MUUN Talks 3 · Uchur'),
+          title: p('«Время перемен: ИИ, технологии, интеллектуальная собственность и рынок труда»', '«Өзгөрүүлөр мезгили: ЖИ, технологиялар, интеллектуалдык менчик жана эмгек рыногу»', '“Time of change: AI, technology, intellectual property and the labour market”'),
+          format: p('Ключевое выступление, панельная дискуссия, интерактивный опрос и ' + SLIDO.ru, 'Негизги баяндама, панелдик талкуу, интерактивдүү сурамжылоо жана ' + SLIDO.ky, 'Keynote, panel discussion, live poll and ' + SLIDO.en),
+          speakers: [
+            { name: p('Абдурахманова Аселя', 'Абдурахманова Аселя', 'Aselia Abdurakhmanova'), role: p('Заместитель директора Национального центра фтизиатрии при Минздраве КР; MPH, Johns Hopkins Bloomberg School of Public Health (2025); стипендиат программы «Эл Үмүтү»', 'КР Саламаттык сактоо министрлигине караштуу Улуттук фтизиатрия борборунун директорунун орун басары; MPH, Johns Hopkins Bloomberg School of Public Health (2025); «Эл Үмүтү» программасынын стипендиаты', 'Deputy Director, National Phthisiology Centre, Ministry of Health; MPH, Johns Hopkins Bloomberg School of Public Health (2025); El Umutu scholar') },
+            { name: p('Исабекова Жылдыз', 'Исабекова Жылдыз', 'Zhyldyz Isabekova'), role: p('Глава Accelerate Prosperity в Кыргызстане', 'Кыргызстандагы Accelerate Prosperity жетекчиси', 'Head of Accelerate Prosperity in Kyrgyzstan') },
+            { name: p('Жусуев Куван Сайдмаматович', 'Жусуев Куван Сайдмаматович', 'Kuvan Zhusuev'), role: p('Учредитель ОФ WorldSkills Кыргызстан', 'WorldSkills Кыргызстан КФнун негиздөөчүсү', 'Founder of the WorldSkills Kyrgyzstan foundation') },
+            { name: p('Денис Заставный', 'Денис Заставный', 'Denis Zastavny'), role: p('Начальник управления информационного обеспечения Евразийского патентного ведомства (ЕАПВ)', 'Евразия патент ведомствосунун (ЕАПВ) маалымат менен камсыздоо башкармалыгынын башчысы', 'Head of Information Support, Eurasian Patent Office (EAPO)') },
+            { name: p('Абдрахманова Айнагуль', 'Абдрахманова Айнагүл', 'Ainagul Abdrakhmanova'), role: p('Руководитель отдела коммуникаций ПРООН, выпускница стипендиальной программы Чивнинг', 'БУУӨПтүн коммуникациялар бөлүмүнүн жетекчиси, Chevening стипендиялык программасынын бүтүрүүчүсү', 'Head of Communications, UNDP; Chevening Scholarship alumna') }
+          ],
+          moderator: { name: p('Алымбеков Айдар Бакытович', 'Алымбеков Айдар Бакытович', 'Aidar Alymbekov'), role: p('Заведующий отделом инноваций Министерства науки, высшего образования и инноваций Кыргызской Республики', 'Кыргыз Республикасынын Илим, жогорку билим берүү жана инновациялар министрлигинин инновациялар бөлүмүнүн башчысы', 'Head of Innovation, Ministry of Science, Higher Education and Innovation of the Kyrgyz Republic') },
+          topics: [
+            p('ИИ и рынок труда', 'ЖИ жана эмгек рыногу', 'AI and the labour market'),
+            p('технологические навыки', 'технологиялык көндүмдөр', 'tech skills'),
+            p('интеллектуальная собственность', 'интеллектуалдык менчик', 'intellectual property'),
+            p('прикладные компетенции', 'колдонмо компетенциялар', 'applied skills'),
+            p('WorldSkills', 'WorldSkills', 'WorldSkills')
+          ]
+        }]
       },
       {
-        time: '18:05–18:30',
-        items: [
-          {
-            kind: 'ceremony', hall: 'kurultai', wide: true,
-            timeSlot: '18:05–18:30',
-            title: {
-              ru: 'Концертная программа',
-              ky: 'Концерттик программа',
-              en: 'Concert Programme'
-            },
-            desc: {
-              ru: 'Яркий финал дня MUUN 2026.',
-              ky: 'MUUN 2026 күнүнүн жаркын финалы.',
-              en: 'A bright finale of MUUN 2026.'
-            }
-          }
-        ]
+        time: '17:35–18:15',
+        items: [{
+          kind: 'maek',
+          place: KURULTAI,
+          badge: p('Ачык маек', 'Ачык маек', 'Open Talk'),
+          title: p('«Активное поколение: спорт, киберспорт и геймдев — играй, создавай, побеждай»', '«Активдүү муун: спорт, киберспорт жана геймдев — ойно, жарат, жең»', '“Active generation: sport, esports and game dev — play, create, win”'),
+          format: p('Разговор и блиц-вопросы из зала', 'Маек жана залдан блиц-суроолор', 'Conversation and rapid-fire questions from the audience'),
+          speakers: [
+            { name: p('Атеев Руслан Маратович', 'Атеев Руслан Маратович', 'Ruslan Ateev'), role: p('Президент Федерации компьютерного спорта Кыргызской Республики', 'Кыргыз Республикасынын Компьютердик спорт федерациясынын президенти', 'President of the Esports Federation of the Kyrgyz Republic') },
+            { name: p('Оторбаева Айдана', 'Оторбаева Айдана', 'Aidana Otorbaeva'), role: p('Мастер спорта по футболу, вице-президент Ассоциации женского футбола Кыргызской Республики', 'Футбол боюнча спорт чебери, Кыргыз Республикасынын Аялдар футболу ассоциациясынын вице-президенти', 'Master of Sport in football, Vice-President of the Women’s Football Association of the Kyrgyz Republic') },
+            { name: p('Аденов Нурсултан Нурланович', 'Аденов Нурсултан Нурланович', 'Nursultan Adenov'), role: p('Руководитель Международного секретариата Всемирных игр кочевников', 'Дүйнөлүк көчмөндөр оюндарынын Эл аралык катчылыгынын жетекчиси', 'Head of the International Secretariat of the World Nomad Games') },
+            { name: p('Динара Русланкызы', 'Динара Руслан кызы', 'Dinara Ruslankyzy'), role: p('Основатель и директор ИТ-компании CODIFY', 'CODIFY IT-компаниясынын негиздөөчүсү жана директору', 'Founder and Director of the IT company CODIFY') }
+          ],
+          moderator: { name: p('Котляревский Виктор Сергеевич', 'Котляревский Виктор Сергеевич', 'Viktor Kotlyarevsky'), role: p('Contest.kg, спортивный комментатор', 'Contest.kg, спорттук комментатор', 'Contest.kg, sports commentator') },
+          topics: [
+            p('здоровое поколение', 'дени сак муун', 'a healthy generation'),
+            p('футбол', 'футбол', 'football'),
+            p('Всемирные игры кочевников', 'Дүйнөлүк көчмөндөр оюндары', 'World Nomad Games'),
+            p('киберспорт', 'киберспорт', 'esports'),
+            p('геймдев (Roblox / Scratch)', 'геймдев (Roblox / Scratch)', 'game dev (Roblox / Scratch)'),
+            p('карьера в спорте и IT', 'спорттогу жана IT тармагындагы карьера', 'careers in sport and IT')
+          ]
+        }]
       },
       {
-        time: '18:30',
-        items: [
-          {
-            kind: 'service',
-            title: {
-              ru: 'Окончание форума',
-              ky: 'Форумдун аягы',
-              en: 'End of Forum'
-            }
-          }
-        ]
+        time: '18:25–19:15',
+        items: [{
+          kind: 'talks',
+          place: KURULTAI,
+          badge: p('MUUN Talks 4 · Ниет', 'MUUN Talks 4 · Ниет', 'MUUN Talks 4 · Niet'),
+          title: p('«От идеи к действию: предпринимательство, стартапы и молодёжные инициативы»', '«Идеядан аракетке: ишкердик, стартаптар жана жаштардын демилгелери»', '“From idea to action: entrepreneurship, startups and youth initiatives”'),
+          format: p('Модерируемая панельная дискуссия, ' + SLIDO.ru, 'Модератор жетектеген панелдик талкуу, ' + SLIDO.ky, 'Moderated panel discussion, ' + SLIDO.en),
+          keynote: { name: p('Амангелди Жумадилов', 'Амангелди Жумадилов', 'Amangeldi Zhumadilov'), role: p('Президент Салымбеков Университета', 'Салымбеков Университетинин президенти', 'President of Salymbekov University') },
+          speakers: [
+            { name: p('Бекназаров Жакшылык Бекназарович', 'Бекназаров Жакшылык Бекназарович', 'Zhakshylyk Beknazarov'), role: p('Председатель ОО «Молодёжное движение Кыргызстана»', '«Кыргызстандын жаштар кыймылы» КБнын төрагасы', 'Chair of the Youth Movement of Kyrgyzstan') },
+            { name: p('Халманбетова Гулназа', 'Халманбетова Гүлназа', 'Gulnaza Khalmanbetova'), role: p('Founder & CEO, Mama Space (femtech)', 'Founder & CEO, Mama Space (femtech)', 'Founder & CEO, Mama Space (femtech)') },
+            { name: p('Абышев Оман', 'Абышев Оман', 'Oman Abyshev'), role: p('Основатель Water Watch AI', 'Water Watch AI негиздөөчүсү', 'Founder of Water Watch AI') },
+            { name: p('Суюнова Гульбарчын', 'Суюнова Гүлбарчын', 'Gulbarchyn Suyunova'), role: p('Эксперт по развитию молодёжного предпринимательства и стартапам, экс-директор Enactus Кыргызстан', 'Жаштар ишкердигин жана стартаптарды өнүктүрүү боюнча эксперт, Enactus Кыргызстандын мурдагы директору', 'Expert in youth entrepreneurship and startups, former Director of Enactus Kyrgyzstan') },
+            { name: p('Адаев Эрхан', 'Адаев Эрхан', 'Erkhan Adaev'), role: p('Сооснователь и генеральный директор AI Academy', 'AI Academy тең негиздөөчүсү жана башкы директору', 'Co-founder and CEO of AI Academy') }
+          ],
+          moderator: { name: p('Абдылдаев Даниэль', 'Абдылдаев Даниэль', 'Daniel Abdyldaev'), role: p('CIO Accelerate Prosperity; Managing Partner ADVentures; сооснователь chANGELS', 'CIO Accelerate Prosperity; Managing Partner ADVentures; chANGELS тең негиздөөчүсү', 'CIO, Accelerate Prosperity; Managing Partner, ADVentures; co-founder of chANGELS') },
+          topics: [
+            p('от идеи к действию', 'идеядан аракетке', 'from idea to action'),
+            p('запуск стартапа', 'стартапты ишке киргизүү', 'launching a startup'),
+            p('молодёжное предпринимательство', 'жаштар ишкердиги', 'youth entrepreneurship'),
+            p('первый клиент', 'биринчи кардар', 'the first customer'),
+            p('молодёжные инициативы', 'жаштардын демилгелери', 'youth initiatives')
+          ]
+        }]
+      },
+      {
+        time: '19:25–19:40',
+        items: [{
+          kind: 'pitch',
+          place: KURULTAI,
+          badge: p('КЕЛ Старт', 'КЕЛ Старт', 'KEL Start'),
+          title: p('Подведение итогов конкурса стартапов «КЕЛ СТАРТ»: объявление и награждение победителей', '«КЕЛ СТАРТ» стартаптар сынагынын жыйынтыгы: жеңүүчүлөрдү жарыялоо жана сыйлоо', 'KEL START startup competition results: winners announced and awarded'),
+          desc: p('Тизер-ролик, топ-3 проектов, вручение наград и общее фото. Награждающие уточняются, планируется участие министра.', 'Тизер-ролик, мыкты 3 долбоор, сыйлыктарды тапшыруу жана жалпы сүрөт. Сыйлоочулар такталууда, министрдин катышуусу пландалууда.', 'Teaser film, top 3 projects, awards and group photo. Presenters to be confirmed; the Minister is expected to take part.'),
+          topics: [
+            p('итоги конкурса', 'сынактын жыйынтыгы', 'competition results'),
+            p('награждение топ-3', 'мыкты 3төнү сыйлоо', 'top 3 awards'),
+            p('публичный финал', 'ачык финал', 'public final')
+          ]
+        }]
+      },
+      {
+        time: '19:40–20:00',
+        items: [{
+          kind: 'ceremony',
+          place: KURULTAI,
+          title: p('Концертная программа', 'Концерттик программа', 'Concert programme')
+        }]
+      },
+      {
+        time: '20:00',
+        items: [{
+          kind: 'service',
+          title: p('Завершение мероприятия', 'Иш-чаранын жабылышы', 'Close of the event')
+        }]
       }
     ]
   }
@@ -458,9 +528,11 @@ const DAYS = [
 
 const TRACK_OF = {
   talks: 'talks',
-  pitch: 'pitch',
-  table: 'table',
+  maek: 'maek',
+  pitch: 'kel',
   ceremony: 'ceremony',
+  premiere: 'ceremony',
+  expo: 'expo',
   service: 'service'
 };
 
@@ -472,79 +544,110 @@ function esc(value) {
     .replace(/"/g, '&quot;');
 }
 
-function badgeText(item, lang, ui) {
-  if (item.badge) {
-    if (typeof item.badge === 'object') {
-      return item.badge[lang] || item.badge.ru || '';
-    }
-    return String(item.badge);
+const tr = (obj, lang) => (obj ? (obj[lang] || obj.ru || '') : '');
+
+function personHtml(person, lang) {
+  const name = tr(person.name, lang);
+  const role = tr(person.role, lang);
+  return `<span class="muun-prog-pname">${esc(name)}</span>${role ? ` <span class="muun-prog-prole">— ${esc(role)}</span>` : ''}`;
+}
+
+function renderBody(item, lang, ui) {
+  const parts = [];
+  const desc = tr(item.desc, lang);
+  if (desc) parts.push(`<p class="muun-prog-desc">${esc(desc)}</p>`);
+  if (item.points && item.points.length) {
+    parts.push(`<ul class="muun-prog-points">${item.points.map((pt) => `<li>${esc(tr(pt, lang))}</li>`).join('')}</ul>`);
   }
-  if (item.kind === 'talks') {
-    if (lang === 'en') return item.codeEn || item.code || 'MUUN Talks';
-    return item.code || 'MUUN Talks';
+  const format = tr(item.format, lang);
+  if (format) parts.push(`<p class="muun-prog-format"><span class="muun-prog-label">${esc(ui.format)}:</span> ${esc(format)}</p>`);
+  if (item.keynote) {
+    parts.push(`<div class="muun-prog-group"><p class="muun-prog-label">${esc(ui.keynote)}</p><p class="muun-prog-person">${personHtml(item.keynote, lang)}</p></div>`);
   }
-  if (item.kind === 'pitch') return ui.pitchBadge;
-  if (item.kind === 'table') return ui.tableBadge;
-  return '';
+  if (item.speakers && item.speakers.length) {
+    parts.push(`<div class="muun-prog-group"><p class="muun-prog-label">${esc(ui.speakers)}</p><ol class="muun-prog-speakers">${item.speakers.map((sp) => `<li>${personHtml(sp, lang)}</li>`).join('')}</ol></div>`);
+  }
+  if (item.moderator) {
+    parts.push(`<div class="muun-prog-group"><p class="muun-prog-label">${esc(ui.moderator)}</p><p class="muun-prog-person">${personHtml(item.moderator, lang)}</p></div>`);
+  }
+  if (item.topics && item.topics.length) {
+    parts.push(`<div class="muun-prog-group"><p class="muun-prog-label">${esc(ui.topics)}</p><div class="muun-prog-topics">${item.topics.map((t) => `<span>${esc(tr(t, lang))}</span>`).join('')}</div></div>`);
+  }
+  return parts.join('');
 }
 
 function renderItem(item, lang, ui) {
   const track = TRACK_OF[item.kind] || 'general';
-  const wide = !item.hall || item.wide;
-  const badge = badgeText(item, lang, ui);
-  const hallLabel = item.hall ? ui[item.hall] : '';
-  const desc = item.desc ? item.desc[lang] : '';
-  const withPeople = (item.kind === 'talks' || item.kind === 'table') && item.withPeople !== false;
-  const expandable = Boolean(desc) || withPeople;
-  const meta = (badge || hallLabel)
-    ? `<span class="muun-prog-meta">${badge ? `<span class="muun-prog-badge">${esc(badge)}</span>` : ''}${hallLabel ? `<span class="muun-prog-hall">${esc(hallLabel)}</span>` : ''}</span>`
+  const badge = tr(item.badge, lang);
+  const place = tr(item.place, lang);
+  const body = renderBody(item, lang, ui);
+  const meta = (badge || place)
+    ? `<span class="muun-prog-meta">${badge ? `<span class="muun-prog-badge">${esc(badge)}</span>` : ''}${place ? `<span class="muun-prog-hall">${esc(place)}</span>` : ''}</span>`
     : '';
-
-  const timeBadge = item.timeSlot
-    ? `<span class="muun-prog-time-badge"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg><span>${esc(item.timeSlot)}</span></span>`
-    : '';
-
-  const rawNote = item.note ? (typeof item.note === 'object' ? (item.note[lang] || item.note.ru) : item.note) : '';
+  const rawNote = tr(item.note, lang);
   const note = rawNote ? `<span class="muun-prog-note">${esc(rawNote)}</span>` : '';
+  const kindClass = item.kind === 'premiere' ? 'is-ceremony is-premiere' : `is-${item.kind}`;
+  const classes = ['muun-prog-item', kindClass, 'is-wide', body ? 'is-expandable' : ''].filter(Boolean).join(' ');
+  const attrs = `data-track="${track}"`;
+  const title = tr(item.title, lang);
 
-  const classes = [
-    'muun-prog-item',
-    `is-${item.kind}`,
-    wide ? 'is-wide' : '',
-    expandable ? 'is-expandable' : ''
-  ].filter(Boolean).join(' ');
-  const attrs = `data-track="${track}"${item.hall ? ` data-hall="${item.hall}"` : ''}`;
-
-  if (!expandable) {
-    return `<div class="${classes}" ${attrs}><div class="muun-prog-head">${meta}<h3 class="muun-prog-title">${esc(item.title[lang])}</h3>${timeBadge}${note}</div></div>`;
+  if (!body) {
+    return `<div class="${classes}" ${attrs}><div class="muun-prog-head">${meta}<h3 class="muun-prog-title">${esc(title)}</h3>${note}</div></div>`;
   }
 
   return `<div class="${classes}" ${attrs}>` +
-    `<button type="button" class="muun-prog-head" aria-expanded="false" aria-label="${esc(ui.more)}: ${esc(item.title[lang])}">` +
-      `${meta}<h3 class="muun-prog-title">${esc(item.title[lang])}</h3>${timeBadge}${note}` +
+    `<button type="button" class="muun-prog-head" aria-expanded="false" aria-label="${esc(ui.more)}: ${esc(title)}">` +
+      `${meta}<h3 class="muun-prog-title">${esc(title)}</h3>${note}` +
       `<span class="muun-prog-toggle" aria-hidden="true"></span>` +
     `</button>` +
-    `<div class="muun-prog-body"><div class="muun-prog-body-inner">` +
-      (desc ? `<p class="muun-prog-desc">${esc(desc)}</p>` : '') +
-      (withPeople ? `<p class="muun-prog-people">${esc(ui.people)}</p>` : '') +
-    `</div></div>` +
+    `<div class="muun-prog-body"><div class="muun-prog-body-inner">${body}</div></div>` +
+  `</div>`;
+}
+
+function renderParallel(lang, ui) {
+  const cards = PARALLEL.map((ev) => {
+    const btn = ev.openKel
+      ? `<button type="button" class="muun-prog-chip muun-prog-kel-open" data-prog-filter="track" data-value="kel">${esc(ui.kelMore)} →</button>`
+      : '';
+    return `<div class="muun-prog-pcard is-${ev.kind}">` +
+      `<span class="muun-prog-meta"><span class="muun-prog-badge">${esc(tr(ev.badge, lang))}</span></span>` +
+      `<h3 class="muun-prog-ptitle">${esc(tr(ev.title, lang))}</h3>` +
+      `<p class="muun-prog-ptime">${esc(ev.time)} · ${esc(tr(ev.place, lang))}</p>` +
+      `<p class="muun-prog-pdesc">${esc(tr(ev.desc, lang))}</p>` +
+      btn +
+    `</div>`;
+  }).join('');
+  return `<div class="muun-prog-parallel"><p class="muun-prog-plabel">${esc(ui.parallel)}</p><div class="muun-prog-pgrid">${cards}</div></div>`;
+}
+
+function renderKel(lang, ui) {
+  const rows = KEL.rows.map((r) => {
+    const note = tr(r.note, lang);
+    return `<div class="muun-prog-krow${r.highlight ? ' is-highlight' : ''}">` +
+      `<div class="muun-prog-ktime">${esc(r.time)}</div>` +
+      `<div class="muun-prog-kbody"><p class="muun-prog-ktitle">${esc(tr(r.title, lang))}</p>${note ? `<p class="muun-prog-knote">${esc(note)}</p>` : ''}</div>` +
+    `</div>`;
+  }).join('');
+  return `<div class="muun-prog-kel">` +
+    `<div class="muun-prog-kelhead">` +
+      `<span class="muun-prog-meta"><span class="muun-prog-badge">${esc(ui.kel)}</span></span>` +
+      `<h3 class="muun-prog-keltitle">${esc(tr(KEL.title, lang))}</h3>` +
+      `<p class="muun-prog-kelmeta">${esc(tr(KEL.meta, lang))}</p>` +
+    `</div>` +
+    `<div class="muun-prog-krows">${rows}</div>` +
+    `<p class="muun-prog-kelorg">${esc(tr(KEL.org, lang))}</p>` +
+    `<button type="button" class="muun-prog-chip muun-prog-kel-back" data-prog-filter="track" data-value="all">← ${esc(ui.kelBack)}</button>` +
   `</div>`;
 }
 
 export function renderProgramBlock(lang) {
   const ui = UI[lang] || UI.ru;
   const trackChips = [
-    ['all', ui.trackAll],
-    ['talks', ui.talks],
-    ['pitch', ui.pitch],
-    ['table', ui.table]
-  ].map(([v, label], i) => `<button type="button" class="muun-prog-chip${i === 0 ? ' is-active' : ''}${v === 'talks' ? ' is-talks' : ''}${v === 'pitch' ? ' is-pitch-chip' : ''}" data-prog-filter="track" data-value="${v}">${esc(label)}</button>`).join('');
-  const hallChips = [
-    ['all', ui.hallAll],
-    ['kurultai', ui.kurultai],
-    ['nasyyat', ui.nasyyat],
-    ['sanzhyra', ui.sanzhyra]
-  ].map(([v, label], i) => `<button type="button" class="muun-prog-chip${i === 0 ? ' is-active' : ''}" data-prog-filter="hall" data-value="${v}">${esc(label)}</button>`).join('');
+    ['all', ui.trackAll, ''],
+    ['talks', ui.talks, ' is-talks'],
+    ['maek', ui.maek, ' is-maek-chip'],
+    ['kel', ui.kel, ' is-pitch-chip']
+  ].map(([v, label, cls], i) => `<button type="button" class="muun-prog-chip${i === 0 ? ' is-active' : ''}${cls}" data-prog-filter="track" data-value="${v}">${esc(label)}</button>`).join('');
 
   const days = DAYS.map((day) => `
       <div class="muun-prog-day">
@@ -552,6 +655,8 @@ export function renderProgramBlock(lang) {
           <div class="muun-prog-daylabel"><h3>${esc(day.label[lang])}</h3></div>
           <div class="muun-prog-daytitle"><h3>${esc(day.title[lang])}</h3></div>
         </div>
+        ${renderParallel(lang, ui)}
+        ${renderKel(lang, ui)}
         <div class="muun-prog-rows">
           ${day.rows.map((row) => `
           <div class="muun-prog-row">
@@ -562,10 +667,9 @@ export function renderProgramBlock(lang) {
       </div>`).join('');
 
   return `
-    <div class="muun-program" data-track="all" data-hall="all">
+    <div class="muun-program" data-track="all">
       <div class="muun-prog-filters">
         <div class="muun-prog-chips">${trackChips}</div>
-        <div class="muun-prog-chips">${hallChips}</div>
       </div>
       ${days}
       <p class="muun-prog-empty" hidden>${esc(ui.empty)}</p>
@@ -620,6 +724,7 @@ export const programCss = `
   .muun-prog-chip.is-active { background: rgb(1, 30, 255); }
   .muun-prog-chip.is-talks:not(.is-active) { box-shadow: inset 0 0 0 1px rgba(64, 96, 255, 0.7); }
   .muun-prog-chip.is-pitch-chip:not(.is-active) { box-shadow: inset 0 0 0 1px rgba(245, 158, 11, 0.65); }
+  .muun-prog-chip.is-maek-chip:not(.is-active) { box-shadow: inset 0 0 0 1px rgba(16, 185, 129, 0.6); }
   .muun-prog-day { display: flex; flex-direction: column; gap: 48px; }
   .muun-prog-day[hidden], .muun-prog-row[hidden], .muun-prog-item[hidden] { display: none !important; }
   .muun-prog-dayhead { display: flex; align-items: stretch; min-height: 85px; }
@@ -864,6 +969,95 @@ export const programCss = `
   .muun-prog-body-inner > :last-child { margin-bottom: 22px !important; }
   .muun-prog-empty { font-size: 18px; color: rgb(191, 191, 191); }
 
+  /* ── Одна колонка: вся основная программа идёт в зале «Курултай» ── */
+  .muun-prog-slots { grid-template-columns: minmax(0, 1fr) !important; }
+  .muun-prog-item { grid-column: 1 !important; }
+  .is-wide .muun-prog-title { font-size: 23px; }
+
+  /* Ачык маек — зелёный акцент */
+  .muun-prog-item.is-maek {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.18) 0%, rgba(16, 185, 129, 0.04) 48%, rgb(17, 17, 20) 100%);
+    box-shadow: inset 0 0 0 1px rgba(16, 185, 129, 0.4);
+  }
+  .is-maek .muun-prog-badge { background: rgba(16, 185, 129, 0.22); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.4); }
+
+  /* Раскрывающаяся часть: формат, спикеры, модератор, темы */
+  .muun-prog-points { margin: 0 24px; padding-left: 20px; color: rgb(191, 191, 191); font-size: 16px; line-height: 1.5; }
+  .muun-prog-points li + li { margin-top: 4px; }
+  .muun-prog-format { margin: 12px 24px 0 !important; font-size: 15px; line-height: 1.45; color: rgb(191, 191, 191); }
+  .muun-prog-group { margin: 16px 24px 0; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.1); }
+  .muun-prog-label {
+    font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+    color: rgba(255,255,255,0.55); margin-bottom: 8px !important;
+  }
+  .muun-prog-format .muun-prog-label { font-size: 12px; margin-right: 4px; }
+  .muun-prog-speakers { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; }
+  .muun-prog-speakers li, .muun-prog-person { font-size: 15px; line-height: 1.45; color: rgb(191, 191, 191); }
+  .muun-prog-pname { color: #fff; font-weight: 500; }
+  .muun-prog-topics { display: flex; flex-wrap: wrap; gap: 6px; }
+  .muun-prog-topics span {
+    padding: 4px 10px; border-radius: 100px; font-size: 13px; line-height: 1.3;
+    background: rgba(255,255,255,0.08); color: rgb(210, 210, 210);
+  }
+
+  /* ── «Параллельно в течение дня» (только во «Всей программе») ── */
+  .muun-prog-parallel { display: flex; flex-direction: column; gap: 14px; }
+  .muun-prog-plabel {
+    font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+  }
+  .muun-prog-pgrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .muun-prog-pcard {
+    display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
+    padding: 20px 22px; border-radius: 22px; background: rgb(17, 17, 20);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.12);
+  }
+  .muun-prog-pcard.is-pitch {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.18) 0%, rgba(245, 158, 11, 0.04) 48%, rgb(17, 17, 20) 100%);
+    box-shadow: inset 0 0 0 1px rgba(245, 158, 11, 0.35);
+  }
+  .muun-prog-pcard.is-pitch .muun-prog-badge { background: rgba(245, 158, 11, 0.22); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); }
+  .muun-prog-ptitle {
+    font-family: "Inter Display", Inter, sans-serif; font-size: 20px; font-weight: 500;
+    line-height: 1.28; letter-spacing: -0.02em; color: rgb(237, 237, 237);
+  }
+  .muun-prog-ptime { font-size: 15px; font-weight: 600; color: #fff; }
+  .muun-prog-pdesc { font-size: 14px; line-height: 1.45; color: rgb(191, 191, 191); }
+  .muun-prog-kel-open { margin-top: auto; font-size: 14px; padding: 9px 16px; background: rgba(245, 158, 11, 0.22); }
+  .muun-prog-kel-open:hover { background: rgba(245, 158, 11, 0.35); }
+
+  /* ── Панель КЕЛ Старт (только при фильтре «КЕЛ Старт») ── */
+  .muun-prog-kel {
+    display: flex; flex-direction: column; gap: 20px;
+    padding: 28px 28px 24px; border-radius: 24px;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.16) 0%, rgba(245, 158, 11, 0.03) 50%, rgb(17, 17, 20) 100%);
+    box-shadow: inset 0 0 0 1px rgba(245, 158, 11, 0.35);
+  }
+  .muun-prog-kel .muun-prog-badge { background: rgba(245, 158, 11, 0.22); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); }
+  .muun-prog-kelhead { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+  .muun-prog-keltitle {
+    font-family: "Inter Display", Inter, sans-serif; font-size: 26px; font-weight: 500;
+    line-height: 1.25; letter-spacing: -0.025em; color: rgb(237, 237, 237);
+  }
+  .muun-prog-kelmeta { font-size: 15px; line-height: 1.45; color: rgb(210, 210, 210); }
+  .muun-prog-krows { display: flex; flex-direction: column; }
+  .muun-prog-krow {
+    display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 20px;
+    padding: 14px 0; border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .muun-prog-ktime { font-size: 17px; font-weight: 600; color: #fef08a; white-space: nowrap; }
+  .muun-prog-ktitle { font-size: 17px; font-weight: 500; line-height: 1.35; color: rgb(237, 237, 237); }
+  .muun-prog-knote { margin-top: 4px !important; font-size: 14px; line-height: 1.45; color: rgb(191, 191, 191); }
+  .muun-prog-krow.is-highlight .muun-prog-ktitle { color: #fbbf24; }
+  .muun-prog-kelorg { font-size: 13px; line-height: 1.5; color: rgba(255,255,255,0.55); }
+  .muun-prog-kel-back { align-self: flex-start; }
+
+  /* Видимость по фильтру */
+  .muun-prog-kel { display: none; }
+  .muun-program[data-track="kel"] .muun-prog-kel { display: flex; }
+  .muun-program[data-track="kel"] .muun-prog-rows { display: none; }
+  .muun-program:not([data-track="all"]) .muun-prog-parallel { display: none; }
+
   @media (max-width: 1199px) {
     .muun-prog-row { grid-template-columns: 150px minmax(0, 1fr); column-gap: 24px; padding-left: 0; }
     .muun-prog-time { font-size: 19px; }
@@ -909,6 +1103,21 @@ export const programCss = `
     .muun-prog-desc { padding: 0 18px; font-size: 14px; }
     .muun-prog-people { margin: 12px 18px 0 !important; font-size: 13px; }
     .muun-prog-body-inner > :last-child { margin-bottom: 16px !important; }
+    .muun-prog-points { margin: 0 18px; font-size: 14px; }
+    .muun-prog-format { margin: 10px 18px 0 !important; font-size: 14px; }
+    .muun-prog-group { margin: 14px 18px 0; }
+    .muun-prog-speakers li, .muun-prog-person { font-size: 14px; }
+    .muun-prog-pgrid { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+    .muun-prog-pcard { padding: 16px 18px; border-radius: 20px; }
+    .muun-prog-ptitle { font-size: 18px; }
+    .muun-prog-kel { padding: 20px 18px; border-radius: 20px; }
+    .muun-prog-keltitle { font-size: 20px; }
+    .muun-prog-krow { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+    .muun-prog-ktime { font-size: 15px; }
+    .muun-prog-ktitle { font-size: 16px; }
+  }
+  @media (min-width: 810px) and (max-width: 1199px) {
+    .muun-prog-pgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
 `;
 
@@ -919,16 +1128,13 @@ export const programClientJs = `
     window.__muunProgramBound = true;
     function apply(root) {
       var track = root.dataset.track || 'all';
-      var hall = root.dataset.hall || 'all';
       var anyDay = false;
       root.querySelectorAll('.muun-prog-day').forEach(function (day) {
         var anyRow = false;
         day.querySelectorAll('.muun-prog-row').forEach(function (row) {
           var anyItem = false;
           row.querySelectorAll('.muun-prog-item').forEach(function (item) {
-            var okTrack = track === 'all' || item.dataset.track === track;
-            var okHall = hall === 'all' || item.dataset.hall === hall;
-            item.hidden = !(okTrack && okHall);
+            item.hidden = !(track === 'all' || item.dataset.track === track);
             if (!item.hidden) anyItem = true;
           });
           row.hidden = !anyItem;
@@ -946,10 +1152,15 @@ export const programClientJs = `
         var root = chip.closest('.muun-program');
         var group = chip.dataset.progFilter;
         root.dataset[group] = chip.dataset.value;
-        root.querySelectorAll('[data-prog-filter="' + group + '"]').forEach(function (c) {
-          c.classList.toggle('is-active', c === chip);
+        // Подсвечиваем только верхние фильтры; кнопки «Программа КЕЛ Старт» и
+        // «Вся программа» внутри блока просто переключают фильтр.
+        root.querySelectorAll('.muun-prog-filters [data-prog-filter="' + group + '"]').forEach(function (c) {
+          c.classList.toggle('is-active', c.dataset.value === chip.dataset.value);
         });
         apply(root);
+        if (chip.classList.contains('muun-prog-kel-back')) {
+          root.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
         return;
       }
       var head = e.target.closest('.muun-program button.muun-prog-head');
