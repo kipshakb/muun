@@ -4,6 +4,7 @@
 // longer waits on a slow CDN response and then paints the original template.
 import fs from "fs";
 import path from "path";
+import { PEXELS_VIDEO_UHD, PEXELS_VIDEO_LIGHT } from "./background_video.mjs";
 
 const SITE = "https://framerusercontent.com/sites/77e7t7QkgEB7TyAgJkDYnz/";
 const PAIRS_FILE = "dist/.framer-pairs.json";
@@ -207,6 +208,10 @@ function patchSource(source, pairs, lang, name = '') {
   out = out.replaceAll('https://www.linkedin.com/in/jitendra-raut/', 'https://www.threads.com/@muun.expo.kg?invite=0');
   out = out.replaceAll('www.linkedin.com/in/jitendra-raut/', 'https://www.threads.com/@muun.expo.kg?invite=0');
 
+  // 4b. Лёгкая версия фонового видео (та же, что в HTML) — чтобы движок при
+  // перерисовке не вернул 4K-файл на 13,4 МБ.
+  out = out.replaceAll(PEXELS_VIDEO_UHD, PEXELS_VIDEO_LIGHT);
+
   // 5. Standard phrase list replacement
   const list = pairs
     .filter((pair) => pair && typeof pair[0] === 'string' && typeof pair[1] === 'string')
@@ -241,10 +246,13 @@ function rewriteHtml(filesByLang) {
       }
       if (!entry.name.endsWith(".html")) continue;
       const lang = langOf(full);
-      if (!filesByLang.has(lang)) continue;
-      const prefix = `/assets/framer/${lang}/`;
       const html = fs.readFileSync(full, "utf8");
-      const next = html.split(SITE).join(prefix);
+      // Аналитика Framer: сайт размещён не на Framer, данные никуда не доходят,
+      // а скрипт — лишний запрос к стороннему серверу.
+      let next = html.replace(/<script[^>]*src="https:\/\/events\.framer\.com\/[^"]*"[^>]*><\/script>/g, "");
+      if (filesByLang.has(lang)) {
+        next = next.split(SITE).join(`/assets/framer/${lang}/`);
+      }
       if (next !== html) fs.writeFileSync(full, next);
     }
   };

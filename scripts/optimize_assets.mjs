@@ -2,6 +2,10 @@ import fs from 'fs';
 import path from 'path';
 import sharp from 'sharp';
 
+// Без кэша sharp не держит файлы открытыми — иначе на Windows перезапись
+// оптимизированного файла молча падает (EBUSY) и картинка остаётся тяжёлой.
+sharp.cache(false);
+
 async function optimizeDirectory(dir, isSubdir = false) {
   if (!fs.existsSync(dir)) return { before: 0, after: 0, count: 0 };
   const entries = fs.readdirSync(dir, { withFileTypes: true });
@@ -37,8 +41,11 @@ async function optimizeDirectory(dir, isSubdir = false) {
       let maxDim = 1600;
       if (name.includes('ministry-logo')) maxDim = 800;
       else if (name.includes('logo-footer') || name.includes('favicon')) maxDim = 1000;
-      else if (name.includes('logo-crystal')) maxDim = 1400;
-      else if (name.includes('speaker-')) maxDim = 1200;
+      // Размеры — по фактическому показу на сайте ×2 (для экранов с высокой плотностью):
+      // logo-crystal показывается ~384×419, eagle2 ~380×567, фото спикеров ~380×475.
+      else if (name.includes('logo-crystal')) maxDim = 900;
+      else if (name.includes('eagle2')) maxDim = 1200;
+      else if (name.includes('speaker-')) maxDim = 1000;
       else if (name.includes('partner-') || name.includes('logo-')) maxDim = 1200;
 
       if ((meta.width && meta.width > maxDim) || (meta.height && meta.height > maxDim)) {
@@ -50,7 +57,10 @@ async function optimizeDirectory(dir, isSubdir = false) {
       }
 
       let buf;
-      if (isPng) {
+      // Кодируем по реальному формату файла, а не по расширению: некоторые
+      // «.png» внутри — JPEG-фото, и в PNG они раздуваются в разы.
+      // Браузеры определяют формат картинки по содержимому, так что показ не меняется.
+      if (isPng && meta.format !== 'jpeg') {
         buf = await pipeline.png({ quality: 85, compressionLevel: 9, palette: true }).toBuffer();
       } else {
         buf = await pipeline.jpeg({ quality: 82, mozjpeg: true }).toBuffer();
@@ -98,7 +108,8 @@ export async function runAssetOptimizer() {
           let p = sharp(target);
           let buf;
           if (/\.png$/i.test(rf)) {
-            buf = await p.resize({ width: 1400, withoutEnlargement: true }).png({ quality: 85, compressionLevel: 9, palette: true }).toBuffer();
+            const rootMax = rf === 'logo-crystal.png' ? 900 : 1400;
+            buf = await p.resize({ width: rootMax, height: rootMax, fit: 'inside', withoutEnlargement: true }).png({ quality: 85, compressionLevel: 9, palette: true }).toBuffer();
           } else {
             buf = await p.resize({ width: 1920, withoutEnlargement: true }).jpeg({ quality: 82, mozjpeg: true }).toBuffer();
           }

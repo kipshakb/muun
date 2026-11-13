@@ -14,8 +14,15 @@
  * шапка создаётся заново, и заявка всё равно записывается.
  */
 
-var TELEGRAM_BOT_TOKEN = '8738039810:AAH7rJYPLpTJeRvmJO0AzLjwp_p6GGkb878';
-var TELEGRAM_CHAT_ID = '-5249036131';
+// Токен и чат Telegram хранятся НЕ в коде, а в свойствах скрипта:
+// Настройки проекта (⚙) → Свойства скрипта → добавить
+//   TELEGRAM_BOT_TOKEN = <новый токен от @BotFather>
+//   TELEGRAM_CHAT_ID   = -5249036131
+// Если свойства не заданы, заявки по-прежнему пишутся в таблицу,
+// просто без уведомления в Telegram.
+var SCRIPT_PROPS = PropertiesService.getScriptProperties();
+var TELEGRAM_BOT_TOKEN = SCRIPT_PROPS.getProperty('TELEGRAM_BOT_TOKEN') || '';
+var TELEGRAM_CHAT_ID = SCRIPT_PROPS.getProperty('TELEGRAM_CHAT_ID') || '';
 
 var HEADERS = [
   'Дата', 'Организация', 'Сфера', 'Сайт', 'Страна', 'Город',

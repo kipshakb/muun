@@ -8,6 +8,7 @@ import { programCss, programClientJs, programFixerJs, injectProgramSsr } from '.
 import { lockHeroMark, heroMarkCss, heroMarkScript } from './hero_mark.mjs';
 import { stripFramerRuntime } from './strip_framer_runtime.mjs';
 import { vendorFramerEngine } from './vendor_framer_engine.mjs';
+import { PEXELS_VIDEO_UHD, PEXELS_VIDEO_LIGHT } from './background_video.mjs';
 
 if (!fs.existsSync('assets/logo-header.png') || !fs.existsSync('assets/logo-crystal.png')) {
   try {
@@ -1403,6 +1404,12 @@ for (const lang of ['ru', 'ky', 'en']) {
     ['About Aicron</h4>', `${curAbout.kicker}</h4>`],
     ['>For Whom?</h4>', `>${hd.target.kicker}</h4>`],
     ['For Whom?</h4>', `${hd.target.kicker}</h4>`],
+
+    // Скрытое видео в блоке «Video»: без autoplay/preload и лёгкая версия
+    // (см. background_video.mjs). Должно стоять ДО общей замены ниже,
+    // иначе ему тоже включится autoplay + preload="auto".
+    [`<video src="${PEXELS_VIDEO_UHD}" loop preload="none" muted playsinline`,
+     `<video src="${PEXELS_VIDEO_LIGHT}" loop muted playsinline preload="none"`],
 
     // Ticket video autoplay & loop
     ['preload="none" muted playsinline', 'autoplay loop muted playsinline preload="auto"']
