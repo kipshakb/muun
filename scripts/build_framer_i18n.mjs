@@ -377,8 +377,9 @@ const SECTION_HEADINGS = {
     faq: faqData.ru,
     partners: {
       kicker: 'Партнеры',
-      titleHtml: 'Партнеры МУУН',
-      titleText: 'Партнеры МУУН',
+      titleHtml: 'Генеральный партнер',
+      titleText: 'Генеральный партнер',
+      muunTitleHtml: 'Партнеры МУУН',
       ecoTitleHtml: 'ECO-SYSTEM <span class="heading-muted">партнеры</span>',
       partTitleHtml: 'Участники',
       partTitleText: 'Участники',
@@ -427,8 +428,9 @@ const SECTION_HEADINGS = {
     faq: faqData.ky,
     partners: {
       kicker: 'Өнөктөштөр',
-      titleHtml: 'МУУН өнөктөштөрү',
-      titleText: 'МУУН өнөктөштөрү',
+      titleHtml: 'Башкы өнөктөш',
+      titleText: 'Башкы өнөктөш',
+      muunTitleHtml: 'МУУН өнөктөштөрү',
       ecoTitleHtml: 'ECO-SYSTEM <span class="heading-muted">өнөктөштөр</span>',
       partTitleHtml: 'Катышуучулар',
       partTitleText: 'Катышуучулар',
@@ -477,8 +479,9 @@ const SECTION_HEADINGS = {
     faq: faqData.en,
     partners: {
       kicker: 'Partners',
-      titleHtml: 'MUUN Partners',
-      titleText: 'MUUN Partners',
+      titleHtml: 'General Partner',
+      titleText: 'General Partner',
+      muunTitleHtml: 'MUUN Partners',
       ecoTitleHtml: 'ECO-SYSTEM <span class="heading-muted">partners</span>',
       partTitleHtml: 'Participants',
       partTitleText: 'Participants',
@@ -775,6 +778,19 @@ function renderMarqueeTrack(items, animClass) {
   </div>`;
 }
 
+// Генеральный партнёр — отдельная первая категория.
+function getTitlePartners() {
+  return [
+    {
+      name: 'Alma Bank',
+      alt: 'Alma Bank',
+      url: 'https://almabank.kg/ru',
+      src: '/assets/partner-almabank.png',
+      logoClass: 'almabank-logo'
+    }
+  ];
+}
+
 function getGeneralPartners(lang) {
   return [
     {
@@ -790,20 +806,6 @@ function getGeneralPartners(lang) {
       url: 'https://ru.kyrgyzaltyn.kg/',
       src: '/assets/kyrgyzaltyn.png',
       logoClass: 'kyrgyzaltyn-logo'
-    },
-    {
-      name: lang === 'ky' ? '«Кыргызстан аэропорттору» ААК' : 'ОАО «Аэропорты Кыргызстана»',
-      alt: 'Аэропорты Кыргызстана',
-      url: 'https://www.airport.kg/',
-      src: '/assets/aeroporty-kyrgyzstana.png',
-      logoClass: 'aeroporty-logo'
-    },
-    {
-      name: 'Alma Bank',
-      alt: 'Alma Bank',
-      url: 'https://almabank.kg/ru',
-      src: '/assets/partner-almabank.png',
-      logoClass: 'almabank-logo'
     },
     {
       name: lang === 'ky' ? '«Альянс Алтын» ЖЧК' : 'ОсОО «Альянс Алтын»',
@@ -1093,33 +1095,41 @@ function getParticipantPartners(lang) {
   ];
 }
 
+// Статичная белая панель на категорию (как на res2027expo.kz): логотипы
+// сеткой без движения. Заголовок категории — снаружи, слева, тем же стилем,
+// что и заголовок раздела (класс пресета Framer).
+function renderLogoPanel(titleHtml, items, extraClass, desktopCols = 0) {
+  const cards = items.map(renderPartnerCard).join('\n      ');
+  const heading = titleHtml
+    ? `<h2 class="framer-text framer-styles-preset-y2rde0 muun-eco-partners-title muun-partners-heading">${titleHtml}</h2>`
+    : '';
+  // Ровные ряды: на компьютере не больше 5 логотипов в ряду, логотипы делятся
+  // по рядам поровну. desktopCols задаёт число колонок явно (ECO-SYSTEM: 4 → 4+2).
+  const balanced = (maxPerRow) => {
+    const rows = Math.max(1, Math.ceil(items.length / maxPerRow));
+    return Math.max(1, Math.ceil(items.length / rows));
+  };
+  const cols = desktopCols || balanced(5);   // компьютер: до 5 в ряду или задано явно
+  const colsT = balanced(5);  // планшет
+  return `<div class="muun-partners-group">
+      ${heading}
+      <div class="muun-partners-category muun-logo-panel ${extraClass}">
+        <div class="muun-logo-grid" style="--cols:${cols};--cols-t:${colsT}">
+        ${cards}
+        </div>
+      </div>
+    </div>`;
+}
+
 function renderPartnersSection(partnersMeta, lang) {
-  const generalPartners = getGeneralPartners(lang);
-  const ecoPartners = getEcoPartners(lang);
-  const partPartners = getParticipantPartners(lang);
-  const mediaPartners = getMediaPartners(lang);
-
-  const generalTrackHtml = renderMarqueeTrack(generalPartners, 'muun-marquee-general');
-  const ecoTrackHtml = renderMarqueeTrack(ecoPartners, 'muun-marquee-eco');
-  const partTrackHtml = renderMarqueeTrack(partPartners, 'muun-marquee-part');
-  const mediaTrackHtml = renderMarqueeTrack(mediaPartners, 'muun-marquee-media');
-
+  // Первая категория («Генеральный партнер») использует заголовок самого
+  // раздела над блоком, поэтому своего заголовка у неё нет.
   return `
-    <div class="muun-partners-category muun-general-partners">
-      ${generalTrackHtml}
-    </div>
-    <div class="muun-partners-category muun-eco-partners">
-      <h2 class="muun-eco-partners-title">${partnersMeta.ecoTitleHtml}</h2>
-      ${ecoTrackHtml}
-    </div>
-    <div class="muun-partners-category muun-part-partners">
-      <h2 class="muun-eco-partners-title">${partnersMeta.partTitleHtml || 'Участники'}</h2>
-      ${partTrackHtml}
-    </div>
-    <div class="muun-partners-category muun-media-partners">
-      <h2 class="muun-eco-partners-title">${partnersMeta.mediaTitleHtml}</h2>
-      ${mediaTrackHtml}
-    </div>
+    ${renderLogoPanel('', getTitlePartners(), 'is-title-partner')}
+    ${renderLogoPanel(partnersMeta.muunTitleHtml, getGeneralPartners(lang), 'muun-general-partners')}
+    ${renderLogoPanel(partnersMeta.ecoTitleHtml, getEcoPartners(lang), 'muun-eco-partners', 4)}
+    ${renderLogoPanel(partnersMeta.partTitleHtml || 'Участники', getParticipantPartners(lang), 'muun-part-partners')}
+    ${renderLogoPanel(partnersMeta.mediaTitleHtml, getMediaPartners(lang), 'muun-media-partners')}
   `;
 }
 
@@ -2979,7 +2989,146 @@ for (const lang of ['ru', 'ky', 'en']) {
         }
       }
 
-      
+      /* ── 4c-bis. ПАРТНЁРЫ: статичные белые панели по категориям ──
+         Одна белая подложка на категорию, заголовок по центру, логотипы
+         сеткой без движения. Перекрывает старые стили бегущей строки. */
+      .framer-ff8lq4 { gap: 56px !important; }
+      .muun-partners-group {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 28px !important;
+        width: 100% !important;
+      }
+      .muun-partners-heading {
+        margin: 0 !important;
+        text-align: left !important;
+        color: #fff !important;
+      }
+      .muun-logo-panel {
+        align-items: center !important;
+        gap: 26px !important;
+        padding: 36px 40px 40px !important;
+        background: #FFFFFF !important;
+        border-radius: 28px !important;
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.28) !important;
+      }
+      .muun-logo-panel-title {
+        margin: 0 !important;
+        text-align: center !important;
+        font-family: Inter, sans-serif !important;
+        font-size: 22px !important;
+        font-weight: 700 !important;
+        line-height: 1.25 !important;
+        letter-spacing: 0.05em !important;
+        text-transform: uppercase !important;
+        color: #0A3251 !important;
+      }
+      .muun-logo-grid {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 18px 26px !important;
+        width: 100% !important;
+      }
+      .muun-logo-panel .muun-partner-card {
+        width: 200px !important;
+        flex: 0 0 200px !important;
+        height: 110px !important;
+        min-height: 0 !important;
+        padding: 10px 14px !important;
+        background: transparent !important;
+        border: 0 !important;
+        border-radius: 16px !important;
+        box-shadow: none !important;
+        transition: background-color 0.25s ease !important;
+      }
+      .muun-logo-panel .muun-partner-card:hover {
+        transform: none !important;
+        background: #F2F5F9 !important;
+        box-shadow: none !important;
+      }
+      .muun-logo-panel .muun-partner-card:hover img { transform: none !important; }
+      /* Единая рамка для всех логотипов внутри панели: широкие упираются в
+         ширину, квадратные — в высоту, и визуально получаются соразмерными.
+         Перекрывает индивидуальные размеры из бегущей строки. */
+      .muun-logo-panel .muun-partner-card img.muun-partner-logo {
+        max-width: min(165px, 100%) !important;
+        max-height: 70px !important;
+        height: auto !important;
+      }
+
+      /* Ширина ячейки считается от числа колонок (--cols задаётся при сборке),
+         чтобы в ряд вставало ровно столько логотипов, сколько нужно.
+         На планшете — свой расчёт (--cols-t, не больше 5 в ряду). */
+      @media (min-width: 810px) {
+        .muun-logo-panel:not(.is-title-partner) .muun-logo-grid {
+          --g: var(--cols, 5);
+          column-gap: 20px !important;
+          /* Сетка не шире, чем нужно для --g колонок, — лишний логотип не влезет */
+          max-width: calc(var(--g) * 200px + (var(--g) - 1) * 20px) !important;
+          margin: 0 auto !important;
+        }
+        .muun-logo-panel:not(.is-title-partner) .muun-partner-card {
+          width: min(200px, calc((100% - (var(--g) - 1) * 20px) / var(--g))) !important;
+          flex: 0 0 min(200px, calc((100% - (var(--g) - 1) * 20px) / var(--g))) !important;
+        }
+      }
+      @media (min-width: 810px) and (max-width: 1199px) {
+        .muun-logo-panel:not(.is-title-partner) .muun-logo-grid { --g: var(--cols-t, 4); }
+      }
+      /* Медиа: у многих логотипов тёмные плашки, строкам нужно больше воздуха */
+      .muun-logo-panel.muun-media-partners .muun-logo-grid { row-gap: 32px !important; }
+      @media (max-width: 809px) {
+        .muun-logo-panel.muun-media-partners .muun-logo-grid { row-gap: 18px !important; }
+      }
+
+      /* Генеральный партнёр — крупнее, чтобы подчеркнуть статус */
+      .muun-logo-panel.is-title-partner { padding: 40px 40px 44px !important; }
+      .muun-logo-panel.is-title-partner .muun-logo-panel-title { font-size: 26px !important; }
+      .muun-logo-panel.is-title-partner .muun-partner-card {
+        width: 420px !important;
+        flex: 0 1 420px !important;
+        height: 150px !important;
+      }
+      .muun-logo-panel.is-title-partner .muun-partner-card img.almabank-logo {
+        max-height: 110px !important;
+        max-width: 380px !important;
+      }
+
+      @media (max-width: 809px) {
+        .framer-ff8lq4 { gap: 40px !important; }
+        .muun-partners-group { gap: 18px !important; }
+        .muun-logo-panel {
+          gap: 18px !important;
+          padding: 24px 14px 26px !important;
+          border-radius: 20px !important;
+        }
+        .muun-logo-panel-title { font-size: 16px !important; }
+        .muun-logo-panel.is-title-partner .muun-logo-panel-title { font-size: 19px !important; }
+        .muun-logo-grid { gap: 10px !important; }
+        .muun-logo-panel .muun-partner-card {
+          width: calc(50% - 5px) !important;
+          flex: 0 0 calc(50% - 5px) !important;
+          height: 84px !important;
+          padding: 8px 10px !important;
+        }
+        .muun-logo-panel .muun-partner-card img.muun-partner-logo {
+          max-height: 52px !important;
+          max-width: min(130px, 100%) !important;
+        }
+        .muun-logo-panel.is-title-partner .muun-partner-card {
+          width: 100% !important;
+          flex: 0 0 100% !important;
+          height: 110px !important;
+        }
+        .muun-logo-panel.is-title-partner .muun-partner-card img.almabank-logo {
+          max-height: 80px !important;
+          max-width: 260px !important;
+        }
+      }
+
       /* ── 4d. FAQ LAYOUT & ACCORDION STYLES ── */
       section[data-framer-name="FAQs"],
       .framer-xo1fg0 {
@@ -5169,7 +5318,7 @@ for (const lang of ['ru', 'ky', 'en']) {
 
           // 14. Partners Grid: general partners, then ECO-SYSTEM partners, then Media partners
           const partnersGrid = document.querySelector('.framer-ff8lq4');
-          if (partnersGrid && !partnersGrid.querySelector('.muun-marquee-viewport')) {
+          if (partnersGrid && !partnersGrid.querySelector('.muun-logo-panel')) {
             partnersGrid.innerHTML = ${JSON.stringify(partnersGridInnerHtml)};
           }
 
