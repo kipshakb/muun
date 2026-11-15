@@ -71,6 +71,8 @@ export function buildClosedRegHtml(lang) {
       accessNote: 'Форум проходит в Конгресс-холле «Ырыс Ордо». Пропускной режим осуществляется строго по предварительной регистрации.',
       timeLabel: 'Время прибытия:',
       timeText: 'с 07:00 до 10:00',
+      kelTimeText: 'Для участников «Кел Старт» — с 07:00 до 08:00',
+      kelReminder: '<strong>Памятка для «Кел Старт»:</strong> время прибытия — с 07:00 до 08:00.',
       docsLabel: 'Документы:',
       docsText: 'при себе обязательно иметь удостоверение личности или паспорт',
       dressLabel: 'Дресс-код:',
@@ -81,6 +83,8 @@ export function buildClosedRegHtml(lang) {
       accessNote: 'Форум «Ырыс Ордо» конгресс-холлунда өтөт. Кирүү алдын ала каттоо боюнча гана жүргүзүлөт.',
       timeLabel: 'Келүү убактысы:',
       timeText: 'саат 07:00дөн 10:00гө чейин',
+      kelTimeText: '«Кел Старт» катышуучулары үчүн — саат 07:00дөн 08:00гө чейин',
+      kelReminder: '<strong>«Кел Старт» үчүн эскертме:</strong> келүү убактысы — саат 07:00дөн 08:00гө чейин.',
       docsLabel: 'Документтер:',
       docsText: 'жаныңызда сөзсүз түрдө өздүк күбөлүк же паспорт болушу керек',
       dressLabel: 'Дресс-код:',
@@ -91,6 +95,8 @@ export function buildClosedRegHtml(lang) {
       accessNote: 'The forum takes place at the Yrys Ordo Congress Hall. Pre-registration is strictly required for security entry.',
       timeLabel: 'Arrival time:',
       timeText: 'from 07:00 AM to 10:00 AM',
+      kelTimeText: 'For KEL Start participants — from 07:00 AM to 08:00 AM',
+      kelReminder: '<strong>KEL Start reminder:</strong> arrival time is from 07:00 AM to 08:00 AM.',
       docsLabel: 'Documents:',
       docsText: 'you must have a valid government-issued ID or passport with you',
       dressLabel: 'Dress code:',
@@ -327,6 +333,22 @@ export function buildClosedRegHtml(lang) {
       flex-shrink: 0;
     }
 
+    /* Отдельное время прибытия для «Кел Старт» под общим временем */
+    .closedreg-notice-row .notice-subline {
+      margin-top: 4px;
+      color: #fbbf24;
+      font-weight: 600;
+    }
+
+    /* Памятка при выборе категории «Кел Старт» — янтарный акцент */
+    .field-note.kel-arrival-note {
+      color: #fde68a;
+      background: rgba(245, 158, 11, 0.1);
+      border-color: rgba(245, 158, 11, 0.35);
+      font-size: 13px;
+    }
+    .kel-arrival-note strong { color: #fbbf24; }
+
     .field-label {
       display: block;
       margin-bottom: 6px;
@@ -552,6 +574,7 @@ export function buildClosedRegHtml(lang) {
               <span class="notice-icon">⏰</span>
               <div>
                 <strong>${N.timeLabel}</strong> ${N.timeText}.
+                <div class="notice-subline">${N.kelTimeText}.</div>
               </div>
             </div>
             <div class="closedreg-notice-row">
@@ -676,6 +699,7 @@ export function buildClosedRegHtml(lang) {
                 <option value="Секретариат">${S['reg.subcat_secretariat'] || 'Секретариат'}</option>
                 <option value="Участники">${S['reg.subcat_participants'] || 'Участники'}</option>
               </select>
+              <div class="field-note field-note-highlight kel-arrival-note">⏰ ${N.kelReminder}</div>
             </div>
 
             <div>
@@ -717,7 +741,7 @@ export function buildClosedRegHtml(lang) {
         <div class="pending-memo-box">
           <h4>${S['reg.memo_title']}</h4>
           <ul>
-            <li><strong>${N.timeLabel}</strong> ${N.timeText}.</li>
+            <li><strong>${N.timeLabel}</strong> ${N.timeText}. ${N.kelTimeText}.</li>
             <li><strong>${N.docsLabel}</strong> ${N.docsText}.</li>
             <li><strong>${N.dressLabel}</strong> ${N.dressText}.</li>
             <li>${S['reg.memo_prohibited']}</li>
