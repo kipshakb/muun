@@ -1021,15 +1021,11 @@ function getParticipantPartners(lang) {
       logoClass: 'part-logo-krsu'
     },
     {
-      name: lang === 'ky'
-        ? 'Кыргыз-Түрк «Манас» университети'
-        : lang === 'en'
-          ? 'Kyrgyz-Turkish Manas University'
-          : 'Кыргызско-Турецкий университет «Манас»',
-      alt: 'КТУ Манас',
-      url: 'https://www.manas.edu.kg/ru/index.php',
-      src: '/assets/partner-manas.png',
-      logoClass: 'part-logo-manas'
+      name: 'Manas E-Lab Entrepreneurship',
+      alt: 'Manas E-Lab',
+      url: '',
+      src: '/assets/partner-manas-elab.png',
+      logoClass: 'part-logo-manas-elab'
     },
     {
       name: lang === 'ky'
@@ -1091,6 +1087,55 @@ function getParticipantPartners(lang) {
       url: 'https://esep.energo.kg/',
       src: '/assets/partner-kerc.png',
       logoClass: 'part-logo-kerc'
+    },
+    {
+      name: lang === 'ky' ? 'Салымбеков Университети' : lang === 'en' ? 'Salymbekov University' : 'Салымбеков Университет',
+      alt: 'Salymbekov University',
+      url: 'https://salymbekov.com/ru/',
+      src: '/assets/partner-salymbekov.png',
+      logoClass: 'part-logo-salymbekov'
+    },
+    {
+      name: 'WorldSkills Kyrgyzstan',
+      alt: 'WorldSkills Kyrgyzstan',
+      url: 'https://worldskills.kg/',
+      src: '/assets/partner-worldskills.png',
+      logoClass: 'part-logo-worldskills'
+    },
+    {
+      name: lang === 'ky' ? 'Заманбап мугалим — Teach for Kyrgyzstan' : 'Teach for Kyrgyzstan',
+      alt: 'Teach for Kyrgyzstan',
+      url: 'https://teachforkyrgyzstan.org/',
+      src: '/assets/partner-teachforkg.png',
+      logoClass: 'part-logo-teachforkg'
+    },
+    {
+      name: 'Learning World',
+      alt: 'Learning World',
+      url: 'https://learningworld.kg/en/',
+      src: '/assets/partner-learningworld.png',
+      logoClass: 'part-logo-learningworld'
+    },
+    {
+      name: lang === 'ky' ? 'Орус үйү' : lang === 'en' ? 'Russian House' : 'Русский дом',
+      alt: 'Русский дом',
+      url: 'https://uchebarf.kg/',
+      src: '/assets/partner-russkiy-dom.png',
+      logoClass: 'part-logo-russkiy-dom'
+    },
+    {
+      name: 'She Starts',
+      alt: 'She Starts',
+      url: 'https://www.instagram.com/shestartskg/',
+      src: '/assets/partner-shestarts.png',
+      logoClass: 'part-logo-shestarts'
+    },
+    {
+      name: 'Avenir International School',
+      alt: 'Avenir International School',
+      url: '',
+      src: '/assets/partner-avenir.png',
+      logoClass: 'part-logo-avenir'
     }
   ];
 }
