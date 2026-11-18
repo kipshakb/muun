@@ -510,7 +510,93 @@ const SECTION_HEADINGS = {
   }
 };
 
-const COUNTRY_CODES = 'AD AE AF AG AI AL AM AO AR AS AT AU AW AX AZ BA BB BD BE BF BG BH BI BJ BL BM BN BO BQ BR BS BT BW BY BZ CA CC CD CF CG CH CI CK CL CM CN CO CR CU CV CW CX CY CZ DE DJ DK DM DO DZ EC EE EG EH ER ES ET FI FJ FK FM FO FR GA GB GD GE GF GG GH GI GL GM GN GP GQ GR GT GU GW GY HK HN HR HT HU ID IE IL IM IN IO IQ IR IS IT JE JM JO JP KE KH KI KM KN KP KR KW KY KZ LA LB LC LI LK LR LS LT LU LV LY MA MC MD ME MF MG MH MK ML MM MN MO MP MQ MR MS MT MU MV MW MX MY MZ NA NC NE NF NG NI NL NO NP NR NU NZ OM PA PE PF PG PH PK PL PM PN PR PS PT PW PY QA RE RO RU RS RW SA SB SC SD SE SG SH SI SJ SK SL SM SN SO SR SS ST SV SX SY SZ TC TD TG TH TJ TK TL TM TN TO TR TT TV TW TZ UA UG US UY UZ VA VC VE VG VI VN VU WF WS XK YE YT ZA ZM ZW'.split(' ');
+// ── Бесплатная регистрация: места закончились ─────────────────────────
+// true  → вместо формы бесплатной регистрации показывается «мест не осталось»,
+//         анимация билета скрыта и её видео не загружается.
+// false → форма и билет возвращаются как были.
+// Закрытая регистрация (/closedreg) и «Стать участником» не затрагиваются.
+const FREE_REGISTRATION_CLOSED = true;
+
+const REG_CLOSED_TEXT = {
+  ru: {
+    kicker: 'Регистрация',
+    titleHtml: 'Регистрация <span class="heading-muted">закрыта</span>',
+    titleText: 'Регистрация закрыта',
+    cardTitle: 'Свободных мест не осталось',
+    cardText: 'Все места для бесплатной регистрации на форум «Жаратман МУУН» заняты. Спасибо за ваш интерес!',
+  },
+  ky: {
+    kicker: 'Каттоо',
+    titleHtml: 'Каттоо <span class="heading-muted">жабылды</span>',
+    titleText: 'Каттоо жабылды',
+    cardTitle: 'Бош орундар калган жок',
+    cardText: '«Жаратман МУУН» форумуна акысыз каттоо үчүн бардык орундар ээленди. Кызыгууңуз үчүн рахмат!',
+  },
+  en: {
+    kicker: 'Registration',
+    titleHtml: 'Registration <span class="heading-muted">Closed</span>',
+    titleText: 'Registration Closed',
+    cardTitle: 'No places left',
+    cardText: 'All free registration places for the Zharatman MUUN forum have been taken. Thank you for your interest!',
+  }
+};
+
+if (FREE_REGISTRATION_CLOSED) {
+  for (const l of ['ru', 'ky', 'en']) {
+    const r = SECTION_HEADINGS[l].registration;
+    r.kicker = REG_CLOSED_TEXT[l].kicker;
+    r.titleHtml = REG_CLOSED_TEXT[l].titleHtml;
+    r.titleText = REG_CLOSED_TEXT[l].titleText;
+  }
+}
+
+// Стили «регистрация закрыта»: скрыть билет с анимацией, карточку по центру.
+const REG_CLOSED_CSS = `
+      html body section[data-framer-name="Registration"] [data-framer-name="Sticky"],
+      html body section[data-framer-name="Registration"] .framer-xqjflg,
+      html body section[data-framer-name="Registration"] .framer-1v0ka20-container {
+        display: none !important;
+      }
+      /* Высота блока была рассчитана под анимацию билета — убираем её,
+         иначе над карточкой остаётся пустое место */
+      html body section[data-framer-name="Registration"] .framer-eeeoyo {
+        justify-content: center !important;
+        height: auto !important;
+        min-height: 0 !important;
+      }
+      html body section[data-framer-name="Registration"] .framer-n7lw51 {
+        flex: 0 1 auto !important;
+        width: 100% !important;
+        max-width: 680px !important;
+        height: auto !important;
+        min-height: 0 !important;
+        justify-content: flex-start !important;
+        margin: 0 auto !important;
+      }
+      /* Большой заголовок раздела («Регистрация закрыта») скрыт — достаточно
+         маленькой подписи «— Регистрация» и карточки */
+      html body section[data-framer-name="Registration"] .framer-1npbtm4 {
+        display: none !important;
+      }
+      .muun-reg-card.muun-reg-closed {
+        text-align: center !important;
+        padding: 26px 28px !important;
+      }
+      .muun-reg-closed-icon {
+        display: inline-flex; align-items: center; justify-content: center;
+        width: 46px; height: 46px; margin-bottom: 12px; border-radius: 50%;
+        background: rgba(245, 158, 11, 0.16); border: 1px solid rgba(245, 158, 11, 0.45);
+        font-size: 22px; line-height: 1;
+      }
+      .muun-reg-closed .muun-form-title { text-align: center !important; margin-bottom: 10px !important; }
+      .muun-reg-closed-text { margin: 0 !important; font-size: 16px; line-height: 1.5; color: rgba(255,255,255,0.88); }
+      @media (max-width: 640px) {
+        .muun-reg-card.muun-reg-closed { padding: 20px 16px !important; }
+        .muun-reg-closed-text { font-size: 15px; }
+      }
+`;
+
+const COUNTRY_CODES ='AD AE AF AG AI AL AM AO AR AS AT AU AW AX AZ BA BB BD BE BF BG BH BI BJ BL BM BN BO BQ BR BS BT BW BY BZ CA CC CD CF CG CH CI CK CL CM CN CO CR CU CV CW CX CY CZ DE DJ DK DM DO DZ EC EE EG EH ER ES ET FI FJ FK FM FO FR GA GB GD GE GF GG GH GI GL GM GN GP GQ GR GT GU GW GY HK HN HR HT HU ID IE IL IM IN IO IQ IR IS IT JE JM JO JP KE KH KI KM KN KP KR KW KY KZ LA LB LC LI LK LR LS LT LU LV LY MA MC MD ME MF MG MH MK ML MM MN MO MP MQ MR MS MT MU MV MW MX MY MZ NA NC NE NF NG NI NL NO NP NR NU NZ OM PA PE PF PG PH PK PL PM PN PR PS PT PW PY QA RE RO RU RS RW SA SB SC SD SE SG SH SI SJ SK SL SM SN SO SR SS ST SV SX SY SZ TC TD TG TH TJ TK TL TM TN TO TR TT TV TW TZ UA UG US UY UZ VA VC VE VG VI VN VU WF WS XK YE YT ZA ZM ZW'.split(' ');
 
 function escHtml(value) {
   return String(value)
@@ -535,6 +621,16 @@ function countryChoices(lang) {
 }
 
 function renderRegForm(lang) {
+  if (FREE_REGISTRATION_CLOSED) {
+    const T = REG_CLOSED_TEXT[lang] || REG_CLOSED_TEXT.ru;
+    // Класс muun-reg-card оставлен: по нему фиксер понимает, что блок на месте.
+    return `
+    <div class="muun-reg-card muun-reg-closed">
+      <div class="muun-reg-closed-icon" aria-hidden="true">🎟️</div>
+      <h3 class="muun-form-title">${T.cardTitle}</h3>
+      <p class="muun-reg-closed-text">${T.cardText}</p>
+    </div>`;
+  }
   const S = i18n.strings[lang];
   const countryOptions = countryChoices(lang).map((c) =>
     `<option value="${escHtml(c.value)}">${escHtml(c.label)}</option>`
@@ -1466,8 +1562,11 @@ for (const lang of ['ru', 'ky', 'en']) {
     [`<video src="${PEXELS_VIDEO_UHD}" loop preload="none" muted playsinline`,
      `<video src="${PEXELS_VIDEO_LIGHT}" loop muted playsinline preload="none"`],
 
-    // Ticket video autoplay & loop
-    ['preload="none" muted playsinline', 'autoplay loop muted playsinline preload="auto"']
+    // Ticket video autoplay & loop. Когда регистрация закрыта, билет скрыт —
+    // видео не запускаем и не грузим заранее.
+    ['preload="none" muted playsinline', FREE_REGISTRATION_CLOSED
+      ? 'loop muted playsinline preload="none"'
+      : 'autoplay loop muted playsinline preload="auto"']
   ];
 
   for (const [en, localized] of replacements) {
@@ -3632,6 +3731,7 @@ for (const lang of ['ru', 'ky', 'en']) {
           border-radius: 20px !important;
         }
       }
+      ${FREE_REGISTRATION_CLOSED ? REG_CLOSED_CSS : ''}
 
       .muun-form-title {
         font-size: clamp(20px, 2.2vw, 24px) !important;

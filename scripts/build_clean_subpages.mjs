@@ -274,6 +274,9 @@ for (const lang of languages) {
     continue;
   }
   const regHtml = regMatch[0];
+  // Бесплатная регистрация закрыта (FREE_REGISTRATION_CLOSED в build_framer_i18n.mjs):
+  // на главной вместо формы стоит карточка .muun-reg-closed — повторяем то же на подстраницах.
+  const regClosed = homeHtml.includes('muun-reg-closed');
 
   // 2. Extract <template id="muun-reg-form-tpl">
   const tplMatch = homeHtml.match(/<template id="muun-reg-form-tpl">[\s\S]*?<\/template>/);
@@ -364,6 +367,30 @@ for (const lang of languages) {
           mix-blend-mode: screen !important;
           background: transparent !important;
         }
+        ${regClosed ? `
+        /* Регистрация закрыта: без билета, без большого заголовка, карточка по центру */
+        html body section[data-framer-name="Registration"] .framer-xqjflg,
+        html body section[data-framer-name="Registration"] .framer-x4d5kq,
+        html body section[data-framer-name="Registration"] [data-framer-name="Sticky"],
+        html body section[data-framer-name="Registration"] [data-framer-name="Graphic"],
+        html body section[data-framer-name="Registration"] video,
+        html body section[data-framer-name="Registration"] h2 {
+          display: none !important;
+        }
+        html body section[data-framer-name="Registration"] [data-framer-name="Content"] {
+          justify-content: center !important;
+          height: auto !important;
+          min-height: 0 !important;
+        }
+        html body section[data-framer-name="Registration"] [data-framer-name="Cards"] {
+          flex: 0 1 auto !important;
+          width: 100% !important;
+          max-width: 680px !important;
+          height: auto !important;
+          min-height: 0 !important;
+          justify-content: flex-start !important;
+          margin: 0 auto !important;
+        }` : ''}
         /* Subpage Hero Big Title centered with high visibility */
         .framer-hero-big-title {
           font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
@@ -1255,7 +1282,7 @@ for (const lang of languages) {
               if (regH4 && regH4.textContent.trim() !== expRegKicker) {
                 regH4.textContent = expRegKicker;
               }
-              const regH2 = regSec.querySelector('h2');
+              const regH2 = ${regClosed ? 'null' : "regSec.querySelector('h2')"};
               const expRegTitle = "${lang === 'ky' ? 'Көргөзмө-форумга бүгүн катталыңыз' : lang === 'en' ? 'Register for the Exhibition-Forum Today' : 'Зарегистрируйтесь на форум уже сегодня'}";
               const expRegH2Html = '${lang === 'ky' ? 'Көргөзмө-форумга<br><span class="heading-muted">бүгүн катталыңыз</span>' : lang === 'en' ? 'Register for the Forum<br><span class="heading-muted">Today</span>' : 'Зарегистрируйтесь на форум<br><span class="heading-muted">уже сегодня</span>'}';
               if (regH2 && regH2.textContent.replace(/\\s+/g, ' ').trim() !== expRegTitle) {
