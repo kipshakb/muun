@@ -1282,7 +1282,7 @@ function homeSpeakerPeople(lang) {
       { name: 'Орунтаев Нурдан Кемелович', role: 'Министр строительства, архитектуры и жилищно-коммунального хозяйства Кыргызской Республики', photo: '/assets/speaker-oruntaev.jpg', focus: 'center 18%' },
       { name: 'Рысбеков Алтынбек Дурусбекович', role: 'Министр энергетики Кыргызской Республики', photo: '/assets/speaker-rysbekov.jpg', focus: 'center center' },
       { name: 'Осмонов Дамирбек Асилбекович', role: 'Министр здравоохранения Кыргызской Республики', photo: '/assets/speaker-osmonov.jpg', focus: 'center 20%' },
-      { name: 'Рыскулов Уланбек Дуулатович', role: 'Заместитель генерального директора по промышленной безопасности, охране труда и экологии', photo: '/assets/speaker-ryskulov.jpg', focus: 'center 22%' }
+      { name: 'Рыскулов Уланбек Дуулатович', role: 'Заместитель генерального директора по промышленной безопасности, охране труда и экологии ОсОО «Альянс Алтын»', photo: '/assets/speaker-ryskulov.jpg', focus: 'center 22%' }
     ],
     ky: [
       { name: 'Касымалиев Адылбек Алешович', role: 'Кыргыз Республикасынын Министрлер Кабинетинин Төрагасы – Кыргыз Республикасынын Президентинин Администрациясынын жетекчиси', photo: '/assets/speaker-kasymaliev.png', focus: 'center 15%' },
@@ -1290,7 +1290,7 @@ function homeSpeakerPeople(lang) {
       { name: 'Орунтаев Нурдан Кемелович', role: 'Кыргыз Республикасынын курулуш, архитектура жана турак жай-коммуналдык чарба министри', photo: '/assets/speaker-oruntaev.jpg', focus: 'center 18%' },
       { name: 'Рысбеков Алтынбек Дурусбекович', role: 'Кыргыз Республикасынын энергетика министри', photo: '/assets/speaker-rysbekov.jpg', focus: 'center center' },
       { name: 'Осмонов Дамирбек Асилбекович', role: 'Кыргыз Республикасынын саламаттык сактоо министри', photo: '/assets/speaker-osmonov.jpg', focus: 'center 20%' },
-      { name: 'Рыскулов Уланбек Дуулатович', role: 'Өнөр жай коопсуздугу, эмгекти коргоо жана экология боюнча башкы директордун орун басары', photo: '/assets/speaker-ryskulov.jpg', focus: 'center 22%' }
+      { name: 'Рыскулов Уланбек Дуулатович', role: '«Альянс Алтын» ЖЧКнын өнөр жай коопсуздугу, эмгекти коргоо жана экология боюнча башкы директорунун орун басары', photo: '/assets/speaker-ryskulov.jpg', focus: 'center 22%' }
     ],
     en: [
       { name: 'Adylbek Aleshovich Kasymaliev', role: 'Chairman of the Cabinet of Ministers of the Kyrgyz Republic – Head of the Presidential Administration of the Kyrgyz Republic', photo: '/assets/speaker-kasymaliev.png', focus: 'center 15%' },
@@ -1298,7 +1298,7 @@ function homeSpeakerPeople(lang) {
       { name: 'Nurdan Kemelovich Oruntaev', role: 'Minister of Construction, Architecture and Housing and Communal Services of the Kyrgyz Republic', photo: '/assets/speaker-oruntaev.jpg', focus: 'center 18%' },
       { name: 'Altynbek Durusbekovich Rysbekov', role: 'Minister of Energy of the Kyrgyz Republic', photo: '/assets/speaker-rysbekov.jpg', focus: 'center center' },
       { name: 'Damirbek Asilbekovich Osmonov', role: 'Minister of Health of the Kyrgyz Republic', photo: '/assets/speaker-osmonov.jpg', focus: 'center 20%' },
-      { name: 'Ulanbek Duulatovich Ryskulov', role: 'Deputy General Director for Industrial Safety, Occupational Health and Environment', photo: '/assets/speaker-ryskulov.jpg', focus: 'center 22%' }
+      { name: 'Ulanbek Duulatovich Ryskulov', role: 'Deputy General Director for Industrial Safety, Occupational Health and Environment, Alliance Altyn LLC', photo: '/assets/speaker-ryskulov.jpg', focus: 'center 22%' }
     ]
   };
   return people[lang];
