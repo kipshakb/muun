@@ -279,8 +279,8 @@ const DAYS = [
             p('Государственный гимн Кыргызской Республики', 'Кыргыз Республикасынын Мамлекеттик гимни', 'National anthem of the Kyrgyz Republic'),
             p('Приветственное слово Председателя Кабинета Министров Кыргызской Республики А.А. Касымалиева', 'Кыргыз Республикасынын Министрлер Кабинетинин Төрагасы А.А. Касымалиевдин куттуктоо сөзү', 'Welcome address by A.A. Kasymaliev, Chairman of the Cabinet of Ministers of the Kyrgyz Republic'),
             p('Церемония награждения обладателей Президентской стипендии', 'Президенттик стипендиянын ээлерин сыйлоо аземи', 'Award ceremony for Presidential Scholarship holders'),
-            p('Выступление Президентского стипендиата', 'Президенттик стипендиаттын сөзү', 'Speech by a Presidential Scholar'),
-            p('Стартап-питчинг', 'Стартап-питчинг', 'Startup pitching')
+            p('Стартап-питчинг', 'Стартап-питчинг', 'Startup pitching'),
+            p('Награждение участников экологической акции, конкурса эссе и забега «Жаратман МУУН»', '«Жаратман МУУН» экологиялык акциясынын, эссе сынагынын жана чуркоосунун катышуучуларын сыйлоо', 'Awards for participants of the Zharatman MUUN environmental campaign, essay contest and run')
           ],
           moderator: {
             name: p('Исаматова Г.Т.', 'Исаматова Г.Т.', 'G.T. Isamatova'),
@@ -317,8 +317,7 @@ const DAYS = [
             { name: p('Рысбеков Алтынбек Дурусбекович', 'Рысбеков Алтынбек Дурусбекович', 'Altynbek Rysbekov'), role: p('Министр энергетики Кыргызской Республики', 'Кыргыз Республикасынын Энергетика министри', 'Minister of Energy of the Kyrgyz Republic') },
             { name: p('Осмонов Дамирбек Асилбекович', 'Осмонов Дамирбек Асилбекович', 'Damirbek Osmonov'), role: p('Министр здравоохранения Кыргызской Республики', 'Кыргыз Республикасынын саламаттык сактоо министри', 'Minister of Health of the Kyrgyz Republic') },
             { name: p('Кубатов Эдуард Джумакадырович', 'Кубатов Эдуард Джумакадырович', 'Eduard Kubatov'), role: p('Директор Государственного агентства по развитию туризма при Кабинете Министров Кыргызской Республики', 'Кыргыз Республикасынын Министрлер Кабинетине караштуу Туризмди өнүктүрүү боюнча мамлекеттик агенттиктин директору', 'Director of the State Agency for Tourism Development under the Cabinet of Ministers of the Kyrgyz Republic') },
-            { name: p('Сакиев Азамат Абдукаримович', 'Сакиев Азамат Абдукаримович', 'Azamat Sakiev'), role: p('Генеральный директор ГП «НК «Кыргыз темир жолу»', '«Кыргыз темир жолу» УК» мамлекеттик ишканасынын башкы директору', 'General Director of the State Enterprise “National Company Kyrgyz Temir Zholu”') },
-            { name: p('Представитель «Капитал Банка»', '«Капитал Банктын» өкүлү', 'Representative of Capital Bank'), role: p('уточняется', 'такталууда', 'to be confirmed') }
+            { name: p('Чалбаев Кантемир Капарбекович', 'Чалбаев Кантемир Капарбекович', 'Kantemir Chalbaev'), role: p('Председатель Правления ОАО «Капитал Банк Центральной Азии»', '«Борбордук Азиянын Капитал Банкы» ААКнын Башкармасынын төрагасы', 'Chairman of the Management Board, Capital Bank of Central Asia OJSC') }
           ],
           moderator: { name: p('Эсеналиева Назира Солтонбековна', 'Эсеналиева Назира Солтонбековна', 'Nazira Esenalieva'), role: p('Ректор Международного университета «Ала-Тоо»', '«Ала-Тоо» эл аралык университетинин ректору', 'Rector of Ala-Too International University') },
           topics: [
@@ -394,7 +393,7 @@ const DAYS = [
             { name: p('Аширбекова Бегаим Улукбековна', 'Аширбекова Бегаим Улукбековна', 'Begaim Ashirbekova'), role: p('Инженер производственно-технического отдела ОАО «НЭС Кыргызстана», магистр по направлению «Электроэнергетика»', '«Кыргызстандын УЭТ» ААКнын өндүрүштүк-техникалык бөлүмүнүн инженери, «Электр энергетикасы» багыты боюнча магистр', 'Engineer, Production and Technical Department, NEG Kyrgyzstan OJSC; MSc in Electric Power Engineering') },
             { name: p('Рыскулов Уланбек Дуулатович', 'Рыскулов Уланбек Дуулатович', 'Ulanbek Ryskulov'), role: p('Заместитель генерального директора по промышленной безопасности, охране труда и экологии ОсОО «Альянс Алтын»', '«Альянс Алтын» ЖЧКнын өнөр жай коопсуздугу, эмгекти коргоо жана экология боюнча башкы директорунун орун басары', 'Deputy General Director for Industrial Safety, Occupational Health and Environment, Alliance Altyn LLC') }
           ],
-          moderator: { name: p('Рустам Балтабаев', 'Рустам Балтабаев', 'Rustam Baltabaev'), role: p('Председатель Ассоциации развития зелёной энергетики КР «Кыргыз Грин», экс-замминистра водных ресурсов, сельского хозяйства и перерабатывающей промышленности КР', 'КРдин «Кыргыз Грин» жашыл энергетиканы өнүктүрүү ассоциациясынын төрагасы, КРдин суу ресурстары, айыл чарба жана кайра иштетүү өнөр жайы министринин мурдагы орун басары', 'Chair of the Kyrgyz Green Energy Development Association “Kyrgyz Green”; former Deputy Minister of Water Resources, Agriculture and Processing Industry of the Kyrgyz Republic') },
+          moderator: { name: p('Рустам Балтабаев', 'Рустам Балтабаев', 'Rustam Baltabaev'), role: p('Исполнительный директор ОЮЛ «Ассоциация развития зелёной энергетики КР «Кыргыз Грин»», экс-заместитель министра водных ресурсов, сельского хозяйства и перерабатывающей промышленности КР', 'КРдин «Кыргыз Грин» жашыл энергетиканы өнүктүрүү ассоциациясы» ЮЖБнын аткаруучу директору, КРдин суу ресурстары, айыл чарба жана кайра иштетүү өнөр жайы министринин мурдагы орун басары', 'Executive Director of the Kyrgyz Green Energy Development Association “Kyrgyz Green”; former Deputy Minister of Water Resources, Agriculture and Processing Industry of the Kyrgyz Republic') },
           topics: [
             p('энергия и рабочие места', 'энергия жана жумуш орундары', 'energy and jobs'),
             p('экспорт и внешние рынки', 'экспорт жана тышкы рыноктор', 'exports and foreign markets'),
@@ -442,7 +441,7 @@ const DAYS = [
             { name: p('Атеев Руслан Маратович', 'Атеев Руслан Маратович', 'Ruslan Ateev'), role: p('Президент Федерации компьютерного спорта Кыргызской Республики', 'Кыргыз Республикасынын Компьютердик спорт федерациясынын президенти', 'President of the Esports Federation of the Kyrgyz Republic') },
             { name: p('Оторбаева Айдана', 'Оторбаева Айдана', 'Aidana Otorbaeva'), role: p('Мастер спорта по футболу, вице-президент Ассоциации женского футбола Кыргызской Республики', 'Футбол боюнча спорт чебери, Кыргыз Республикасынын Аялдар футболу ассоциациясынын вице-президенти', 'Master of Sport in football, Vice-President of the Women’s Football Association of the Kyrgyz Republic') },
             { name: p('Аденов Нурсултан Нурланович', 'Аденов Нурсултан Нурланович', 'Nursultan Adenov'), role: p('Руководитель Международного секретариата Всемирных игр кочевников', 'Дүйнөлүк көчмөндөр оюндарынын Эл аралык катчылыгынын жетекчиси', 'Head of the International Secretariat of the World Nomad Games') },
-            { name: p('Динара Русланкызы', 'Динара Руслан кызы', 'Dinara Ruslankyzy'), role: p('Основатель и директор ИТ-компании CODIFY', 'CODIFY IT-компаниясынын негиздөөчүсү жана директору', 'Founder and Director of the IT company CODIFY') }
+            { name: p('Билал Кубатбеков', 'Билал Кубатбеков', 'Bilal Kubatbekov'), role: p('AI-инженер, CODIFY', 'AI-инженер, CODIFY', 'AI engineer, CODIFY') }
           ],
           moderator: { name: p('Котляревский Виктор Сергеевич', 'Котляревский Виктор Сергеевич', 'Viktor Kotlyarevsky'), role: p('Contest.kg, спортивный комментатор', 'Contest.kg, спорттук комментатор', 'Contest.kg, sports commentator') },
           topics: [
@@ -467,7 +466,7 @@ const DAYS = [
             { name: p('Амангелди Жумадилов', 'Амангелди Жумадилов', 'Amangeldi Zhumadilov'), role: p('Президент Салымбеков Университета', 'Салымбеков Университетинин президенти', 'President of Salymbekov University') },
             { name: p('Бекназаров Жакшылык Бекназарович', 'Бекназаров Жакшылык Бекназарович', 'Zhakshylyk Beknazarov'), role: p('Председатель ОО «Молодёжное движение Кыргызстана»', '«Кыргызстандын жаштар кыймылы» КБнын төрагасы', 'Chair of the Youth Movement of Kyrgyzstan') },
             { name: p('Халманбетова Гулназа', 'Халманбетова Гүлназа', 'Gulnaza Khalmanbetova'), role: p('Founder & CEO, Mama Space (femtech)', 'Founder & CEO, Mama Space (femtech)', 'Founder & CEO, Mama Space (femtech)') },
-            { name: p('Абышев Оман', 'Абышев Оман', 'Oman Abyshev'), role: p('Основатель Water Watch AI', 'Water Watch AI негиздөөчүсү', 'Founder of Water Watch AI') },
+            { name: p('Абышев Оман', 'Абышев Оман', 'Oman Abyshev'), role: p('Генеральный директор и основатель Oscars and Sons', 'Oscars and Sons башкы директору жана негиздөөчүсү', 'CEO and founder of Oscars and Sons') },
             { name: p('Суюнова Гульбарчын', 'Суюнова Гүлбарчын', 'Gulbarchyn Suyunova'), role: p('Эксперт по развитию молодёжного предпринимательства и стартапам, экс-директор Enactus Кыргызстан', 'Жаштар ишкердигин жана стартаптарды өнүктүрүү боюнча эксперт, Enactus Кыргызстандын мурдагы директору', 'Expert in youth entrepreneurship and startups, former Director of Enactus Kyrgyzstan') },
             { name: p('Адаев Эрхан', 'Адаев Эрхан', 'Erkhan Adaev'), role: p('Сооснователь и генеральный директор AI Academy', 'AI Academy тең негиздөөчүсү жана башкы директору', 'Co-founder and CEO of AI Academy') }
           ],
