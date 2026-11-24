@@ -128,6 +128,12 @@ if (fs.existsSync(schemeFile)) {
   console.log("✓ dist/scheme/index.html & dist/scheme.html (закрытая интерактивная схема)");
 }
 
+// 3.2) Страница-заглушка «сайт временно недоступен» (/maintenance).
+// Сама по себе ничего не закрывает: включается редиректом в vercel.json.
+await mkdir(path.join(OUT, "maintenance"), { recursive: true });
+await cp("src/maintenance.html", path.join(OUT, "maintenance", "index.html"));
+console.log("✓ dist/maintenance/index.html (заглушка)");
+
 // 4) .htaccess для Plesk/Apache: gzip + долгий кэш ассетов, html без кэша
 const htaccess = `# gzip
 <IfModule mod_deflate.c>
