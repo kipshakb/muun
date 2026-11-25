@@ -27,7 +27,62 @@ function countryChoices(lang) {
   return items;
 }
 
+// ── Закрытая регистрация (/closedreg): приём заявок завершён ──────────
+// true  → вместо формы показывается карточка «Регистрация завершена»,
+//         форма и скрипт отправки на страницу не попадают.
+// false → форма возвращается как была.
+const CLOSED_REGISTRATION_ENDED = true;
+
+const REG_ENDED_TEXT = {
+  ru: {
+    title: 'Регистрация завершена',
+    text: 'Регистрация участников на форум «Жаратман МУУН» завершена. Спасибо за ваш интерес!',
+  },
+  ky: {
+    title: 'Каттоо аяктады',
+    text: '«Жаратман МУУН» форумуна катышуучуларды каттоо аяктады. Кызыгууңуз үчүн рахмат!',
+  },
+  en: {
+    title: 'Registration is closed',
+    text: 'Participant registration for the Zharatman MUUN forum has ended. Thank you for your interest!',
+  },
+};
+
+function regEndedCardHtml(lang) {
+  const T = REG_ENDED_TEXT[lang] || REG_ENDED_TEXT.ru;
+  return `<div class="reg-ended">
+        <div class="reg-ended-icon" aria-hidden="true">🎟️</div>
+        <h3 class="muun-form-title reg-ended-title">${T.title}</h3>
+        <p class="reg-ended-text">${T.text}</p>
+      </div>`;
+}
+
 export function buildClosedRegHtml(lang) {
+  const html = buildClosedRegFormHtml(lang);
+  if (!CLOSED_REGISTRATION_ENDED) return html;
+
+  const steps = /<!-- STEP 1:[\s\S]*?<!-- \/reg-steps -->/;
+  const script = /<script id="closedreg-js">[\s\S]*?<\/script>/;
+  if (!steps.test(html) || !script.test(html)) {
+    throw new Error('build_closedreg: не найдены метки формы — карточка «Регистрация завершена» не вставлена');
+  }
+  return html
+    .replace(steps, () => regEndedCardHtml(lang))
+    .replace(script, '')
+    .replace('</style>', `
+    .reg-ended { text-align: center; padding: 10px 0; }
+    .reg-ended-icon {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 56px; height: 56px; margin-bottom: 16px; border-radius: 50%;
+      background: rgba(245, 158, 11, 0.16); border: 1px solid rgba(245, 158, 11, 0.45);
+      font-size: 26px; line-height: 1;
+    }
+    .reg-ended .reg-ended-title { text-align: center; margin-bottom: 12px; }
+    .reg-ended-text { margin: 0; font-size: 16px; line-height: 1.55; color: rgba(255, 255, 255, 0.88); }
+  </style>`);
+}
+
+function buildClosedRegFormHtml(lang) {
   const i18n = JSON.parse(fs.readFileSync('src/i18n.json', 'utf8'));
   const S = i18n.strings[lang] || i18n.strings.ru;
 
@@ -754,6 +809,7 @@ export function buildClosedRegHtml(lang) {
           </button>
         </div>
       </div>
+      <!-- /reg-steps -->
 
     </div>
 
@@ -762,7 +818,7 @@ export function buildClosedRegHtml(lang) {
     </footer>
   </main>
 
-  <script>
+  <script id="closedreg-js">
     ${clientJs}
 
     document.addEventListener('DOMContentLoaded', function() {
