@@ -297,14 +297,6 @@ const DAYS = [
         }]
       },
       {
-        time: '12:45',
-        items: [{
-          kind: 'service',
-          title: p('Вход для посетителей по бесплатной регистрации', 'Акысыз каттоо аркылуу келгендердин кириши', 'Entry for visitors with free registration'),
-          note: p('Открываются выставочная экспозиция и «Оффер у стенда»', 'Көргөзмө экспозициясы жана «Стенддеги оффер» ачылат', 'The exhibition and “Offer at the Stand” open')
-        }]
-      },
-      {
         time: '13:00–13:50',
         items: [{
           kind: 'talks',
@@ -387,7 +379,6 @@ const DAYS = [
           desc: p('Энергия, экспорт и рабочие места — кого ищут работодатели и как попасть в отрасль.', 'Энергия, экспорт жана жумуш орундары — иш берүүчүлөр кимди издейт жана тармакка кантип кирсе болот.', 'Energy, exports and jobs: who employers are looking for and how to get into the sector.'),
           speakers: [
             { name: p('Байгазиев Айдар Абдыбекович', 'Байгазиев Айдар Абдыбекович', 'Aidar Baigaziev'), role: p('Начальник отдела энергобаланса и потерь электроэнергии, ОАО «Кыргызский энергетический расчетный центр»', '«Кыргыз энергетикалык эсептешүү борбору» ААКнын энергобаланс жана электр энергиясынын жоготуулары бөлүмүнүн башчысы', 'Head of Energy Balance and Power Losses, Kyrgyz Energy Settlement Centre OJSC') },
-            { name: p('Мухаммед уулу Болот', 'Мухаммед уулу Болот', 'Bolot Mukhammed uulu'), role: p('Заместитель генерального директора ОАО «Кыргызкомур»', '«Кыргызкөмүр» ААКнын башкы директорунун орун басары', 'Deputy General Director, Kyrgyzkomur OJSC') },
             { name: p('Такиров Урмат Канатбекович', 'Такиров Урмат Канатбекович', 'Urmat Takirov'), role: p('Директор Центра «Кыргыз Экспорт» при Министерстве экономики и коммерции Кыргызской Республики', 'Кыргыз Республикасынын Экономика жана коммерция министрлигине караштуу «Кыргыз Экспорт» борборунун директору', 'Director of the Kyrgyz Export Centre under the Ministry of Economy and Commerce of the Kyrgyz Republic') },
             { name: p('Эльдар Абакиров', 'Эльдар Абакиров', 'Eldar Abakirov'), role: p('Экс-депутат Жогорку Кенеша VII созыва, экс-заместитель министра экономики КР, предприниматель', 'VII чакырылыштагы Жогорку Кеңештин мурдагы депутаты, КР экономика министринин мурдагы орун басары, ишкер', 'Former member of the 7th Jogorku Kenesh, former Deputy Minister of Economy, entrepreneur') },
             { name: p('Аширбекова Бегаим Улукбековна', 'Аширбекова Бегаим Улукбековна', 'Begaim Ashirbekova'), role: p('Инженер производственно-технического отдела ОАО «НЭС Кыргызстана», магистр по направлению «Электроэнергетика»', '«Кыргызстандын УЭТ» ААКнын өндүрүштүк-техникалык бөлүмүнүн инженери, «Электр энергетикасы» багыты боюнча магистр', 'Engineer, Production and Technical Department, NEG Kyrgyzstan OJSC; MSc in Electric Power Engineering') },
@@ -439,7 +430,7 @@ const DAYS = [
           format: p('Разговор и блиц-вопросы из зала', 'Маек жана залдан блиц-суроолор', 'Conversation and rapid-fire questions from the audience'),
           speakers: [
             { name: p('Атеев Руслан Маратович', 'Атеев Руслан Маратович', 'Ruslan Ateev'), role: p('Президент Федерации компьютерного спорта Кыргызской Республики', 'Кыргыз Республикасынын Компьютердик спорт федерациясынын президенти', 'President of the Esports Federation of the Kyrgyz Republic') },
-            { name: p('Оторбаева Айдана', 'Оторбаева Айдана', 'Aidana Otorbaeva'), role: p('Мастер спорта по футболу, вице-президент Ассоциации женского футбола Кыргызской Республики', 'Футбол боюнча спорт чебери, Кыргыз Республикасынын Аялдар футболу ассоциациясынын вице-президенти', 'Master of Sport in football, Vice-President of the Women’s Football Association of the Kyrgyz Republic') },
+            { name: p('Оторбаева Айдана', 'Оторбаева Айдана', 'Aidana Otorbaeva'), role: p('Вице-президент Ассоциации женского футбола Кыргызской Республики', 'Кыргыз Республикасынын Аялдар футболу ассоциациясынын вице-президенти', 'Vice-President of the Women’s Football Association of the Kyrgyz Republic') },
             { name: p('Аденов Нурсултан Нурланович', 'Аденов Нурсултан Нурланович', 'Nursultan Adenov'), role: p('Руководитель Международного секретариата Всемирных игр кочевников', 'Дүйнөлүк көчмөндөр оюндарынын Эл аралык катчылыгынын жетекчиси', 'Head of the International Secretariat of the World Nomad Games') },
             { name: p('Билал Кубатбеков', 'Билал Кубатбеков', 'Bilal Kubatbekov'), role: p('AI-инженер, CODIFY', 'AI-инженер, CODIFY', 'AI engineer, CODIFY') }
           ],
