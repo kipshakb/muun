@@ -1232,6 +1232,20 @@ function getParticipantPartners(lang) {
       url: '',
       src: '/assets/partner-avenir.png',
       logoClass: 'part-logo-avenir'
+    },
+    {
+      name: 'Startup Lab 119',
+      alt: 'Startup Lab',
+      url: 'https://www.startuplab119.com/',
+      src: '/assets/partner-startuplab.png',
+      logoClass: 'part-logo-startuplab'
+    },
+    {
+      name: 'We Fund',
+      alt: 'We Fund',
+      url: 'https://wefund.cc/',
+      src: '/assets/partner-wefund.png',
+      logoClass: 'part-logo-wefund'
     }
   ];
 }
