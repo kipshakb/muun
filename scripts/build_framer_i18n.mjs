@@ -1293,26 +1293,26 @@ function homeSpeakerPeople(lang) {
     ru: [
       { name: 'Касымалиев Адылбек Алешович', role: 'Председатель Кабинета Министров Кыргызской Республики – Руководитель Администрации Президента Кыргызской Республики', photo: '/assets/speaker-kasymaliev.png', focus: 'center 15%' },
       { name: 'Исаматова Гульзат Тыныбековна', role: 'Министр науки, высшего образования и инноваций Кыргызской Республики', photo: '/assets/speaker-isamatova.jpg', focus: '30% 20%' },
-      { name: 'Орунтаев Нурдан Кемелович', role: 'Министр строительства, архитектуры и жилищно-коммунального хозяйства Кыргызской Республики', photo: '/assets/speaker-oruntaev.jpg', focus: 'center 18%' },
-      { name: 'Рысбеков Алтынбек Дурусбекович', role: 'Министр энергетики Кыргызской Республики', photo: '/assets/speaker-rysbekov.jpg', focus: 'center center' },
-      { name: 'Осмонов Дамирбек Асилбекович', role: 'Министр здравоохранения Кыргызской Республики', photo: '/assets/speaker-osmonov.jpg', focus: 'center 20%' },
-      { name: 'Рыскулов Уланбек Дуулатович', role: 'Заместитель генерального директора по промышленной безопасности, охране труда и экологии ОсОО «Альянс Алтын»', photo: '/assets/speaker-ryskulov.jpg', focus: 'center 22%' }
+      { name: 'Рыскулов Уланбек Дуулатович', role: 'Заместитель генерального директора по промышленной безопасности, охране труда и экологии ОсОО «Альянс Алтын»', photo: '/assets/speaker-ryskulov.jpg', focus: 'center 22%' },
+      { name: 'Сакиев Азамат Абдукаримович', role: 'Генеральный директор ГП «НК «Кыргыз темир жолу»', photo: '/assets/speaker-sakiev.jpg', focus: 'center 25%' },
+      { name: 'Эсеналиева Назира Солтонбековна', role: 'Ректор Международного университета «Ала-Тоо»', photo: '/assets/speaker-esenalieva.jpg', focus: 'center center' },
+      { name: 'Алымбеков Айдар Бакытович', role: 'Заведующий отделом инноваций Министерства науки, высшего образования и инноваций Кыргызской Республики', photo: '/assets/speaker-alymbekov.jpg', focus: 'center center' }
     ],
     ky: [
       { name: 'Касымалиев Адылбек Алешович', role: 'Кыргыз Республикасынын Министрлер Кабинетинин Төрагасы – Кыргыз Республикасынын Президентинин Администрациясынын жетекчиси', photo: '/assets/speaker-kasymaliev.png', focus: 'center 15%' },
       { name: 'Исаматова Гульзат Тыныбековна', role: 'Кыргыз Республикасынын илим, жогорку билим берүү жана инновациялар министри', photo: '/assets/speaker-isamatova.jpg', focus: '30% 20%' },
-      { name: 'Орунтаев Нурдан Кемелович', role: 'Кыргыз Республикасынын курулуш, архитектура жана турак жай-коммуналдык чарба министри', photo: '/assets/speaker-oruntaev.jpg', focus: 'center 18%' },
-      { name: 'Рысбеков Алтынбек Дурусбекович', role: 'Кыргыз Республикасынын энергетика министри', photo: '/assets/speaker-rysbekov.jpg', focus: 'center center' },
-      { name: 'Осмонов Дамирбек Асилбекович', role: 'Кыргыз Республикасынын саламаттык сактоо министри', photo: '/assets/speaker-osmonov.jpg', focus: 'center 20%' },
-      { name: 'Рыскулов Уланбек Дуулатович', role: '«Альянс Алтын» ЖЧКнын өнөр жай коопсуздугу, эмгекти коргоо жана экология боюнча башкы директорунун орун басары', photo: '/assets/speaker-ryskulov.jpg', focus: 'center 22%' }
+      { name: 'Рыскулов Уланбек Дуулатович', role: '«Альянс Алтын» ЖЧКнын өнөр жай коопсуздугу, эмгекти коргоо жана экология боюнча башкы директорунун орун басары', photo: '/assets/speaker-ryskulov.jpg', focus: 'center 22%' },
+      { name: 'Сакиев Азамат Абдукаримович', role: '«Кыргыз темир жолу» УК» мамлекеттик ишканасынын башкы директору', photo: '/assets/speaker-sakiev.jpg', focus: 'center 25%' },
+      { name: 'Эсеналиева Назира Солтонбековна', role: '«Ала-Тоо» эл аралык университетинин ректору', photo: '/assets/speaker-esenalieva.jpg', focus: 'center center' },
+      { name: 'Алымбеков Айдар Бакытович', role: 'Кыргыз Республикасынын Илим, жогорку билим берүү жана инновациялар министрлигинин инновациялар бөлүмүнүн башчысы', photo: '/assets/speaker-alymbekov.jpg', focus: 'center center' }
     ],
     en: [
       { name: 'Adylbek Aleshovich Kasymaliev', role: 'Chairman of the Cabinet of Ministers of the Kyrgyz Republic – Head of the Presidential Administration of the Kyrgyz Republic', photo: '/assets/speaker-kasymaliev.png', focus: 'center 15%' },
       { name: 'Gulzat Tynybekovna Isamatova', role: 'Minister of Science, Higher Education and Innovation of the Kyrgyz Republic', photo: '/assets/speaker-isamatova.jpg', focus: '30% 20%' },
-      { name: 'Nurdan Kemelovich Oruntaev', role: 'Minister of Construction, Architecture and Housing and Communal Services of the Kyrgyz Republic', photo: '/assets/speaker-oruntaev.jpg', focus: 'center 18%' },
-      { name: 'Altynbek Durusbekovich Rysbekov', role: 'Minister of Energy of the Kyrgyz Republic', photo: '/assets/speaker-rysbekov.jpg', focus: 'center center' },
-      { name: 'Damirbek Asilbekovich Osmonov', role: 'Minister of Health of the Kyrgyz Republic', photo: '/assets/speaker-osmonov.jpg', focus: 'center 20%' },
-      { name: 'Ulanbek Duulatovich Ryskulov', role: 'Deputy General Director for Industrial Safety, Occupational Health and Environment, Alliance Altyn LLC', photo: '/assets/speaker-ryskulov.jpg', focus: 'center 22%' }
+      { name: 'Ulanbek Duulatovich Ryskulov', role: 'Deputy General Director for Industrial Safety, Occupational Health and Environment, Alliance Altyn LLC', photo: '/assets/speaker-ryskulov.jpg', focus: 'center 22%' },
+      { name: 'Azamat Abdukarimovich Sakiev', role: 'General Director of the State Enterprise "National Company Kyrgyz Temir Zholu"', photo: '/assets/speaker-sakiev.jpg', focus: 'center 25%' },
+      { name: 'Nazira Soltonbekovna Esenalieva', role: 'Rector of Ala-Too International University', photo: '/assets/speaker-esenalieva.jpg', focus: 'center center' },
+      { name: 'Aidar Bakytovich Alymbekov', role: 'Head of the Innovation Department, Ministry of Science, Higher Education and Innovation of the Kyrgyz Republic', photo: '/assets/speaker-alymbekov.jpg', focus: 'center center' }
     ]
   };
   return people[lang];
