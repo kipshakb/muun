@@ -21,7 +21,53 @@ const COUNTRY_OPTIONS = {
   Other: { ru: 'Другая страна', ky: 'Башка өлкө', en: 'Other country' }
 };
 
+// ── «Стать участником» (заявка на стенд / партнёрство): приём закрыт ──
+// true  → в окне вместо шагов и формы показывается «Регистрация закрыта»,
+//         форма на страницу не попадает.
+// false → форма возвращается как была.
+const PARTICIPANT_FORM_CLOSED = true;
+
+const PART_CLOSED_TEXT = {
+  ru: {
+    title: 'Регистрация закрыта',
+    text: 'Приём заявок на участие со стендом в форуме «Жаратман МУУН» завершён. Спасибо за ваш интерес!',
+  },
+  ky: {
+    title: 'Каттоо жабылды',
+    text: '«Жаратман МУУН» форумуна стенд менен катышууга билдирмелерди кабыл алуу аяктады. Кызыгууңуз үчүн рахмат!',
+  },
+  en: {
+    title: 'Registration Closed',
+    text: 'Applications for exhibition stands at the Zharatman MUUN forum are closed. Thank you for your interest!',
+  },
+};
+
+function partClosedMainHtml(lang, closeBtn) {
+  const T = PART_CLOSED_TEXT[lang] || PART_CLOSED_TEXT.ru;
+  return `<main class="muun-part-main">
+        <div class="muun-part-screen muun-part-screen--success muun-part-screen--closed">
+          <div class="muun-part-success-icon muun-part-closed-icon" aria-hidden="true">🏪</div>
+          <h3 class="muun-part-screen-title">${T.title}</h3>
+          <p class="muun-part-success-desc">${T.text}</p>
+          <button type="button" onclick="window.closeParticipantModal()" class="muun-part-cta-btn muun-part-cta-btn--auto">
+            ${closeBtn}
+          </button>
+        </div>
+      </main>`;
+}
+
 export function renderParticipantModal(lang) {
+  const html = renderParticipantModalFull(lang);
+  if (!PARTICIPANT_FORM_CLOSED) return html;
+  const d = i18n.strings[lang] || i18n.strings.ru;
+  const main = /<main class="muun-part-main">[\s\S]*?<\/main>/;
+  if (!main.test(html)) {
+    throw new Error('participant_modal: не найден блок <main> — «Регистрация закрыта» не вставлена');
+  }
+  return html.replace(main, () => partClosedMainHtml(lang, d.p_close_btn || 'OK'));
+}
+
+function renderParticipantModalFull(lang) {
   const d = i18n.strings[lang] || i18n.strings.ru;
   const t = (k) => d[k] || '';
   const opts = (list) => Object.entries(list)
@@ -973,6 +1019,17 @@ export function renderParticipantModal(lang) {
       max-width: 460px;
       margin: 0 auto 30px;
       line-height: 1.6;
+    }
+    /* «Регистрация закрыта» — янтарная иконка, как у бесплатной регистрации */
+    .muun-part-closed-icon {
+      background: rgba(245, 158, 11, 0.16);
+      border-color: rgba(245, 158, 11, 0.45);
+      box-shadow: none;
+      font-size: 32px;
+    }
+    .muun-part-screen--closed .muun-part-success-desc {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.88);
     }
     /* RESPONSIVE */
     @media (max-width: 900px) {
